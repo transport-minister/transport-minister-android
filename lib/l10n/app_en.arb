@@ -295,5 +295,42 @@
   "mapRecenter": "Recenter map",
   "trafficSmooth": "Smooth",
   "trafficBusy": "Busy",
-  "trafficJammed": "Jam"
+  "trafficJammed": "Jam",
+  "mrBusName": "Mr. Bus",
+  "advisorTitle": "Mr. Bus says",
+  "advisorShowMe": "Show me",
+  "tipNegativeBudget": "Our budget is below zero! Raise fares a little or sell old buses before the President notices.",
+  "tipPresidentWatching": "The President is watching us. Lift satisfaction fast: more buses and better roads!",
+  "tipLongWaits": "People in {district} wait {minutes} minutes for a bus. Let's add buses there!",
+  "@tipLongWaits": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "tipBrokenRoads": "Roads in {district} are crumbling ({condition}%). A repair keeps drivers and trucks happy.",
+  "@tipBrokenRoads": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      },
+      "condition": {
+        "type": "int"
+      }
+    }
+  },
+  "tipTrafficJam": "{district} is jammed. Bike lanes slow traffic while they are built, but help a lot later.",
+  "@tipTrafficJam": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "tipOldFleet": "Our old buses keep breaking down. Upgrades or newer models will keep the city moving.",
+  "tipAllGood": "Things look calm, Minister! Keep an eye on the busiest districts."
 }

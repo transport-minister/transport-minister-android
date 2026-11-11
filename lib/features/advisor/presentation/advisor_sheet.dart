@@ -1,0 +1,103 @@
+import 'package:material_ui/material_ui.dart';
+import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/design/mascot/mr_bus.dart';
+import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
+import 'package:transport_minister/features/advisor/domain/advisor.dart';
+import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
+import 'package:transport_minister/l10n/generated/app_localizations.dart';
+
+class AdvisorSheet extends StatelessWidget {
+  const AdvisorSheet({super.key, required this.tip, required this.onShowDistrict});
+
+  final AdvisorTip tip;
+  final VoidCallback onShowDistrict;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        MrBusSays(title: l10n.advisorTitle, message: _message(l10n), mood: _mood, mascotSize: 96),
+        const SizedBox(height: GameDimens.spaceXL),
+        if (tip.district != null) ...[
+          ChunkyButton(
+            label: l10n.advisorShowMe,
+            icon: Icons.near_me_rounded,
+            palette: ChunkyPalette.ocean,
+            expanded: true,
+            onPressed: () {
+              Navigator.of(context).pop();
+              onShowDistrict();
+            },
+          ),
+          const SizedBox(height: GameDimens.spaceM),
+        ],
+        ChunkyButton(
+          label: l10n.commonGotIt,
+          palette: tip.district == null ? ChunkyPalette.green : ChunkyPalette.snow,
+          expanded: true,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ],
+    );
+  }
+
+  MrBusMood get _mood => switch (tip.kind) {
+    TipKind.negativeBudget || TipKind.presidentWatching => MrBusMood.shocked,
+    TipKind.allGood => MrBusMood.happy,
+    TipKind.longWaits ||
+    TipKind.brokenRoads ||
+    TipKind.trafficJam ||
+    TipKind.oldFleet => MrBusMood.worried,
+  };
+
+  String _message(AppLocalizations l10n) {
+    final district = tip.district?.displayName(l10n) ?? '';
+    return switch (tip.kind) {
+      TipKind.negativeBudget => l10n.tipNegativeBudget,
+      TipKind.presidentWatching => l10n.tipPresidentWatching,
+      TipKind.longWaits => l10n.tipLongWaits(district, tip.value),
+      TipKind.brokenRoads => l10n.tipBrokenRoads(district, tip.value),
+      TipKind.trafficJam => l10n.tipTrafficJam(district),
+      TipKind.oldFleet => l10n.tipOldFleet,
+      TipKind.allGood => l10n.tipAllGood,
+    };
+  }
+}
+
+class MrBusButton extends StatelessWidget {
+  const MrBusButton({super.key, required this.onPressed, this.urgent = false});
+
+  final VoidCallback onPressed;
+  final bool urgent;
+
+  @override
+  Widget build(BuildContext context) {
+    return PressableBuilder(
+      onPressed: onPressed,
+      semanticsLabel: AppLocalizations.of(context).advisorTitle,
+      builder: (context, pressed) => AnimatedScale(
+        scale: pressed ? 0.9 : 1,
+        duration: GameDimens.pressDuration,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            MrBus(mood: urgent ? MrBusMood.shocked : MrBusMood.happy, size: 64),
+            if (urgent)
+              const Positioned(
+                right: -2,
+                top: 0,
+                child: IconBubble(
+                  icon: Icons.priority_high_rounded,
+                  palette: ChunkyPalette.coral,
+                  size: 22,
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}

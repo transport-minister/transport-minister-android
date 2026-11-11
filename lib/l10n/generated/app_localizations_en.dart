@@ -480,4 +480,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trafficJammed => 'Jam';
+
+  @override
+  String get mrBusName => 'Mr. Bus';
+
+  @override
+  String get advisorTitle => 'Mr. Bus says';
+
+  @override
+  String get advisorShowMe => 'Show me';
+
+  @override
+  String get tipNegativeBudget =>
+      'Our budget is below zero! Raise fares a little or sell old buses before the President notices.';
+
+  @override
+  String get tipPresidentWatching =>
+      'The President is watching us. Lift satisfaction fast: more buses and better roads!';
+
+  @override
+  String tipLongWaits(String district, int minutes) {
+    return 'People in $district wait $minutes minutes for a bus. Let\'s add buses there!';
+  }
+
+  @override
+  String tipBrokenRoads(String district, int condition) {
+    return 'Roads in $district are crumbling ($condition%). A repair keeps drivers and trucks happy.';
+  }
+
+  @override
+  String tipTrafficJam(String district) {
+    return '$district is jammed. Bike lanes slow traffic while they are built, but help a lot later.';
+  }
+
+  @override
+  String get tipOldFleet =>
+      'Our old buses keep breaking down. Upgrades or newer models will keep the city moving.';
+
+  @override
+  String get tipAllGood => 'Things look calm, Minister! Keep an eye on the busiest districts.';
 }

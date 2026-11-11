@@ -3,6 +3,7 @@ import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
+import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
 import 'package:transport_minister/features/city_game/data/local_city_save_repository.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
@@ -139,5 +140,26 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Narrow lanes, ancient walls, crowds of tourists'), findsOneWidget);
+  });
+
+  testWidgets('Mr. Bus gives a tip and can show the district', (tester) async {
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+
+    await tester.tap(find.byType(MrBusButton));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Mr. Bus says'), findsOneWidget);
+    expect(find.textContaining('People in Oil Harbor wait'), findsOneWidget);
+
+    await tester.tap(find.text('Show me'));
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Cranes, trucks and the city\'s cargo gate'), findsOneWidget);
   });
 }
