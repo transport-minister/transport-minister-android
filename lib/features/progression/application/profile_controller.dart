@@ -3,6 +3,7 @@ import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
 import 'package:transport_minister/features/progression/domain/profile_repository.dart';
@@ -57,6 +58,7 @@ class ProfileController extends AsyncNotifier<MinisterProfile> {
     await ref.read(profileRepositoryProvider).save(update.profile);
     if (update.events.isNotEmpty && ref.mounted) {
       ref.read(progressionFeedProvider.notifier).publish(update.events);
+      await ref.read(inboxProvider.notifier).recordProgress(update.events);
     }
   }
 }

@@ -11,6 +11,7 @@ import 'package:transport_minister/features/city_game/application/city_game_prov
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 
 typedef CityCommand = CommandOutcome Function(CityState city);
@@ -124,6 +125,9 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
 
   void _recordProgress(CityState city, List<CityEvent> events) {
     unawaited(ref.read(profileProvider.notifier).applyCity(cityId, city, events));
+    if (events.isNotEmpty) {
+      unawaited(ref.read(inboxProvider.notifier).recordCity(cityId, events));
+    }
   }
 
   (CityState, List<CityEvent>) _simulate(CityState city, int days) {
