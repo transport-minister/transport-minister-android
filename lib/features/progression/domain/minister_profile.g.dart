@@ -24,6 +24,7 @@ _MinisterProfile _$MinisterProfileFromJson(Map<String, dynamic> json) => _Minist
   career: json['career'] == null
       ? const CareerStats()
       : CareerStats.fromJson(json['career'] as Map<String, dynamic>),
+  tutorialDone: json['tutorialDone'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <String, dynamic>{
@@ -33,6 +34,7 @@ Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <Stri
   'bestCityLevels': instance.bestCityLevels.map((k, e) => MapEntry(_$CityIdEnumMap[k]!, e)),
   'achievements': instance.achievements.map((e) => _$AchievementIdEnumMap[e]!).toList(),
   'career': instance.career.toJson(),
+  'tutorialDone': instance.tutorialDone,
 };
 
 const _$MinisterialRankEnumMap = {

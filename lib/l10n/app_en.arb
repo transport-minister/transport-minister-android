@@ -1169,5 +1169,27 @@
         "type": "int"
       }
     }
-  }
+  },
+  "tutorialNext": "Next",
+  "tutorialSkip": "Skip",
+  "tutorialFinish": "Let's go!",
+  "tutorialWelcomeTitle": "Hi Minister!",
+  "tutorialWelcome": "I'm Mr. Bus, your transport advisor. Let me show you Baku in 30 seconds!",
+  "tutorialBudget": "This is your budget. Tickets and the Cabinet fill it. Fuel, wages and repairs drain it.",
+  "tutorialMood": "This heart shows how happy citizens are. Below 30% for too long and the President fires you!",
+  "tutorialClock": "A day passes every minute, even while you are away, for up to a week.",
+  "tutorialDistrict": "People in {district} wait the longest. Tap it!",
+  "@tutorialDistrict": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "tutorialBuyBus": "Tap Add bus. New buses cut waiting times!",
+  "tutorialBusBought": "Your bus arrives tomorrow. Faster service means happier citizens and more money!",
+  "tutorialLevel": "Baku grows as you play. Reach level 10 to unlock Istanbul!",
+  "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
+  "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
+  "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!"
 }

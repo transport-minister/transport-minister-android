@@ -37,6 +37,21 @@ class ProfileController extends AsyncNotifier<MinisterProfile> {
   Future<MinisterProfile> build() async =>
       await ref.read(profileRepositoryProvider).load() ?? const MinisterProfile();
 
+  Future<void> completeTutorial() {
+    return _queue = _queue.then((_) async {
+      if (!ref.mounted) {
+        return;
+      }
+      final profile = await future;
+      if (!ref.mounted || profile.tutorialDone) {
+        return;
+      }
+      final done = profile.copyWith(tutorialDone: true);
+      state = AsyncData(done);
+      await ref.read(profileRepositoryProvider).save(done);
+    });
+  }
+
   Future<void> addXp(int xp) {
     return _queue = _queue.then((_) async {
       if (!ref.mounted) {

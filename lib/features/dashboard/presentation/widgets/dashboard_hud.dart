@@ -5,6 +5,7 @@ import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/rank_insignia.dart';
+import 'package:transport_minister/features/tutorial/presentation/tutorial_overlay.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DashboardHud extends StatelessWidget {
@@ -14,12 +15,14 @@ class DashboardHud extends StatelessWidget {
     required this.rank,
     required this.dayProgress,
     required this.onProfilePressed,
+    this.targets,
   });
 
   final CityState city;
   final MinisterialRank rank;
   final double dayProgress;
   final VoidCallback onProfilePressed;
+  final TutorialTargets? targets;
 
   static ChunkyPalette satisfactionPalette(double value) {
     if (value >= 60) {
@@ -49,11 +52,21 @@ class DashboardHud extends StatelessWidget {
               builder: (context, pressed) => AnimatedScale(
                 scale: pressed ? 0.9 : 1,
                 duration: GameDimens.pressDuration,
-                child: RankInsignia(rank: rank, size: 46),
+                child: KeyedSubtree(
+                  key: targets?.rank,
+                  child: RankInsignia(rank: rank, size: 46),
+                ),
               ),
             ),
             const SizedBox(width: GameDimens.spaceM),
-            DayClockBadge(day: city.day, progress: dayProgress, label: l10n.hudDay(city.day)),
+            KeyedSubtree(
+              key: targets?.clock,
+              child: DayClockBadge(
+                day: city.day,
+                progress: dayProgress,
+                label: l10n.hudDay(city.day),
+              ),
+            ),
             const SizedBox(width: GameDimens.spaceS),
             Expanded(
               child: Align(
@@ -63,6 +76,7 @@ class DashboardHud extends StatelessWidget {
                   child: Row(
                     children: [
                       Semantics(
+                        key: targets?.budget,
                         label: l10n.hudBudgetLabel,
                         child: StatPill(
                           icon: Icons.account_balance_wallet_rounded,
@@ -72,6 +86,7 @@ class DashboardHud extends StatelessWidget {
                       ),
                       const SizedBox(width: GameDimens.spaceS),
                       Semantics(
+                        key: targets?.mood,
                         label: l10n.hudSatisfactionLabel,
                         child: StatPill(
                           icon: Icons.favorite_rounded,

@@ -16,6 +16,7 @@ abstract class MinisterProfile with _$MinisterProfile {
     @Default({}) Map<CityId, int> bestCityLevels,
     @Default({}) Set<AchievementId> achievements,
     @Default(CareerStats()) CareerStats career,
+    @Default(false) bool tutorialDone,
   }) = _MinisterProfile;
 
   const MinisterProfile._();

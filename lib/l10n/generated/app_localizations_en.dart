@@ -1478,4 +1478,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String taskReachSatisfaction(int percent) {
     return 'Reach $percent% satisfaction';
   }
+
+  @override
+  String get tutorialNext => 'Next';
+
+  @override
+  String get tutorialSkip => 'Skip';
+
+  @override
+  String get tutorialFinish => 'Let\'s go!';
+
+  @override
+  String get tutorialWelcomeTitle => 'Hi Minister!';
+
+  @override
+  String get tutorialWelcome =>
+      'I\'m Mr. Bus, your transport advisor. Let me show you Baku in 30 seconds!';
+
+  @override
+  String get tutorialBudget =>
+      'This is your budget. Tickets and the Cabinet fill it. Fuel, wages and repairs drain it.';
+
+  @override
+  String get tutorialMood =>
+      'This heart shows how happy citizens are. Below 30% for too long and the President fires you!';
+
+  @override
+  String get tutorialClock =>
+      'A day passes every minute, even while you are away, for up to a week.';
+
+  @override
+  String tutorialDistrict(String district) {
+    return 'People in $district wait the longest. Tap it!';
+  }
+
+  @override
+  String get tutorialBuyBus => 'Tap Add bus. New buses cut waiting times!';
+
+  @override
+  String get tutorialBusBought =>
+      'Your bus arrives tomorrow. Faster service means happier citizens and more money!';
+
+  @override
+  String get tutorialLevel => 'Baku grows as you play. Reach level 10 to unlock Istanbul!';
+
+  @override
+  String get tutorialNews =>
+      'When I wave here, I have news: requests, offers and disasters. You decide!';
+
+  @override
+  String get tutorialTasks => 'Daily tasks and a daily gift bring extra money every day.';
+
+  @override
+  String get tutorialProfile =>
+      'Climb nine ranks and collect achievements and city badges. Good luck, Minister!';
 }

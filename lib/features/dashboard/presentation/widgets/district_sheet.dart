@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/design/mascot/mr_bus.dart';
+import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
@@ -14,6 +16,7 @@ import 'package:transport_minister/features/city_game/application/city_game_prov
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DistrictSheet extends ConsumerWidget {
@@ -37,6 +40,12 @@ class DistrictSheet extends ConsumerWidget {
     final metrics = const MetricsCalculator().calculate(city).of(district);
     final project = city.projects.where((project) => project.districtId == district).firstOrNull;
     final repairCost = const ProjectRules().cost(city, ProjectType.roadRepair, district: district);
+    final guided = ref.watch(tutorialProvider) == TutorialStep.buyBus;
+    ref.listen(tutorialProvider, (previous, next) {
+      if (previous == TutorialStep.buyBus && next == TutorialStep.busBought) {
+        Navigator.of(context).pop();
+      }
+    });
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -117,6 +126,10 @@ class DistrictSheet extends ConsumerWidget {
           ChunkyProgressBar(value: project.progress, palette: ChunkyPalette.tangerine, height: 14),
         ],
         const SizedBox(height: GameDimens.spaceXL),
+        if (guided) ...[
+          MrBusSays(message: l10n.tutorialBuyBus, mood: MrBusMood.excited, mascotSize: 60),
+          const SizedBox(height: GameDimens.spaceM),
+        ],
         ChunkyButton(
           label: l10n.actionAddBus(MoneyFormat.compact(_quickBus.spec.price)),
           icon: Icons.directions_bus_rounded,
