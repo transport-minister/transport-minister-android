@@ -27,14 +27,18 @@ class GameTag extends StatelessWidget {
             Icon(tagIcon, size: 14, color: palette.onFace),
             const SizedBox(width: GameDimens.spaceXS),
           ],
-          Text(
-            label.toUpperCase(),
-            style: TextStyle(
-              fontSize: 12,
-              height: 1.1,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.6,
-              color: palette.onFace,
+          Flexible(
+            child: Text(
+              label.toUpperCase(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 12,
+                height: 1.1,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.6,
+                color: palette.onFace,
+              ),
             ),
           ),
         ],

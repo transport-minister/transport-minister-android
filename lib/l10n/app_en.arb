@@ -1,5 +1,65 @@
 {
   "@@locale": "en",
   "appTitle": "Transport Minister",
-  "appTagline": "Move the city. Win the people."
+  "appTagline": "Move the city. Win the people.",
+  "commonBack": "Back",
+  "commonGotIt": "Got it",
+  "splashTitleTop": "Transport",
+  "splashTitleBottom": "Minister",
+  "splashLoading": "Preparing the city…",
+  "citySelectionTitle": "Choose your city",
+  "citySelectionSubtitle": "Where will you serve as Transport Minister?",
+  "cityPlay": "Play",
+  "cityStatusPlayable": "Playable",
+  "cityStatusComingSoon": "Coming soon",
+  "cityStatusLocked": "Locked",
+  "citySectionComingSoon": "Coming soon",
+  "citySectionLocked": "Locked cities",
+  "cityComingSoonTitle": "{city} is on its way!",
+  "@cityComingSoonTitle": {
+    "placeholders": {
+      "city": {"type": "String"}
+    }
+  },
+  "cityComingSoonBody": "We are still drawing its streets and timetables. Grow your career in Baku meanwhile.",
+  "cityLockedTitle": "{city} is locked",
+  "@cityLockedTitle": {
+    "placeholders": {
+      "city": {"type": "String"}
+    }
+  },
+  "cityLockedBody": "Reach the rank of {rank} to unlock this city.",
+  "@cityLockedBody": {
+    "placeholders": {
+      "rank": {"type": "String"}
+    }
+  },
+  "cityFeatureBuses": "Buses",
+  "cityFeatureRoads": "Roads",
+  "cityFeatureBikeLanes": "Bike lanes",
+  "cityBakuName": "Baku",
+  "cityBakuTagline": "Windy capital on the Caspian Sea",
+  "cityIstanbulName": "Istanbul",
+  "cityIstanbulTagline": "Two continents, one traffic jam",
+  "cityLondonName": "London",
+  "cityLondonTagline": "Double-deckers and rainy rush hours",
+  "cityTokyoName": "Tokyo",
+  "cityTokyoTagline": "The busiest stations on Earth",
+  "cityNewYorkName": "New York",
+  "cityNewYorkTagline": "The city that never parks",
+  "rankJuniorOfficial": "Junior Transport Official",
+  "rankInspector": "Transport Inspector",
+  "rankDirector": "Transport Director",
+  "rankDeputyMinister": "Deputy Transport Minister",
+  "rankMinister": "Transport Minister",
+  "rankSeniorMinister": "Senior Transport Minister",
+  "rankRegionalGovernor": "Regional Transport Governor",
+  "rankNationalLeader": "National Infrastructure Leader",
+  "rankInternationalAuthority": "International Transport Authority",
+  "dashboardWelcome": "Welcome to {city}, Minister!",
+  "@dashboardWelcome": {
+    "placeholders": {
+      "city": {"type": "String"}
+    }
+  }
 }
