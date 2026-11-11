@@ -8,6 +8,7 @@ import 'package:transport_minister/features/city_game/application/city_game_sess
 import 'package:transport_minister/features/city_game/data/local_city_save_repository.dart';
 import 'package:transport_minister/features/city_game/domain/city_save_repository.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/city_selection/presentation/city_selection_providers.dart';
 
 final citySaveRepositoryProvider = Provider<CitySaveRepository>(
   (ref) => LocalCitySaveRepository(ref.watch(documentStoreProvider)),
@@ -24,3 +25,13 @@ final tickIntervalProvider = Provider<Duration>((ref) => const Duration(seconds:
 final cityGameProvider = AsyncNotifierProvider.family<CityGameController, CityGameSession, CityId>(
   CityGameController.new,
 );
+
+final resumableCityProvider = FutureProvider<CityId?>((ref) async {
+  final repository = ref.watch(citySaveRepositoryProvider);
+  for (final city in ref.watch(citiesProvider).where((city) => city.isPlayable)) {
+    if (await repository.load(city.id) != null) {
+      return city.id;
+    }
+  }
+  return null;
+});

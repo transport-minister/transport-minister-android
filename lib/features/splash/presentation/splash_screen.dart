@@ -1,19 +1,22 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/illustrations/bus_illustration.dart';
 import 'package:transport_minister/core/design/widgets/sticker_text.dart';
+import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
+import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerProviderStateMixin {
   late final _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 2600),
@@ -56,12 +59,31 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     }
   }
 
-  void _continue() {
+  Future<void> _continue() async {
     if (_leaving || !mounted) {
       return;
     }
     _leaving = true;
-    context.go(AppRoute.cities.path);
+    final city = await _resumableCity();
+    if (!mounted) {
+      return;
+    }
+    if (city == null) {
+      context.go(AppRoute.cities.path);
+    } else {
+      context.goNamed(
+        AppRoute.dashboard.name,
+        pathParameters: {AppRoute.cityIdParameter: city.name},
+      );
+    }
+  }
+
+  Future<CityId?> _resumableCity() async {
+    try {
+      return await ref.read(resumableCityProvider.future);
+    } on Object {
+      return null;
+    }
   }
 
   @override

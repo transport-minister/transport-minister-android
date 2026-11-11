@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transport_minister/app/transport_minister_app.dart';
+import 'package:transport_minister/core/storage/in_memory_document_store.dart';
+import 'package:transport_minister/core/storage/storage_providers.dart';
+import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_selection/data/static_city_repository.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 
@@ -8,7 +11,19 @@ import '../../helpers/phone_viewport.dart';
 
 Future<void> _openCitySelection(WidgetTester tester) async {
   usePhoneViewport(tester);
-  await tester.pumpWidget(const ProviderScope(child: TransportMinisterApp()));
+  tester.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(
+    disableAnimations: true,
+  );
+  addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [
+        documentStoreProvider.overrideWithValue(InMemoryDocumentStore()),
+        tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
+      ],
+      child: const TransportMinisterApp(),
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
@@ -28,7 +43,7 @@ void main() {
     await tester.tap(find.text('Play'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Welcome to Baku, Minister!'), findsOneWidget);
+    expect(find.text('Wind Heights'), findsOneWidget);
   });
 
   testWidgets('coming soon city explains it is on its way', (tester) async {
