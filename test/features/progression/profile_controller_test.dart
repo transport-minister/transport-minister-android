@@ -8,6 +8,8 @@ import 'package:transport_minister/features/city_selection/domain/city_unlocks.d
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
 
+import '../../core/simulation/simulation_test_kit.dart';
+
 void main() {
   late InMemoryDocumentStore store;
 
@@ -26,8 +28,8 @@ void main() {
     await container.read(profileProvider.future);
     final controller = container.read(profileProvider.notifier);
 
-    await controller.recordCityLevel(CityId.baku, 4);
-    await controller.recordCityLevel(CityId.baku, 2);
+    await controller.applyCity(CityId.baku, newBaku().copyWith(developmentPoints: 220), const []);
+    await controller.applyCity(CityId.baku, newBaku().copyWith(developmentPoints: 40), const []);
 
     expect((await open().read(profileProvider.future)).bestLevelIn(CityId.baku), 4);
   });

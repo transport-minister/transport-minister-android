@@ -35,7 +35,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     _anchor = saved?.anchor ?? TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch);
     final session = _catchUp(city, now, summarize: saved != null);
     await _persist(session.city);
-    _recordProgress(session.city, session.latestEvents, force: true);
+    _recordProgress(session.city, session.latestEvents);
     _startTicker();
     return session;
   }
@@ -122,10 +122,8 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     );
   }
 
-  void _recordProgress(CityState city, List<CityEvent> events, {bool force = false}) {
-    if (force || events.any((event) => event is CityLeveledUp)) {
-      unawaited(ref.read(profileProvider.notifier).recordCityLevel(cityId, city.level));
-    }
+  void _recordProgress(CityState city, List<CityEvent> events) {
+    unawaited(ref.read(profileProvider.notifier).applyCity(cityId, city, events));
   }
 
   (CityState, List<CityEvent>) _simulate(CityState city, int days) {

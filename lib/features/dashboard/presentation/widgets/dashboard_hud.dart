@@ -3,19 +3,23 @@ import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
+import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
+import 'package:transport_minister/features/progression/presentation/widgets/rank_insignia.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DashboardHud extends StatelessWidget {
   const DashboardHud({
     super.key,
     required this.city,
+    required this.rank,
     required this.dayProgress,
-    required this.onCitiesPressed,
+    required this.onProfilePressed,
   });
 
   final CityState city;
+  final MinisterialRank rank;
   final double dayProgress;
-  final VoidCallback onCitiesPressed;
+  final VoidCallback onProfilePressed;
 
   static ChunkyPalette satisfactionPalette(double value) {
     if (value >= 60) {
@@ -39,10 +43,14 @@ class DashboardHud extends StatelessWidget {
         ),
         child: Row(
           children: [
-            ChunkyIconButton(
-              icon: Icons.public_rounded,
-              onPressed: onCitiesPressed,
-              semanticsLabel: l10n.hudBackToCities,
+            PressableBuilder(
+              onPressed: onProfilePressed,
+              semanticsLabel: l10n.profileOpen,
+              builder: (context, pressed) => AnimatedScale(
+                scale: pressed ? 0.9 : 1,
+                duration: GameDimens.pressDuration,
+                child: RankInsignia(rank: rank, size: 46),
+              ),
             ),
             const SizedBox(width: GameDimens.spaceM),
             DayClockBadge(day: city.day, progress: dayProgress, label: l10n.hudDay(city.day)),

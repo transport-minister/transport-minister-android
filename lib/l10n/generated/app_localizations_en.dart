@@ -590,4 +590,188 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get levelUpContinue => 'Hooray!';
+
+  @override
+  String get eventCrisisAverted => 'Crisis averted! The President is calm again.';
+
+  @override
+  String get profileTitle => 'Minister profile';
+
+  @override
+  String get profileOpen => 'Open profile';
+
+  @override
+  String get profileReputation => 'Reputation';
+
+  @override
+  String profileXp(String xp, String next) {
+    return '$xp / $next XP';
+  }
+
+  @override
+  String profileXpMax(String xp) {
+    return '$xp XP · Highest rank';
+  }
+
+  @override
+  String profileNextRank(String rank, int reputation) {
+    return 'Next: $rank · needs $reputation% reputation';
+  }
+
+  @override
+  String get profileRanks => 'Ranks';
+
+  @override
+  String get profileCityBadges => 'City badges';
+
+  @override
+  String profileAchievements(int done, int total) {
+    return 'Achievements $done/$total';
+  }
+
+  @override
+  String get profileCareer => 'Career';
+
+  @override
+  String get careerDays => 'Days served';
+
+  @override
+  String get careerBuses => 'Buses bought';
+
+  @override
+  String get careerUpgrades => 'Upgrades';
+
+  @override
+  String get careerProjects => 'Projects';
+
+  @override
+  String get careerCrises => 'Crises averted';
+
+  @override
+  String get careerDismissals => 'Dismissals';
+
+  @override
+  String get badgeBronze => 'Bronze';
+
+  @override
+  String get badgeSilver => 'Silver';
+
+  @override
+  String get badgeGold => 'Gold';
+
+  @override
+  String get badgeLocked => 'Not earned';
+
+  @override
+  String badgeEarnedToast(String tier, String city) {
+    return '$tier badge earned in $city!';
+  }
+
+  @override
+  String achievementToast(String title, int xp) {
+    return 'Achievement unlocked: $title · +$xp XP';
+  }
+
+  @override
+  String get promotedTitle => 'Promoted!';
+
+  @override
+  String promotedBody(String rank) {
+    return 'You are now $rank. The whole ministry salutes you!';
+  }
+
+  @override
+  String get promotedContinue => 'Thank you!';
+
+  @override
+  String get achievementFirstBusTitle => 'First Bus';
+
+  @override
+  String get achievementFirstBusDescription => 'Buy your first bus.';
+
+  @override
+  String get achievementFleetBuilderTitle => 'Fleet Builder';
+
+  @override
+  String get achievementFleetBuilderDescription => 'Run 40 buses in one city.';
+
+  @override
+  String get achievementModernCityTitle => 'Modern City';
+
+  @override
+  String get achievementModernCityDescription =>
+      'Retire every Veteran bus from a fleet of 20 or more.';
+
+  @override
+  String get achievementGreenRevolutionTitle => 'Green Revolution';
+
+  @override
+  String get achievementGreenRevolutionDescription => 'Buy your first electric bus.';
+
+  @override
+  String get achievementUpgradeEnthusiastTitle => 'Upgrade Enthusiast';
+
+  @override
+  String get achievementUpgradeEnthusiastDescription => 'Upgrade buses 10 times.';
+
+  @override
+  String get achievementRoadWarriorTitle => 'Road Warrior';
+
+  @override
+  String get achievementRoadWarriorDescription => 'Finish 10 road repairs.';
+
+  @override
+  String get achievementBikeFriendlyTitle => 'Bike Friendly';
+
+  @override
+  String get achievementBikeFriendlyDescription => 'Build bike lanes in 3 districts.';
+
+  @override
+  String get achievementInfrastructureMasterTitle => 'Infrastructure Master';
+
+  @override
+  String get achievementInfrastructureMasterDescription => 'Complete 50 construction projects.';
+
+  @override
+  String get achievementEconomicStrategistTitle => 'Economic Strategist';
+
+  @override
+  String get achievementEconomicStrategistDescription =>
+      'Keep a positive daily budget for 30 days in a row.';
+
+  @override
+  String get achievementSmilingCityTitle => 'Smiling City';
+
+  @override
+  String get achievementSmilingCityDescription => 'Reach 60% citizen satisfaction.';
+
+  @override
+  String get achievementHappyCitizensTitle => 'Happy Citizens';
+
+  @override
+  String get achievementHappyCitizensDescription => 'Reach 90% citizen satisfaction.';
+
+  @override
+  String get achievementRisingCityTitle => 'Rising City';
+
+  @override
+  String get achievementRisingCityDescription => 'Reach city level 5.';
+
+  @override
+  String get achievementCityChampionTitle => 'City Champion';
+
+  @override
+  String get achievementCityChampionDescription => 'Reach a city\'s target level.';
+
+  @override
+  String get achievementSurvivorTitle => 'Survivor';
+
+  @override
+  String get achievementSurvivorDescription => 'Recover after a President\'s warning.';
+
+  @override
+  String get achievementVeteranMinisterTitle => 'Veteran Minister';
+
+  @override
+  String get achievementVeteranMinisterDescription => 'Serve 365 days.';
 }

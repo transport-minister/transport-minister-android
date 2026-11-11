@@ -70,6 +70,7 @@ class DaySimulator {
     next = _repayLoan(next, events);
 
     final overall = StakeholderGroup.overall(groups);
+    events.add(DayClosed(state.day, overall));
     final crisis = _evaluateCrisis(next.crisis, overall, budget, events);
     final report = DailyReport(
       day: state.day,
@@ -167,6 +168,9 @@ class DaySimulator {
         budget < GameBalance.crisisBudgetThreshold;
     if (!inCrisis) {
       final days = math.max(crisis.days - 1, 0);
+      if (days == 0 && crisis.warnings > 0) {
+        events.add(const CrisisAverted());
+      }
       return crisis.copyWith(days: days, warnings: days == 0 ? 0 : crisis.warnings);
     }
     final days = crisis.days + 1;
