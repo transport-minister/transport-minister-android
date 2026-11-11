@@ -15,6 +15,8 @@ _CareerStats _$CareerStatsFromJson(Map<String, dynamic> json) => _CareerStats(
   roadRepairs: (json['roadRepairs'] as num?)?.toInt() ?? 0,
   crisesAverted: (json['crisesAverted'] as num?)?.toInt() ?? 0,
   dismissals: (json['dismissals'] as num?)?.toInt() ?? 0,
+  decisionsMade: (json['decisionsMade'] as num?)?.toInt() ?? 0,
+  disastersHandled: (json['disastersHandled'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$CareerStatsToJson(_CareerStats instance) => <String, dynamic>{
@@ -26,4 +28,6 @@ Map<String, dynamic> _$CareerStatsToJson(_CareerStats instance) => <String, dyna
   'roadRepairs': instance.roadRepairs,
   'crisesAverted': instance.crisesAverted,
   'dismissals': instance.dismissals,
+  'decisionsMade': instance.decisionsMade,
+  'disastersHandled': instance.disastersHandled,
 };

@@ -254,6 +254,13 @@ class _CareerGrid extends StatelessWidget {
         ChunkyPalette.tangerine,
       ),
       (Icons.shield_rounded, l10n.careerCrises, career.crisesAverted, ChunkyPalette.lagoon),
+      (Icons.how_to_vote_rounded, l10n.careerDecisions, career.decisionsMade, ChunkyPalette.ocean),
+      (
+        Icons.thunderstorm_rounded,
+        l10n.careerDisasters,
+        career.disastersHandled,
+        ChunkyPalette.coral,
+      ),
       (Icons.gavel_rounded, l10n.careerDismissals, career.dismissals, ChunkyPalette.coral),
     ];
     return LayoutBuilder(

@@ -70,5 +70,7 @@ const _$AchievementIdEnumMap = {
   AchievementId.risingCity: 'risingCity',
   AchievementId.cityChampion: 'cityChampion',
   AchievementId.survivor: 'survivor',
+  AchievementId.decisive: 'decisive',
+  AchievementId.stormChaser: 'stormChaser',
   AchievementId.veteranMinister: 'veteranMinister',
 };

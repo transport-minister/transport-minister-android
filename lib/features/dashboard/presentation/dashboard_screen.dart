@@ -5,6 +5,7 @@ import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/features/advisor/domain/advisor.dart';
@@ -27,6 +28,8 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dismi
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
+import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
+import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
@@ -139,7 +142,17 @@ class _CityViewState extends ConsumerState<_CityView> {
                     Positioned(
                       left: GameDimens.spaceS,
                       bottom: GameDimens.spaceS,
-                      child: MrBusButton(urgent: tip.kind.isUrgent, onPressed: () => _showTip(tip)),
+                      child: MrBusButton(
+                        urgent:
+                            tip.kind.isUrgent ||
+                            city.decisions.any(
+                              (decision) => decision.template.kind == DecisionKind.disaster,
+                            ),
+                        news: city.decisions.length,
+                        onPressed: city.decisions.isEmpty
+                            ? () => _showTip(tip)
+                            : () => showNews(context, widget.cityId, city.decisions),
+                      ),
                     ),
                   ],
                 ),
@@ -255,6 +268,25 @@ class _CityViewState extends ConsumerState<_CityView> {
       );
     }
     final messenger = ScaffoldMessenger.of(context);
+    for (final arrival in session.latestEvents.whereType<DecisionArrived>()) {
+      final decision = session.city.decisions
+          .where((pending) => pending.template == arrival.decision)
+          .lastOrNull;
+      if (decision == null) {
+        continue;
+      }
+      if (arrival.decision.kind == DecisionKind.disaster) {
+        showDecision(context, widget.cityId, decision.id);
+      } else {
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text(
+              l10n.eventDecisionArrived(arrival.decision.title(l10n, arrival.district)),
+            ),
+          ),
+        );
+      }
+    }
     final others = session.latestEvents.where((event) => !event.isSilent);
     for (final event in others.toList().reversed.take(2)) {
       messenger.showSnackBar(

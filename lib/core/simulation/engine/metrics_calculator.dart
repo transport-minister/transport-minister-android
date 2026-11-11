@@ -4,6 +4,7 @@ import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
+import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/district_state.dart';
@@ -64,12 +65,21 @@ class MetricsCalculator {
   ) {
     final buses = [for (final bus in state.busesIn(district.id)) performances[bus.id]!];
     final demand =
-        (district.population / 1000 * GameBalance.ridersPerThousandResidents * fareFactor).round();
+        (district.population /
+                1000 *
+                GameBalance.ridersPerThousandResidents *
+                fareFactor *
+                state.multiplier(ModifierType.demand, district: district.id))
+            .round();
+    final capacityFactor = state.multiplier(ModifierType.capacity, district: district.id);
     final roadFactor =
         (_roadLevelFactor[district.roadLevel] ?? 1) *
         (1 + (100 - district.roadCondition) / 100 * 0.3);
     final roadCongestion = district.id.blueprint.baseCongestion * roadFactor;
-    final initialRatio = _ratio(_capacity(buses, roadCongestion), demand);
+    final initialRatio = _ratio(
+      (_capacity(buses, roadCongestion) * capacityFactor).round(),
+      demand,
+    );
     final modalFactor = 1.1 - 0.25 * math.min(initialRatio, 1.2);
     final signalsFactor = district.hasSmartSignals ? GameBalance.smartSignalsCongestionFactor : 1.0;
     final bikeEffect = district.hasBikeLanes
@@ -80,18 +90,22 @@ class MetricsCalculator {
         .where((project) => project.districtId == district.id)
         .fold(0.0, (sum, project) => sum + project.type.congestionWhileBuilding);
     final congestion = _clamp(
-      roadCongestion * modalFactor * signalsFactor + bikeEffect + construction,
+      roadCongestion * modalFactor * signalsFactor +
+          bikeEffect +
+          construction +
+          state.additive(ModifierType.congestion, district: district.id),
       0,
       100,
     );
-    final capacity = _capacity(buses, congestion);
+    final capacity = (_capacity(buses, congestion) * capacityFactor).round();
     final ratio = _ratio(capacity, demand);
     final safety = _clamp(
       40 +
           district.roadCondition * 0.4 -
           congestion * 0.15 +
           (district.hasSmartSignals ? 8 : 0) +
-          (district.hasBikeLanes ? 4 : 0),
+          (district.hasBikeLanes ? 4 : 0) +
+          state.additive(ModifierType.safety, district: district.id),
       0,
       100,
     );

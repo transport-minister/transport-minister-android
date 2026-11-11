@@ -3,6 +3,7 @@ import 'package:transport_minister/core/simulation/catalog/project_catalog.dart'
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
+import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 extension LedgerItemText on LedgerItem {
@@ -19,6 +20,7 @@ extension LedgerItemText on LedgerItem {
     LedgerItem.roadMaintenance => l10n.ledgerRoadMaintenance,
     LedgerItem.administration => l10n.ledgerAdministration,
     LedgerItem.loanRepayment => l10n.ledgerLoanRepayment,
+    LedgerItem.decisions => l10n.ledgerDecisions,
     LedgerItem.vehiclePurchases => l10n.ledgerVehiclePurchases,
     LedgerItem.vehicleUpgrades => l10n.ledgerVehicleUpgrades,
     LedgerItem.construction => l10n.ledgerConstruction,
@@ -53,7 +55,11 @@ extension RejectionReasonText on RejectionReason {
 }
 
 extension CityEventText on CityEvent {
-  bool get isSilent => this is DayClosed || this is CityLeveledUp;
+  bool get isSilent => switch (this) {
+    DayClosed() || CityLeveledUp() || ReputationShift() || DecisionArrived() => true,
+    DecisionResolved(:final automatic) => !automatic,
+    _ => false,
+  };
 
   String message(AppLocalizations l10n) => switch (this) {
     BusPurchased() => l10n.eventBusPurchased,
@@ -71,5 +77,10 @@ extension CityEventText on CityEvent {
     ),
     DayClosed(:final day) => l10n.hudDay(day),
     CrisisAverted() => l10n.eventCrisisAverted,
+    DecisionArrived(:final decision, :final district) => l10n.eventDecisionArrived(
+      decision.title(l10n, district),
+    ),
+    DecisionResolved(:final decision) => l10n.eventDecisionAutomatic(decision.title(l10n, null)),
+    ReputationShift() => '',
   };
 }

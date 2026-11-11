@@ -68,6 +68,15 @@ class DaySimulator {
     );
     next = _progressProjects(next, events);
     next = _repayLoan(next, events);
+    next = next.copyWith(
+      modifiers: [
+        for (final modifier in next.modifiers)
+          if (modifier.isPermanent)
+            modifier
+          else if (modifier.remainingDays > 1)
+            modifier.copyWith(remainingDays: modifier.remainingDays - 1),
+      ],
+    );
 
     final overall = StakeholderGroup.overall(groups);
     events.add(DayClosed(state.day, overall));

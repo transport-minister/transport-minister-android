@@ -13,6 +13,8 @@ enum AchievementId {
   risingCity(xp: 200),
   cityChampion(xp: 600),
   survivor(xp: 250),
+  decisive(xp: 250),
+  stormChaser(xp: 300),
   veteranMinister(xp: 300);
 
   const AchievementId({required this.xp});

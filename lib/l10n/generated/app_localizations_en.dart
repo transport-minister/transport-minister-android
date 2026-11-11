@@ -774,4 +774,596 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get achievementVeteranMinisterDescription => 'Serve 365 days.';
+
+  @override
+  String get ledgerDecisions => 'Decisions & events';
+
+  @override
+  String eventDecisionArrived(String title) {
+    return 'Mr. Bus has news: $title';
+  }
+
+  @override
+  String eventDecisionAutomatic(String title) {
+    return 'Time ran out: $title was decided for you';
+  }
+
+  @override
+  String get groupPassengers => 'Passengers';
+
+  @override
+  String get groupDrivers => 'Drivers';
+
+  @override
+  String get groupPedestrians => 'Pedestrians';
+
+  @override
+  String get groupCyclists => 'Cyclists';
+
+  @override
+  String get groupBusinesses => 'Businesses';
+
+  @override
+  String get groupTransportWorkers => 'Bus crews';
+
+  @override
+  String get groupEnvironmentalists => 'Eco groups';
+
+  @override
+  String get groupLogistics => 'Logistics';
+
+  @override
+  String get busVeteran => 'Veteran 80';
+
+  @override
+  String get busHopMini => 'Hop Mini';
+
+  @override
+  String get busCityRunner => 'CityRunner 12';
+
+  @override
+  String get busMegaLink => 'MegaLink';
+
+  @override
+  String get busVoltaE => 'Volta E-12';
+
+  @override
+  String get kindRequest => 'Request';
+
+  @override
+  String get kindOpportunity => 'Offer';
+
+  @override
+  String get kindCrisis => 'Crisis';
+
+  @override
+  String get kindDisaster => 'Disaster';
+
+  @override
+  String decisionDaysLeft(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days left',
+      one: '1 day left',
+      zero: 'Decide today',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get decisionChoose => 'Choose';
+
+  @override
+  String decisionCost(String amount) {
+    return 'Cost $amount';
+  }
+
+  @override
+  String get decisionFree => 'Free';
+
+  @override
+  String decisionRisk(int chance) {
+    return '$chance% risk:';
+  }
+
+  @override
+  String get decisionResultTitle => 'Decision made!';
+
+  @override
+  String get decisionResultCalm => 'Everything went as planned, Minister.';
+
+  @override
+  String get decisionResultRisk => 'Oh no! The risk came true. Here is what happened:';
+
+  @override
+  String get decisionResultOk => 'OK';
+
+  @override
+  String get newsTitle => 'Mr. Bus has news';
+
+  @override
+  String newsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count decisions waiting',
+      one: '1 decision waiting',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String effectMood(String group, String change) {
+    return '$group $change';
+  }
+
+  @override
+  String effectReputation(String change) {
+    return 'Reputation $change';
+  }
+
+  @override
+  String effectRoadDamage(int amount, String district) {
+    return 'Road -$amount · $district';
+  }
+
+  @override
+  String effectRoadRestore(String district) {
+    return 'Road fixed · $district';
+  }
+
+  @override
+  String effectCapacity(String change) {
+    return 'Bus capacity $change';
+  }
+
+  @override
+  String effectDemand(String change) {
+    return 'Riders $change';
+  }
+
+  @override
+  String effectCongestion(String change) {
+    return 'Traffic $change';
+  }
+
+  @override
+  String effectSafety(String change) {
+    return 'Safety $change';
+  }
+
+  @override
+  String effectEnergyCost(String change) {
+    return 'Fuel cost $change';
+  }
+
+  @override
+  String effectSalaryCost(String change) {
+    return 'Wages $change';
+  }
+
+  @override
+  String effectTicketRevenue(String change) {
+    return 'Ticket income $change';
+  }
+
+  @override
+  String effectSubsidy(String change) {
+    return 'Subsidy $change';
+  }
+
+  @override
+  String effectDailyCost(String amount) {
+    return 'Costs $amount/day';
+  }
+
+  @override
+  String effectDailyIncome(String amount) {
+    return 'Income $amount/day';
+  }
+
+  @override
+  String effectMoodTrend(String group, String change) {
+    return '$group mood $change';
+  }
+
+  @override
+  String effectDays(int days) {
+    return '${days}d';
+  }
+
+  @override
+  String get effectForever => 'forever';
+
+  @override
+  String effectBuses(int count, String model) {
+    return '+$count $model';
+  }
+
+  @override
+  String effectProject(String project) {
+    return 'Starts $project';
+  }
+
+  @override
+  String effectDiscount(String project, int percent) {
+    return '$project $percent% off';
+  }
+
+  @override
+  String effectLoseBuses(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Lose $count buses',
+      one: 'Lose 1 bus',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String effectFare(String change) {
+    return 'Fare $change';
+  }
+
+  @override
+  String effectMoney(String amount) {
+    return '$amount';
+  }
+
+  @override
+  String decisionOvercrowdedBusesTitle(String district) {
+    return 'Packed buses in $district!';
+  }
+
+  @override
+  String decisionOvercrowdedBusesBody(String district) {
+    return 'Minister, people in $district squeeze into buses like pickles in a jar. What do we do?';
+  }
+
+  @override
+  String get decisionOvercrowdedBusesOptionA => 'Rush-order 3 CityRunners';
+
+  @override
+  String get decisionOvercrowdedBusesOptionB => 'Extra shifts for 5 days';
+
+  @override
+  String get decisionOvercrowdedBusesOptionC => 'Ask people to be patient';
+
+  @override
+  String decisionPotholesTitle(String district) {
+    return 'Potholes in $district!';
+  }
+
+  @override
+  String decisionPotholesBody(String district) {
+    return 'The roads in $district have more holes than cheese. Drivers are furious!';
+  }
+
+  @override
+  String get decisionPotholesOptionA => 'Emergency repair today';
+
+  @override
+  String get decisionPotholesOptionB => 'Schedule a normal repair';
+
+  @override
+  String get decisionPotholesOptionC => 'Put up warning signs';
+
+  @override
+  String get decisionBikePetitionTitle => 'Bike lane petition';
+
+  @override
+  String decisionBikePetitionBody(String district) {
+    return 'Eco activists in $district collected 10,000 signatures for bike lanes. A green fund will pay 30%!';
+  }
+
+  @override
+  String get decisionBikePetitionOptionA => 'Build bike lanes';
+
+  @override
+  String get decisionBikePetitionOptionB => 'Fund a study first';
+
+  @override
+  String get decisionBikePetitionOptionC => 'Say no';
+
+  @override
+  String decisionParkingChaosTitle(String district) {
+    return 'Parking chaos in $district';
+  }
+
+  @override
+  String decisionParkingChaosBody(String district) {
+    return 'Cars are parked on sidewalks, in bus lanes, even on a fountain in $district!';
+  }
+
+  @override
+  String get decisionParkingChaosOptionA => 'Introduce parking fees';
+
+  @override
+  String get decisionParkingChaosOptionB => 'Build a parking garage';
+
+  @override
+  String get decisionParkingChaosOptionC => 'Look the other way';
+
+  @override
+  String get decisionDriverWagesTitle => 'Drivers want a raise';
+
+  @override
+  String get decisionDriverWagesBody =>
+      'Our bus drivers say their wages are too low. The union is whispering about a strike...';
+
+  @override
+  String get decisionDriverWagesOptionA => 'Raise wages 15% forever';
+
+  @override
+  String get decisionDriverWagesOptionB => 'Pay a one-time bonus';
+
+  @override
+  String get decisionDriverWagesOptionC => 'Refuse';
+
+  @override
+  String get decisionTrafficAccidentTitle => 'Crash at a busy junction';
+
+  @override
+  String decisionTrafficAccidentBody(String district) {
+    return 'A nasty crash in $district shows the junction is dangerous. People demand action!';
+  }
+
+  @override
+  String get decisionTrafficAccidentOptionA => 'Install smart traffic lights';
+
+  @override
+  String get decisionTrafficAccidentOptionB => 'Run a safety campaign';
+
+  @override
+  String get decisionTrafficAccidentOptionC => 'Do nothing';
+
+  @override
+  String get decisionFuelSpikeTitle => 'Fuel prices jumped 30%!';
+
+  @override
+  String get decisionFuelSpikeBody =>
+      'Diesel got expensive overnight, and our buses drink a lot of it...';
+
+  @override
+  String get decisionFuelSpikeOptionA => 'Buy a price hedge';
+
+  @override
+  String get decisionFuelSpikeOptionB => 'Add a fare surcharge';
+
+  @override
+  String get decisionFuelSpikeOptionC => 'Absorb the cost';
+
+  @override
+  String get decisionBusDiscountTitle => 'Bus sale!';
+
+  @override
+  String decisionBusDiscountBody(String district) {
+    return 'Silkway Motors offers CityRunner buses at 25% off this week. They would start in $district.';
+  }
+
+  @override
+  String get decisionBusDiscountOptionA => 'Buy 2 buses';
+
+  @override
+  String get decisionBusDiscountOptionB => 'Buy 5 buses';
+
+  @override
+  String get decisionBusDiscountOptionC => 'No, thanks';
+
+  @override
+  String get decisionPrivateOperatorTitle => 'Private bus company';
+
+  @override
+  String decisionPrivateOperatorBody(String district) {
+    return 'A private company wants to run extra buses in $district for a share of the ticket money.';
+  }
+
+  @override
+  String get decisionPrivateOperatorOptionA => 'Accept the deal';
+
+  @override
+  String get decisionPrivateOperatorOptionB => 'Negotiate better terms';
+
+  @override
+  String get decisionPrivateOperatorOptionC => 'Decline';
+
+  @override
+  String get decisionBudgetHearingTitle => 'Cabinet budget hearing';
+
+  @override
+  String get decisionBudgetHearingBody =>
+      'The Cabinet wants to know how we spend their money. Our chance to ask for more!';
+
+  @override
+  String get decisionBudgetHearingOptionA => 'Ask for a big grant';
+
+  @override
+  String get decisionBudgetHearingOptionB => 'Ask for a bigger subsidy';
+
+  @override
+  String get decisionBudgetHearingOptionC => 'Promise savings';
+
+  @override
+  String get decisionBudgetHearingOptionD => 'Skip the hearing';
+
+  @override
+  String get decisionFestivalTitle => 'Festival on the Boulevard!';
+
+  @override
+  String get decisionFestivalBody =>
+      'A huge music festival is coming to Seaside Boulevard. Thousands of fans will need a ride!';
+
+  @override
+  String get decisionFestivalOptionA => 'Run special buses';
+
+  @override
+  String get decisionFestivalOptionB => 'Close the Boulevard to cars';
+
+  @override
+  String get decisionFestivalOptionC => 'Business as usual';
+
+  @override
+  String get decisionTouristSeasonTitle => 'Tourist season!';
+
+  @override
+  String get decisionTouristSeasonBody =>
+      'Tourists flood the Old Fortress with selfie sticks. Shops are happy, streets are crowded.';
+
+  @override
+  String get decisionTouristSeasonOptionA => 'Launch a tourist shuttle';
+
+  @override
+  String get decisionTouristSeasonOptionB => 'Add a tourist ticket surcharge';
+
+  @override
+  String get decisionTouristSeasonOptionC => 'Do nothing';
+
+  @override
+  String get decisionGreenFundTitle => 'Green fund offer';
+
+  @override
+  String get decisionGreenFundBody =>
+      'A green fund will pay 40% of a charging depot so we can run electric buses!';
+
+  @override
+  String get decisionGreenFundOptionA => 'Build the depot';
+
+  @override
+  String get decisionGreenFundOptionB => 'Not now';
+
+  @override
+  String decisionFloodTitle(String district) {
+    return 'Flash flood in $district!';
+  }
+
+  @override
+  String decisionFloodBody(String district) {
+    return 'Heavy rain turned the streets of $district into rivers. Buses are stuck!';
+  }
+
+  @override
+  String get decisionFloodOptionA => 'Send pumps and detours';
+
+  @override
+  String get decisionFloodOptionB => 'Free rescue shuttles';
+
+  @override
+  String get decisionFloodOptionC => 'Wait for the water to drain';
+
+  @override
+  String get decisionWindStormTitle => 'Mighty wind storm!';
+
+  @override
+  String get decisionWindStormBody =>
+      'A legendary Baku wind is blowing away hats, signs and almost our buses!';
+
+  @override
+  String get decisionWindStormOptionA => 'Stop service for safety';
+
+  @override
+  String get decisionWindStormOptionB => 'Send repair crews';
+
+  @override
+  String get decisionWindStormOptionC => 'Keep driving';
+
+  @override
+  String get decisionHeatwaveTitle => 'Heatwave: 42°C!';
+
+  @override
+  String get decisionHeatwaveBody =>
+      'It is so hot the asphalt is melting. Passengers are melting too!';
+
+  @override
+  String get decisionHeatwaveOptionA => 'Free water at bus stops';
+
+  @override
+  String get decisionHeatwaveOptionB => 'Run only air-conditioned buses';
+
+  @override
+  String get decisionHeatwaveOptionC => 'Hope it ends soon';
+
+  @override
+  String get decisionEarthquakeTitle => 'Earthquake!';
+
+  @override
+  String decisionEarthquakeBody(String district) {
+    return 'The ground shook and roads in $district cracked open. Everyone is scared.';
+  }
+
+  @override
+  String get decisionEarthquakeOptionA => 'Rebuild roads right away';
+
+  @override
+  String get decisionEarthquakeOptionB => 'Schedule a repair';
+
+  @override
+  String get decisionEarthquakeOptionC => 'Let them wait';
+
+  @override
+  String get decisionSnowstormTitle => 'Rare snowstorm!';
+
+  @override
+  String get decisionSnowstormBody =>
+      'Snow in Baku! Kids are happy, drivers are not. Roads are slippery everywhere.';
+
+  @override
+  String get decisionSnowstormOptionA => 'Rent snowplows';
+
+  @override
+  String get decisionSnowstormOptionB => 'Clear bus routes only';
+
+  @override
+  String get decisionSnowstormOptionC => 'Do nothing';
+
+  @override
+  String get decisionHarborFireTitle => 'Fire at the harbor!';
+
+  @override
+  String get decisionHarborFireBody =>
+      'A warehouse is burning at Oil Harbor. Smoke is drifting over the roads.';
+
+  @override
+  String get decisionHarborFireOptionA => 'Close the harbor roads';
+
+  @override
+  String get decisionHarborFireOptionB => 'Evacuate workers by bus';
+
+  @override
+  String get decisionHarborFireOptionC => 'Keep traffic moving';
+
+  @override
+  String get decisionLandslideTitle => 'Landslide in Wind Heights!';
+
+  @override
+  String get decisionLandslideBody =>
+      'Rocks slid onto the main road of Wind Heights. Traffic is crawling.';
+
+  @override
+  String get decisionLandslideOptionA => 'Clear it with heavy machines';
+
+  @override
+  String get decisionLandslideOptionB => 'Reroute the buses';
+
+  @override
+  String get decisionLandslideOptionC => 'Wait for crews';
+
+  @override
+  String get achievementDecisiveTitle => 'Decisive';
+
+  @override
+  String get achievementDecisiveDescription => 'Make 25 decisions yourself.';
+
+  @override
+  String get achievementStormChaserTitle => 'Storm Chaser';
+
+  @override
+  String get achievementStormChaserDescription => 'Handle 5 disasters.';
+
+  @override
+  String get careerDecisions => 'Decisions';
+
+  @override
+  String get careerDisasters => 'Disasters handled';
 }

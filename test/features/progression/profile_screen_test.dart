@@ -34,11 +34,11 @@ void main() {
     expect(find.text('450 / 900 XP'), findsOneWidget);
 
     await tester.scrollUntilVisible(
-      find.text('Achievements 1/15'),
+      find.text('Achievements 1/17'),
       300,
       scrollable: find.byType(Scrollable).first,
     );
 
-    expect(find.text('Achievements 1/15'), findsOneWidget);
+    expect(find.text('Achievements 1/17'), findsOneWidget);
   });
 }

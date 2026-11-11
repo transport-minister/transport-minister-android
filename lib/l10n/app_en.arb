@@ -566,5 +566,467 @@
   "achievementSurvivorTitle": "Survivor",
   "achievementSurvivorDescription": "Recover after a President's warning.",
   "achievementVeteranMinisterTitle": "Veteran Minister",
-  "achievementVeteranMinisterDescription": "Serve 365 days."
+  "achievementVeteranMinisterDescription": "Serve 365 days.",
+  "ledgerDecisions": "Decisions & events",
+  "eventDecisionArrived": "Mr. Bus has news: {title}",
+  "@eventDecisionArrived": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "eventDecisionAutomatic": "Time ran out: {title} was decided for you",
+  "@eventDecisionAutomatic": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "groupPassengers": "Passengers",
+  "groupDrivers": "Drivers",
+  "groupPedestrians": "Pedestrians",
+  "groupCyclists": "Cyclists",
+  "groupBusinesses": "Businesses",
+  "groupTransportWorkers": "Bus crews",
+  "groupEnvironmentalists": "Eco groups",
+  "groupLogistics": "Logistics",
+  "busVeteran": "Veteran 80",
+  "busHopMini": "Hop Mini",
+  "busCityRunner": "CityRunner 12",
+  "busMegaLink": "MegaLink",
+  "busVoltaE": "Volta E-12",
+  "kindRequest": "Request",
+  "kindOpportunity": "Offer",
+  "kindCrisis": "Crisis",
+  "kindDisaster": "Disaster",
+  "decisionDaysLeft": "{days, plural, =0{Decide today} =1{1 day left} other{{days} days left}}",
+  "@decisionDaysLeft": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "decisionChoose": "Choose",
+  "decisionCost": "Cost {amount}",
+  "@decisionCost": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionFree": "Free",
+  "decisionRisk": "{chance}% risk:",
+  "@decisionRisk": {
+    "placeholders": {
+      "chance": {
+        "type": "int"
+      }
+    }
+  },
+  "decisionResultTitle": "Decision made!",
+  "decisionResultCalm": "Everything went as planned, Minister.",
+  "decisionResultRisk": "Oh no! The risk came true. Here is what happened:",
+  "decisionResultOk": "OK",
+  "newsTitle": "Mr. Bus has news",
+  "newsCount": "{count, plural, =1{1 decision waiting} other{{count} decisions waiting}}",
+  "@newsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "effectMood": "{group} {change}",
+  "@effectMood": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      },
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectReputation": "Reputation {change}",
+  "@effectReputation": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectRoadDamage": "Road -{amount} · {district}",
+  "@effectRoadDamage": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      },
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "effectRoadRestore": "Road fixed · {district}",
+  "@effectRoadRestore": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "effectCapacity": "Bus capacity {change}",
+  "@effectCapacity": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectDemand": "Riders {change}",
+  "@effectDemand": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectCongestion": "Traffic {change}",
+  "@effectCongestion": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectSafety": "Safety {change}",
+  "@effectSafety": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectEnergyCost": "Fuel cost {change}",
+  "@effectEnergyCost": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectSalaryCost": "Wages {change}",
+  "@effectSalaryCost": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectTicketRevenue": "Ticket income {change}",
+  "@effectTicketRevenue": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectSubsidy": "Subsidy {change}",
+  "@effectSubsidy": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectDailyCost": "Costs {amount}/day",
+  "@effectDailyCost": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "effectDailyIncome": "Income {amount}/day",
+  "@effectDailyIncome": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "effectMoodTrend": "{group} mood {change}",
+  "@effectMoodTrend": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      },
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectDays": "{days}d",
+  "@effectDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "effectForever": "forever",
+  "effectBuses": "+{count} {model}",
+  "@effectBuses": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "model": {
+        "type": "String"
+      }
+    }
+  },
+  "effectProject": "Starts {project}",
+  "@effectProject": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "effectDiscount": "{project} {percent}% off",
+  "@effectDiscount": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "effectLoseBuses": "{count, plural, =1{Lose 1 bus} other{Lose {count} buses}}",
+  "@effectLoseBuses": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "effectFare": "Fare {change}",
+  "@effectFare": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "effectMoney": "{amount}",
+  "@effectMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionOvercrowdedBusesTitle": "Packed buses in {district}!",
+  "@decisionOvercrowdedBusesTitle": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionOvercrowdedBusesBody": "Minister, people in {district} squeeze into buses like pickles in a jar. What do we do?",
+  "@decisionOvercrowdedBusesBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionOvercrowdedBusesOptionA": "Rush-order 3 CityRunners",
+  "decisionOvercrowdedBusesOptionB": "Extra shifts for 5 days",
+  "decisionOvercrowdedBusesOptionC": "Ask people to be patient",
+  "decisionPotholesTitle": "Potholes in {district}!",
+  "@decisionPotholesTitle": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionPotholesBody": "The roads in {district} have more holes than cheese. Drivers are furious!",
+  "@decisionPotholesBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionPotholesOptionA": "Emergency repair today",
+  "decisionPotholesOptionB": "Schedule a normal repair",
+  "decisionPotholesOptionC": "Put up warning signs",
+  "decisionBikePetitionTitle": "Bike lane petition",
+  "decisionBikePetitionBody": "Eco activists in {district} collected 10,000 signatures for bike lanes. A green fund will pay 30%!",
+  "@decisionBikePetitionBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionBikePetitionOptionA": "Build bike lanes",
+  "decisionBikePetitionOptionB": "Fund a study first",
+  "decisionBikePetitionOptionC": "Say no",
+  "decisionParkingChaosTitle": "Parking chaos in {district}",
+  "@decisionParkingChaosTitle": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionParkingChaosBody": "Cars are parked on sidewalks, in bus lanes, even on a fountain in {district}!",
+  "@decisionParkingChaosBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionParkingChaosOptionA": "Introduce parking fees",
+  "decisionParkingChaosOptionB": "Build a parking garage",
+  "decisionParkingChaosOptionC": "Look the other way",
+  "decisionDriverWagesTitle": "Drivers want a raise",
+  "decisionDriverWagesBody": "Our bus drivers say their wages are too low. The union is whispering about a strike...",
+  "decisionDriverWagesOptionA": "Raise wages 15% forever",
+  "decisionDriverWagesOptionB": "Pay a one-time bonus",
+  "decisionDriverWagesOptionC": "Refuse",
+  "decisionTrafficAccidentTitle": "Crash at a busy junction",
+  "decisionTrafficAccidentBody": "A nasty crash in {district} shows the junction is dangerous. People demand action!",
+  "@decisionTrafficAccidentBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionTrafficAccidentOptionA": "Install smart traffic lights",
+  "decisionTrafficAccidentOptionB": "Run a safety campaign",
+  "decisionTrafficAccidentOptionC": "Do nothing",
+  "decisionFuelSpikeTitle": "Fuel prices jumped 30%!",
+  "decisionFuelSpikeBody": "Diesel got expensive overnight, and our buses drink a lot of it...",
+  "decisionFuelSpikeOptionA": "Buy a price hedge",
+  "decisionFuelSpikeOptionB": "Add a fare surcharge",
+  "decisionFuelSpikeOptionC": "Absorb the cost",
+  "decisionBusDiscountTitle": "Bus sale!",
+  "decisionBusDiscountBody": "Silkway Motors offers CityRunner buses at 25% off this week. They would start in {district}.",
+  "@decisionBusDiscountBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionBusDiscountOptionA": "Buy 2 buses",
+  "decisionBusDiscountOptionB": "Buy 5 buses",
+  "decisionBusDiscountOptionC": "No, thanks",
+  "decisionPrivateOperatorTitle": "Private bus company",
+  "decisionPrivateOperatorBody": "A private company wants to run extra buses in {district} for a share of the ticket money.",
+  "@decisionPrivateOperatorBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionPrivateOperatorOptionA": "Accept the deal",
+  "decisionPrivateOperatorOptionB": "Negotiate better terms",
+  "decisionPrivateOperatorOptionC": "Decline",
+  "decisionBudgetHearingTitle": "Cabinet budget hearing",
+  "decisionBudgetHearingBody": "The Cabinet wants to know how we spend their money. Our chance to ask for more!",
+  "decisionBudgetHearingOptionA": "Ask for a big grant",
+  "decisionBudgetHearingOptionB": "Ask for a bigger subsidy",
+  "decisionBudgetHearingOptionC": "Promise savings",
+  "decisionBudgetHearingOptionD": "Skip the hearing",
+  "decisionFestivalTitle": "Festival on the Boulevard!",
+  "decisionFestivalBody": "A huge music festival is coming to Seaside Boulevard. Thousands of fans will need a ride!",
+  "decisionFestivalOptionA": "Run special buses",
+  "decisionFestivalOptionB": "Close the Boulevard to cars",
+  "decisionFestivalOptionC": "Business as usual",
+  "decisionTouristSeasonTitle": "Tourist season!",
+  "decisionTouristSeasonBody": "Tourists flood the Old Fortress with selfie sticks. Shops are happy, streets are crowded.",
+  "decisionTouristSeasonOptionA": "Launch a tourist shuttle",
+  "decisionTouristSeasonOptionB": "Add a tourist ticket surcharge",
+  "decisionTouristSeasonOptionC": "Do nothing",
+  "decisionGreenFundTitle": "Green fund offer",
+  "decisionGreenFundBody": "A green fund will pay 40% of a charging depot so we can run electric buses!",
+  "decisionGreenFundOptionA": "Build the depot",
+  "decisionGreenFundOptionB": "Not now",
+  "decisionFloodTitle": "Flash flood in {district}!",
+  "@decisionFloodTitle": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionFloodBody": "Heavy rain turned the streets of {district} into rivers. Buses are stuck!",
+  "@decisionFloodBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionFloodOptionA": "Send pumps and detours",
+  "decisionFloodOptionB": "Free rescue shuttles",
+  "decisionFloodOptionC": "Wait for the water to drain",
+  "decisionWindStormTitle": "Mighty wind storm!",
+  "decisionWindStormBody": "A legendary Baku wind is blowing away hats, signs and almost our buses!",
+  "decisionWindStormOptionA": "Stop service for safety",
+  "decisionWindStormOptionB": "Send repair crews",
+  "decisionWindStormOptionC": "Keep driving",
+  "decisionHeatwaveTitle": "Heatwave: 42°C!",
+  "decisionHeatwaveBody": "It is so hot the asphalt is melting. Passengers are melting too!",
+  "decisionHeatwaveOptionA": "Free water at bus stops",
+  "decisionHeatwaveOptionB": "Run only air-conditioned buses",
+  "decisionHeatwaveOptionC": "Hope it ends soon",
+  "decisionEarthquakeTitle": "Earthquake!",
+  "decisionEarthquakeBody": "The ground shook and roads in {district} cracked open. Everyone is scared.",
+  "@decisionEarthquakeBody": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "decisionEarthquakeOptionA": "Rebuild roads right away",
+  "decisionEarthquakeOptionB": "Schedule a repair",
+  "decisionEarthquakeOptionC": "Let them wait",
+  "decisionSnowstormTitle": "Rare snowstorm!",
+  "decisionSnowstormBody": "Snow in Baku! Kids are happy, drivers are not. Roads are slippery everywhere.",
+  "decisionSnowstormOptionA": "Rent snowplows",
+  "decisionSnowstormOptionB": "Clear bus routes only",
+  "decisionSnowstormOptionC": "Do nothing",
+  "decisionHarborFireTitle": "Fire at the harbor!",
+  "decisionHarborFireBody": "A warehouse is burning at Oil Harbor. Smoke is drifting over the roads.",
+  "decisionHarborFireOptionA": "Close the harbor roads",
+  "decisionHarborFireOptionB": "Evacuate workers by bus",
+  "decisionHarborFireOptionC": "Keep traffic moving",
+  "decisionLandslideTitle": "Landslide in Wind Heights!",
+  "decisionLandslideBody": "Rocks slid onto the main road of Wind Heights. Traffic is crawling.",
+  "decisionLandslideOptionA": "Clear it with heavy machines",
+  "decisionLandslideOptionB": "Reroute the buses",
+  "decisionLandslideOptionC": "Wait for crews",
+  "achievementDecisiveTitle": "Decisive",
+  "achievementDecisiveDescription": "Make 25 decisions yourself.",
+  "achievementStormChaserTitle": "Storm Chaser",
+  "achievementStormChaserDescription": "Handle 5 disasters.",
+  "careerDecisions": "Decisions",
+  "careerDisasters": "Disasters handled"
 }

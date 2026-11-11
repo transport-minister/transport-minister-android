@@ -47,6 +47,22 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
       const [],
   nextId: (json['nextId'] as num?)?.toInt() ?? 1,
   developmentPoints: (json['developmentPoints'] as num?)?.toInt() ?? 0,
+  decisions:
+      (json['decisions'] as List<dynamic>?)
+          ?.map((e) => PendingDecision.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  modifiers:
+      (json['modifiers'] as List<dynamic>?)
+          ?.map((e) => ActiveModifier.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  decisionLog:
+      (json['decisionLog'] as List<dynamic>?)
+          ?.map((e) => DecisionRecord.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  lastDecisionDay: (json['lastDecisionDay'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>{
@@ -68,6 +84,10 @@ Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>
   'reports': instance.reports.map((e) => e.toJson()).toList(),
   'nextId': instance.nextId,
   'developmentPoints': instance.developmentPoints,
+  'decisions': instance.decisions.map((e) => e.toJson()).toList(),
+  'modifiers': instance.modifiers.map((e) => e.toJson()).toList(),
+  'decisionLog': instance.decisionLog.map((e) => e.toJson()).toList(),
+  'lastDecisionDay': instance.lastDecisionDay,
 };
 
 const _$RoadMaintenanceLevelEnumMap = {
@@ -100,6 +120,7 @@ const _$LedgerItemEnumMap = {
   LedgerItem.roadMaintenance: 'roadMaintenance',
   LedgerItem.administration: 'administration',
   LedgerItem.loanRepayment: 'loanRepayment',
+  LedgerItem.decisions: 'decisions',
   LedgerItem.vehiclePurchases: 'vehiclePurchases',
   LedgerItem.vehicleUpgrades: 'vehicleUpgrades',
   LedgerItem.construction: 'construction',
