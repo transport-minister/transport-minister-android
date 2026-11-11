@@ -338,11 +338,551 @@ abstract class AppLocalizations {
   /// **'International Transport Authority'**
   String get rankInternationalAuthority;
 
-  /// No description provided for @dashboardWelcome.
+  /// No description provided for @districtOldFortress.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to {city}, Minister!'**
-  String dashboardWelcome(String city);
+  /// **'Old Fortress'**
+  String get districtOldFortress;
+
+  /// No description provided for @districtSeasideBoulevard.
+  ///
+  /// In en, this message translates to:
+  /// **'Seaside Boulevard'**
+  String get districtSeasideBoulevard;
+
+  /// No description provided for @districtFlameHills.
+  ///
+  /// In en, this message translates to:
+  /// **'Flame Hills'**
+  String get districtFlameHills;
+
+  /// No description provided for @districtOilHarbor.
+  ///
+  /// In en, this message translates to:
+  /// **'Oil Harbor'**
+  String get districtOilHarbor;
+
+  /// No description provided for @districtWindHeights.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind Heights'**
+  String get districtWindHeights;
+
+  /// No description provided for @districtCaspianGardens.
+  ///
+  /// In en, this message translates to:
+  /// **'Caspian Gardens'**
+  String get districtCaspianGardens;
+
+  /// No description provided for @districtOldFortressTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Narrow lanes, ancient walls, crowds of tourists'**
+  String get districtOldFortressTagline;
+
+  /// No description provided for @districtSeasideBoulevardTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Promenade by the sea, loved by walkers'**
+  String get districtSeasideBoulevardTagline;
+
+  /// No description provided for @districtFlameHillsTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Glass towers and busy offices'**
+  String get districtFlameHillsTagline;
+
+  /// No description provided for @districtOilHarborTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Cranes, trucks and the city\'s cargo gate'**
+  String get districtOilHarborTagline;
+
+  /// No description provided for @districtWindHeightsTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'The biggest neighbourhood on the windy hills'**
+  String get districtWindHeightsTagline;
+
+  /// No description provided for @districtCaspianGardensTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'New homes growing fast by the shore'**
+  String get districtCaspianGardensTagline;
+
+  /// No description provided for @hudDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day}'**
+  String hudDay(int day);
+
+  /// No description provided for @hudSatisfaction.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}%'**
+  String hudSatisfaction(int value);
+
+  /// No description provided for @hudBudgetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get hudBudgetLabel;
+
+  /// No description provided for @hudSatisfactionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfaction'**
+  String get hudSatisfactionLabel;
+
+  /// No description provided for @hudBackToCities.
+  ///
+  /// In en, this message translates to:
+  /// **'Cities'**
+  String get hudBackToCities;
+
+  /// No description provided for @crisisAngry.
+  ///
+  /// In en, this message translates to:
+  /// **'Citizens are getting angry. Act before the President notices!'**
+  String get crisisAngry;
+
+  /// No description provided for @crisisWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'President\'s warning {level}/3: raise satisfaction or fix the budget!'**
+  String crisisWarning(int level);
+
+  /// No description provided for @statWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting'**
+  String get statWaiting;
+
+  /// No description provided for @statCongestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic'**
+  String get statCongestion;
+
+  /// No description provided for @statRoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Road'**
+  String get statRoad;
+
+  /// No description provided for @statBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'Buses'**
+  String get statBuses;
+
+  /// No description provided for @statMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String statMinutes(int minutes);
+
+  /// No description provided for @statPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{value}%'**
+  String statPercent(int value);
+
+  /// No description provided for @districtRidersServed.
+  ///
+  /// In en, this message translates to:
+  /// **'Buses can carry {capacity} of {demand} riders a day'**
+  String districtRidersServed(String capacity, String demand);
+
+  /// No description provided for @districtFeatureBikeLanes.
+  ///
+  /// In en, this message translates to:
+  /// **'Bike lanes'**
+  String get districtFeatureBikeLanes;
+
+  /// No description provided for @districtFeatureSignals.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart lights'**
+  String get districtFeatureSignals;
+
+  /// No description provided for @districtFeatureStops.
+  ///
+  /// In en, this message translates to:
+  /// **'Modern stops'**
+  String get districtFeatureStops;
+
+  /// No description provided for @districtDaysLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{project}: {days, plural, =1{1 day left} other{{days} days left}}'**
+  String districtDaysLeft(String project, int days);
+
+  /// No description provided for @actionAddBus.
+  ///
+  /// In en, this message translates to:
+  /// **'Add bus · {price}'**
+  String actionAddBus(String price);
+
+  /// No description provided for @actionRepairRoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair road · {price}'**
+  String actionRepairRoad(String price);
+
+  /// No description provided for @reportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday\'s money'**
+  String get reportTitle;
+
+  /// No description provided for @reportEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first day is underway. Reports arrive every minute.'**
+  String get reportEmpty;
+
+  /// No description provided for @reportNet.
+  ///
+  /// In en, this message translates to:
+  /// **'Net {amount}'**
+  String reportNet(String amount);
+
+  /// No description provided for @reportSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get reportSeeAll;
+
+  /// No description provided for @reportSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} budget'**
+  String reportSheetTitle(int day);
+
+  /// No description provided for @reportBudgetAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget after the day: {amount}'**
+  String reportBudgetAfter(String amount);
+
+  /// No description provided for @ledgerTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket sales'**
+  String get ledgerTickets;
+
+  /// No description provided for @ledgerSubsidy.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily subsidy'**
+  String get ledgerSubsidy;
+
+  /// No description provided for @ledgerGovernmentBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Cabinet budget'**
+  String get ledgerGovernmentBudget;
+
+  /// No description provided for @ledgerVehicleSales.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus sales'**
+  String get ledgerVehicleSales;
+
+  /// No description provided for @ledgerLoanReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan'**
+  String get ledgerLoanReceived;
+
+  /// No description provided for @ledgerEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel & power'**
+  String get ledgerEnergy;
+
+  /// No description provided for @ledgerSalaries.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver wages'**
+  String get ledgerSalaries;
+
+  /// No description provided for @ledgerVehicleMaintenance.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus repairs'**
+  String get ledgerVehicleMaintenance;
+
+  /// No description provided for @ledgerRoadMaintenance.
+  ///
+  /// In en, this message translates to:
+  /// **'Road upkeep'**
+  String get ledgerRoadMaintenance;
+
+  /// No description provided for @ledgerAdministration.
+  ///
+  /// In en, this message translates to:
+  /// **'Ministry office'**
+  String get ledgerAdministration;
+
+  /// No description provided for @ledgerLoanRepayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan repayment'**
+  String get ledgerLoanRepayment;
+
+  /// No description provided for @ledgerVehiclePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'New buses'**
+  String get ledgerVehiclePurchases;
+
+  /// No description provided for @ledgerVehicleUpgrades.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus upgrades'**
+  String get ledgerVehicleUpgrades;
+
+  /// No description provided for @ledgerConstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Construction'**
+  String get ledgerConstruction;
+
+  /// No description provided for @projectRoadRepair.
+  ///
+  /// In en, this message translates to:
+  /// **'Road repair'**
+  String get projectRoadRepair;
+
+  /// No description provided for @projectRoadExpansion.
+  ///
+  /// In en, this message translates to:
+  /// **'Road widening'**
+  String get projectRoadExpansion;
+
+  /// No description provided for @projectBikeLanes.
+  ///
+  /// In en, this message translates to:
+  /// **'Bike lanes'**
+  String get projectBikeLanes;
+
+  /// No description provided for @projectSmartSignals.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart traffic lights'**
+  String get projectSmartSignals;
+
+  /// No description provided for @projectModernStops.
+  ///
+  /// In en, this message translates to:
+  /// **'Modern bus stops'**
+  String get projectModernStops;
+
+  /// No description provided for @projectChargingDepot.
+  ///
+  /// In en, this message translates to:
+  /// **'Charging depot'**
+  String get projectChargingDepot;
+
+  /// No description provided for @projectDepotExpansion.
+  ///
+  /// In en, this message translates to:
+  /// **'Depot expansion'**
+  String get projectDepotExpansion;
+
+  /// No description provided for @rejectInsufficientFunds.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough budget for that'**
+  String get rejectInsufficientFunds;
+
+  /// No description provided for @rejectDepotFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The bus depot is full'**
+  String get rejectDepotFull;
+
+  /// No description provided for @rejectMaxLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Already at the highest level'**
+  String get rejectMaxLevel;
+
+  /// No description provided for @rejectProjectLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many construction sites at once'**
+  String get rejectProjectLimit;
+
+  /// No description provided for @rejectAlreadyInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Work is already underway here'**
+  String get rejectAlreadyInProgress;
+
+  /// No description provided for @rejectAlreadyBuilt.
+  ///
+  /// In en, this message translates to:
+  /// **'That is already built'**
+  String get rejectAlreadyBuilt;
+
+  /// No description provided for @rejectRequiresChargingDepot.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a charging depot first'**
+  String get rejectRequiresChargingDepot;
+
+  /// No description provided for @rejectInvalidTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'That is not possible right now'**
+  String get rejectInvalidTarget;
+
+  /// No description provided for @rejectLoanActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Repay your current loan first'**
+  String get rejectLoanActive;
+
+  /// No description provided for @rejectFareOutOfRange.
+  ///
+  /// In en, this message translates to:
+  /// **'That fare is not allowed'**
+  String get rejectFareOutOfRange;
+
+  /// No description provided for @eventBusPurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus ordered! It joins the fleet tomorrow.'**
+  String get eventBusPurchased;
+
+  /// No description provided for @eventBusUpgraded.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus upgraded to level {level}'**
+  String eventBusUpgraded(int level);
+
+  /// No description provided for @eventBusesDelivered.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{A new bus joined the fleet} other{{count} new buses joined the fleet}}'**
+  String eventBusesDelivered(int count);
+
+  /// No description provided for @eventProjectStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'{project}: construction started'**
+  String eventProjectStarted(String project);
+
+  /// No description provided for @eventProjectCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{project} is ready!'**
+  String eventProjectCompleted(String project);
+
+  /// No description provided for @eventBudgetAllocated.
+  ///
+  /// In en, this message translates to:
+  /// **'The Cabinet sent {amount} for this month'**
+  String eventBudgetAllocated(String amount);
+
+  /// No description provided for @eventLoanRepaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan fully repaid'**
+  String get eventLoanRepaid;
+
+  /// No description provided for @eventCrisisWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'President\'s warning {level}/3'**
+  String eventCrisisWarning(int level);
+
+  /// No description provided for @awayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'While you were away'**
+  String get awayTitle;
+
+  /// No description provided for @awayDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day passed in Baku} other{{days} days passed in Baku}}'**
+  String awayDays(int days);
+
+  /// No description provided for @awayCapped.
+  ///
+  /// In en, this message translates to:
+  /// **'The city paused after a week to wait for you.'**
+  String get awayCapped;
+
+  /// No description provided for @awayBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get awayBudget;
+
+  /// No description provided for @awaySatisfaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfaction'**
+  String get awaySatisfaction;
+
+  /// No description provided for @awayBusesDelivered.
+  ///
+  /// In en, this message translates to:
+  /// **'Buses delivered'**
+  String get awayBusesDelivered;
+
+  /// No description provided for @awayProjectsCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects finished'**
+  String get awayProjectsCompleted;
+
+  /// No description provided for @awayContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s go!'**
+  String get awayContinue;
+
+  /// No description provided for @dismissedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You have been dismissed'**
+  String get dismissedTitle;
+
+  /// No description provided for @dismissedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Baku lost faith in your leadership. Your rank and achievements stay with you. Try again with a fresh start!'**
+  String get dismissedBody;
+
+  /// No description provided for @dismissedRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start over'**
+  String get dismissedRestart;
+
+  /// No description provided for @loadingCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening the city…'**
+  String get loadingCity;
+
+  /// No description provided for @loadingFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The city could not be opened.'**
+  String get loadingFailed;
+
+  /// No description provided for @commonRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get commonRetry;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

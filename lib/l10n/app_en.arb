@@ -18,20 +18,26 @@
   "cityComingSoonTitle": "{city} is on its way!",
   "@cityComingSoonTitle": {
     "placeholders": {
-      "city": {"type": "String"}
+      "city": {
+        "type": "String"
+      }
     }
   },
   "cityComingSoonBody": "We are still drawing its streets and timetables. Grow your career in Baku meanwhile.",
   "cityLockedTitle": "{city} is locked",
   "@cityLockedTitle": {
     "placeholders": {
-      "city": {"type": "String"}
+      "city": {
+        "type": "String"
+      }
     }
   },
   "cityLockedBody": "Reach the rank of {rank} to unlock this city.",
   "@cityLockedBody": {
     "placeholders": {
-      "rank": {"type": "String"}
+      "rank": {
+        "type": "String"
+      }
     }
   },
   "cityFeatureBuses": "Buses",
@@ -56,10 +62,234 @@
   "rankRegionalGovernor": "Regional Transport Governor",
   "rankNationalLeader": "National Infrastructure Leader",
   "rankInternationalAuthority": "International Transport Authority",
-  "dashboardWelcome": "Welcome to {city}, Minister!",
-  "@dashboardWelcome": {
+  "districtOldFortress": "Old Fortress",
+  "districtSeasideBoulevard": "Seaside Boulevard",
+  "districtFlameHills": "Flame Hills",
+  "districtOilHarbor": "Oil Harbor",
+  "districtWindHeights": "Wind Heights",
+  "districtCaspianGardens": "Caspian Gardens",
+  "districtOldFortressTagline": "Narrow lanes, ancient walls, crowds of tourists",
+  "districtSeasideBoulevardTagline": "Promenade by the sea, loved by walkers",
+  "districtFlameHillsTagline": "Glass towers and busy offices",
+  "districtOilHarborTagline": "Cranes, trucks and the city's cargo gate",
+  "districtWindHeightsTagline": "The biggest neighbourhood on the windy hills",
+  "districtCaspianGardensTagline": "New homes growing fast by the shore",
+  "hudDay": "Day {day}",
+  "@hudDay": {
     "placeholders": {
-      "city": {"type": "String"}
+      "day": {
+        "type": "int"
+      }
     }
-  }
+  },
+  "hudSatisfaction": "{value}%",
+  "@hudSatisfaction": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "hudBudgetLabel": "Budget",
+  "hudSatisfactionLabel": "Satisfaction",
+  "hudBackToCities": "Cities",
+  "crisisAngry": "Citizens are getting angry. Act before the President notices!",
+  "crisisWarning": "President's warning {level}/3: raise satisfaction or fix the budget!",
+  "@crisisWarning": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "statWaiting": "Waiting",
+  "statCongestion": "Traffic",
+  "statRoad": "Road",
+  "statBuses": "Buses",
+  "statMinutes": "{minutes} min",
+  "@statMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statPercent": "{value}%",
+  "@statPercent": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "districtRidersServed": "Buses can carry {capacity} of {demand} riders a day",
+  "@districtRidersServed": {
+    "placeholders": {
+      "capacity": {
+        "type": "String"
+      },
+      "demand": {
+        "type": "String"
+      }
+    }
+  },
+  "districtFeatureBikeLanes": "Bike lanes",
+  "districtFeatureSignals": "Smart lights",
+  "districtFeatureStops": "Modern stops",
+  "districtDaysLeft": "{project}: {days, plural, =1{1 day left} other{{days} days left}}",
+  "@districtDaysLeft": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "actionAddBus": "Add bus · {price}",
+  "@actionAddBus": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRepairRoad": "Repair road · {price}",
+  "@actionRepairRoad": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "reportTitle": "Yesterday's money",
+  "reportEmpty": "Your first day is underway. Reports arrive every minute.",
+  "reportNet": "Net {amount}",
+  "@reportNet": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "reportSeeAll": "See all",
+  "reportSheetTitle": "Day {day} budget",
+  "@reportSheetTitle": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "reportBudgetAfter": "Budget after the day: {amount}",
+  "@reportBudgetAfter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "ledgerTickets": "Ticket sales",
+  "ledgerSubsidy": "Daily subsidy",
+  "ledgerGovernmentBudget": "Cabinet budget",
+  "ledgerVehicleSales": "Bus sales",
+  "ledgerLoanReceived": "Loan",
+  "ledgerEnergy": "Fuel & power",
+  "ledgerSalaries": "Driver wages",
+  "ledgerVehicleMaintenance": "Bus repairs",
+  "ledgerRoadMaintenance": "Road upkeep",
+  "ledgerAdministration": "Ministry office",
+  "ledgerLoanRepayment": "Loan repayment",
+  "ledgerVehiclePurchases": "New buses",
+  "ledgerVehicleUpgrades": "Bus upgrades",
+  "ledgerConstruction": "Construction",
+  "projectRoadRepair": "Road repair",
+  "projectRoadExpansion": "Road widening",
+  "projectBikeLanes": "Bike lanes",
+  "projectSmartSignals": "Smart traffic lights",
+  "projectModernStops": "Modern bus stops",
+  "projectChargingDepot": "Charging depot",
+  "projectDepotExpansion": "Depot expansion",
+  "rejectInsufficientFunds": "Not enough budget for that",
+  "rejectDepotFull": "The bus depot is full",
+  "rejectMaxLevel": "Already at the highest level",
+  "rejectProjectLimit": "Too many construction sites at once",
+  "rejectAlreadyInProgress": "Work is already underway here",
+  "rejectAlreadyBuilt": "That is already built",
+  "rejectRequiresChargingDepot": "Build a charging depot first",
+  "rejectInvalidTarget": "That is not possible right now",
+  "rejectLoanActive": "Repay your current loan first",
+  "rejectFareOutOfRange": "That fare is not allowed",
+  "eventBusPurchased": "Bus ordered! It joins the fleet tomorrow.",
+  "eventBusUpgraded": "Bus upgraded to level {level}",
+  "@eventBusUpgraded": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "eventBusesDelivered": "{count, plural, =1{A new bus joined the fleet} other{{count} new buses joined the fleet}}",
+  "@eventBusesDelivered": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventProjectStarted": "{project}: construction started",
+  "@eventProjectStarted": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "eventProjectCompleted": "{project} is ready!",
+  "@eventProjectCompleted": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "eventBudgetAllocated": "The Cabinet sent {amount} for this month",
+  "@eventBudgetAllocated": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "eventLoanRepaid": "Loan fully repaid",
+  "eventCrisisWarning": "President's warning {level}/3",
+  "@eventCrisisWarning": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "awayTitle": "While you were away",
+  "awayDays": "{days, plural, =1{1 day passed in Baku} other{{days} days passed in Baku}}",
+  "@awayDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "awayCapped": "The city paused after a week to wait for you.",
+  "awayBudget": "Budget",
+  "awaySatisfaction": "Satisfaction",
+  "awayBusesDelivered": "Buses delivered",
+  "awayProjectsCompleted": "Projects finished",
+  "awayContinue": "Let's go!",
+  "dismissedTitle": "You have been dismissed",
+  "dismissedBody": "Baku lost faith in your leadership. Your rank and achievements stay with you. Try again with a fresh start!",
+  "dismissedRestart": "Start over",
+  "loadingCity": "Opening the city…",
+  "loadingFailed": "The city could not be opened.",
+  "commonRetry": "Try again"
 }
