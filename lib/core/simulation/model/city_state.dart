@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_stats.dart';
@@ -34,6 +35,7 @@ abstract class CityState with _$CityState {
     @Default({}) Map<LedgerItem, int> pendingLedger,
     @Default([]) List<DailyReport> reports,
     @Default(1) int nextId,
+    @Default(0) int developmentPoints,
   }) = _CityState;
 
   const CityState._();
@@ -49,4 +51,6 @@ abstract class CityState with _$CityState {
   double get overallSatisfaction => StakeholderGroup.overall(satisfaction);
 
   DailyReport? get lastReport => reports.isEmpty ? null : reports.last;
+
+  int get level => CityLevels.levelFor(developmentPoints);
 }

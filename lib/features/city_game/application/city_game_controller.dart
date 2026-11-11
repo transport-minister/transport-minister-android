@@ -11,6 +11,7 @@ import 'package:transport_minister/features/city_game/application/city_game_prov
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/progression/application/profile_controller.dart';
 
 typedef CityCommand = CommandOutcome Function(CityState city);
 
@@ -34,6 +35,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     _anchor = saved?.anchor ?? TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch);
     final session = _catchUp(city, now, summarize: saved != null);
     await _persist(session.city);
+    _recordProgress(session.city, session.latestEvents, force: true);
     _startTicker();
     return session;
   }
@@ -54,6 +56,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
       session.copyWith(city: city, dayProgress: reading.dayProgress, latestEvents: events),
     );
     unawaited(_persist(city));
+    _recordProgress(city, events);
   }
 
   void pause() {
@@ -71,6 +74,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     final resumed = _catchUp(session.city, _now(), summarize: true);
     state = AsyncData(resumed.copyWith(awaySummary: resumed.awaySummary ?? session.awaySummary));
     unawaited(_persist(resumed.city));
+    _recordProgress(resumed.city, resumed.latestEvents);
     _startTicker();
   }
 
@@ -80,6 +84,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     if (outcome case CommandApplied(state: final city, :final events)) {
       state = AsyncData(session.copyWith(city: city, latestEvents: events));
       await _persist(city);
+      _recordProgress(city, events);
     }
     return outcome;
   }
@@ -115,6 +120,12 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
           ? AwaySummary.between(city, next, events, capped: reading.capped)
           : null,
     );
+  }
+
+  void _recordProgress(CityState city, List<CityEvent> events, {bool force = false}) {
+    if (force || events.any((event) => event is CityLeveledUp)) {
+      unawaited(ref.read(profileProvider.notifier).recordCityLevel(cityId, city.level));
+    }
   }
 
   (CityState, List<CityEvent>) _simulate(CityState city, int days) {

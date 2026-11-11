@@ -3,15 +3,21 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
+import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/features/advisor/domain/advisor.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/city_selection/domain/city_unlocks.dart';
+import 'package:transport_minister/features/city_selection/presentation/city_presentation.dart';
+import 'package:transport_minister/features/city_selection/presentation/city_selection_providers.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/away_summary_sheet.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/city_level_bar.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_lifecycle_scope.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/crisis_banner.dart';
@@ -20,6 +26,7 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dashb
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -103,6 +110,7 @@ class _CityViewState extends ConsumerState<_CityView> {
           dayProgress: widget.session.dayProgress,
           onCitiesPressed: () => context.go(AppRoute.cities.path),
         ),
+        CityLevelBar(city: city, onPressed: _showLevelInfo),
         CrisisBanner(crisis: city.crisis),
         DistrictStrip(metrics: metrics, onDistrictPressed: _focusDistrict),
         const SizedBox(height: GameDimens.spaceS),
@@ -183,10 +191,41 @@ class _CityViewState extends ConsumerState<_CityView> {
     ref.read(cityGameProvider(widget.cityId).notifier).dismissAwaySummary();
   }
 
+  String? _nextCityName() {
+    final next = const CityUnlocks().unlockedBy(ref.read(citiesProvider), widget.cityId);
+    return next?.id.displayName(AppLocalizations.of(context));
+  }
+
+  void _showLevelInfo() {
+    final l10n = AppLocalizations.of(context);
+    showChunkySheet<void>(
+      context: context,
+      builder: (context) => LevelInfoSheet(
+        cityName: widget.cityId.displayName(l10n),
+        level: widget.session.city.level,
+        nextCityName: _nextCityName(),
+      ),
+    );
+  }
+
   void _announce(CityGameSession session) {
     final l10n = AppLocalizations.of(context);
+    final levelUps = session.latestEvents.whereType<CityLeveledUp>().toList();
+    if (levelUps.isNotEmpty) {
+      final latest = levelUps.last;
+      showChunkySheet<void>(
+        context: context,
+        builder: (context) => LevelUpSheet(
+          cityName: widget.cityId.displayName(l10n),
+          level: latest.level,
+          reward: levelUps.fold(0, (sum, event) => sum + event.reward),
+          unlockedCityName: latest.level >= CityLevels.targetLevel ? _nextCityName() : null,
+        ),
+      );
+    }
     final messenger = ScaffoldMessenger.of(context);
-    for (final event in session.latestEvents.reversed.take(2)) {
+    final others = session.latestEvents.where((event) => event is! CityLeveledUp);
+    for (final event in others.toList().reversed.take(2)) {
       messenger.showSnackBar(
         SnackBar(duration: const Duration(seconds: 2), content: Text(event.message(l10n))),
       );

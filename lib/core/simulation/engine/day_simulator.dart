@@ -1,7 +1,9 @@
 import 'dart:math' as math;
 
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
+import 'package:transport_minister/core/simulation/engine/city_development.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/project_rules.dart';
@@ -30,12 +32,14 @@ class DaySimulator {
     this.economy = const EconomyCalculator(),
     this.satisfaction = const SatisfactionCalculator(),
     this.projects = const ProjectRules(),
+    this.development = const CityDevelopment(),
   });
 
   final MetricsCalculator metrics;
   final EconomyCalculator economy;
   final SatisfactionCalculator satisfaction;
   final ProjectRules projects;
+  final CityDevelopment development;
 
   DayResult advance(CityState state) {
     if (state.crisis.dismissed) {
@@ -90,6 +94,14 @@ class DaySimulator {
         totalRiders: state.stats.totalRiders + today.riders,
       ),
     );
+    final completed = events.whereType<ProjectCompleted>().length;
+    final (developed, levelEvents) = development.award(
+      next,
+      CityLevels.dailyPoints(satisfaction: overall, positiveDay: operatingTotal >= 0) +
+          completed * CityLevels.projectCompletionPoints,
+    );
+    next = developed;
+    events.addAll(levelEvents);
     final delivered = next.fleet.where((bus) => bus.deliveryDay == next.day).length;
     if (delivered > 0) {
       events.add(BusesDelivered(delivered));

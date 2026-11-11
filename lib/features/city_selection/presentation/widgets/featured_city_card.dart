@@ -1,14 +1,21 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/illustrations/city_skyline.dart';
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_presentation.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class FeaturedCityCard extends StatelessWidget {
-  const FeaturedCityCard({super.key, required this.city, required this.onPlay});
+  const FeaturedCityCard({
+    super.key,
+    required this.city,
+    required this.level,
+    required this.onPlay,
+  });
 
   final City city;
+  final int level;
   final VoidCallback onPlay;
 
   static const _innerRadius = Radius.circular(GameDimens.radiusL - GameDimens.outline);
@@ -37,6 +44,15 @@ class FeaturedCityCard extends StatelessWidget {
                       label: l10n.cityStatusPlayable,
                       palette: ChunkyPalette.green,
                       icon: Icons.play_circle_rounded,
+                    ),
+                  ),
+                  Positioned(
+                    top: GameDimens.spaceM,
+                    right: GameDimens.spaceM,
+                    child: GameTag(
+                      label: l10n.cityLevelChip(level, CityLevels.targetLevel),
+                      palette: ChunkyPalette.grape,
+                      icon: Icons.flag_rounded,
                     ),
                   ),
                 ],

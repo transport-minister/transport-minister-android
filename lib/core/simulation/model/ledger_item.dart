@@ -2,6 +2,7 @@ enum LedgerItem {
   tickets,
   subsidy,
   governmentBudget,
+  levelRewards,
   vehicleSales,
   loanReceived,
   energy,
@@ -24,6 +25,7 @@ enum LedgerItem {
     LedgerItem.administration ||
     LedgerItem.loanRepayment => true,
     LedgerItem.governmentBudget ||
+    LedgerItem.levelRewards ||
     LedgerItem.vehicleSales ||
     LedgerItem.loanReceived ||
     LedgerItem.vehiclePurchases ||

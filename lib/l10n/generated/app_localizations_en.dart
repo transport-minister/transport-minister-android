@@ -49,12 +49,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cityStatusLocked => 'Locked';
 
   @override
-  String get citySectionComingSoon => 'Coming soon';
-
-  @override
-  String get citySectionLocked => 'Locked cities';
-
-  @override
   String cityComingSoonTitle(String city) {
     return '$city is on its way!';
   }
@@ -66,11 +60,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String cityLockedTitle(String city) {
     return '$city is locked';
-  }
-
-  @override
-  String cityLockedBody(String rank) {
-    return 'Reach the rank of $rank to unlock this city.';
   }
 
   @override
@@ -519,4 +508,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tipAllGood => 'Things look calm, Minister! Keep an eye on the busiest districts.';
+
+  @override
+  String get citySectionNext => 'Next cities';
+
+  @override
+  String cityLockedBody(int level, String city) {
+    return 'Reach level $level in $city to unlock it.';
+  }
+
+  @override
+  String cityRequirement(int level, String city) {
+    return 'Lv $level in $city';
+  }
+
+  @override
+  String get cityStatusUnlocked => 'Unlocked';
+
+  @override
+  String cityLevelChip(int level, int target) {
+    return 'Level $level · Target $target';
+  }
+
+  @override
+  String get ledgerLevelRewards => 'Level rewards';
+
+  @override
+  String eventCityLeveledUp(int level, String amount) {
+    return 'City level $level! Reward $amount';
+  }
+
+  @override
+  String levelBarLabel(int level) {
+    return 'Level $level';
+  }
+
+  @override
+  String levelBarPoints(int points, int next) {
+    return '$points / $next DP';
+  }
+
+  @override
+  String get levelBarMax => 'Max level reached';
+
+  @override
+  String levelBarTarget(int target) {
+    return 'Target $target';
+  }
+
+  @override
+  String levelSheetTitle(String city) {
+    return '$city development';
+  }
+
+  @override
+  String get levelSheetBody =>
+      'Earn development points (DP) every day by keeping citizens happy and the budget positive. New buses, upgrades and finished projects give extra DP. Each level pays a reward from the Cabinet.';
+
+  @override
+  String levelSheetTarget(int target, String city) {
+    return 'Reach level $target to unlock $city!';
+  }
+
+  @override
+  String get levelSheetTargetDone => 'Target reached! Your next city is unlocked.';
+
+  @override
+  String levelUpTitle(String city, int level) {
+    return '$city reached level $level!';
+  }
+
+  @override
+  String levelUpReward(String amount) {
+    return 'The Cabinet sends a bonus of $amount.';
+  }
+
+  @override
+  String levelUpUnlocked(String city) {
+    return '$city is unlocked! It opens soon.';
+  }
+
+  @override
+  String get levelUpContinue => 'Hooray!';
 }

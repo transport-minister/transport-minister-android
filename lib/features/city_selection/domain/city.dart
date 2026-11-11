@@ -1,15 +1,13 @@
-import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
-
 enum CityId { baku, istanbul, london, tokyo, newYork }
 
-enum CityAvailability { playable, comingSoon, locked }
+enum CityAccess { playable, comingSoon, locked }
 
 class City {
-  const City({required this.id, required this.availability, this.requiredRank});
+  const City({required this.id, required this.contentReady, this.unlockAfter});
 
   final CityId id;
-  final CityAvailability availability;
-  final MinisterialRank? requiredRank;
+  final bool contentReady;
+  final CityId? unlockAfter;
 
-  bool get isPlayable => availability == CityAvailability.playable;
+  bool get isPlayable => contentReady && unlockAfter == null;
 }

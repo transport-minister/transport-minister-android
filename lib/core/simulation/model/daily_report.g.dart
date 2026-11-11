@@ -30,6 +30,7 @@ const _$LedgerItemEnumMap = {
   LedgerItem.tickets: 'tickets',
   LedgerItem.subsidy: 'subsidy',
   LedgerItem.governmentBudget: 'governmentBudget',
+  LedgerItem.levelRewards: 'levelRewards',
   LedgerItem.vehicleSales: 'vehicleSales',
   LedgerItem.loanReceived: 'loanReceived',
   LedgerItem.energy: 'energy',

@@ -6,14 +6,24 @@ import 'package:transport_minister/features/city_selection/presentation/city_pre
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class UpcomingCityCard extends StatelessWidget {
-  const UpcomingCityCard({super.key, required this.city, required this.onPressed});
+  const UpcomingCityCard({
+    super.key,
+    required this.city,
+    required this.access,
+    required this.requirement,
+    required this.progress,
+    required this.onPressed,
+  });
 
   final City city;
+  final CityAccess access;
+  final String requirement;
+  final double progress;
   final VoidCallback onPressed;
 
   static const _innerRadius = Radius.circular(GameDimens.radiusL - GameDimens.outline);
 
-  bool get _locked => city.availability == CityAvailability.locked;
+  bool get _locked => access == CityAccess.locked;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +44,7 @@ class UpcomingCityCard extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   ColorFiltered(
-                    colorFilter: _saturation(_locked ? 0 : 0.5),
+                    colorFilter: _saturation(_locked ? 0 : 0.6),
                     child: CitySkyline(scene: city.id.scene),
                   ),
                   if (_locked) ...[
@@ -69,13 +79,20 @@ class UpcomingCityCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: GameDimens.spaceXS + 2),
-                _locked
-                    ? GameTag(
-                        label: l10n.cityStatusLocked,
-                        palette: ChunkyPalette.stone,
-                        icon: Icons.lock_rounded,
-                      )
-                    : GameTag(label: l10n.cityStatusComingSoon, icon: Icons.schedule_rounded),
+                if (_locked) ...[
+                  GameTag(
+                    label: requirement,
+                    palette: ChunkyPalette.stone,
+                    icon: Icons.flag_rounded,
+                  ),
+                  const SizedBox(height: GameDimens.spaceS),
+                  ChunkyProgressBar(value: progress, palette: ChunkyPalette.grape, height: 12),
+                ] else
+                  GameTag(
+                    label: l10n.cityStatusComingSoon,
+                    palette: ChunkyPalette.sunny,
+                    icon: Icons.check_circle_rounded,
+                  ),
               ],
             ),
           ),

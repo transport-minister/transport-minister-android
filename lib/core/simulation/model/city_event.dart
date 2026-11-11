@@ -59,3 +59,10 @@ final class CrisisWarning extends CityEvent {
 final class MinisterDismissed extends CityEvent {
   const MinisterDismissed();
 }
+
+final class CityLeveledUp extends CityEvent {
+  const CityLeveledUp(this.level, this.reward);
+
+  final int level;
+  final int reward;
+}

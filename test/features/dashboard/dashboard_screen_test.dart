@@ -9,6 +9,7 @@ import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
 
 import '../../helpers/fake_now.dart';
@@ -42,9 +43,13 @@ void main() {
       now: now,
     );
 
-    expect(find.text('1'), findsOneWidget);
+    expect(
+      find.descendant(of: find.byType(DayClockBadge), matching: find.text('1')),
+      findsOneWidget,
+    );
     expect(find.text('\$2.5M'), findsOneWidget);
     expect(find.text('Wind Heights'), findsWidgets);
+    expect(find.text('Level 1'), findsOneWidget);
     expect(find.text('Yesterday\'s money'), findsNothing);
   });
 
