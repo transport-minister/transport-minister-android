@@ -40,7 +40,7 @@ void main() {
     );
 
     expect(find.text('1'), findsOneWidget);
-    expect(find.text('₼2.5M'), findsOneWidget);
+    expect(find.text('\$2.5M'), findsOneWidget);
     expect(find.text('Wind Heights'), findsOneWidget);
     expect(find.text('Yesterday\'s money'), findsNothing);
   });
@@ -55,10 +55,10 @@ void main() {
 
     await tester.tap(find.text('Wind Heights'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Add bus · ₼210K'));
+    await tester.tap(find.text('Add bus · \$210K'));
     await tester.pumpAndSettle();
 
-    expect(find.text('₼2.29M'), findsOneWidget);
+    expect(find.text('\$2.29M'), findsOneWidget);
     expect(find.text('Bus ordered! It joins the fleet tomorrow.'), findsOneWidget);
   });
 
