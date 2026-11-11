@@ -468,4 +468,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonRetry => 'Try again';
+
+  @override
+  String get mapRecenter => 'Recenter map';
+
+  @override
+  String get trafficSmooth => 'Smooth';
+
+  @override
+  String get trafficBusy => 'Busy';
+
+  @override
+  String get trafficJammed => 'Jam';
 }

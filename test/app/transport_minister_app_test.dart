@@ -75,6 +75,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Choose your city'), findsNothing);
-    expect(find.text('Wind Heights'), findsOneWidget);
+    expect(find.text('Wind Heights'), findsWidgets);
   });
 }

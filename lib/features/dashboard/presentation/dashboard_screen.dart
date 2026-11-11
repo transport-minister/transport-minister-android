@@ -17,6 +17,7 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/daily
 import 'package:transport_minister/features/dashboard/presentation/widgets/dashboard_hud.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_sheet.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -55,6 +56,14 @@ class _CityView extends ConsumerStatefulWidget {
 }
 
 class _CityViewState extends ConsumerState<_CityView> {
+  final _mapController = CityMapController();
+
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -92,6 +101,8 @@ class _CityViewState extends ConsumerState<_CityView> {
           onCitiesPressed: () => context.go(AppRoute.cities.path),
         ),
         CrisisBanner(crisis: city.crisis),
+        DistrictStrip(metrics: metrics, onDistrictPressed: _focusDistrict),
+        const SizedBox(height: GameDimens.spaceS),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: GameDimens.spaceL),
@@ -99,7 +110,12 @@ class _CityViewState extends ConsumerState<_CityView> {
               padding: EdgeInsets.zero,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(GameDimens.radiusL - GameDimens.outline),
-                child: CityMap(city: city, metrics: metrics, onDistrictPressed: _openDistrict),
+                child: CityMap(
+                  city: city,
+                  metrics: metrics,
+                  controller: _mapController,
+                  onDistrictPressed: _openDistrict,
+                ),
               ),
             ),
           ),
@@ -118,6 +134,14 @@ class _CityViewState extends ConsumerState<_CityView> {
         ),
       ],
     );
+  }
+
+  Future<void> _focusDistrict(DistrictId district) async {
+    _mapController.focusOn(district);
+    await Future<void>.delayed(const Duration(milliseconds: 380));
+    if (mounted) {
+      _openDistrict(district);
+    }
   }
 
   void _openDistrict(DistrictId district) {
