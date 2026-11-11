@@ -49,23 +49,28 @@ extension DistrictPresentation on DistrictId {
     DistrictId.caspianGardens => const Color(0xFFD3EFC4),
   };
 
-  Offset get mapCenter => switch (this) {
-    DistrictId.windHeights => const Offset(0.27, 0.19),
-    DistrictId.caspianGardens => const Offset(0.73, 0.16),
-    DistrictId.flameHills => const Offset(0.23, 0.5),
-    DistrictId.oldFortress => const Offset(0.54, 0.43),
-    DistrictId.oilHarbor => const Offset(0.8, 0.47),
-    DistrictId.seasideBoulevard => const Offset(0.44, 0.73),
+  Offset get worldCenter => switch (this) {
+    DistrictId.windHeights => const Offset(230, 240),
+    DistrictId.caspianGardens => const Offset(690, 210),
+    DistrictId.flameHills => const Offset(200, 660),
+    DistrictId.oldFortress => const Offset(500, 510),
+    DistrictId.oilHarbor => const Offset(730, 690),
+    DistrictId.seasideBoulevard => const Offset(440, 940),
   };
 
-  double get mapRadius => switch (this) {
-    DistrictId.windHeights => 0.19,
-    DistrictId.caspianGardens => 0.16,
-    DistrictId.flameHills => 0.16,
-    DistrictId.oldFortress => 0.12,
-    DistrictId.oilHarbor => 0.13,
-    DistrictId.seasideBoulevard => 0.15,
+  double get worldRadius => switch (this) {
+    DistrictId.windHeights => 120,
+    DistrictId.caspianGardens => 105,
+    DistrictId.flameHills => 110,
+    DistrictId.oldFortress => 90,
+    DistrictId.oilHarbor => 95,
+    DistrictId.seasideBoulevard => 105,
   };
+}
+
+abstract final class CityWorld {
+  static const size = Size(900, 1200);
+  static const center = Offset(500, 560);
 }
 
 abstract final class CityRoads {

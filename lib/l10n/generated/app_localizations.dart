@@ -883,6 +883,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get commonRetry;
+
+  /// No description provided for @mapRecenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Recenter map'**
+  String get mapRecenter;
+
+  /// No description provided for @trafficSmooth.
+  ///
+  /// In en, this message translates to:
+  /// **'Smooth'**
+  String get trafficSmooth;
+
+  /// No description provided for @trafficBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'Busy'**
+  String get trafficBusy;
+
+  /// No description provided for @trafficJammed.
+  ///
+  /// In en, this message translates to:
+  /// **'Jam'**
+  String get trafficJammed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

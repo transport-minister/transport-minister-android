@@ -9,24 +9,68 @@ import 'package:transport_minister/features/city_game/presentation/district_pres
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map_painter.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
+class CityMapController extends ChangeNotifier {
+  DistrictId? _focus;
+
+  DistrictId? get focus => _focus;
+
+  void focusOn(DistrictId district) {
+    _focus = district;
+    notifyListeners();
+  }
+
+  void recenter() {
+    _focus = null;
+    notifyListeners();
+  }
+}
+
 class CityMap extends StatefulWidget {
   const CityMap({
     super.key,
     required this.city,
     required this.metrics,
+    required this.controller,
     required this.onDistrictPressed,
   });
 
   final CityState city;
   final CityMetrics metrics;
+  final CityMapController controller;
   final ValueChanged<DistrictId> onDistrictPressed;
 
   @override
   State<CityMap> createState() => _CityMapState();
 }
 
-class _CityMapState extends State<CityMap> with SingleTickerProviderStateMixin {
-  late final _traffic = AnimationController(vsync: this, duration: const Duration(seconds: 16));
+class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
+  static const _initialScale = 0.8;
+  static const _focusScale = 1.05;
+
+  late final _traffic = AnimationController(vsync: this, duration: const Duration(seconds: 24));
+  late final _camera = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 450),
+  );
+  final _transform = TransformationController();
+  Size _viewport = Size.zero;
+  Animation<Matrix4>? _flight;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onControllerChanged);
+    _camera.addListener(() => _transform.value = _flight!.value);
+  }
+
+  @override
+  void didUpdateWidget(CityMap oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      oldWidget.controller.removeListener(_onControllerChanged);
+      widget.controller.addListener(_onControllerChanged);
+    }
+  }
 
   @override
   void didChangeDependencies() {
@@ -40,17 +84,39 @@ class _CityMapState extends State<CityMap> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
+    widget.controller.removeListener(_onControllerChanged);
     _traffic.dispose();
+    _camera.dispose();
+    _transform.dispose();
     super.dispose();
   }
 
-  void _pressAt(Offset position, Size size) {
+  Matrix4 _cameraOn(Offset worldPoint, double scale) {
+    return Matrix4.identity()
+      ..translateByDouble(
+        _viewport.width / 2 - worldPoint.dx * scale,
+        _viewport.height / 2 - worldPoint.dy * scale,
+        0,
+        1,
+      )
+      ..scaleByDouble(scale, scale, 1, 1);
+  }
+
+  void _onControllerChanged() {
+    final focus = widget.controller.focus;
+    final target = focus == null
+        ? _cameraOn(CityWorld.center, _initialScale)
+        : _cameraOn(focus.worldCenter, _focusScale);
+    _flight = Matrix4Tween(
+      begin: _transform.value,
+      end: target,
+    ).animate(CurvedAnimation(parent: _camera, curve: Curves.easeInOutCubic));
+    _camera.forward(from: 0);
+  }
+
+  void _pressAt(Offset worldPosition) {
     for (final district in DistrictId.values) {
-      final center = Offset(
-        district.mapCenter.dx * size.width,
-        district.mapCenter.dy * size.height,
-      );
-      if ((position - center).distance <= district.mapRadius * size.width * 1.1) {
+      if ((worldPosition - district.worldCenter).distance <= district.worldRadius * 1.05) {
         widget.onDistrictPressed(district);
         return;
       }
@@ -63,48 +129,101 @@ class _CityMapState extends State<CityMap> with SingleTickerProviderStateMixin {
       for (final project in widget.city.projects)
         if (project.districtId != null) project.districtId!,
     };
-    final buses = math.min(math.max(widget.city.activeBuses.length ~/ 2, 3), 16);
+    final buses = math.min(math.max(widget.city.activeBuses.length ~/ 2, 3), 18);
     return LayoutBuilder(
       builder: (context, constraints) {
-        final size = constraints.biggest;
+        final viewport = constraints.biggest;
+        if (_viewport != viewport) {
+          final first = _viewport == Size.zero;
+          _viewport = viewport;
+          if (first) {
+            _transform.value = _cameraOn(CityWorld.center, _initialScale);
+          }
+        }
+        final minScale = math.min(
+          viewport.width / CityWorld.size.width,
+          viewport.height / CityWorld.size.height,
+        );
         return Stack(
           children: [
-            Positioned.fill(
+            InteractiveViewer(
+              transformationController: _transform,
+              constrained: false,
+              minScale: minScale,
+              maxScale: 1.8,
+              boundaryMargin: const EdgeInsets.all(120),
               child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTapUp: (details) => _pressAt(details.localPosition, size),
-                child: CustomPaint(
-                  painter: CityMapPainter(metrics: widget.metrics, constructionSites: sites),
+                onTapUp: (details) => _pressAt(details.localPosition),
+                child: SizedBox.fromSize(
+                  size: CityWorld.size,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: CustomPaint(
+                          painter: CityMapPainter(
+                            metrics: widget.metrics,
+                            constructionSites: sites,
+                          ),
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: CustomPaint(
+                          painter: TrafficPainter(
+                            progress: _traffic,
+                            metrics: widget.metrics,
+                            buses: buses,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            Positioned.fill(
-              child: IgnorePointer(
-                child: CustomPaint(
-                  painter: TrafficPainter(progress: _traffic, buses: buses),
-                ),
+            AnimatedBuilder(
+              animation: _transform,
+              builder: (context, _) => Stack(
+                children: [
+                  for (final district in DistrictId.values)
+                    _positionedMarker(district, sites.contains(district)),
+                ],
               ),
             ),
-            for (final district in DistrictId.values)
-              Positioned(
-                left: district.mapCenter.dx * size.width - _DistrictMarker.width / 2,
-                top: district.mapCenter.dy * size.height - _DistrictMarker.bubble / 2 - 6,
-                child: _DistrictMarker(
-                  district: district,
-                  metrics: widget.metrics.of(district),
-                  underConstruction: sites.contains(district),
-                  onPressed: () => widget.onDistrictPressed(district),
-                ),
+            const Positioned(left: GameDimens.spaceS, top: GameDimens.spaceS, child: _Legend()),
+            Positioned(
+              right: GameDimens.spaceS,
+              bottom: GameDimens.spaceS,
+              child: ChunkyIconButton(
+                icon: Icons.center_focus_strong_rounded,
+                size: 40,
+                semanticsLabel: AppLocalizations.of(context).mapRecenter,
+                onPressed: widget.controller.recenter,
               ),
+            ),
           ],
         );
       },
     );
   }
+
+  Widget _positionedMarker(DistrictId district, bool underConstruction) {
+    final point = MatrixUtils.transformPoint(_transform.value, district.worldCenter);
+    return Positioned(
+      left: point.dx - DistrictMarker.width / 2,
+      top: point.dy - DistrictMarker.bubble / 2,
+      child: DistrictMarker(
+        district: district,
+        metrics: widget.metrics.of(district),
+        underConstruction: underConstruction,
+        onPressed: () => widget.onDistrictPressed(district),
+      ),
+    );
+  }
 }
 
-class _DistrictMarker extends StatelessWidget {
-  const _DistrictMarker({
+class DistrictMarker extends StatelessWidget {
+  const DistrictMarker({
+    super.key,
     required this.district,
     required this.metrics,
     required this.underConstruction,
@@ -116,8 +235,8 @@ class _DistrictMarker extends StatelessWidget {
   final bool underConstruction;
   final VoidCallback onPressed;
 
-  static const width = 104.0;
-  static const bubble = 46.0;
+  static const width = 120.0;
+  static const bubble = 44.0;
 
   @override
   Widget build(BuildContext context) {
@@ -139,14 +258,9 @@ class _DistrictMarker extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   IconBubble(icon: district.icon, palette: district.palette, size: bubble),
-                  Positioned(
-                    right: -22,
-                    top: -6,
-                    child: _WaitChip(minutes: waiting, label: l10n.statMinutes(waiting)),
-                  ),
                   if (underConstruction)
                     const Positioned(
-                      left: -14,
+                      right: -12,
                       bottom: -4,
                       child: IconBubble(
                         icon: Icons.construction_rounded,
@@ -156,19 +270,30 @@ class _DistrictMarker extends StatelessWidget {
                     ),
                 ],
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 3),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                 decoration: BoxDecoration(
                   color: GameColors.paper,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(9),
                   border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
                 ),
-                child: Text(
-                  name,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, height: 1.1),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        height: 1.1,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    WaitChip(minutes: waiting, label: l10n.statMinutes(waiting)),
+                  ],
                 ),
               ),
             ],
@@ -179,24 +304,25 @@ class _DistrictMarker extends StatelessWidget {
   }
 }
 
-class _WaitChip extends StatelessWidget {
-  const _WaitChip({required this.minutes, required this.label});
+class WaitChip extends StatelessWidget {
+  const WaitChip({super.key, required this.minutes, required this.label});
 
   final int minutes;
   final String label;
 
+  static ChunkyPalette paletteFor(int minutes) {
+    if (minutes <= 8) {
+      return ChunkyPalette.green;
+    }
+    return minutes <= 15 ? ChunkyPalette.sunny : ChunkyPalette.coral;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final palette = minutes <= 8
-        ? ChunkyPalette.green
-        : (minutes <= 15 ? ChunkyPalette.sunny : ChunkyPalette.coral);
+    final palette = paletteFor(minutes);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-      decoration: BoxDecoration(
-        color: palette.face,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
-      ),
+      decoration: BoxDecoration(color: palette.face, borderRadius: BorderRadius.circular(7)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -213,6 +339,60 @@ class _WaitChip extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _Legend extends StatelessWidget {
+  const _Legend();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      decoration: BoxDecoration(
+        color: GameColors.paper.withValues(alpha: 0.92),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _Dot(color: TrafficColors.smooth, label: l10n.trafficSmooth),
+          const SizedBox(width: 8),
+          _Dot(color: TrafficColors.busy, label: l10n.trafficBusy),
+          const SizedBox(width: 8),
+          _Dot(color: TrafficColors.jammed, label: l10n.trafficJammed),
+        ],
+      ),
+    );
+  }
+}
+
+class _Dot extends StatelessWidget {
+  const _Dot({required this.color, required this.label});
+
+  final Color color;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            border: Border.all(color: GameColors.ink, width: 1.5),
+          ),
+        ),
+        const SizedBox(width: 4),
+        Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700)),
+      ],
     );
   }
 }

@@ -43,7 +43,7 @@ void main() {
     await tester.tap(find.text('Play'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Wind Heights'), findsOneWidget);
+    expect(find.text('Wind Heights'), findsWidgets);
   });
 
   testWidgets('coming soon city explains it is on its way', (tester) async {

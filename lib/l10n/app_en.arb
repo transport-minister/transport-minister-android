@@ -291,5 +291,9 @@
   "dismissedRestart": "Start over",
   "loadingCity": "Opening the city…",
   "loadingFailed": "The city could not be opened.",
-  "commonRetry": "Try again"
+  "commonRetry": "Try again",
+  "mapRecenter": "Recenter map",
+  "trafficSmooth": "Smooth",
+  "trafficBusy": "Busy",
+  "trafficJammed": "Jam"
 }

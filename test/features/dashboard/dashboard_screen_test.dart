@@ -7,6 +7,8 @@ import 'package:transport_minister/features/city_game/data/local_city_save_repos
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/game_screen_harness.dart';
@@ -41,7 +43,7 @@ void main() {
 
     expect(find.text('1'), findsOneWidget);
     expect(find.text('\$2.5M'), findsOneWidget);
-    expect(find.text('Wind Heights'), findsOneWidget);
+    expect(find.text('Wind Heights'), findsWidgets);
     expect(find.text('Yesterday\'s money'), findsNothing);
   });
 
@@ -53,7 +55,9 @@ void main() {
       now: now,
     );
 
-    await tester.tap(find.text('Wind Heights'));
+    await tester.tap(
+      find.descendant(of: find.byType(DistrictMarker), matching: find.text('Old Fortress')),
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.text('Add bus · \$210K'));
     await tester.pumpAndSettle();
@@ -101,6 +105,39 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('You have been dismissed'), findsNothing);
-    expect(find.text('Wind Heights'), findsOneWidget);
+    expect(find.text('Wind Heights'), findsWidgets);
+  });
+
+  testWidgets('the busiest district comes first in the strip and opens on tap', (tester) async {
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+
+    await tester.tap(
+      find.descendant(of: find.byType(DistrictStrip), matching: find.text('Oil Harbor')),
+    );
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Cranes, trucks and the city\'s cargo gate'), findsOneWidget);
+  });
+
+  testWidgets('tapping a district on the map opens it', (tester) async {
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+
+    await tester.tap(
+      find.descendant(of: find.byType(DistrictMarker), matching: find.text('Old Fortress')),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Narrow lanes, ancient walls, crowds of tourists'), findsOneWidget);
   });
 }
