@@ -907,6 +907,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Jam'**
   String get trafficJammed;
+
+  /// No description provided for @mrBusName.
+  ///
+  /// In en, this message translates to:
+  /// **'Mr. Bus'**
+  String get mrBusName;
+
+  /// No description provided for @advisorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mr. Bus says'**
+  String get advisorTitle;
+
+  /// No description provided for @advisorShowMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Show me'**
+  String get advisorShowMe;
+
+  /// No description provided for @tipNegativeBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Our budget is below zero! Raise fares a little or sell old buses before the President notices.'**
+  String get tipNegativeBudget;
+
+  /// No description provided for @tipPresidentWatching.
+  ///
+  /// In en, this message translates to:
+  /// **'The President is watching us. Lift satisfaction fast: more buses and better roads!'**
+  String get tipPresidentWatching;
+
+  /// No description provided for @tipLongWaits.
+  ///
+  /// In en, this message translates to:
+  /// **'People in {district} wait {minutes} minutes for a bus. Let\'s add buses there!'**
+  String tipLongWaits(String district, int minutes);
+
+  /// No description provided for @tipBrokenRoads.
+  ///
+  /// In en, this message translates to:
+  /// **'Roads in {district} are crumbling ({condition}%). A repair keeps drivers and trucks happy.'**
+  String tipBrokenRoads(String district, int condition);
+
+  /// No description provided for @tipTrafficJam.
+  ///
+  /// In en, this message translates to:
+  /// **'{district} is jammed. Bike lanes slow traffic while they are built, but help a lot later.'**
+  String tipTrafficJam(String district);
+
+  /// No description provided for @tipOldFleet.
+  ///
+  /// In en, this message translates to:
+  /// **'Our old buses keep breaking down. Upgrades or newer models will keep the city moving.'**
+  String get tipOldFleet;
+
+  /// No description provided for @tipAllGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Things look calm, Minister! Keep an eye on the busiest districts.'**
+  String get tipAllGood;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -5,6 +5,8 @@ import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
+import 'package:transport_minister/features/advisor/domain/advisor.dart';
+import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
@@ -93,6 +95,7 @@ class _CityViewState extends ConsumerState<_CityView> {
       );
     }
     final metrics = const MetricsCalculator().calculate(city);
+    final tip = const Advisor().bestTip(city, metrics);
     return Column(
       children: [
         DashboardHud(
@@ -110,11 +113,20 @@ class _CityViewState extends ConsumerState<_CityView> {
               padding: EdgeInsets.zero,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(GameDimens.radiusL - GameDimens.outline),
-                child: CityMap(
-                  city: city,
-                  metrics: metrics,
-                  controller: _mapController,
-                  onDistrictPressed: _openDistrict,
+                child: Stack(
+                  children: [
+                    CityMap(
+                      city: city,
+                      metrics: metrics,
+                      controller: _mapController,
+                      onDistrictPressed: _openDistrict,
+                    ),
+                    Positioned(
+                      left: GameDimens.spaceS,
+                      bottom: GameDimens.spaceS,
+                      child: MrBusButton(urgent: tip.kind.isUrgent, onPressed: () => _showTip(tip)),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -133,6 +145,14 @@ class _CityViewState extends ConsumerState<_CityView> {
           ),
         ),
       ],
+    );
+  }
+
+  void _showTip(AdvisorTip tip) {
+    showChunkySheet<void>(
+      context: context,
+      builder: (context) =>
+          AdvisorSheet(tip: tip, onShowDistrict: () => _focusDistrict(tip.district!)),
     );
   }
 
