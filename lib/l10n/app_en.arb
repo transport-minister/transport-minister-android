@@ -1089,5 +1089,85 @@
         "type": "String"
       }
     }
+  },
+  "ledgerRewards": "Rewards",
+  "dailyOpen": "Daily tasks",
+  "dailyTitle": "Daily tasks",
+  "dailyStreakTitle": "Daily gift",
+  "dailyStreakDay": "Day {day} of 7",
+  "@dailyStreakDay": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyStreakDone": "Come back tomorrow for the next gift!",
+  "dailyClaim": "Claim",
+  "dailyClaimed": "Claimed",
+  "dailyComeBack": "New tasks every day at midnight",
+  "dailyReward": "+{money} · +{xp} XP",
+  "@dailyReward": {
+    "placeholders": {
+      "money": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "dailyProgress": "{progress} / {target}",
+  "@dailyProgress": {
+    "placeholders": {
+      "progress": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "taskBuyBuses": "Buy {count} buses",
+  "@taskBuyBuses": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taskMakeDecisions": "Make {count} decisions",
+  "@taskMakeDecisions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taskRunDays": "Run the city for {count} days",
+  "@taskRunDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "taskEarnTickets": "Earn {amount} from tickets",
+  "@taskEarnTickets": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "taskFinishProject": "Finish a construction project",
+  "taskRepairRoad": "Repair a road",
+  "taskReachSatisfaction": "Reach {percent}% satisfaction",
+  "@taskReachSatisfaction": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
   }
 }

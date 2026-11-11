@@ -11,6 +11,7 @@ import 'package:transport_minister/features/city_game/application/city_game_prov
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/daily/application/daily_controller.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 
@@ -128,6 +129,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     if (events.isNotEmpty) {
       unawaited(ref.read(inboxProvider.notifier).recordCity(cityId, events));
     }
+    unawaited(ref.read(dailyProvider.notifier).track(events, city));
   }
 
   (CityState, List<CityEvent>) _simulate(CityState city, int days) {

@@ -165,6 +165,16 @@ class CityCommands {
     );
   }
 
+  CommandOutcome grantReward(CityState state, int amount) {
+    if (amount <= 0) {
+      return const CommandRejected(RejectionReason.invalidTarget);
+    }
+    return CommandApplied(
+      _record(state, LedgerItem.rewards, amount),
+      events: [RewardGranted(amount)],
+    );
+  }
+
   CommandOutcome setRoadMaintenance(CityState state, RoadMaintenanceLevel level) {
     return CommandApplied(state.copyWith(roadMaintenance: level));
   }
