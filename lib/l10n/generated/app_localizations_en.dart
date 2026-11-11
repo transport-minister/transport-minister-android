@@ -1366,4 +1366,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get careerDisasters => 'Disasters handled';
+
+  @override
+  String get inboxTitle => 'Inbox';
+
+  @override
+  String get inboxOpen => 'Open inbox';
+
+  @override
+  String get inboxEmpty => 'No news yet. Mr. Bus will keep you posted!';
+
+  @override
+  String get timeJustNow => 'just now';
+
+  @override
+  String timeMinutesAgo(int minutes) {
+    return '$minutes min ago';
+  }
+
+  @override
+  String timeHoursAgo(int hours) {
+    return '$hours h ago';
+  }
+
+  @override
+  String timeDaysAgo(int days) {
+    return '$days d ago';
+  }
+
+  @override
+  String notificationPromotion(String rank) {
+    return 'Promoted to $rank!';
+  }
+
+  @override
+  String notificationLevelUp(String city, int level, String amount) {
+    return '$city reached level $level · +$amount';
+  }
+
+  @override
+  String notificationProjectIn(String project, String district) {
+    return '$project is ready in $district!';
+  }
 }

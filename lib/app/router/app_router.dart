@@ -5,6 +5,7 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_selection_providers.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_selection_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:transport_minister/features/inbox/presentation/inbox_screen.dart';
 import 'package:transport_minister/features/progression/presentation/profile_screen.dart';
 import 'package:transport_minister/features/splash/presentation/splash_screen.dart';
 
@@ -32,6 +33,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoute.profile.path,
         name: AppRoute.profile.name,
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: AppRoute.inbox.path,
+        name: AppRoute.inbox.name,
+        builder: (context, state) => const InboxScreen(),
       ),
       GoRoute(
         path: AppRoute.dashboard.path,

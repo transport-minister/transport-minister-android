@@ -30,6 +30,7 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/distr
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
+import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
@@ -112,6 +113,7 @@ class _CityViewState extends ConsumerState<_CityView> {
     }
     final metrics = const MetricsCalculator().calculate(city);
     final tip = const Advisor().bestTip(city, metrics);
+    final unread = ref.watch(inboxProvider).value?.unread ?? 0;
     return Column(
       children: [
         DashboardHud(
@@ -138,6 +140,17 @@ class _CityViewState extends ConsumerState<_CityView> {
                       metrics: metrics,
                       controller: _mapController,
                       onDistrictPressed: _openDistrict,
+                    ),
+                    Positioned(
+                      right: GameDimens.spaceS,
+                      top: GameDimens.spaceS,
+                      child: ChunkyIconButton(
+                        icon: Icons.notifications_rounded,
+                        size: 42,
+                        semanticsLabel: AppLocalizations.of(context).inboxOpen,
+                        badge: unread > 0 ? '$unread' : null,
+                        onPressed: () => context.push(AppRoute.inbox.path),
+                      ),
                     ),
                     Positioned(
                       left: GameDimens.spaceS,

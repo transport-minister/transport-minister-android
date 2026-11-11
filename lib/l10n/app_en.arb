@@ -1028,5 +1028,66 @@
   "achievementStormChaserTitle": "Storm Chaser",
   "achievementStormChaserDescription": "Handle 5 disasters.",
   "careerDecisions": "Decisions",
-  "careerDisasters": "Disasters handled"
+  "careerDisasters": "Disasters handled",
+  "inboxTitle": "Inbox",
+  "inboxOpen": "Open inbox",
+  "inboxEmpty": "No news yet. Mr. Bus will keep you posted!",
+  "timeJustNow": "just now",
+  "timeMinutesAgo": "{minutes} min ago",
+  "@timeMinutesAgo": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "timeHoursAgo": "{hours} h ago",
+  "@timeHoursAgo": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "timeDaysAgo": "{days} d ago",
+  "@timeDaysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationPromotion": "Promoted to {rank}!",
+  "@notificationPromotion": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationLevelUp": "{city} reached level {level} · +{amount}",
+  "@notificationLevelUp": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      },
+      "level": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationProjectIn": "{project} is ready in {district}!",
+  "@notificationProjectIn": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      },
+      "district": {
+        "type": "String"
+      }
+    }
+  }
 }

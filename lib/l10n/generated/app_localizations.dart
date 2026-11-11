@@ -2359,6 +2359,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Disasters handled'**
   String get careerDisasters;
+
+  /// No description provided for @inboxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inbox'**
+  String get inboxTitle;
+
+  /// No description provided for @inboxOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open inbox'**
+  String get inboxOpen;
+
+  /// No description provided for @inboxEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No news yet. Mr. Bus will keep you posted!'**
+  String get inboxEmpty;
+
+  /// No description provided for @timeJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get timeJustNow;
+
+  /// No description provided for @timeMinutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min ago'**
+  String timeMinutesAgo(int minutes);
+
+  /// No description provided for @timeHoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h ago'**
+  String timeHoursAgo(int hours);
+
+  /// No description provided for @timeDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} d ago'**
+  String timeDaysAgo(int days);
+
+  /// No description provided for @notificationPromotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Promoted to {rank}!'**
+  String notificationPromotion(String rank);
+
+  /// No description provided for @notificationLevelUp.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} reached level {level} · +{amount}'**
+  String notificationLevelUp(String city, int level, String amount);
+
+  /// No description provided for @notificationProjectIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{project} is ready in {district}!'**
+  String notificationProjectIn(String project, String district);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

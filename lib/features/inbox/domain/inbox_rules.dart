@@ -1,0 +1,86 @@
+import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
+import 'package:transport_minister/core/simulation/model/city_event.dart';
+import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/inbox/domain/inbox.dart';
+import 'package:transport_minister/features/progression/domain/progression_event.dart';
+
+class InboxRules {
+  const InboxRules();
+
+  static const capacity = 60;
+
+  Inbox addCityEvents(Inbox inbox, CityId city, List<CityEvent> events, DateTime now) {
+    final entries = <(NotificationKind, Map<String, String>)>[
+      for (final event in events)
+        ?switch (event) {
+          DecisionArrived(:final decision, :final district) => (
+            decision.kind == DecisionKind.disaster
+                ? NotificationKind.disaster
+                : NotificationKind.decision,
+            {'decision': decision.name, 'district': ?district?.name},
+          ),
+          DecisionResolved(:final decision, automatic: true) => (
+            NotificationKind.autoDecision,
+            {'decision': decision.name},
+          ),
+          ProjectCompleted(:final type, :final district) => (
+            NotificationKind.project,
+            {'project': type.name, 'district': ?district?.name},
+          ),
+          BusesDelivered(:final count) => (NotificationKind.buses, {'count': '$count'}),
+          BudgetAllocated(:final amount) => (NotificationKind.budget, {'amount': '$amount'}),
+          CityLeveledUp(:final level, :final reward) => (
+            NotificationKind.levelUp,
+            {'city': city.name, 'level': '$level', 'reward': '$reward'},
+          ),
+          CrisisWarning(:final level) => (NotificationKind.warning, {'level': '$level'}),
+          CrisisAverted() => (NotificationKind.averted, const <String, String>{}),
+          MinisterDismissed() => (NotificationKind.dismissed, const <String, String>{}),
+          _ => null,
+        },
+    ];
+    return _append(inbox, entries, now);
+  }
+
+  Inbox addProgress(Inbox inbox, List<ProgressionEvent> events, DateTime now) {
+    final entries = <(NotificationKind, Map<String, String>)>[
+      for (final event in events)
+        switch (event) {
+          RankPromoted(:final rank) => (NotificationKind.promotion, {'rank': rank.name}),
+          AchievementUnlocked(:final achievement) => (
+            NotificationKind.achievement,
+            {'achievement': achievement.name},
+          ),
+          BadgeEarned(:final city, :final tier) => (
+            NotificationKind.badge,
+            {'city': city.name, 'tier': tier.name},
+          ),
+        },
+    ];
+    return _append(inbox, entries, now);
+  }
+
+  Inbox markAllRead(Inbox inbox) =>
+      inbox.copyWith(items: [for (final item in inbox.items) item.copyWith(read: true)]);
+
+  Inbox _append(Inbox inbox, List<(NotificationKind, Map<String, String>)> entries, DateTime now) {
+    if (entries.isEmpty) {
+      return inbox;
+    }
+    var nextId = inbox.nextId;
+    final fresh = [
+      for (final (kind, data) in entries)
+        GameNotification(
+          id: nextId++,
+          kind: kind,
+          data: data,
+          createdAtMs: now.millisecondsSinceEpoch,
+        ),
+    ];
+    final items = [...fresh.reversed, ...inbox.items];
+    return inbox.copyWith(
+      items: items.length > capacity ? items.sublist(0, capacity) : items,
+      nextId: nextId,
+    );
+  }
+}
