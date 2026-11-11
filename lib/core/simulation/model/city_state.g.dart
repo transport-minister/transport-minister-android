@@ -46,6 +46,7 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
           .toList() ??
       const [],
   nextId: (json['nextId'] as num?)?.toInt() ?? 1,
+  developmentPoints: (json['developmentPoints'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>{
@@ -66,6 +67,7 @@ Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>
   'pendingLedger': instance.pendingLedger.map((k, e) => MapEntry(_$LedgerItemEnumMap[k]!, e)),
   'reports': instance.reports.map((e) => e.toJson()).toList(),
   'nextId': instance.nextId,
+  'developmentPoints': instance.developmentPoints,
 };
 
 const _$RoadMaintenanceLevelEnumMap = {
@@ -89,6 +91,7 @@ const _$LedgerItemEnumMap = {
   LedgerItem.tickets: 'tickets',
   LedgerItem.subsidy: 'subsidy',
   LedgerItem.governmentBudget: 'governmentBudget',
+  LedgerItem.levelRewards: 'levelRewards',
   LedgerItem.vehicleSales: 'vehicleSales',
   LedgerItem.loanReceived: 'loanReceived',
   LedgerItem.energy: 'energy',

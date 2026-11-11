@@ -1,8 +1,10 @@
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
+import 'package:transport_minister/core/simulation/engine/city_development.dart';
 import 'package:transport_minister/core/simulation/engine/project_rules.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
@@ -14,9 +16,13 @@ import 'package:transport_minister/core/simulation/model/project.dart';
 import 'package:transport_minister/core/simulation/model/road_maintenance_level.dart';
 
 class CityCommands {
-  const CityCommands({this.projects = const ProjectRules()});
+  const CityCommands({
+    this.projects = const ProjectRules(),
+    this.development = const CityDevelopment(),
+  });
 
   final ProjectRules projects;
+  final CityDevelopment development;
 
   CommandOutcome buyBus(
     CityState state, {
@@ -40,14 +46,15 @@ class CityCommands {
       districtId: district,
       deliveryDay: state.day + GameBalance.busDeliveryDays,
     );
-    return CommandApplied(
+    final (developed, levelEvents) = development.award(
       _record(state, LedgerItem.vehiclePurchases, -cost).copyWith(
         fleet: [...state.fleet, bus],
         nextId: state.nextId + 1,
         stats: state.stats.copyWith(busesBought: state.stats.busesBought + 1),
       ),
-      events: [BusPurchased(model, district)],
+      CityLevels.busPurchasePoints,
     );
+    return CommandApplied(developed, events: [BusPurchased(model, district), ...levelEvents]);
   }
 
   CommandOutcome sellBus(CityState state, int busId) {
@@ -79,15 +86,16 @@ class CityCommands {
     if (state.budget < cost) {
       return const CommandRejected(RejectionReason.insufficientFunds);
     }
-    return CommandApplied(
+    final (developed, levelEvents) = development.award(
       _record(state, LedgerItem.vehicleUpgrades, -cost).copyWith(
         fleet: [
           for (final other in state.fleet) other.id == busId ? other.copyWith(level: level) : other,
         ],
         stats: state.stats.copyWith(busUpgrades: state.stats.busUpgrades + 1),
       ),
-      events: [BusUpgraded(bus.model, level)],
+      CityLevels.busUpgradePoints,
     );
+    return CommandApplied(developed, events: [BusUpgraded(bus.model, level), ...levelEvents]);
   }
 
   CommandOutcome reassignBus(CityState state, int busId, DistrictId district) {

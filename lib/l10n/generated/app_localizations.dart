@@ -170,18 +170,6 @@ abstract class AppLocalizations {
   /// **'Locked'**
   String get cityStatusLocked;
 
-  /// No description provided for @citySectionComingSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'Coming soon'**
-  String get citySectionComingSoon;
-
-  /// No description provided for @citySectionLocked.
-  ///
-  /// In en, this message translates to:
-  /// **'Locked cities'**
-  String get citySectionLocked;
-
   /// No description provided for @cityComingSoonTitle.
   ///
   /// In en, this message translates to:
@@ -199,12 +187,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{city} is locked'**
   String cityLockedTitle(String city);
-
-  /// No description provided for @cityLockedBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Reach the rank of {rank} to unlock this city.'**
-  String cityLockedBody(String rank);
 
   /// No description provided for @cityFeatureBuses.
   ///
@@ -967,6 +949,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Things look calm, Minister! Keep an eye on the busiest districts.'**
   String get tipAllGood;
+
+  /// No description provided for @citySectionNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next cities'**
+  String get citySectionNext;
+
+  /// No description provided for @cityLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach level {level} in {city} to unlock it.'**
+  String cityLockedBody(int level, String city);
+
+  /// No description provided for @cityRequirement.
+  ///
+  /// In en, this message translates to:
+  /// **'Lv {level} in {city}'**
+  String cityRequirement(int level, String city);
+
+  /// No description provided for @cityStatusUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked'**
+  String get cityStatusUnlocked;
+
+  /// No description provided for @cityLevelChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level} · Target {target}'**
+  String cityLevelChip(int level, int target);
+
+  /// No description provided for @ledgerLevelRewards.
+  ///
+  /// In en, this message translates to:
+  /// **'Level rewards'**
+  String get ledgerLevelRewards;
+
+  /// No description provided for @eventCityLeveledUp.
+  ///
+  /// In en, this message translates to:
+  /// **'City level {level}! Reward {amount}'**
+  String eventCityLeveledUp(int level, String amount);
+
+  /// No description provided for @levelBarLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level}'**
+  String levelBarLabel(int level);
+
+  /// No description provided for @levelBarPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} / {next} DP'**
+  String levelBarPoints(int points, int next);
+
+  /// No description provided for @levelBarMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Max level reached'**
+  String get levelBarMax;
+
+  /// No description provided for @levelBarTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Target {target}'**
+  String levelBarTarget(int target);
+
+  /// No description provided for @levelSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} development'**
+  String levelSheetTitle(String city);
+
+  /// No description provided for @levelSheetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn development points (DP) every day by keeping citizens happy and the budget positive. New buses, upgrades and finished projects give extra DP. Each level pays a reward from the Cabinet.'**
+  String get levelSheetBody;
+
+  /// No description provided for @levelSheetTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach level {target} to unlock {city}!'**
+  String levelSheetTarget(int target, String city);
+
+  /// No description provided for @levelSheetTargetDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Target reached! Your next city is unlocked.'**
+  String get levelSheetTargetDone;
+
+  /// No description provided for @levelUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} reached level {level}!'**
+  String levelUpTitle(String city, int level);
+
+  /// No description provided for @levelUpReward.
+  ///
+  /// In en, this message translates to:
+  /// **'The Cabinet sends a bonus of {amount}.'**
+  String levelUpReward(String amount);
+
+  /// No description provided for @levelUpUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} is unlocked! It opens soon.'**
+  String levelUpUnlocked(String city);
+
+  /// No description provided for @levelUpContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Hooray!'**
+  String get levelUpContinue;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -10,6 +10,7 @@ extension LedgerItemText on LedgerItem {
     LedgerItem.tickets => l10n.ledgerTickets,
     LedgerItem.subsidy => l10n.ledgerSubsidy,
     LedgerItem.governmentBudget => l10n.ledgerGovernmentBudget,
+    LedgerItem.levelRewards => l10n.ledgerLevelRewards,
     LedgerItem.vehicleSales => l10n.ledgerVehicleSales,
     LedgerItem.loanReceived => l10n.ledgerLoanReceived,
     LedgerItem.energy => l10n.ledgerEnergy,
@@ -62,5 +63,9 @@ extension CityEventText on CityEvent {
     LoanRepaid() => l10n.eventLoanRepaid,
     CrisisWarning(:final level) => l10n.eventCrisisWarning(level),
     MinisterDismissed() => l10n.dismissedTitle,
+    CityLeveledUp(:final level, :final reward) => l10n.eventCityLeveledUp(
+      level,
+      MoneyFormat.compact(reward),
+    ),
   };
 }

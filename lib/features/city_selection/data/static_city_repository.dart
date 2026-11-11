@@ -1,24 +1,15 @@
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/domain/city_repository.dart';
-import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 
 class StaticCityRepository implements CityRepository {
   const StaticCityRepository();
 
   static const _cities = [
-    City(id: CityId.baku, availability: CityAvailability.playable),
-    City(id: CityId.istanbul, availability: CityAvailability.comingSoon),
-    City(id: CityId.london, availability: CityAvailability.comingSoon),
-    City(
-      id: CityId.tokyo,
-      availability: CityAvailability.locked,
-      requiredRank: MinisterialRank.seniorMinister,
-    ),
-    City(
-      id: CityId.newYork,
-      availability: CityAvailability.locked,
-      requiredRank: MinisterialRank.regionalGovernor,
-    ),
+    City(id: CityId.baku, contentReady: true),
+    City(id: CityId.istanbul, contentReady: false, unlockAfter: CityId.baku),
+    City(id: CityId.london, contentReady: false, unlockAfter: CityId.istanbul),
+    City(id: CityId.tokyo, contentReady: false, unlockAfter: CityId.london),
+    City(id: CityId.newYork, contentReady: false, unlockAfter: CityId.tokyo),
   ];
 
   @override

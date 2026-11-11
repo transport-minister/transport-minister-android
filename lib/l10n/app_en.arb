@@ -13,8 +13,6 @@
   "cityStatusPlayable": "Playable",
   "cityStatusComingSoon": "Coming soon",
   "cityStatusLocked": "Locked",
-  "citySectionComingSoon": "Coming soon",
-  "citySectionLocked": "Locked cities",
   "cityComingSoonTitle": "{city} is on its way!",
   "@cityComingSoonTitle": {
     "placeholders": {
@@ -28,14 +26,6 @@
   "@cityLockedTitle": {
     "placeholders": {
       "city": {
-        "type": "String"
-      }
-    }
-  },
-  "cityLockedBody": "Reach the rank of {rank} to unlock this city.",
-  "@cityLockedBody": {
-    "placeholders": {
-      "rank": {
         "type": "String"
       }
     }
@@ -332,5 +322,129 @@
     }
   },
   "tipOldFleet": "Our old buses keep breaking down. Upgrades or newer models will keep the city moving.",
-  "tipAllGood": "Things look calm, Minister! Keep an eye on the busiest districts."
+  "tipAllGood": "Things look calm, Minister! Keep an eye on the busiest districts.",
+  "citySectionNext": "Next cities",
+  "cityLockedBody": "Reach level {level} in {city} to unlock it.",
+  "@cityLockedBody": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "cityRequirement": "Lv {level} in {city}",
+  "@cityRequirement": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "cityStatusUnlocked": "Unlocked",
+  "cityLevelChip": "Level {level} · Target {target}",
+  "@cityLevelChip": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "ledgerLevelRewards": "Level rewards",
+  "eventCityLeveledUp": "City level {level}! Reward {amount}",
+  "@eventCityLeveledUp": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "levelBarLabel": "Level {level}",
+  "@levelBarLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "levelBarPoints": "{points} / {next} DP",
+  "@levelBarPoints": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      },
+      "next": {
+        "type": "int"
+      }
+    }
+  },
+  "levelBarMax": "Max level reached",
+  "levelBarTarget": "Target {target}",
+  "@levelBarTarget": {
+    "placeholders": {
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "levelSheetTitle": "{city} development",
+  "@levelSheetTitle": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "levelSheetBody": "Earn development points (DP) every day by keeping citizens happy and the budget positive. New buses, upgrades and finished projects give extra DP. Each level pays a reward from the Cabinet.",
+  "levelSheetTarget": "Reach level {target} to unlock {city}!",
+  "@levelSheetTarget": {
+    "placeholders": {
+      "target": {
+        "type": "int"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "levelSheetTargetDone": "Target reached! Your next city is unlocked.",
+  "levelUpTitle": "{city} reached level {level}!",
+  "@levelUpTitle": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      },
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "levelUpReward": "The Cabinet sends a bonus of {amount}.",
+  "@levelUpReward": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "levelUpUnlocked": "{city} is unlocked! It opens soon.",
+  "@levelUpUnlocked": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "levelUpContinue": "Hooray!"
 }

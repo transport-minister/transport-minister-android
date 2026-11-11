@@ -6,10 +6,12 @@ import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_selection/data/static_city_repository.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
+import 'package:transport_minister/features/progression/domain/minister_profile.dart';
 
 import '../../helpers/phone_viewport.dart';
 
-Future<void> _openCitySelection(WidgetTester tester) async {
+Future<void> _openCitySelection(WidgetTester tester, {InMemoryDocumentStore? store}) async {
   usePhoneViewport(tester);
   tester.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(
     disableAnimations: true,
@@ -18,7 +20,7 @@ Future<void> _openCitySelection(WidgetTester tester) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
-        documentStoreProvider.overrideWithValue(InMemoryDocumentStore()),
+        documentStoreProvider.overrideWithValue(store ?? InMemoryDocumentStore()),
         tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
       ],
       child: const TransportMinisterApp(),
@@ -46,27 +48,27 @@ void main() {
     expect(find.text('Wind Heights'), findsWidgets);
   });
 
-  testWidgets('coming soon city explains it is on its way', (tester) async {
+  testWidgets('the next city stays locked until Baku reaches its target', (tester) async {
     await _openCitySelection(tester);
 
     await tester.scrollUntilVisible(find.text('Istanbul'), 200);
     await tester.tap(find.text('Istanbul'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Istanbul is on its way!'), findsOneWidget);
+    expect(find.text('Istanbul is locked'), findsOneWidget);
+    expect(find.text('Reach level 10 in Baku to unlock it.'), findsOneWidget);
   });
 
-  testWidgets('locked city names the rank that unlocks it', (tester) async {
-    await _openCitySelection(tester);
+  testWidgets('reaching the target unlocks the next city', (tester) async {
+    final store = InMemoryDocumentStore();
+    await LocalProfileRepository(store)
+        .save(const MinisterProfile(bestCityLevels: {CityId.baku: 10}));
+    await _openCitySelection(tester, store: store);
 
-    await tester.scrollUntilVisible(find.text('Tokyo'), 200);
-    await tester.tap(find.text('Tokyo'));
+    await tester.scrollUntilVisible(find.text('Istanbul'), 200);
+    await tester.tap(find.text('Istanbul'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Tokyo is locked'), findsOneWidget);
-    expect(
-      find.text('Reach the rank of Senior Transport Minister to unlock this city.'),
-      findsOneWidget,
-    );
+    expect(find.text('Istanbul is on its way!'), findsOneWidget);
   });
 }
