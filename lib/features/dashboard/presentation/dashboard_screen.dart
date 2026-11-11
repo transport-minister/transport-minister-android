@@ -13,6 +13,7 @@ import 'package:transport_minister/features/advisor/domain/advisor.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
+import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/domain/city_unlocks.dart';
@@ -40,6 +41,8 @@ import 'package:transport_minister/features/progression/domain/ministerial_rank.
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
 import 'package:transport_minister/features/progression/presentation/progression_texts.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/promotion_sheet.dart';
+import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
+import 'package:transport_minister/features/tutorial/presentation/tutorial_overlay.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -79,6 +82,7 @@ class _CityView extends ConsumerStatefulWidget {
 
 class _CityViewState extends ConsumerState<_CityView> {
   final _mapController = CityMapController();
+  final _targets = TutorialTargets();
 
   @override
   void dispose() {
@@ -92,6 +96,7 @@ class _CityViewState extends ConsumerState<_CityView> {
     if (widget.session.awaySummary != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showAwaySummary());
     }
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startTutorial());
   }
 
   @override
@@ -122,91 +127,110 @@ class _CityViewState extends ConsumerState<_CityView> {
     final claimable = daily == null
         ? 0
         : const DailyRules().claimable(daily, ref.watch(nowProvider)());
-    return Column(
+    final slowest = metrics.districts.reduce((a, b) => b.waitingMinutes > a.waitingMinutes ? b : a);
+    return Stack(
       children: [
-        DashboardHud(
-          city: city,
-          rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
-          dayProgress: widget.session.dayProgress,
-          onProfilePressed: () => context.push(AppRoute.profile.path),
-        ),
-        CityLevelBar(city: city, onPressed: _showLevelInfo),
-        CrisisBanner(crisis: city.crisis),
-        DistrictStrip(metrics: metrics, onDistrictPressed: _focusDistrict),
-        const SizedBox(height: GameDimens.spaceS),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: GameDimens.spaceL),
-            child: ChunkyCard(
-              padding: EdgeInsets.zero,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(GameDimens.radiusL - GameDimens.outline),
-                child: Stack(
-                  children: [
-                    CityMap(
-                      city: city,
-                      metrics: metrics,
-                      controller: _mapController,
-                      onDistrictPressed: _openDistrict,
-                    ),
-                    Positioned(
-                      right: GameDimens.spaceS,
-                      top: GameDimens.spaceS,
-                      child: ChunkyIconButton(
-                        icon: Icons.notifications_rounded,
-                        size: 42,
-                        semanticsLabel: AppLocalizations.of(context).inboxOpen,
-                        badge: unread > 0 ? '$unread' : null,
-                        onPressed: () => context.push(AppRoute.inbox.path),
-                      ),
-                    ),
-                    Positioned(
-                      right: GameDimens.spaceS,
-                      top: 62,
-                      child: ChunkyIconButton(
-                        icon: Icons.task_alt_rounded,
-                        size: 42,
-                        palette: ChunkyPalette.sunny,
-                        semanticsLabel: AppLocalizations.of(context).dailyOpen,
-                        badge: claimable > 0 ? '$claimable' : null,
-                        onPressed: () => showChunkySheet<void>(
-                          context: context,
-                          builder: (context) => DailySheet(cityId: widget.cityId),
+        Column(
+          children: [
+            DashboardHud(
+              targets: _targets,
+              city: city,
+              rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
+              dayProgress: widget.session.dayProgress,
+              onProfilePressed: () => context.push(AppRoute.profile.path),
+            ),
+            KeyedSubtree(
+              key: _targets.level,
+              child: CityLevelBar(city: city, onPressed: _showLevelInfo),
+            ),
+            CrisisBanner(crisis: city.crisis),
+            KeyedSubtree(
+              key: _targets.districts,
+              child: DistrictStrip(metrics: metrics, onDistrictPressed: _focusDistrict),
+            ),
+            const SizedBox(height: GameDimens.spaceS),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: GameDimens.spaceL),
+                child: ChunkyCard(
+                  padding: EdgeInsets.zero,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(GameDimens.radiusL - GameDimens.outline),
+                    child: Stack(
+                      children: [
+                        CityMap(
+                          city: city,
+                          metrics: metrics,
+                          controller: _mapController,
+                          onDistrictPressed: _openDistrict,
                         ),
-                      ),
-                    ),
-                    Positioned(
-                      left: GameDimens.spaceS,
-                      bottom: GameDimens.spaceS,
-                      child: MrBusButton(
-                        urgent:
-                            tip.kind.isUrgent ||
-                            city.decisions.any(
-                              (decision) => decision.template.kind == DecisionKind.disaster,
+                        Positioned(
+                          right: GameDimens.spaceS,
+                          top: GameDimens.spaceS,
+                          child: ChunkyIconButton(
+                            icon: Icons.notifications_rounded,
+                            size: 42,
+                            semanticsLabel: AppLocalizations.of(context).inboxOpen,
+                            badge: unread > 0 ? '$unread' : null,
+                            onPressed: () => context.push(AppRoute.inbox.path),
+                          ),
+                        ),
+                        Positioned(
+                          right: GameDimens.spaceS,
+                          top: 62,
+                          child: ChunkyIconButton(
+                            key: _targets.tasks,
+                            icon: Icons.task_alt_rounded,
+                            size: 42,
+                            palette: ChunkyPalette.sunny,
+                            semanticsLabel: AppLocalizations.of(context).dailyOpen,
+                            badge: claimable > 0 ? '$claimable' : null,
+                            onPressed: () => showChunkySheet<void>(
+                              context: context,
+                              builder: (context) => DailySheet(cityId: widget.cityId),
                             ),
-                        news: city.decisions.length,
-                        onPressed: city.decisions.isEmpty
-                            ? () => _showTip(tip)
-                            : () => showNews(context, widget.cityId, city.decisions),
-                      ),
+                          ),
+                        ),
+                        Positioned(
+                          left: GameDimens.spaceS,
+                          bottom: GameDimens.spaceS,
+                          child: MrBusButton(
+                            key: _targets.news,
+                            urgent:
+                                tip.kind.isUrgent ||
+                                city.decisions.any(
+                                  (decision) => decision.template.kind == DecisionKind.disaster,
+                                ),
+                            news: city.decisions.length,
+                            onPressed: city.decisions.isEmpty
+                                ? () => _showTip(tip)
+                                : () => showNews(context, widget.cityId, city.decisions),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        SafeArea(
-          top: false,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-              GameDimens.spaceL,
-              GameDimens.spaceM,
-              GameDimens.spaceL,
-              GameDimens.spaceM,
+            SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  GameDimens.spaceL,
+                  GameDimens.spaceM,
+                  GameDimens.spaceL,
+                  GameDimens.spaceM,
+                ),
+                child: DailyReportCard(report: city.lastReport),
+              ),
             ),
-            child: DailyReportCard(report: city.lastReport),
-          ),
+          ],
+        ),
+        TutorialOverlay(
+          cityId: widget.cityId,
+          targets: _targets,
+          districtName: slowest.id.displayName(AppLocalizations.of(context)),
         ),
       ],
     );
@@ -224,15 +248,24 @@ class _CityViewState extends ConsumerState<_CityView> {
     _mapController.focusOn(district);
     await Future<void>.delayed(const Duration(milliseconds: 380));
     if (mounted) {
-      _openDistrict(district);
+      await _openDistrict(district);
     }
   }
 
-  void _openDistrict(DistrictId district) {
-    showChunkySheet<void>(
+  Future<void> _openDistrict(DistrictId district) async {
+    final tutorial = ref.read(tutorialProvider.notifier)..onDistrictOpened();
+    await showChunkySheet<void>(
       context: context,
       builder: (context) => DistrictSheet(cityId: widget.cityId, district: district),
     );
+    tutorial.onDistrictClosed();
+  }
+
+  Future<void> _startTutorial() async {
+    final profile = await ref.read(profileProvider.future);
+    if (mounted && !profile.tutorialDone) {
+      ref.read(tutorialProvider.notifier).start();
+    }
   }
 
   Future<void> _showAwaySummary() async {
@@ -289,6 +322,7 @@ class _CityViewState extends ConsumerState<_CityView> {
   }
 
   void _announce(CityGameSession session) {
+    ref.read(tutorialProvider.notifier).onCityEvents(session.latestEvents);
     final l10n = AppLocalizations.of(context);
     final levelUps = session.latestEvents.whereType<CityLeveledUp>().toList();
     if (levelUps.isNotEmpty) {

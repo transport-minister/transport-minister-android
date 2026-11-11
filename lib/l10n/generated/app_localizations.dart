@@ -2527,6 +2527,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reach {percent}% satisfaction'**
   String taskReachSatisfaction(int percent);
+
+  /// No description provided for @tutorialNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get tutorialNext;
+
+  /// No description provided for @tutorialSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get tutorialSkip;
+
+  /// No description provided for @tutorialFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s go!'**
+  String get tutorialFinish;
+
+  /// No description provided for @tutorialWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi Minister!'**
+  String get tutorialWelcomeTitle;
+
+  /// No description provided for @tutorialWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m Mr. Bus, your transport advisor. Let me show you Baku in 30 seconds!'**
+  String get tutorialWelcome;
+
+  /// No description provided for @tutorialBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your budget. Tickets and the Cabinet fill it. Fuel, wages and repairs drain it.'**
+  String get tutorialBudget;
+
+  /// No description provided for @tutorialMood.
+  ///
+  /// In en, this message translates to:
+  /// **'This heart shows how happy citizens are. Below 30% for too long and the President fires you!'**
+  String get tutorialMood;
+
+  /// No description provided for @tutorialClock.
+  ///
+  /// In en, this message translates to:
+  /// **'A day passes every minute, even while you are away, for up to a week.'**
+  String get tutorialClock;
+
+  /// No description provided for @tutorialDistrict.
+  ///
+  /// In en, this message translates to:
+  /// **'People in {district} wait the longest. Tap it!'**
+  String tutorialDistrict(String district);
+
+  /// No description provided for @tutorialBuyBus.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap Add bus. New buses cut waiting times!'**
+  String get tutorialBuyBus;
+
+  /// No description provided for @tutorialBusBought.
+  ///
+  /// In en, this message translates to:
+  /// **'Your bus arrives tomorrow. Faster service means happier citizens and more money!'**
+  String get tutorialBusBought;
+
+  /// No description provided for @tutorialLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Baku grows as you play. Reach level 10 to unlock Istanbul!'**
+  String get tutorialLevel;
+
+  /// No description provided for @tutorialNews.
+  ///
+  /// In en, this message translates to:
+  /// **'When I wave here, I have news: requests, offers and disasters. You decide!'**
+  String get tutorialNews;
+
+  /// No description provided for @tutorialTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily tasks and a daily gift bring extra money every day.'**
+  String get tutorialTasks;
+
+  /// No description provided for @tutorialProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Climb nine ranks and collect achievements and city badges. Good luck, Minister!'**
+  String get tutorialProfile;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
