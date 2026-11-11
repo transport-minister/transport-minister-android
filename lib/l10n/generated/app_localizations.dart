@@ -103,6 +103,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Move the city. Win the people.'**
   String get appTagline;
+
+  /// No description provided for @commonBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get commonBack;
+
+  /// No description provided for @commonGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get commonGotIt;
+
+  /// No description provided for @splashTitleTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport'**
+  String get splashTitleTop;
+
+  /// No description provided for @splashTitleBottom.
+  ///
+  /// In en, this message translates to:
+  /// **'Minister'**
+  String get splashTitleBottom;
+
+  /// No description provided for @splashLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing the city…'**
+  String get splashLoading;
+
+  /// No description provided for @citySelectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your city'**
+  String get citySelectionTitle;
+
+  /// No description provided for @citySelectionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where will you serve as Transport Minister?'**
+  String get citySelectionSubtitle;
+
+  /// No description provided for @cityPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get cityPlay;
+
+  /// No description provided for @cityStatusPlayable.
+  ///
+  /// In en, this message translates to:
+  /// **'Playable'**
+  String get cityStatusPlayable;
+
+  /// No description provided for @cityStatusComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get cityStatusComingSoon;
+
+  /// No description provided for @cityStatusLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get cityStatusLocked;
+
+  /// No description provided for @citySectionComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get citySectionComingSoon;
+
+  /// No description provided for @citySectionLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked cities'**
+  String get citySectionLocked;
+
+  /// No description provided for @cityComingSoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} is on its way!'**
+  String cityComingSoonTitle(String city);
+
+  /// No description provided for @cityComingSoonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We are still drawing its streets and timetables. Grow your career in Baku meanwhile.'**
+  String get cityComingSoonBody;
+
+  /// No description provided for @cityLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} is locked'**
+  String cityLockedTitle(String city);
+
+  /// No description provided for @cityLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach the rank of {rank} to unlock this city.'**
+  String cityLockedBody(String rank);
+
+  /// No description provided for @cityFeatureBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'Buses'**
+  String get cityFeatureBuses;
+
+  /// No description provided for @cityFeatureRoads.
+  ///
+  /// In en, this message translates to:
+  /// **'Roads'**
+  String get cityFeatureRoads;
+
+  /// No description provided for @cityFeatureBikeLanes.
+  ///
+  /// In en, this message translates to:
+  /// **'Bike lanes'**
+  String get cityFeatureBikeLanes;
+
+  /// No description provided for @cityBakuName.
+  ///
+  /// In en, this message translates to:
+  /// **'Baku'**
+  String get cityBakuName;
+
+  /// No description provided for @cityBakuTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Windy capital on the Caspian Sea'**
+  String get cityBakuTagline;
+
+  /// No description provided for @cityIstanbulName.
+  ///
+  /// In en, this message translates to:
+  /// **'Istanbul'**
+  String get cityIstanbulName;
+
+  /// No description provided for @cityIstanbulTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Two continents, one traffic jam'**
+  String get cityIstanbulTagline;
+
+  /// No description provided for @cityLondonName.
+  ///
+  /// In en, this message translates to:
+  /// **'London'**
+  String get cityLondonName;
+
+  /// No description provided for @cityLondonTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Double-deckers and rainy rush hours'**
+  String get cityLondonTagline;
+
+  /// No description provided for @cityTokyoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tokyo'**
+  String get cityTokyoName;
+
+  /// No description provided for @cityTokyoTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'The busiest stations on Earth'**
+  String get cityTokyoTagline;
+
+  /// No description provided for @cityNewYorkName.
+  ///
+  /// In en, this message translates to:
+  /// **'New York'**
+  String get cityNewYorkName;
+
+  /// No description provided for @cityNewYorkTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'The city that never parks'**
+  String get cityNewYorkTagline;
+
+  /// No description provided for @rankJuniorOfficial.
+  ///
+  /// In en, this message translates to:
+  /// **'Junior Transport Official'**
+  String get rankJuniorOfficial;
+
+  /// No description provided for @rankInspector.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport Inspector'**
+  String get rankInspector;
+
+  /// No description provided for @rankDirector.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport Director'**
+  String get rankDirector;
+
+  /// No description provided for @rankDeputyMinister.
+  ///
+  /// In en, this message translates to:
+  /// **'Deputy Transport Minister'**
+  String get rankDeputyMinister;
+
+  /// No description provided for @rankMinister.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport Minister'**
+  String get rankMinister;
+
+  /// No description provided for @rankSeniorMinister.
+  ///
+  /// In en, this message translates to:
+  /// **'Senior Transport Minister'**
+  String get rankSeniorMinister;
+
+  /// No description provided for @rankRegionalGovernor.
+  ///
+  /// In en, this message translates to:
+  /// **'Regional Transport Governor'**
+  String get rankRegionalGovernor;
+
+  /// No description provided for @rankNationalLeader.
+  ///
+  /// In en, this message translates to:
+  /// **'National Infrastructure Leader'**
+  String get rankNationalLeader;
+
+  /// No description provided for @rankInternationalAuthority.
+  ///
+  /// In en, this message translates to:
+  /// **'International Transport Authority'**
+  String get rankInternationalAuthority;
+
+  /// No description provided for @dashboardWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to {city}, Minister!'**
+  String dashboardWelcome(String city);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
