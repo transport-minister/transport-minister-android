@@ -2419,6 +2419,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{project} is ready in {district}!'**
   String notificationProjectIn(String project, String district);
+
+  /// No description provided for @ledgerRewards.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewards'**
+  String get ledgerRewards;
+
+  /// No description provided for @dailyOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily tasks'**
+  String get dailyOpen;
+
+  /// No description provided for @dailyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily tasks'**
+  String get dailyTitle;
+
+  /// No description provided for @dailyStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily gift'**
+  String get dailyStreakTitle;
+
+  /// No description provided for @dailyStreakDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} of 7'**
+  String dailyStreakDay(int day);
+
+  /// No description provided for @dailyStreakDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Come back tomorrow for the next gift!'**
+  String get dailyStreakDone;
+
+  /// No description provided for @dailyClaim.
+  ///
+  /// In en, this message translates to:
+  /// **'Claim'**
+  String get dailyClaim;
+
+  /// No description provided for @dailyClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'Claimed'**
+  String get dailyClaimed;
+
+  /// No description provided for @dailyComeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'New tasks every day at midnight'**
+  String get dailyComeBack;
+
+  /// No description provided for @dailyReward.
+  ///
+  /// In en, this message translates to:
+  /// **'+{money} · +{xp} XP'**
+  String dailyReward(String money, int xp);
+
+  /// No description provided for @dailyProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{progress} / {target}'**
+  String dailyProgress(String progress, String target);
+
+  /// No description provided for @taskBuyBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy {count} buses'**
+  String taskBuyBuses(int count);
+
+  /// No description provided for @taskMakeDecisions.
+  ///
+  /// In en, this message translates to:
+  /// **'Make {count} decisions'**
+  String taskMakeDecisions(int count);
+
+  /// No description provided for @taskRunDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Run the city for {count} days'**
+  String taskRunDays(int count);
+
+  /// No description provided for @taskEarnTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn {amount} from tickets'**
+  String taskEarnTickets(String amount);
+
+  /// No description provided for @taskFinishProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish a construction project'**
+  String get taskFinishProject;
+
+  /// No description provided for @taskRepairRoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Repair a road'**
+  String get taskRepairRoad;
+
+  /// No description provided for @taskReachSatisfaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach {percent}% satisfaction'**
+  String taskReachSatisfaction(int percent);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

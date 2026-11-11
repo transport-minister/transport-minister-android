@@ -1408,4 +1408,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String notificationProjectIn(String project, String district) {
     return '$project is ready in $district!';
   }
+
+  @override
+  String get ledgerRewards => 'Rewards';
+
+  @override
+  String get dailyOpen => 'Daily tasks';
+
+  @override
+  String get dailyTitle => 'Daily tasks';
+
+  @override
+  String get dailyStreakTitle => 'Daily gift';
+
+  @override
+  String dailyStreakDay(int day) {
+    return 'Day $day of 7';
+  }
+
+  @override
+  String get dailyStreakDone => 'Come back tomorrow for the next gift!';
+
+  @override
+  String get dailyClaim => 'Claim';
+
+  @override
+  String get dailyClaimed => 'Claimed';
+
+  @override
+  String get dailyComeBack => 'New tasks every day at midnight';
+
+  @override
+  String dailyReward(String money, int xp) {
+    return '+$money · +$xp XP';
+  }
+
+  @override
+  String dailyProgress(String progress, String target) {
+    return '$progress / $target';
+  }
+
+  @override
+  String taskBuyBuses(int count) {
+    return 'Buy $count buses';
+  }
+
+  @override
+  String taskMakeDecisions(int count) {
+    return 'Make $count decisions';
+  }
+
+  @override
+  String taskRunDays(int count) {
+    return 'Run the city for $count days';
+  }
+
+  @override
+  String taskEarnTickets(String amount) {
+    return 'Earn $amount from tickets';
+  }
+
+  @override
+  String get taskFinishProject => 'Finish a construction project';
+
+  @override
+  String get taskRepairRoad => 'Repair a road';
+
+  @override
+  String taskReachSatisfaction(int percent) {
+    return 'Reach $percent% satisfaction';
+  }
 }

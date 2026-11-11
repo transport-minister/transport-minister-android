@@ -79,7 +79,7 @@ class DaySimulator {
     );
 
     final overall = StakeholderGroup.overall(groups);
-    events.add(DayClosed(state.day, overall));
+    events.add(DayClosed(state.day, overall, tickets: operating[LedgerItem.tickets] ?? 0));
     final crisis = _evaluateCrisis(next.crisis, overall, budget, events);
     final report = DailyReport(
       day: state.day,

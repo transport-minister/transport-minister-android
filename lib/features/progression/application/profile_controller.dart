@@ -9,6 +9,7 @@ import 'package:transport_minister/features/progression/domain/minister_profile.
 import 'package:transport_minister/features/progression/domain/profile_repository.dart';
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
 import 'package:transport_minister/features/progression/domain/progression_rules.dart';
+import 'package:transport_minister/features/progression/domain/rank_ladder.dart';
 
 final profileRepositoryProvider = Provider<ProfileRepository>(
   (ref) => LocalProfileRepository(ref.watch(documentStoreProvider)),
@@ -35,6 +36,28 @@ class ProfileController extends AsyncNotifier<MinisterProfile> {
   @override
   Future<MinisterProfile> build() async =>
       await ref.read(profileRepositoryProvider).load() ?? const MinisterProfile();
+
+  Future<void> addXp(int xp) {
+    return _queue = _queue.then((_) async {
+      if (!ref.mounted) {
+        return;
+      }
+      final profile = await future;
+      if (!ref.mounted) {
+        return;
+      }
+      final next = profile.copyWith(xp: profile.xp + xp);
+      final rank = RankLadder.earned(current: next.rank, xp: next.xp, reputation: next.reputation);
+      final promoted = next.copyWith(rank: rank);
+      state = AsyncData(promoted);
+      await ref.read(profileRepositoryProvider).save(promoted);
+      if (rank != profile.rank && ref.mounted) {
+        final events = [RankPromoted(rank)];
+        ref.read(progressionFeedProvider.notifier).publish(events);
+        await ref.read(inboxProvider.notifier).recordProgress(events);
+      }
+    });
+  }
 
   Future<void> applyCity(CityId city, CityState state, List<CityEvent> events) {
     return _queue = _queue.then((_) => _apply(city, state, events));

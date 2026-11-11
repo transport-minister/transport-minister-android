@@ -8,6 +8,7 @@ import 'package:transport_minister/core/simulation/catalog/district_catalog.dart
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
+import 'package:transport_minister/core/time/clock_providers.dart';
 import 'package:transport_minister/features/advisor/domain/advisor.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
@@ -17,6 +18,9 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/domain/city_unlocks.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_presentation.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_selection_providers.dart';
+import 'package:transport_minister/features/daily/application/daily_controller.dart';
+import 'package:transport_minister/features/daily/domain/daily_rules.dart';
+import 'package:transport_minister/features/daily/presentation/daily_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/away_summary_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_level_bar.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_lifecycle_scope.dart';
@@ -114,6 +118,10 @@ class _CityViewState extends ConsumerState<_CityView> {
     final metrics = const MetricsCalculator().calculate(city);
     final tip = const Advisor().bestTip(city, metrics);
     final unread = ref.watch(inboxProvider).value?.unread ?? 0;
+    final daily = ref.watch(dailyProvider).value;
+    final claimable = daily == null
+        ? 0
+        : const DailyRules().claimable(daily, ref.watch(nowProvider)());
     return Column(
       children: [
         DashboardHud(
@@ -150,6 +158,21 @@ class _CityViewState extends ConsumerState<_CityView> {
                         semanticsLabel: AppLocalizations.of(context).inboxOpen,
                         badge: unread > 0 ? '$unread' : null,
                         onPressed: () => context.push(AppRoute.inbox.path),
+                      ),
+                    ),
+                    Positioned(
+                      right: GameDimens.spaceS,
+                      top: 62,
+                      child: ChunkyIconButton(
+                        icon: Icons.task_alt_rounded,
+                        size: 42,
+                        palette: ChunkyPalette.sunny,
+                        semanticsLabel: AppLocalizations.of(context).dailyOpen,
+                        badge: claimable > 0 ? '$claimable' : null,
+                        onPressed: () => showChunkySheet<void>(
+                          context: context,
+                          builder: (context) => DailySheet(cityId: widget.cityId),
+                        ),
                       ),
                     ),
                     Positioned(

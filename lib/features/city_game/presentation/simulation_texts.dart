@@ -12,6 +12,7 @@ extension LedgerItemText on LedgerItem {
     LedgerItem.subsidy => l10n.ledgerSubsidy,
     LedgerItem.governmentBudget => l10n.ledgerGovernmentBudget,
     LedgerItem.levelRewards => l10n.ledgerLevelRewards,
+    LedgerItem.rewards => l10n.ledgerRewards,
     LedgerItem.vehicleSales => l10n.ledgerVehicleSales,
     LedgerItem.loanReceived => l10n.ledgerLoanReceived,
     LedgerItem.energy => l10n.ledgerEnergy,
@@ -56,7 +57,11 @@ extension RejectionReasonText on RejectionReason {
 
 extension CityEventText on CityEvent {
   bool get isSilent => switch (this) {
-    DayClosed() || CityLeveledUp() || ReputationShift() || DecisionArrived() => true,
+    DayClosed() ||
+    CityLeveledUp() ||
+    ReputationShift() ||
+    DecisionArrived() ||
+    RewardGranted() => true,
     DecisionResolved(:final automatic) => !automatic,
     _ => false,
   };
@@ -82,5 +87,6 @@ extension CityEventText on CityEvent {
     ),
     DecisionResolved(:final decision) => l10n.eventDecisionAutomatic(decision.title(l10n, null)),
     ReputationShift() => '',
+    RewardGranted(:final amount) => MoneyFormat.signed(amount),
   };
 }
