@@ -14,6 +14,8 @@ abstract class CareerStats with _$CareerStats {
     @Default(0) int roadRepairs,
     @Default(0) int crisesAverted,
     @Default(0) int dismissals,
+    @Default(0) int decisionsMade,
+    @Default(0) int disastersHandled,
   }) = _CareerStats;
 
   factory CareerStats.fromJson(Map<String, dynamic> json) => _$CareerStatsFromJson(json);

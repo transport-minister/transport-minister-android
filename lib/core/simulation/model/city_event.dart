@@ -1,6 +1,7 @@
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
+import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 
 sealed class CityEvent {
   const CityEvent();
@@ -76,4 +77,25 @@ final class DayClosed extends CityEvent {
 
 final class CrisisAverted extends CityEvent {
   const CrisisAverted();
+}
+
+final class DecisionArrived extends CityEvent {
+  const DecisionArrived(this.decision, this.district);
+
+  final DecisionId decision;
+  final DistrictId? district;
+}
+
+final class DecisionResolved extends CityEvent {
+  const DecisionResolved(this.decision, {required this.riskTriggered, required this.automatic});
+
+  final DecisionId decision;
+  final bool riskTriggered;
+  final bool automatic;
+}
+
+final class ReputationShift extends CityEvent {
+  const ReputationShift(this.delta);
+
+  final double delta;
 }

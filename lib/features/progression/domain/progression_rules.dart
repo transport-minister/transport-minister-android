@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
+import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
@@ -33,6 +34,8 @@ class ProgressionRules {
   static const warningPenalty = 5.0;
   static const dismissalPenalty = 20.0;
   static const levelUpBonus = 2.0;
+  static const xpPerDecision = 15;
+  static const xpPerDisaster = 25;
 
   ProgressionUpdate apply(
     MinisterProfile profile, {
@@ -92,6 +95,11 @@ class ProgressionRules {
         ),
         CrisisAverted() => next.copyWith(crisesAverted: next.crisesAverted + 1),
         MinisterDismissed() => next.copyWith(dismissals: next.dismissals + 1),
+        DecisionResolved(:final decision, automatic: false) => next.copyWith(
+          decisionsMade: next.decisionsMade + 1,
+          disastersHandled:
+              next.disastersHandled + (decision.kind == DecisionKind.disaster ? 1 : 0),
+        ),
         _ => next,
       };
     }
@@ -108,6 +116,8 @@ class ProgressionRules {
         ProjectCompleted() => xpPerProject,
         CityLeveledUp(:final level) => xpPerCityLevel * level,
         BudgetAllocated() => xpPerAllocation,
+        DecisionResolved(:final decision, automatic: false) =>
+          decision.kind == DecisionKind.disaster ? xpPerDisaster : xpPerDecision,
         _ => 0,
       };
     }
@@ -122,6 +132,7 @@ class ProgressionRules {
         CrisisWarning() => value - warningPenalty,
         MinisterDismissed() => value - dismissalPenalty,
         CityLeveledUp() => value + levelUpBonus,
+        ReputationShift(:final delta) => value + delta,
         _ => value,
       };
     }
@@ -151,6 +162,8 @@ class ProgressionRules {
       AchievementId.risingCity => city.level >= 5,
       AchievementId.cityChampion => city.level >= CityLevels.targetLevel,
       AchievementId.survivor => career.crisesAverted >= 1,
+      AchievementId.decisive => career.decisionsMade >= 25,
+      AchievementId.stormChaser => career.disastersHandled >= 5,
       AchievementId.veteranMinister => career.daysServed >= 365,
     };
   }

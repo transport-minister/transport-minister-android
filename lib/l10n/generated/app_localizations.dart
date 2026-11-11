@@ -1399,6 +1399,966 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Serve 365 days.'**
   String get achievementVeteranMinisterDescription;
+
+  /// No description provided for @ledgerDecisions.
+  ///
+  /// In en, this message translates to:
+  /// **'Decisions & events'**
+  String get ledgerDecisions;
+
+  /// No description provided for @eventDecisionArrived.
+  ///
+  /// In en, this message translates to:
+  /// **'Mr. Bus has news: {title}'**
+  String eventDecisionArrived(String title);
+
+  /// No description provided for @eventDecisionAutomatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Time ran out: {title} was decided for you'**
+  String eventDecisionAutomatic(String title);
+
+  /// No description provided for @groupPassengers.
+  ///
+  /// In en, this message translates to:
+  /// **'Passengers'**
+  String get groupPassengers;
+
+  /// No description provided for @groupDrivers.
+  ///
+  /// In en, this message translates to:
+  /// **'Drivers'**
+  String get groupDrivers;
+
+  /// No description provided for @groupPedestrians.
+  ///
+  /// In en, this message translates to:
+  /// **'Pedestrians'**
+  String get groupPedestrians;
+
+  /// No description provided for @groupCyclists.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyclists'**
+  String get groupCyclists;
+
+  /// No description provided for @groupBusinesses.
+  ///
+  /// In en, this message translates to:
+  /// **'Businesses'**
+  String get groupBusinesses;
+
+  /// No description provided for @groupTransportWorkers.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus crews'**
+  String get groupTransportWorkers;
+
+  /// No description provided for @groupEnvironmentalists.
+  ///
+  /// In en, this message translates to:
+  /// **'Eco groups'**
+  String get groupEnvironmentalists;
+
+  /// No description provided for @groupLogistics.
+  ///
+  /// In en, this message translates to:
+  /// **'Logistics'**
+  String get groupLogistics;
+
+  /// No description provided for @busVeteran.
+  ///
+  /// In en, this message translates to:
+  /// **'Veteran 80'**
+  String get busVeteran;
+
+  /// No description provided for @busHopMini.
+  ///
+  /// In en, this message translates to:
+  /// **'Hop Mini'**
+  String get busHopMini;
+
+  /// No description provided for @busCityRunner.
+  ///
+  /// In en, this message translates to:
+  /// **'CityRunner 12'**
+  String get busCityRunner;
+
+  /// No description provided for @busMegaLink.
+  ///
+  /// In en, this message translates to:
+  /// **'MegaLink'**
+  String get busMegaLink;
+
+  /// No description provided for @busVoltaE.
+  ///
+  /// In en, this message translates to:
+  /// **'Volta E-12'**
+  String get busVoltaE;
+
+  /// No description provided for @kindRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Request'**
+  String get kindRequest;
+
+  /// No description provided for @kindOpportunity.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer'**
+  String get kindOpportunity;
+
+  /// No description provided for @kindCrisis.
+  ///
+  /// In en, this message translates to:
+  /// **'Crisis'**
+  String get kindCrisis;
+
+  /// No description provided for @kindDisaster.
+  ///
+  /// In en, this message translates to:
+  /// **'Disaster'**
+  String get kindDisaster;
+
+  /// No description provided for @decisionDaysLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =0{Decide today} =1{1 day left} other{{days} days left}}'**
+  String decisionDaysLeft(int days);
+
+  /// No description provided for @decisionChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose'**
+  String get decisionChoose;
+
+  /// No description provided for @decisionCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost {amount}'**
+  String decisionCost(String amount);
+
+  /// No description provided for @decisionFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get decisionFree;
+
+  /// No description provided for @decisionRisk.
+  ///
+  /// In en, this message translates to:
+  /// **'{chance}% risk:'**
+  String decisionRisk(int chance);
+
+  /// No description provided for @decisionResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Decision made!'**
+  String get decisionResultTitle;
+
+  /// No description provided for @decisionResultCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything went as planned, Minister.'**
+  String get decisionResultCalm;
+
+  /// No description provided for @decisionResultRisk.
+  ///
+  /// In en, this message translates to:
+  /// **'Oh no! The risk came true. Here is what happened:'**
+  String get decisionResultRisk;
+
+  /// No description provided for @decisionResultOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get decisionResultOk;
+
+  /// No description provided for @newsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mr. Bus has news'**
+  String get newsTitle;
+
+  /// No description provided for @newsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 decision waiting} other{{count} decisions waiting}}'**
+  String newsCount(int count);
+
+  /// No description provided for @effectMood.
+  ///
+  /// In en, this message translates to:
+  /// **'{group} {change}'**
+  String effectMood(String group, String change);
+
+  /// No description provided for @effectReputation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reputation {change}'**
+  String effectReputation(String change);
+
+  /// No description provided for @effectRoadDamage.
+  ///
+  /// In en, this message translates to:
+  /// **'Road -{amount} · {district}'**
+  String effectRoadDamage(int amount, String district);
+
+  /// No description provided for @effectRoadRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Road fixed · {district}'**
+  String effectRoadRestore(String district);
+
+  /// No description provided for @effectCapacity.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus capacity {change}'**
+  String effectCapacity(String change);
+
+  /// No description provided for @effectDemand.
+  ///
+  /// In en, this message translates to:
+  /// **'Riders {change}'**
+  String effectDemand(String change);
+
+  /// No description provided for @effectCongestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic {change}'**
+  String effectCongestion(String change);
+
+  /// No description provided for @effectSafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety {change}'**
+  String effectSafety(String change);
+
+  /// No description provided for @effectEnergyCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel cost {change}'**
+  String effectEnergyCost(String change);
+
+  /// No description provided for @effectSalaryCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Wages {change}'**
+  String effectSalaryCost(String change);
+
+  /// No description provided for @effectTicketRevenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket income {change}'**
+  String effectTicketRevenue(String change);
+
+  /// No description provided for @effectSubsidy.
+  ///
+  /// In en, this message translates to:
+  /// **'Subsidy {change}'**
+  String effectSubsidy(String change);
+
+  /// No description provided for @effectDailyCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Costs {amount}/day'**
+  String effectDailyCost(String amount);
+
+  /// No description provided for @effectDailyIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income {amount}/day'**
+  String effectDailyIncome(String amount);
+
+  /// No description provided for @effectMoodTrend.
+  ///
+  /// In en, this message translates to:
+  /// **'{group} mood {change}'**
+  String effectMoodTrend(String group, String change);
+
+  /// No description provided for @effectDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days}d'**
+  String effectDays(int days);
+
+  /// No description provided for @effectForever.
+  ///
+  /// In en, this message translates to:
+  /// **'forever'**
+  String get effectForever;
+
+  /// No description provided for @effectBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} {model}'**
+  String effectBuses(int count, String model);
+
+  /// No description provided for @effectProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Starts {project}'**
+  String effectProject(String project);
+
+  /// No description provided for @effectDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'{project} {percent}% off'**
+  String effectDiscount(String project, int percent);
+
+  /// No description provided for @effectLoseBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Lose 1 bus} other{Lose {count} buses}}'**
+  String effectLoseBuses(int count);
+
+  /// No description provided for @effectFare.
+  ///
+  /// In en, this message translates to:
+  /// **'Fare {change}'**
+  String effectFare(String change);
+
+  /// No description provided for @effectMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount}'**
+  String effectMoney(String amount);
+
+  /// No description provided for @decisionOvercrowdedBusesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Packed buses in {district}!'**
+  String decisionOvercrowdedBusesTitle(String district);
+
+  /// No description provided for @decisionOvercrowdedBusesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Minister, people in {district} squeeze into buses like pickles in a jar. What do we do?'**
+  String decisionOvercrowdedBusesBody(String district);
+
+  /// No description provided for @decisionOvercrowdedBusesOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Rush-order 3 CityRunners'**
+  String get decisionOvercrowdedBusesOptionA;
+
+  /// No description provided for @decisionOvercrowdedBusesOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra shifts for 5 days'**
+  String get decisionOvercrowdedBusesOptionB;
+
+  /// No description provided for @decisionOvercrowdedBusesOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask people to be patient'**
+  String get decisionOvercrowdedBusesOptionC;
+
+  /// No description provided for @decisionPotholesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Potholes in {district}!'**
+  String decisionPotholesTitle(String district);
+
+  /// No description provided for @decisionPotholesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The roads in {district} have more holes than cheese. Drivers are furious!'**
+  String decisionPotholesBody(String district);
+
+  /// No description provided for @decisionPotholesOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency repair today'**
+  String get decisionPotholesOptionA;
+
+  /// No description provided for @decisionPotholesOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule a normal repair'**
+  String get decisionPotholesOptionB;
+
+  /// No description provided for @decisionPotholesOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Put up warning signs'**
+  String get decisionPotholesOptionC;
+
+  /// No description provided for @decisionBikePetitionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bike lane petition'**
+  String get decisionBikePetitionTitle;
+
+  /// No description provided for @decisionBikePetitionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Eco activists in {district} collected 10,000 signatures for bike lanes. A green fund will pay 30%!'**
+  String decisionBikePetitionBody(String district);
+
+  /// No description provided for @decisionBikePetitionOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Build bike lanes'**
+  String get decisionBikePetitionOptionA;
+
+  /// No description provided for @decisionBikePetitionOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Fund a study first'**
+  String get decisionBikePetitionOptionB;
+
+  /// No description provided for @decisionBikePetitionOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Say no'**
+  String get decisionBikePetitionOptionC;
+
+  /// No description provided for @decisionParkingChaosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Parking chaos in {district}'**
+  String decisionParkingChaosTitle(String district);
+
+  /// No description provided for @decisionParkingChaosBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Cars are parked on sidewalks, in bus lanes, even on a fountain in {district}!'**
+  String decisionParkingChaosBody(String district);
+
+  /// No description provided for @decisionParkingChaosOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Introduce parking fees'**
+  String get decisionParkingChaosOptionA;
+
+  /// No description provided for @decisionParkingChaosOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a parking garage'**
+  String get decisionParkingChaosOptionB;
+
+  /// No description provided for @decisionParkingChaosOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Look the other way'**
+  String get decisionParkingChaosOptionC;
+
+  /// No description provided for @decisionDriverWagesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Drivers want a raise'**
+  String get decisionDriverWagesTitle;
+
+  /// No description provided for @decisionDriverWagesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Our bus drivers say their wages are too low. The union is whispering about a strike...'**
+  String get decisionDriverWagesBody;
+
+  /// No description provided for @decisionDriverWagesOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Raise wages 15% forever'**
+  String get decisionDriverWagesOptionA;
+
+  /// No description provided for @decisionDriverWagesOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay a one-time bonus'**
+  String get decisionDriverWagesOptionB;
+
+  /// No description provided for @decisionDriverWagesOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Refuse'**
+  String get decisionDriverWagesOptionC;
+
+  /// No description provided for @decisionTrafficAccidentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crash at a busy junction'**
+  String get decisionTrafficAccidentTitle;
+
+  /// No description provided for @decisionTrafficAccidentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A nasty crash in {district} shows the junction is dangerous. People demand action!'**
+  String decisionTrafficAccidentBody(String district);
+
+  /// No description provided for @decisionTrafficAccidentOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Install smart traffic lights'**
+  String get decisionTrafficAccidentOptionA;
+
+  /// No description provided for @decisionTrafficAccidentOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a safety campaign'**
+  String get decisionTrafficAccidentOptionB;
+
+  /// No description provided for @decisionTrafficAccidentOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Do nothing'**
+  String get decisionTrafficAccidentOptionC;
+
+  /// No description provided for @decisionFuelSpikeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel prices jumped 30%!'**
+  String get decisionFuelSpikeTitle;
+
+  /// No description provided for @decisionFuelSpikeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Diesel got expensive overnight, and our buses drink a lot of it...'**
+  String get decisionFuelSpikeBody;
+
+  /// No description provided for @decisionFuelSpikeOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy a price hedge'**
+  String get decisionFuelSpikeOptionA;
+
+  /// No description provided for @decisionFuelSpikeOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a fare surcharge'**
+  String get decisionFuelSpikeOptionB;
+
+  /// No description provided for @decisionFuelSpikeOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Absorb the cost'**
+  String get decisionFuelSpikeOptionC;
+
+  /// No description provided for @decisionBusDiscountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus sale!'**
+  String get decisionBusDiscountTitle;
+
+  /// No description provided for @decisionBusDiscountBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Silkway Motors offers CityRunner buses at 25% off this week. They would start in {district}.'**
+  String decisionBusDiscountBody(String district);
+
+  /// No description provided for @decisionBusDiscountOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy 2 buses'**
+  String get decisionBusDiscountOptionA;
+
+  /// No description provided for @decisionBusDiscountOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy 5 buses'**
+  String get decisionBusDiscountOptionB;
+
+  /// No description provided for @decisionBusDiscountOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'No, thanks'**
+  String get decisionBusDiscountOptionC;
+
+  /// No description provided for @decisionPrivateOperatorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private bus company'**
+  String get decisionPrivateOperatorTitle;
+
+  /// No description provided for @decisionPrivateOperatorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A private company wants to run extra buses in {district} for a share of the ticket money.'**
+  String decisionPrivateOperatorBody(String district);
+
+  /// No description provided for @decisionPrivateOperatorOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept the deal'**
+  String get decisionPrivateOperatorOptionA;
+
+  /// No description provided for @decisionPrivateOperatorOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Negotiate better terms'**
+  String get decisionPrivateOperatorOptionB;
+
+  /// No description provided for @decisionPrivateOperatorOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get decisionPrivateOperatorOptionC;
+
+  /// No description provided for @decisionBudgetHearingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cabinet budget hearing'**
+  String get decisionBudgetHearingTitle;
+
+  /// No description provided for @decisionBudgetHearingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The Cabinet wants to know how we spend their money. Our chance to ask for more!'**
+  String get decisionBudgetHearingBody;
+
+  /// No description provided for @decisionBudgetHearingOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask for a big grant'**
+  String get decisionBudgetHearingOptionA;
+
+  /// No description provided for @decisionBudgetHearingOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask for a bigger subsidy'**
+  String get decisionBudgetHearingOptionB;
+
+  /// No description provided for @decisionBudgetHearingOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Promise savings'**
+  String get decisionBudgetHearingOptionC;
+
+  /// No description provided for @decisionBudgetHearingOptionD.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip the hearing'**
+  String get decisionBudgetHearingOptionD;
+
+  /// No description provided for @decisionFestivalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Festival on the Boulevard!'**
+  String get decisionFestivalTitle;
+
+  /// No description provided for @decisionFestivalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A huge music festival is coming to Seaside Boulevard. Thousands of fans will need a ride!'**
+  String get decisionFestivalBody;
+
+  /// No description provided for @decisionFestivalOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Run special buses'**
+  String get decisionFestivalOptionA;
+
+  /// No description provided for @decisionFestivalOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the Boulevard to cars'**
+  String get decisionFestivalOptionB;
+
+  /// No description provided for @decisionFestivalOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Business as usual'**
+  String get decisionFestivalOptionC;
+
+  /// No description provided for @decisionTouristSeasonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tourist season!'**
+  String get decisionTouristSeasonTitle;
+
+  /// No description provided for @decisionTouristSeasonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tourists flood the Old Fortress with selfie sticks. Shops are happy, streets are crowded.'**
+  String get decisionTouristSeasonBody;
+
+  /// No description provided for @decisionTouristSeasonOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Launch a tourist shuttle'**
+  String get decisionTouristSeasonOptionA;
+
+  /// No description provided for @decisionTouristSeasonOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a tourist ticket surcharge'**
+  String get decisionTouristSeasonOptionB;
+
+  /// No description provided for @decisionTouristSeasonOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Do nothing'**
+  String get decisionTouristSeasonOptionC;
+
+  /// No description provided for @decisionGreenFundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Green fund offer'**
+  String get decisionGreenFundTitle;
+
+  /// No description provided for @decisionGreenFundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A green fund will pay 40% of a charging depot so we can run electric buses!'**
+  String get decisionGreenFundBody;
+
+  /// No description provided for @decisionGreenFundOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Build the depot'**
+  String get decisionGreenFundOptionA;
+
+  /// No description provided for @decisionGreenFundOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get decisionGreenFundOptionB;
+
+  /// No description provided for @decisionFloodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Flash flood in {district}!'**
+  String decisionFloodTitle(String district);
+
+  /// No description provided for @decisionFloodBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Heavy rain turned the streets of {district} into rivers. Buses are stuck!'**
+  String decisionFloodBody(String district);
+
+  /// No description provided for @decisionFloodOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Send pumps and detours'**
+  String get decisionFloodOptionA;
+
+  /// No description provided for @decisionFloodOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Free rescue shuttles'**
+  String get decisionFloodOptionB;
+
+  /// No description provided for @decisionFloodOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait for the water to drain'**
+  String get decisionFloodOptionC;
+
+  /// No description provided for @decisionWindStormTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mighty wind storm!'**
+  String get decisionWindStormTitle;
+
+  /// No description provided for @decisionWindStormBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A legendary Baku wind is blowing away hats, signs and almost our buses!'**
+  String get decisionWindStormBody;
+
+  /// No description provided for @decisionWindStormOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop service for safety'**
+  String get decisionWindStormOptionA;
+
+  /// No description provided for @decisionWindStormOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Send repair crews'**
+  String get decisionWindStormOptionB;
+
+  /// No description provided for @decisionWindStormOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep driving'**
+  String get decisionWindStormOptionC;
+
+  /// No description provided for @decisionHeatwaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Heatwave: 42°C!'**
+  String get decisionHeatwaveTitle;
+
+  /// No description provided for @decisionHeatwaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It is so hot the asphalt is melting. Passengers are melting too!'**
+  String get decisionHeatwaveBody;
+
+  /// No description provided for @decisionHeatwaveOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Free water at bus stops'**
+  String get decisionHeatwaveOptionA;
+
+  /// No description provided for @decisionHeatwaveOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Run only air-conditioned buses'**
+  String get decisionHeatwaveOptionB;
+
+  /// No description provided for @decisionHeatwaveOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Hope it ends soon'**
+  String get decisionHeatwaveOptionC;
+
+  /// No description provided for @decisionEarthquakeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Earthquake!'**
+  String get decisionEarthquakeTitle;
+
+  /// No description provided for @decisionEarthquakeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The ground shook and roads in {district} cracked open. Everyone is scared.'**
+  String decisionEarthquakeBody(String district);
+
+  /// No description provided for @decisionEarthquakeOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Rebuild roads right away'**
+  String get decisionEarthquakeOptionA;
+
+  /// No description provided for @decisionEarthquakeOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule a repair'**
+  String get decisionEarthquakeOptionB;
+
+  /// No description provided for @decisionEarthquakeOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Let them wait'**
+  String get decisionEarthquakeOptionC;
+
+  /// No description provided for @decisionSnowstormTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rare snowstorm!'**
+  String get decisionSnowstormTitle;
+
+  /// No description provided for @decisionSnowstormBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Snow in Baku! Kids are happy, drivers are not. Roads are slippery everywhere.'**
+  String get decisionSnowstormBody;
+
+  /// No description provided for @decisionSnowstormOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Rent snowplows'**
+  String get decisionSnowstormOptionA;
+
+  /// No description provided for @decisionSnowstormOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear bus routes only'**
+  String get decisionSnowstormOptionB;
+
+  /// No description provided for @decisionSnowstormOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Do nothing'**
+  String get decisionSnowstormOptionC;
+
+  /// No description provided for @decisionHarborFireTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire at the harbor!'**
+  String get decisionHarborFireTitle;
+
+  /// No description provided for @decisionHarborFireBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A warehouse is burning at Oil Harbor. Smoke is drifting over the roads.'**
+  String get decisionHarborFireBody;
+
+  /// No description provided for @decisionHarborFireOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the harbor roads'**
+  String get decisionHarborFireOptionA;
+
+  /// No description provided for @decisionHarborFireOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Evacuate workers by bus'**
+  String get decisionHarborFireOptionB;
+
+  /// No description provided for @decisionHarborFireOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep traffic moving'**
+  String get decisionHarborFireOptionC;
+
+  /// No description provided for @decisionLandslideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Landslide in Wind Heights!'**
+  String get decisionLandslideTitle;
+
+  /// No description provided for @decisionLandslideBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Rocks slid onto the main road of Wind Heights. Traffic is crawling.'**
+  String get decisionLandslideBody;
+
+  /// No description provided for @decisionLandslideOptionA.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear it with heavy machines'**
+  String get decisionLandslideOptionA;
+
+  /// No description provided for @decisionLandslideOptionB.
+  ///
+  /// In en, this message translates to:
+  /// **'Reroute the buses'**
+  String get decisionLandslideOptionB;
+
+  /// No description provided for @decisionLandslideOptionC.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait for crews'**
+  String get decisionLandslideOptionC;
+
+  /// No description provided for @achievementDecisiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Decisive'**
+  String get achievementDecisiveTitle;
+
+  /// No description provided for @achievementDecisiveDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Make 25 decisions yourself.'**
+  String get achievementDecisiveDescription;
+
+  /// No description provided for @achievementStormChaserTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Storm Chaser'**
+  String get achievementStormChaserTitle;
+
+  /// No description provided for @achievementStormChaserDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Handle 5 disasters.'**
+  String get achievementStormChaserDescription;
+
+  /// No description provided for @careerDecisions.
+  ///
+  /// In en, this message translates to:
+  /// **'Decisions'**
+  String get careerDecisions;
+
+  /// No description provided for @careerDisasters.
+  ///
+  /// In en, this message translates to:
+  /// **'Disasters handled'**
+  String get careerDisasters;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

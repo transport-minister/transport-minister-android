@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
+import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
@@ -24,7 +25,7 @@ class SatisfactionCalculator {
     final harborCongestion = metrics.of(DistrictId.oilHarbor).congestion;
     final projects = state.projects.length;
     final crowding = metrics.crowding;
-    return {
+    final targets = {
       StakeholderGroup.passengers: _clamp(
         75 -
             math.max(metrics.averageWaiting - 5, 0) * 2.5 -
@@ -55,6 +56,10 @@ class SatisfactionCalculator {
       StakeholderGroup.logistics: _clamp(
         70 - harborCongestion * 0.4 - (100 - harbor.roadCondition) * 0.15 - projects * 2,
       ),
+    };
+    return {
+      for (final entry in targets.entries)
+        entry.key: _clamp(entry.value + state.additive(ModifierType.mood, group: entry.key)),
     };
   }
 

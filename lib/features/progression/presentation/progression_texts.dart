@@ -20,6 +20,8 @@ extension AchievementPresentation on AchievementId {
     AchievementId.risingCity => l10n.achievementRisingCityTitle,
     AchievementId.cityChampion => l10n.achievementCityChampionTitle,
     AchievementId.survivor => l10n.achievementSurvivorTitle,
+    AchievementId.decisive => l10n.achievementDecisiveTitle,
+    AchievementId.stormChaser => l10n.achievementStormChaserTitle,
     AchievementId.veteranMinister => l10n.achievementVeteranMinisterTitle,
   };
 
@@ -38,6 +40,8 @@ extension AchievementPresentation on AchievementId {
     AchievementId.risingCity => l10n.achievementRisingCityDescription,
     AchievementId.cityChampion => l10n.achievementCityChampionDescription,
     AchievementId.survivor => l10n.achievementSurvivorDescription,
+    AchievementId.decisive => l10n.achievementDecisiveDescription,
+    AchievementId.stormChaser => l10n.achievementStormChaserDescription,
     AchievementId.veteranMinister => l10n.achievementVeteranMinisterDescription,
   };
 
@@ -56,6 +60,8 @@ extension AchievementPresentation on AchievementId {
     AchievementId.risingCity => Icons.trending_up_rounded,
     AchievementId.cityChampion => Icons.emoji_events_rounded,
     AchievementId.survivor => Icons.shield_rounded,
+    AchievementId.decisive => Icons.how_to_vote_rounded,
+    AchievementId.stormChaser => Icons.thunderstorm_rounded,
     AchievementId.veteranMinister => Icons.military_tech_rounded,
   };
 

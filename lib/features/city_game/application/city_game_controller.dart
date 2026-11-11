@@ -127,7 +127,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
   }
 
   (CityState, List<CityEvent>) _simulate(CityState city, int days) {
-    final simulator = ref.read(daySimulatorProvider);
+    final simulator = ref.read(cityDayRunnerProvider);
     var current = city;
     final events = <CityEvent>[];
     for (var day = 0; day < days && !current.crisis.dismissed; day++) {

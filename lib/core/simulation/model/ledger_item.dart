@@ -11,6 +11,7 @@ enum LedgerItem {
   roadMaintenance,
   administration,
   loanRepayment,
+  decisions,
   vehiclePurchases,
   vehicleUpgrades,
   construction;
@@ -23,7 +24,8 @@ enum LedgerItem {
     LedgerItem.vehicleMaintenance ||
     LedgerItem.roadMaintenance ||
     LedgerItem.administration ||
-    LedgerItem.loanRepayment => true,
+    LedgerItem.loanRepayment ||
+    LedgerItem.decisions => true,
     LedgerItem.governmentBudget ||
     LedgerItem.levelRewards ||
     LedgerItem.vehicleSales ||

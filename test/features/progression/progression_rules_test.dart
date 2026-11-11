@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/progression/domain/achievement.dart';
@@ -80,5 +81,18 @@ void main() {
     final update = apply(const MinisterProfile(), const [CrisisAverted()]);
 
     expect(update.profile.achievements, contains(AchievementId.survivor));
+  });
+
+  test('decisions earn XP and shift reputation', () {
+    final update = apply(const MinisterProfile(), const [
+      DecisionResolved(DecisionId.flood, riskTriggered: false, automatic: false),
+      DecisionResolved(DecisionId.festival, riskTriggered: false, automatic: true),
+      ReputationShift(4),
+    ]);
+
+    expect(update.profile.xp, ProgressionRules.xpPerDisaster);
+    expect(update.profile.career.decisionsMade, 1);
+    expect(update.profile.career.disastersHandled, 1);
+    expect(update.profile.reputation, 54);
   });
 }

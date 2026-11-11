@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
-import 'package:transport_minister/core/simulation/engine/day_simulator.dart';
+import 'package:transport_minister/core/simulation/engine/city_day_runner.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_controller.dart';
@@ -16,7 +16,7 @@ final citySaveRepositoryProvider = Provider<CitySaveRepository>(
 
 final simulationClockProvider = Provider<SimulationClock>((ref) => const SimulationClock());
 
-final daySimulatorProvider = Provider<DaySimulator>((ref) => const DaySimulator());
+final cityDayRunnerProvider = Provider<CityDayRunner>((ref) => const CityDayRunner());
 
 final bakuScenarioProvider = Provider<BakuScenario>((ref) => const BakuScenario());
 

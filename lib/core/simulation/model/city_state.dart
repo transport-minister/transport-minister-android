@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_stats.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
@@ -8,6 +9,7 @@ import 'package:transport_minister/core/simulation/model/daily_report.dart';
 import 'package:transport_minister/core/simulation/model/district_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/loan.dart';
+import 'package:transport_minister/core/simulation/model/pending_decision.dart';
 import 'package:transport_minister/core/simulation/model/project.dart';
 import 'package:transport_minister/core/simulation/model/road_maintenance_level.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
@@ -36,6 +38,10 @@ abstract class CityState with _$CityState {
     @Default([]) List<DailyReport> reports,
     @Default(1) int nextId,
     @Default(0) int developmentPoints,
+    @Default([]) List<PendingDecision> decisions,
+    @Default([]) List<ActiveModifier> modifiers,
+    @Default([]) List<DecisionRecord> decisionLog,
+    @Default(0) int lastDecisionDay,
   }) = _CityState;
 
   const CityState._();
@@ -53,4 +59,20 @@ abstract class CityState with _$CityState {
   DailyReport? get lastReport => reports.isEmpty ? null : reports.last;
 
   int get level => CityLevels.levelFor(developmentPoints);
+
+  double multiplier(ModifierType type, {DistrictId? district}) => modifiers
+      .where((modifier) => modifier.type == type && _covers(modifier, district))
+      .fold(1, (product, modifier) => product * modifier.value);
+
+  double additive(ModifierType type, {DistrictId? district, StakeholderGroup? group}) => modifiers
+      .where(
+        (modifier) =>
+            modifier.type == type &&
+            _covers(modifier, district) &&
+            (group == null || modifier.group == group),
+      )
+      .fold(0, (sum, modifier) => sum + modifier.value);
+
+  bool _covers(ActiveModifier modifier, DistrictId? district) =>
+      modifier.district == null || modifier.district == district;
 }
