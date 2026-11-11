@@ -27,6 +27,11 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dismi
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
+import 'package:transport_minister/features/progression/application/profile_controller.dart';
+import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
+import 'package:transport_minister/features/progression/domain/progression_event.dart';
+import 'package:transport_minister/features/progression/presentation/progression_texts.dart';
+import 'package:transport_minister/features/progression/presentation/widgets/promotion_sheet.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -83,6 +88,7 @@ class _CityViewState extends ConsumerState<_CityView> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(progressionFeedProvider, (previous, next) => _celebrate(next));
     ref.listen(cityGameProvider(widget.cityId), (previous, next) {
       final before = previous?.value;
       final after = next.value;
@@ -107,8 +113,9 @@ class _CityViewState extends ConsumerState<_CityView> {
       children: [
         DashboardHud(
           city: city,
+          rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
           dayProgress: widget.session.dayProgress,
-          onCitiesPressed: () => context.go(AppRoute.cities.path),
+          onProfilePressed: () => context.push(AppRoute.profile.path),
         ),
         CityLevelBar(city: city, onPressed: _showLevelInfo),
         CrisisBanner(crisis: city.crisis),
@@ -191,6 +198,30 @@ class _CityViewState extends ConsumerState<_CityView> {
     ref.read(cityGameProvider(widget.cityId).notifier).dismissAwaySummary();
   }
 
+  void _celebrate(List<ProgressionEvent> events) {
+    final l10n = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    for (final event in events) {
+      switch (event) {
+        case RankPromoted(:final rank):
+          showChunkySheet<void>(
+            context: context,
+            builder: (context) => PromotionSheet(rank: rank),
+          );
+        case AchievementUnlocked(:final achievement):
+          messenger.showSnackBar(
+            SnackBar(content: Text(l10n.achievementToast(achievement.title(l10n), achievement.xp))),
+          );
+        case BadgeEarned(:final city, :final tier):
+          messenger.showSnackBar(
+            SnackBar(
+              content: Text(l10n.badgeEarnedToast(tier.label(l10n), city.displayName(l10n))),
+            ),
+          );
+      }
+    }
+  }
+
   String? _nextCityName() {
     final next = const CityUnlocks().unlockedBy(ref.read(citiesProvider), widget.cityId);
     return next?.id.displayName(AppLocalizations.of(context));
@@ -224,7 +255,7 @@ class _CityViewState extends ConsumerState<_CityView> {
       );
     }
     final messenger = ScaffoldMessenger.of(context);
-    final others = session.latestEvents.where((event) => event is! CityLeveledUp);
+    final others = session.latestEvents.where((event) => !event.isSilent);
     for (final event in others.toList().reversed.take(2)) {
       messenger.showSnackBar(
         SnackBar(duration: const Duration(seconds: 2), content: Text(event.message(l10n))),

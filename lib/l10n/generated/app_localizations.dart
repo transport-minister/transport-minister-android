@@ -1063,6 +1063,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hooray!'**
   String get levelUpContinue;
+
+  /// No description provided for @eventCrisisAverted.
+  ///
+  /// In en, this message translates to:
+  /// **'Crisis averted! The President is calm again.'**
+  String get eventCrisisAverted;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Minister profile'**
+  String get profileTitle;
+
+  /// No description provided for @profileOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open profile'**
+  String get profileOpen;
+
+  /// No description provided for @profileReputation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reputation'**
+  String get profileReputation;
+
+  /// No description provided for @profileXp.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} / {next} XP'**
+  String profileXp(String xp, String next);
+
+  /// No description provided for @profileXpMax.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP · Highest rank'**
+  String profileXpMax(String xp);
+
+  /// No description provided for @profileNextRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {rank} · needs {reputation}% reputation'**
+  String profileNextRank(String rank, int reputation);
+
+  /// No description provided for @profileRanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Ranks'**
+  String get profileRanks;
+
+  /// No description provided for @profileCityBadges.
+  ///
+  /// In en, this message translates to:
+  /// **'City badges'**
+  String get profileCityBadges;
+
+  /// No description provided for @profileAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements {done}/{total}'**
+  String profileAchievements(int done, int total);
+
+  /// No description provided for @profileCareer.
+  ///
+  /// In en, this message translates to:
+  /// **'Career'**
+  String get profileCareer;
+
+  /// No description provided for @careerDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Days served'**
+  String get careerDays;
+
+  /// No description provided for @careerBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'Buses bought'**
+  String get careerBuses;
+
+  /// No description provided for @careerUpgrades.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrades'**
+  String get careerUpgrades;
+
+  /// No description provided for @careerProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get careerProjects;
+
+  /// No description provided for @careerCrises.
+  ///
+  /// In en, this message translates to:
+  /// **'Crises averted'**
+  String get careerCrises;
+
+  /// No description provided for @careerDismissals.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismissals'**
+  String get careerDismissals;
+
+  /// No description provided for @badgeBronze.
+  ///
+  /// In en, this message translates to:
+  /// **'Bronze'**
+  String get badgeBronze;
+
+  /// No description provided for @badgeSilver.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver'**
+  String get badgeSilver;
+
+  /// No description provided for @badgeGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get badgeGold;
+
+  /// No description provided for @badgeLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Not earned'**
+  String get badgeLocked;
+
+  /// No description provided for @badgeEarnedToast.
+  ///
+  /// In en, this message translates to:
+  /// **'{tier} badge earned in {city}!'**
+  String badgeEarnedToast(String tier, String city);
+
+  /// No description provided for @achievementToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement unlocked: {title} · +{xp} XP'**
+  String achievementToast(String title, int xp);
+
+  /// No description provided for @promotedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Promoted!'**
+  String get promotedTitle;
+
+  /// No description provided for @promotedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You are now {rank}. The whole ministry salutes you!'**
+  String promotedBody(String rank);
+
+  /// No description provided for @promotedContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you!'**
+  String get promotedContinue;
+
+  /// No description provided for @achievementFirstBusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'First Bus'**
+  String get achievementFirstBusTitle;
+
+  /// No description provided for @achievementFirstBusDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy your first bus.'**
+  String get achievementFirstBusDescription;
+
+  /// No description provided for @achievementFleetBuilderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fleet Builder'**
+  String get achievementFleetBuilderTitle;
+
+  /// No description provided for @achievementFleetBuilderDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Run 40 buses in one city.'**
+  String get achievementFleetBuilderDescription;
+
+  /// No description provided for @achievementModernCityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Modern City'**
+  String get achievementModernCityTitle;
+
+  /// No description provided for @achievementModernCityDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Retire every Veteran bus from a fleet of 20 or more.'**
+  String get achievementModernCityDescription;
+
+  /// No description provided for @achievementGreenRevolutionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Green Revolution'**
+  String get achievementGreenRevolutionTitle;
+
+  /// No description provided for @achievementGreenRevolutionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy your first electric bus.'**
+  String get achievementGreenRevolutionDescription;
+
+  /// No description provided for @achievementUpgradeEnthusiastTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade Enthusiast'**
+  String get achievementUpgradeEnthusiastTitle;
+
+  /// No description provided for @achievementUpgradeEnthusiastDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade buses 10 times.'**
+  String get achievementUpgradeEnthusiastDescription;
+
+  /// No description provided for @achievementRoadWarriorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Road Warrior'**
+  String get achievementRoadWarriorTitle;
+
+  /// No description provided for @achievementRoadWarriorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish 10 road repairs.'**
+  String get achievementRoadWarriorDescription;
+
+  /// No description provided for @achievementBikeFriendlyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bike Friendly'**
+  String get achievementBikeFriendlyTitle;
+
+  /// No description provided for @achievementBikeFriendlyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Build bike lanes in 3 districts.'**
+  String get achievementBikeFriendlyDescription;
+
+  /// No description provided for @achievementInfrastructureMasterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Infrastructure Master'**
+  String get achievementInfrastructureMasterTitle;
+
+  /// No description provided for @achievementInfrastructureMasterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete 50 construction projects.'**
+  String get achievementInfrastructureMasterDescription;
+
+  /// No description provided for @achievementEconomicStrategistTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Economic Strategist'**
+  String get achievementEconomicStrategistTitle;
+
+  /// No description provided for @achievementEconomicStrategistDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep a positive daily budget for 30 days in a row.'**
+  String get achievementEconomicStrategistDescription;
+
+  /// No description provided for @achievementSmilingCityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smiling City'**
+  String get achievementSmilingCityTitle;
+
+  /// No description provided for @achievementSmilingCityDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach 60% citizen satisfaction.'**
+  String get achievementSmilingCityDescription;
+
+  /// No description provided for @achievementHappyCitizensTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Happy Citizens'**
+  String get achievementHappyCitizensTitle;
+
+  /// No description provided for @achievementHappyCitizensDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach 90% citizen satisfaction.'**
+  String get achievementHappyCitizensDescription;
+
+  /// No description provided for @achievementRisingCityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rising City'**
+  String get achievementRisingCityTitle;
+
+  /// No description provided for @achievementRisingCityDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach city level 5.'**
+  String get achievementRisingCityDescription;
+
+  /// No description provided for @achievementCityChampionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'City Champion'**
+  String get achievementCityChampionTitle;
+
+  /// No description provided for @achievementCityChampionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach a city\'s target level.'**
+  String get achievementCityChampionDescription;
+
+  /// No description provided for @achievementSurvivorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Survivor'**
+  String get achievementSurvivorTitle;
+
+  /// No description provided for @achievementSurvivorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Recover after a President\'s warning.'**
+  String get achievementSurvivorDescription;
+
+  /// No description provided for @achievementVeteranMinisterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Veteran Minister'**
+  String get achievementVeteranMinisterTitle;
+
+  /// No description provided for @achievementVeteranMinisterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Serve 365 days.'**
+  String get achievementVeteranMinisterDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

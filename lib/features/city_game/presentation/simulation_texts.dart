@@ -53,6 +53,8 @@ extension RejectionReasonText on RejectionReason {
 }
 
 extension CityEventText on CityEvent {
+  bool get isSilent => this is DayClosed || this is CityLeveledUp;
+
   String message(AppLocalizations l10n) => switch (this) {
     BusPurchased() => l10n.eventBusPurchased,
     BusUpgraded(:final level) => l10n.eventBusUpgraded(level),
@@ -67,5 +69,7 @@ extension CityEventText on CityEvent {
       level,
       MoneyFormat.compact(reward),
     ),
+    DayClosed(:final day) => l10n.hudDay(day),
+    CrisisAverted() => l10n.eventCrisisAverted,
   };
 }

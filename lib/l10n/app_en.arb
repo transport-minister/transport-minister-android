@@ -446,5 +446,125 @@
       }
     }
   },
-  "levelUpContinue": "Hooray!"
+  "levelUpContinue": "Hooray!",
+  "eventCrisisAverted": "Crisis averted! The President is calm again.",
+  "profileTitle": "Minister profile",
+  "profileOpen": "Open profile",
+  "profileReputation": "Reputation",
+  "profileXp": "{xp} / {next} XP",
+  "@profileXp": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      },
+      "next": {
+        "type": "String"
+      }
+    }
+  },
+  "profileXpMax": "{xp} XP · Highest rank",
+  "@profileXpMax": {
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      }
+    }
+  },
+  "profileNextRank": "Next: {rank} · needs {reputation}% reputation",
+  "@profileNextRank": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "reputation": {
+        "type": "int"
+      }
+    }
+  },
+  "profileRanks": "Ranks",
+  "profileCityBadges": "City badges",
+  "profileAchievements": "Achievements {done}/{total}",
+  "@profileAchievements": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "profileCareer": "Career",
+  "careerDays": "Days served",
+  "careerBuses": "Buses bought",
+  "careerUpgrades": "Upgrades",
+  "careerProjects": "Projects",
+  "careerCrises": "Crises averted",
+  "careerDismissals": "Dismissals",
+  "badgeBronze": "Bronze",
+  "badgeSilver": "Silver",
+  "badgeGold": "Gold",
+  "badgeLocked": "Not earned",
+  "badgeEarnedToast": "{tier} badge earned in {city}!",
+  "@badgeEarnedToast": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "achievementToast": "Achievement unlocked: {title} · +{xp} XP",
+  "@achievementToast": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "promotedTitle": "Promoted!",
+  "promotedBody": "You are now {rank}. The whole ministry salutes you!",
+  "@promotedBody": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "promotedContinue": "Thank you!",
+  "achievementFirstBusTitle": "First Bus",
+  "achievementFirstBusDescription": "Buy your first bus.",
+  "achievementFleetBuilderTitle": "Fleet Builder",
+  "achievementFleetBuilderDescription": "Run 40 buses in one city.",
+  "achievementModernCityTitle": "Modern City",
+  "achievementModernCityDescription": "Retire every Veteran bus from a fleet of 20 or more.",
+  "achievementGreenRevolutionTitle": "Green Revolution",
+  "achievementGreenRevolutionDescription": "Buy your first electric bus.",
+  "achievementUpgradeEnthusiastTitle": "Upgrade Enthusiast",
+  "achievementUpgradeEnthusiastDescription": "Upgrade buses 10 times.",
+  "achievementRoadWarriorTitle": "Road Warrior",
+  "achievementRoadWarriorDescription": "Finish 10 road repairs.",
+  "achievementBikeFriendlyTitle": "Bike Friendly",
+  "achievementBikeFriendlyDescription": "Build bike lanes in 3 districts.",
+  "achievementInfrastructureMasterTitle": "Infrastructure Master",
+  "achievementInfrastructureMasterDescription": "Complete 50 construction projects.",
+  "achievementEconomicStrategistTitle": "Economic Strategist",
+  "achievementEconomicStrategistDescription": "Keep a positive daily budget for 30 days in a row.",
+  "achievementSmilingCityTitle": "Smiling City",
+  "achievementSmilingCityDescription": "Reach 60% citizen satisfaction.",
+  "achievementHappyCitizensTitle": "Happy Citizens",
+  "achievementHappyCitizensDescription": "Reach 90% citizen satisfaction.",
+  "achievementRisingCityTitle": "Rising City",
+  "achievementRisingCityDescription": "Reach city level 5.",
+  "achievementCityChampionTitle": "City Champion",
+  "achievementCityChampionDescription": "Reach a city's target level.",
+  "achievementSurvivorTitle": "Survivor",
+  "achievementSurvivorDescription": "Recover after a President's warning.",
+  "achievementVeteranMinisterTitle": "Veteran Minister",
+  "achievementVeteranMinisterDescription": "Serve 365 days."
 }
