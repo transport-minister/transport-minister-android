@@ -7,8 +7,8 @@ import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/day_simulator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
-import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
+import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
 
