@@ -176,6 +176,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override
+  String get hudIncomeLabel => 'Earnings per second';
+
+  @override
+  String get hudPopulationLabel => 'Residents';
+
+  @override
+  String statIncome(String amount) {
+    return '$amount/s';
+  }
+
+  @override
   String get hudBackToCities => 'Cities';
 
   @override
@@ -1371,7 +1382,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tutorialMood =>
-      'This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!';
+      'This face shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!';
 
   @override
   String tutorialDistrict(String district) {

@@ -74,6 +74,16 @@
   "hudBudgetLabel": "Budget",
   "hudDiplomacyLabel": "Diplomacy points",
   "hudSatisfactionLabel": "Satisfaction",
+  "hudIncomeLabel": "Earnings per second",
+  "hudPopulationLabel": "Residents",
+  "statIncome": "{amount}/s",
+  "@statIncome": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "hudBackToCities": "Cities",
   "crisisGridlock": "Gridlock! Traffic is jamming the city. Clear it before the President notices!",
   "crisisAngry": "Citizens are getting angry. Act before the President notices!",
@@ -1054,7 +1064,7 @@
   "tutorialWelcomeTitle": "Hi Minister!",
   "tutorialWelcome": "I'm Mr. Bus, your transport advisor. Let me show you Baku in 30 seconds!",
   "tutorialBudget": "This is your budget. It starts empty: the Cabinet pays you every second while you are on this map, more when people are happy. Fuel, wages and repairs drain it.",
-  "tutorialMood": "This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!",
+  "tutorialMood": "This face shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!",
   "tutorialDistrict": "People in {district} wait the longest. Find it on the map and tap it!",
   "@tutorialDistrict": {
     "placeholders": {

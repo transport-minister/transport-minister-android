@@ -412,6 +412,24 @@ abstract class AppLocalizations {
   /// **'Satisfaction'**
   String get hudSatisfactionLabel;
 
+  /// No description provided for @hudIncomeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Earnings per second'**
+  String get hudIncomeLabel;
+
+  /// No description provided for @hudPopulationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Residents'**
+  String get hudPopulationLabel;
+
+  /// No description provided for @statIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount}/s'**
+  String statIncome(String amount);
+
   /// No description provided for @hudBackToCities.
   ///
   /// In en, this message translates to:
@@ -2395,7 +2413,7 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialMood.
   ///
   /// In en, this message translates to:
-  /// **'This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!'**
+  /// **'This face shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!'**
   String get tutorialMood;
 
   /// No description provided for @tutorialDistrict.

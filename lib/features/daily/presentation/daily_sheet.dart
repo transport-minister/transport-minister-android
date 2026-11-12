@@ -199,7 +199,7 @@ class _TaskCard extends StatelessWidget {
     TaskType.earnTickets => Icons.confirmation_number_rounded,
     TaskType.finishProject => Icons.construction_rounded,
     TaskType.repairRoad => Icons.add_road_rounded,
-    TaskType.reachSatisfaction => Icons.favorite_rounded,
+    TaskType.reachSatisfaction => Icons.sentiment_very_satisfied_rounded,
   };
 
   ChunkyPalette _palette(TaskType type) => switch (type) {

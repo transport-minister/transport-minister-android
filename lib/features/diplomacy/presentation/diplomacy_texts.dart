@@ -4,7 +4,7 @@ import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.d
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 abstract final class DiplomacyStyle {
-  static const icon = Icons.public_rounded;
+  static const icon = Icons.handshake_rounded;
   static const palette = ChunkyPalette.lagoon;
 }
 

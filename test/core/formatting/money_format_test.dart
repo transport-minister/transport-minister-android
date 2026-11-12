@@ -15,6 +15,16 @@ void main() {
     expect(MoneyFormat.signed(-120000), r'-$120K');
   });
 
+  test('earnings per second use short amounts', () {
+    expect(MoneyFormat.short(850), '\$850');
+    expect(MoneyFormat.short(1200), '\$1.2K');
+    expect(MoneyFormat.short(2000), '\$2K');
+    expect(MoneyFormat.short(-3450), '-\$3.5K');
+    expect(MoneyFormat.short(1250000), '\$1.3M');
+    expect(MoneyFormat.signedShort(2300), '+\$2.3K');
+    expect(MoneyFormat.signedShort(-90), '-\$90');
+  });
+
   test('fares are shown in dollars and cents', () {
     expect(MoneyFormat.fare(60), r'$0.60');
   });

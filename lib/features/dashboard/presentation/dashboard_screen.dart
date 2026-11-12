@@ -7,6 +7,7 @@ import 'package:transport_minister/core/simulation/catalog/district_catalog.dart
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
+import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/time/clock_providers.dart';
@@ -25,6 +26,7 @@ import 'package:transport_minister/features/daily/presentation/daily_sheet.dart'
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_level_bar.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_lifecycle_scope.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/city_stats_panel.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/crisis_banner.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dashboard_hud.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
@@ -131,6 +133,7 @@ class _CityViewState extends ConsumerState<_CityView> {
               rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
               onProfilePressed: () => _leaveFor(AppRoute.profile.path),
               onDiplomacyPressed: _openDiplomacy,
+              onSettingsPressed: () => _leaveFor(AppRoute.settings.path),
             ),
             KeyedSubtree(
               key: _targets.level,
@@ -161,11 +164,14 @@ class _CityViewState extends ConsumerState<_CityView> {
                         Positioned(
                           left: GameDimens.spaceS,
                           top: GameDimens.spaceS,
-                          child: ChunkyIconButton(
-                            icon: Icons.settings_rounded,
-                            size: _cornerButton,
-                            semanticsLabel: AppLocalizations.of(context).settingsOpen,
-                            onPressed: () => _leaveFor(AppRoute.settings.path),
+                          child: CityStatsPanel(
+                            income: const EconomyCalculator()
+                                .operatingLedger(city, metrics)
+                                .values
+                                .fold(0, (sum, amount) => sum + amount),
+                            population: metrics.population,
+                            satisfaction: city.overallSatisfaction,
+                            moodKey: _targets.mood,
                           ),
                         ),
                         Positioned(
