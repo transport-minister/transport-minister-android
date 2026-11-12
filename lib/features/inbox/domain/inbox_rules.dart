@@ -13,21 +13,9 @@ class InboxRules {
     final entries = <(NotificationKind, Map<String, String>)>[
       for (final event in events)
         ?switch (event) {
-          DecisionArrived(:final decision, :final district) => (
-            decision.kind == DecisionKind.disaster
-                ? NotificationKind.disaster
-                : NotificationKind.decision,
-            {'decision': decision.name, 'district': ?district?.name},
-          ),
-          DecisionResolved(:final decision, automatic: true) => (
-            NotificationKind.autoDecision,
-            {'decision': decision.name},
-          ),
-          ProjectCompleted(:final type, :final district) => (
-            NotificationKind.project,
-            {'project': type.name, 'district': ?district?.name},
-          ),
-          BusesDelivered(:final count) => (NotificationKind.buses, {'count': '$count'}),
+          DecisionArrived(:final decision, :final district)
+              when decision.kind == DecisionKind.disaster =>
+            (NotificationKind.disaster, {'decision': decision.name, 'district': ?district?.name}),
           CityLeveledUp(:final level, :final reward) => (
             NotificationKind.levelUp,
             {'city': city.name, 'level': '$level', 'reward': '$reward'},
@@ -35,10 +23,6 @@ class InboxRules {
           CrisisWarning(:final level) => (NotificationKind.warning, {'level': '$level'}),
           CrisisAverted() => (NotificationKind.averted, const <String, String>{}),
           MinisterDismissed() => (NotificationKind.dismissed, const <String, String>{}),
-          TechnologyUnlocked(:final technology) => (
-            NotificationKind.technology,
-            {'technology': technology.name},
-          ),
           MetroLineOpened(:final from, :final to) => (
             NotificationKind.metro,
             {'from': from.name, 'to': to.name},
