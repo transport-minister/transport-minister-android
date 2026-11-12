@@ -184,11 +184,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hudBackToCities => 'Cities';
 
   @override
+  String get crisisGridlock =>
+      'Gridlock! Traffic is jamming the city. Clear it before the President notices!';
+
+  @override
   String get crisisAngry => 'Citizens are getting angry. Act before the President notices!';
 
   @override
-  String crisisWarning(int level) {
-    return 'President\'s warning $level/3: raise satisfaction or fix the budget!';
+  String get crisisDebt => 'The budget is deep in the red. Fix it before the President notices!';
+
+  @override
+  String crisisWarningGridlock(int level) {
+    return 'President\'s warning $level/3: clear the traffic!';
+  }
+
+  @override
+  String crisisWarningUnhappy(int level) {
+    return 'President\'s warning $level/3: make citizens happier!';
+  }
+
+  @override
+  String crisisWarningDebt(int level) {
+    return 'President\'s warning $level/3: fix the budget!';
   }
 
   @override
@@ -390,8 +407,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dismissedTitle => 'You have been dismissed';
 
   @override
-  String get dismissedBody =>
-      'Baku lost faith in your leadership. Your rank and achievements stay with you. Try again with a fresh start!';
+  String dismissedBody(String reason) {
+    return '$reason Your rank and achievements stay with you. Try again with a fresh start!';
+  }
+
+  @override
+  String get dismissedGridlock => 'Endless traffic jams paralysed Baku.';
+
+  @override
+  String get dismissedUnhappy => 'Baku lost faith in your leadership.';
+
+  @override
+  String get dismissedDebt => 'Baku ran out of money.';
 
   @override
   String get dismissedRestart => 'Start over';
@@ -1886,5 +1913,18 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String metroWaitingThere(int minutes) {
     return 'Waiting there: $minutes min';
+  }
+
+  @override
+  String get trafficMeterLabel => 'City traffic';
+
+  @override
+  String trafficInfoTitle(int percent) {
+    return 'City traffic $percent%';
+  }
+
+  @override
+  String trafficInfoBody(int limit) {
+    return 'If city traffic reaches $limit%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.';
   }
 }

@@ -32,6 +32,7 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dashb
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/traffic_meter.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
@@ -112,6 +113,7 @@ class _CityViewState extends ConsumerState<_CityView> {
     final city = widget.session.city;
     if (city.crisis.dismissed) {
       return DismissalView(
+        cause: city.crisis.cause,
         onRestart: () => ref.read(cityGameProvider(widget.cityId).notifier).restartCity(),
       );
     }
@@ -170,6 +172,20 @@ class _CityViewState extends ConsumerState<_CityView> {
                                   const CityCommands().technologyProblem(city, technology) == null,
                             ),
                             onPressed: _openTechnology,
+                          ),
+                        ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          top: GameDimens.spaceS,
+                          child: Center(
+                            child: TrafficMeter(
+                              congestion: metrics.congestion,
+                              onPressed: () => showChunkySheet<void>(
+                                context: context,
+                                builder: (context) => TrafficSheet(congestion: metrics.congestion),
+                              ),
+                            ),
                           ),
                         ),
                         Positioned(

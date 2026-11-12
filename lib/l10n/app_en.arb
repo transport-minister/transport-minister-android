@@ -83,9 +83,27 @@
   "hudBudgetLabel": "Budget",
   "hudSatisfactionLabel": "Satisfaction",
   "hudBackToCities": "Cities",
+  "crisisGridlock": "Gridlock! Traffic is jamming the city. Clear it before the President notices!",
   "crisisAngry": "Citizens are getting angry. Act before the President notices!",
-  "crisisWarning": "President's warning {level}/3: raise satisfaction or fix the budget!",
-  "@crisisWarning": {
+  "crisisDebt": "The budget is deep in the red. Fix it before the President notices!",
+  "crisisWarningGridlock": "President's warning {level}/3: clear the traffic!",
+  "@crisisWarningGridlock": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "crisisWarningUnhappy": "President's warning {level}/3: make citizens happier!",
+  "@crisisWarningUnhappy": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "crisisWarningDebt": "President's warning {level}/3: fix the budget!",
+  "@crisisWarningDebt": {
     "placeholders": {
       "level": {
         "type": "int"
@@ -237,7 +255,17 @@
     }
   },
   "dismissedTitle": "You have been dismissed",
-  "dismissedBody": "Baku lost faith in your leadership. Your rank and achievements stay with you. Try again with a fresh start!",
+  "dismissedBody": "{reason} Your rank and achievements stay with you. Try again with a fresh start!",
+  "@dismissedBody": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "dismissedGridlock": "Endless traffic jams paralysed Baku.",
+  "dismissedUnhappy": "Baku lost faith in your leadership.",
+  "dismissedDebt": "Baku ran out of money.",
   "dismissedRestart": "Start over",
   "loadingCity": "Opening the city…",
   "loadingFailed": "The city could not be opened.",
@@ -1481,6 +1509,23 @@
   "@metroWaitingThere": {
     "placeholders": {
       "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "trafficMeterLabel": "City traffic",
+  "trafficInfoTitle": "City traffic {percent}%",
+  "@trafficInfoTitle": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "trafficInfoBody": "If city traffic reaches {limit}%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.",
+  "@trafficInfoBody": {
+    "placeholders": {
+      "limit": {
         "type": "int"
       }
     }

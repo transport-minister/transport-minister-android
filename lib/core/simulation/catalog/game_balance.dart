@@ -39,6 +39,7 @@ abstract final class GameBalance {
   static const satisfactionSmoothing = 0.15;
   static const crisisSatisfactionThreshold = 30.0;
   static const crisisBudgetThreshold = -250000;
+  static const gridlockCongestion = 70.0;
   static const crisisWarningDays = [3, 6, 9];
   static const dismissalCrisisDays = 10;
 

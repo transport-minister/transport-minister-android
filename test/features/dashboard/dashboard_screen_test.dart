@@ -16,6 +16,7 @@ import 'package:transport_minister/features/dashboard/presentation/dashboard_scr
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/traffic_meter.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/game_screen_harness.dart';
@@ -58,6 +59,41 @@ void main() {
     expect(find.text('Yesterday\'s money'), findsNothing);
     expect(find.text('Smooth'), findsNothing);
     expect(find.byIcon(Icons.add_rounded), findsNothing);
+    expect(
+      find.descendant(of: find.byType(TrafficMeter), matching: find.text('58%')),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('the traffic meter explains gridlock', (tester) async {
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+
+    await tester.tap(find.byType(TrafficMeter));
+    await tester.pumpAndSettle();
+
+    expect(find.text('City traffic 58%'), findsOneWidget);
+    expect(find.textContaining('reaches 70%'), findsOneWidget);
+  });
+
+  testWidgets('a gridlock crisis is named in the banner', (tester) async {
+    await saveBaku(
+      syncedAt: now.current,
+      crisis: const CrisisState(days: 4, warnings: 1, cause: CrisisCause.gridlock),
+    );
+
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+
+    expect(find.text("President's warning 1/3: clear the traffic!"), findsOneWidget);
   });
 
   testWidgets('adding a bus from a district spends the budget', (tester) async {
