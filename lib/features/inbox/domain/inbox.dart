@@ -17,6 +17,7 @@ enum NotificationKind {
   warning,
   averted,
   dismissed,
+  technology,
 }
 
 @freezed

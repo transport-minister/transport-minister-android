@@ -37,6 +37,7 @@ const _$NotificationKindEnumMap = {
   NotificationKind.warning: 'warning',
   NotificationKind.averted: 'averted',
   NotificationKind.dismissed: 'dismissed',
+  NotificationKind.technology: 'technology',
 };
 
 _Inbox _$InboxFromJson(Map<String, dynamic> json) => _Inbox(

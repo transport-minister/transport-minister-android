@@ -15,6 +15,7 @@ enum AchievementId {
   survivor(xp: 250),
   decisive(xp: 250),
   stormChaser(xp: 300),
+  innovator(xp: 300),
   veteranMinister(xp: 300);
 
   const AchievementId({required this.xp});

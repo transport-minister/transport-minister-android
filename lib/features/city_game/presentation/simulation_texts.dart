@@ -4,6 +4,7 @@ import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
+import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 extension LedgerItemText on LedgerItem {
@@ -25,6 +26,7 @@ extension LedgerItemText on LedgerItem {
     LedgerItem.vehiclePurchases => l10n.ledgerVehiclePurchases,
     LedgerItem.vehicleUpgrades => l10n.ledgerVehicleUpgrades,
     LedgerItem.construction => l10n.ledgerConstruction,
+    LedgerItem.technology => l10n.ledgerTechnology,
   };
 }
 
@@ -52,6 +54,9 @@ extension RejectionReasonText on RejectionReason {
     RejectionReason.invalidTarget => l10n.rejectInvalidTarget,
     RejectionReason.loanActive => l10n.rejectLoanActive,
     RejectionReason.fareOutOfRange => l10n.rejectFareOutOfRange,
+    RejectionReason.locked => l10n.rejectLocked,
+    RejectionReason.insufficientDiplomacy => l10n.rejectInsufficientDiplomacy,
+    RejectionReason.alreadyUnlocked => l10n.rejectAlreadyUnlocked,
   };
 }
 
@@ -61,7 +66,8 @@ extension CityEventText on CityEvent {
     CityLeveledUp() ||
     ReputationShift() ||
     DecisionArrived() ||
-    RewardGranted() => true,
+    RewardGranted() ||
+    DiplomacyEarned() => true,
     DecisionResolved(:final automatic) => !automatic,
     _ => false,
   };
@@ -88,5 +94,7 @@ extension CityEventText on CityEvent {
     DecisionResolved(:final decision) => l10n.eventDecisionAutomatic(decision.title(l10n, null)),
     ReputationShift() => '',
     RewardGranted(:final amount) => MoneyFormat.signed(amount),
+    DiplomacyEarned(:final amount) => l10n.decisionDiplomacyEarned(amount),
+    TechnologyUnlocked(:final technology) => l10n.eventTechnologyUnlocked(technology.label(l10n)),
   };
 }

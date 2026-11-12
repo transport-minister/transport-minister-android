@@ -1,6 +1,7 @@
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 
 sealed class CityEvent {
@@ -62,10 +63,11 @@ final class MinisterDismissed extends CityEvent {
 }
 
 final class CityLeveledUp extends CityEvent {
-  const CityLeveledUp(this.level, this.reward);
+  const CityLeveledUp(this.level, this.reward, {this.diplomacy = 0});
 
   final int level;
   final int reward;
+  final int diplomacy;
 }
 
 final class DayClosed extends CityEvent {
@@ -105,4 +107,16 @@ final class ReputationShift extends CityEvent {
   const ReputationShift(this.delta);
 
   final double delta;
+}
+
+final class DiplomacyEarned extends CityEvent {
+  const DiplomacyEarned(this.amount);
+
+  final int amount;
+}
+
+final class TechnologyUnlocked extends CityEvent {
+  const TechnologyUnlocked(this.technology);
+
+  final TechnologyId technology;
 }

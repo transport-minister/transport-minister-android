@@ -36,6 +36,7 @@ class ProgressionRules {
   static const levelUpBonus = 2.0;
   static const xpPerDecision = 15;
   static const xpPerDisaster = 25;
+  static const xpPerTechnology = 30;
 
   ProgressionUpdate apply(
     MinisterProfile profile, {
@@ -118,6 +119,7 @@ class ProgressionRules {
         BudgetAllocated() => xpPerAllocation,
         DecisionResolved(:final decision, automatic: false) =>
           decision.kind == DecisionKind.disaster ? xpPerDisaster : xpPerDecision,
+        TechnologyUnlocked() => xpPerTechnology,
         _ => 0,
       };
     }
@@ -164,6 +166,7 @@ class ProgressionRules {
       AchievementId.survivor => career.crisesAverted >= 1,
       AchievementId.decisive => career.decisionsMade >= 25,
       AchievementId.stormChaser => career.disastersHandled >= 5,
+      AchievementId.innovator => city.technologies.length >= 5,
       AchievementId.veteranMinister => career.daysServed >= 365,
     };
   }

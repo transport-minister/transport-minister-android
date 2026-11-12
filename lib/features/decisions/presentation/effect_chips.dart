@@ -70,6 +70,7 @@ class EffectChips extends StatelessWidget {
       ModifierType.safety => l10n.effectSafety(_signed(value)),
       ModifierType.energyCost => l10n.effectEnergyCost(_percent(value)),
       ModifierType.salaryCost => l10n.effectSalaryCost(_percent(value)),
+      ModifierType.maintenanceCost => l10n.effectMaintenanceCost(_percent(value)),
       ModifierType.ticketRevenue => l10n.effectTicketRevenue(_percent(value)),
       ModifierType.subsidy => l10n.effectSubsidy(_percent(value)),
       ModifierType.dailyCost => l10n.effectDailyCost(MoneyFormat.compact(value.round())),
@@ -94,7 +95,8 @@ class EffectChips extends StatelessWidget {
         ModifierType.ticketRevenue ||
         ModifierType.subsidy => value >= 1 ? EffectTone.good : EffectTone.bad,
         ModifierType.energyCost ||
-        ModifierType.salaryCost => value > 1 ? EffectTone.bad : EffectTone.good,
+        ModifierType.salaryCost ||
+        ModifierType.maintenanceCost => value > 1 ? EffectTone.bad : EffectTone.good,
         ModifierType.congestion => value > 0 ? EffectTone.bad : EffectTone.good,
         ModifierType.safety || ModifierType.mood => _sign(value),
         ModifierType.dailyCost => EffectTone.bad,

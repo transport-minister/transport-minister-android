@@ -5,7 +5,9 @@ import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
+import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/time/clock_providers.dart';
@@ -38,6 +40,7 @@ import 'package:transport_minister/features/progression/domain/ministerial_rank.
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
 import 'package:transport_minister/features/progression/presentation/progression_texts.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/promotion_sheet.dart';
+import 'package:transport_minister/features/technology/presentation/diplomacy_button.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/features/tutorial/presentation/tutorial_overlay.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -156,6 +159,19 @@ class _CityViewState extends ConsumerState<_CityView> {
                           metrics: metrics,
                           controller: _mapController,
                           onDistrictPressed: _openDistrict,
+                        ),
+                        Positioned(
+                          left: GameDimens.spaceS,
+                          top: GameDimens.spaceS,
+                          child: DiplomacyButton(
+                            points: city.diplomacyPoints,
+                            ready: TechnologyId.values.any(
+                              (technology) =>
+                                  const CityCommands().technologyProblem(city, technology) == null,
+                            ),
+                            onPressed: () =>
+                                _leaveFor(AppRoute.technology.forCity(widget.cityId.name)),
+                          ),
                         ),
                         Positioned(
                           right: GameDimens.spaceS,
@@ -310,6 +326,7 @@ class _CityViewState extends ConsumerState<_CityView> {
           cityName: widget.cityId.displayName(l10n),
           level: latest.level,
           reward: levelUps.fold(0, (sum, event) => sum + event.reward),
+          diplomacy: levelUps.fold(0, (sum, event) => sum + event.diplomacy),
           unlockedCityName: latest.level >= CityLevels.targetLevel ? _nextCityName() : null,
         ),
       );

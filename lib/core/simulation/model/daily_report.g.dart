@@ -44,4 +44,5 @@ const _$LedgerItemEnumMap = {
   LedgerItem.vehiclePurchases: 'vehiclePurchases',
   LedgerItem.vehicleUpgrades: 'vehicleUpgrades',
   LedgerItem.construction: 'construction',
+  LedgerItem.technology: 'technology',
 };

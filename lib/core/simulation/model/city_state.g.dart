@@ -63,6 +63,12 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
           .toList() ??
       const [],
   lastDecisionDay: (json['lastDecisionDay'] as num?)?.toInt() ?? 0,
+  diplomacyPoints: (json['diplomacyPoints'] as num?)?.toInt() ?? 0,
+  technologies:
+      (json['technologies'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$TechnologyIdEnumMap, e))
+          .toSet() ??
+      const {},
 );
 
 Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>{
@@ -88,6 +94,8 @@ Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>
   'modifiers': instance.modifiers.map((e) => e.toJson()).toList(),
   'decisionLog': instance.decisionLog.map((e) => e.toJson()).toList(),
   'lastDecisionDay': instance.lastDecisionDay,
+  'diplomacyPoints': instance.diplomacyPoints,
+  'technologies': instance.technologies.map((e) => _$TechnologyIdEnumMap[e]!).toList(),
 };
 
 const _$RoadMaintenanceLevelEnumMap = {
@@ -125,4 +133,21 @@ const _$LedgerItemEnumMap = {
   LedgerItem.vehiclePurchases: 'vehiclePurchases',
   LedgerItem.vehicleUpgrades: 'vehicleUpgrades',
   LedgerItem.construction: 'construction',
+  LedgerItem.technology: 'technology',
+};
+
+const _$TechnologyIdEnumMap = {
+  TechnologyId.minibusContract: 'minibusContract',
+  TechnologyId.articulatedContract: 'articulatedContract',
+  TechnologyId.electricContract: 'electricContract',
+  TechnologyId.engineTuning: 'engineTuning',
+  TechnologyId.biggerCabins: 'biggerCabins',
+  TechnologyId.comfortKit: 'comfortKit',
+  TechnologyId.smartBuses: 'smartBuses',
+  TechnologyId.metroStudy: 'metroStudy',
+  TechnologyId.metroContract: 'metroContract',
+  TechnologyId.metroAutomation: 'metroAutomation',
+  TechnologyId.smartTicketing: 'smartTicketing',
+  TechnologyId.ecoDriving: 'ecoDriving',
+  TechnologyId.depotRobotics: 'depotRobotics',
 };

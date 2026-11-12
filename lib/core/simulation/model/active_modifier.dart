@@ -12,6 +12,7 @@ enum ModifierType {
   safety,
   energyCost,
   salaryCost,
+  maintenanceCost,
   ticketRevenue,
   subsidy,
   dailyCost,
@@ -19,7 +20,13 @@ enum ModifierType {
   mood;
 
   bool get isMultiplier => switch (this) {
-    capacity || demand || energyCost || salaryCost || ticketRevenue || subsidy => true,
+    capacity ||
+    demand ||
+    energyCost ||
+    salaryCost ||
+    maintenanceCost ||
+    ticketRevenue ||
+    subsidy => true,
     congestion || safety || dailyCost || dailyIncome || mood => false,
   };
 }

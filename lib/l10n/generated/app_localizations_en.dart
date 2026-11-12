@@ -480,7 +480,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String levelBarPoints(int points, int next) {
-    return '$points / $next DP';
+    return '$points / $next pts';
   }
 
   @override
@@ -498,7 +498,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get levelSheetBody =>
-      'Earn development points (DP) every day by keeping citizens happy and the budget positive. New buses, upgrades and finished projects give extra DP. Each level pays a reward from the Cabinet.';
+      'Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.';
 
   @override
   String levelSheetTarget(int target, String city) {
@@ -514,8 +514,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String levelUpReward(String amount) {
-    return 'The Cabinet sends a bonus of $amount.';
+  String levelUpReward(String amount, int diplomacy) {
+    return 'The Cabinet sends $amount and $diplomacy diplomacy points.';
   }
 
   @override
@@ -1467,4 +1467,165 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get tutorialProfile =>
       'Climb nine ranks and collect achievements and city badges. Good luck, Minister!';
+
+  @override
+  String get ledgerTechnology => 'Technology contracts';
+
+  @override
+  String get rejectLocked => 'Unlock it in Technology first';
+
+  @override
+  String get rejectInsufficientDiplomacy => 'Not enough diplomacy points';
+
+  @override
+  String get rejectAlreadyUnlocked => 'Already unlocked';
+
+  @override
+  String eventTechnologyUnlocked(String technology) {
+    return 'Contract signed: $technology!';
+  }
+
+  @override
+  String effectMaintenanceCost(String change) {
+    return 'Bus repairs $change';
+  }
+
+  @override
+  String diplomacyAmount(int amount) {
+    return '+$amount';
+  }
+
+  @override
+  String get diplomacyLabel => 'Diplomacy';
+
+  @override
+  String get diplomacyOpen => 'Open technology';
+
+  @override
+  String decisionDiplomacyEarned(int amount) {
+    return 'Citizens appreciate it: +$amount diplomacy points!';
+  }
+
+  @override
+  String get technologyTitle => 'Technology';
+
+  @override
+  String get technologyIntro =>
+      'Happy citizens and wise decisions earn diplomacy points. Spend them with money to sign contracts and unlock new technology!';
+
+  @override
+  String get technologyUnlock => 'Unlock';
+
+  @override
+  String get technologyUnlocked => 'Unlocked';
+
+  @override
+  String technologyRequires(String technology) {
+    return 'Needs $technology';
+  }
+
+  @override
+  String get branchBuses => 'Bus contracts';
+
+  @override
+  String get branchUpgrades => 'Bus upgrades';
+
+  @override
+  String get branchMetro => 'Metro';
+
+  @override
+  String get branchOperations => 'Operations';
+
+  @override
+  String get techMinibusContractName => 'Hop Mini contract';
+
+  @override
+  String get techMinibusContractDescription =>
+      'Nimble 28-seat minibuses from Silkway Motors. Cheap and great for narrow streets.';
+
+  @override
+  String get techArticulatedContractName => 'MegaLink contract';
+
+  @override
+  String get techArticulatedContractDescription =>
+      'Bendy 150-seat buses for the busiest districts.';
+
+  @override
+  String get techElectricContractName => 'Volta E-12 contract';
+
+  @override
+  String get techElectricContractDescription =>
+      'Silent electric buses with zero emissions. Needs a charging depot.';
+
+  @override
+  String get techEngineTuningName => 'Engine tuning';
+
+  @override
+  String get techEngineTuningDescription =>
+      'Unlocks bus level 2: more reliable buses and cheaper repairs.';
+
+  @override
+  String get techBiggerCabinsName => 'Bigger cabins';
+
+  @override
+  String get techBiggerCabinsDescription => 'Unlocks bus level 3: 15% more seats.';
+
+  @override
+  String get techComfortKitName => 'Comfort kit';
+
+  @override
+  String get techComfortKitDescription =>
+      'Unlocks bus level 4: air-con and soft seats passengers love.';
+
+  @override
+  String get techSmartBusesName => 'Smart buses';
+
+  @override
+  String get techSmartBusesDescription =>
+      'Unlocks bus level 5: efficient engines and cleaner exhaust.';
+
+  @override
+  String get techMetroStudyName => 'Metro study';
+
+  @override
+  String get techMetroStudyDescription => 'Engineers survey the ground for an underground railway.';
+
+  @override
+  String get techMetroContractName => 'Metro contract';
+
+  @override
+  String get techMetroContractDescription => 'Unlocks metro lines between neighbouring districts.';
+
+  @override
+  String get techMetroAutomationName => 'Driverless metro';
+
+  @override
+  String get techMetroAutomationDescription =>
+      'Unlocks metro line upgrades with more frequent trains.';
+
+  @override
+  String get techSmartTicketingName => 'Smart ticketing';
+
+  @override
+  String get techSmartTicketingDescription =>
+      'Contactless cards stop fare dodging. Ticket income +8% forever.';
+
+  @override
+  String get techEcoDrivingName => 'Eco-driving academy';
+
+  @override
+  String get techEcoDrivingDescription => 'Trained drivers use 10% less fuel and power.';
+
+  @override
+  String get techDepotRoboticsName => 'Depot robotics';
+
+  @override
+  String get techDepotRoboticsDescription =>
+      'Robots help the mechanics. Bus repairs cost 15% less.';
+
+  @override
+  String get achievementInnovatorTitle => 'Innovator';
+
+  @override
+  String get achievementInnovatorDescription => 'Unlock 5 technologies.';
 }

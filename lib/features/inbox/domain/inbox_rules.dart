@@ -36,6 +36,10 @@ class InboxRules {
           CrisisWarning(:final level) => (NotificationKind.warning, {'level': '$level'}),
           CrisisAverted() => (NotificationKind.averted, const <String, String>{}),
           MinisterDismissed() => (NotificationKind.dismissed, const <String, String>{}),
+          TechnologyUnlocked(:final technology) => (
+            NotificationKind.technology,
+            {'technology': technology.name},
+          ),
           _ => null,
         },
     ];

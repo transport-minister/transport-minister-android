@@ -29,6 +29,7 @@ const _$ModifierTypeEnumMap = {
   ModifierType.safety: 'safety',
   ModifierType.energyCost: 'energyCost',
   ModifierType.salaryCost: 'salaryCost',
+  ModifierType.maintenanceCost: 'maintenanceCost',
   ModifierType.ticketRevenue: 'ticketRevenue',
   ModifierType.subsidy: 'subsidy',
   ModifierType.dailyCost: 'dailyCost',
