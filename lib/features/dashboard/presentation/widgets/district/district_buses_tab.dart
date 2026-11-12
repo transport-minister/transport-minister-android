@@ -18,6 +18,7 @@ import 'package:transport_minister/features/city_game/presentation/simulation_te
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_panel_parts.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
+import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DistrictBusesTab extends StatelessWidget {
@@ -51,7 +52,11 @@ class DistrictBusesTab extends StatelessWidget {
       sliver: SliverList.list(
         children: [
           if (guided) ...[
-            MrBusSays(message: l10n.tutorialBuyBus, mood: MrBusMood.excited, mascotSize: 56),
+            MrBusSays(
+              message: l10n.tutorialBuyBus(MoneyFormat.compact(TutorialController.welcomeGift)),
+              mood: MrBusMood.excited,
+              mascotSize: 56,
+            ),
             const SizedBox(height: GameDimens.spaceM),
           ],
           PanelSectionTitle(

@@ -18,7 +18,7 @@ void main() {
     await LocalCitySaveRepository(store).store(
       CityId.baku,
       CitySave(
-        city: const BakuScenario().create(seed: 1).copyWith(diplomacyPoints: 20),
+        city: const BakuScenario().create(seed: 1).copyWith(diplomacyPoints: 20, budget: 2500000),
         anchor: TimeAnchor(syncedAtMs: now.current.millisecondsSinceEpoch),
       ),
     );

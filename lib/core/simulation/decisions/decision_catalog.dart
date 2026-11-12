@@ -144,10 +144,15 @@ abstract final class DecisionCatalog {
     ),
     DecisionTemplate(
       id: DecisionId.driverWages,
-      weight: (c) => c.mood(StakeholderGroup.transportWorkers) < 45 ? 3 : 0.3,
+      weight: (c) {
+        if (c.city.modifiers.any((modifier) => modifier.type == ModifierType.salaryCost)) {
+          return 0;
+        }
+        return c.mood(StakeholderGroup.transportWorkers) < 45 ? 3 : 0.3;
+      },
       options: (c, d) => const [
         DecisionOption([
-          Modify(ModifierType.salaryCost, 1.15, ActiveModifier.permanent),
+          Modify(ModifierType.salaryCost, 1.15, 120),
           Mood(StakeholderGroup.transportWorkers, 15),
         ]),
         DecisionOption([Spend(60000), Mood(StakeholderGroup.transportWorkers, 8)]),

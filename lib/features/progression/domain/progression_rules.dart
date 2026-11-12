@@ -28,7 +28,6 @@ class ProgressionRules {
   static const xpPerUpgrade = 8;
   static const xpPerProject = 40;
   static const xpPerCityLevel = 50;
-  static const xpPerAllocation = 20;
   static const reputationDrift = 0.05;
   static const warningPenalty = 5.0;
   static const dismissalPenalty = 20.0;
@@ -118,7 +117,6 @@ class ProgressionRules {
         BusUpgraded() => xpPerUpgrade,
         ProjectCompleted() => xpPerProject,
         CityLeveledUp(:final level) => xpPerCityLevel * level,
-        BudgetAllocated() => xpPerAllocation,
         DecisionResolved(:final decision, automatic: false) =>
           decision.kind == DecisionKind.disaster ? xpPerDisaster : xpPerDecision,
         TechnologyUnlocked() => xpPerTechnology,

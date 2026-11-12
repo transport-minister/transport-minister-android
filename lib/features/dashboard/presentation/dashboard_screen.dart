@@ -264,7 +264,7 @@ class _CityViewState extends ConsumerState<_CityView> {
   }
 
   Future<void> _openDistrict(DistrictId district) async {
-    final tutorial = ref.read(tutorialProvider.notifier)..onDistrictOpened();
+    final tutorial = ref.read(tutorialProvider.notifier)..onDistrictOpened(widget.cityId);
     final technology = await showChunkySheet<bool>(
       context: context,
       builder: (context) => DistrictSheet(

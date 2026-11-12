@@ -22,6 +22,7 @@ void main() {
       CityId.baku,
       CitySave(
         city: city.copyWith(
+          budget: 2500000,
           decisions: const [
             PendingDecision(
               id: 500,

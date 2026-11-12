@@ -19,15 +19,17 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/distr
 import 'package:transport_minister/features/dashboard/presentation/widgets/traffic_meter.dart';
 
 import '../../helpers/fake_now.dart';
+import '../../helpers/funded_city.dart';
 import '../../helpers/game_screen_harness.dart';
 
 void main() {
   late InMemoryDocumentStore store;
   late FakeNow now;
 
-  setUp(() {
+  setUp(() async {
     store = InMemoryDocumentStore();
     now = FakeNow(DateTime(2026, 11, 11, 8));
+    await saveFundedBaku(store, now);
   });
 
   Future<void> saveBaku({required DateTime syncedAt, CrisisState? crisis}) {
@@ -97,7 +99,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('City traffic 58%'), findsOneWidget);
-    expect(find.textContaining('reaches 70%'), findsOneWidget);
+    expect(find.textContaining('reaches 65%'), findsOneWidget);
   });
 
   testWidgets('a gridlock crisis is named in the banner', (tester) async {

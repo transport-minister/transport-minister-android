@@ -28,7 +28,6 @@ class InboxRules {
             {'project': type.name, 'district': ?district?.name},
           ),
           BusesDelivered(:final count) => (NotificationKind.buses, {'count': '$count'}),
-          BudgetAllocated(:final amount) => (NotificationKind.budget, {'amount': '$amount'}),
           CityLeveledUp(:final level, :final reward) => (
             NotificationKind.levelUp,
             {'city': city.name, 'level': '$level', 'reward': '$reward'},

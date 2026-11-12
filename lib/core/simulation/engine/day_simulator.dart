@@ -51,11 +51,6 @@ class DaySimulator {
     final events = <CityEvent>[];
     final today = metrics.calculate(state);
     final operating = economy.operatingLedger(state, today);
-    if (state.day % GameBalance.monthLengthDays == 0) {
-      final allocation = economy.monthlyAllocation(state.overallSatisfaction);
-      operating[LedgerItem.governmentBudget] = allocation;
-      events.add(BudgetAllocated(allocation));
-    }
     final operatingTotal = operating.values.fold(0, (sum, amount) => sum + amount);
     final budget = state.budget + operatingTotal;
     final groups = satisfaction.smooth(state.satisfaction, satisfaction.targets(state, today));

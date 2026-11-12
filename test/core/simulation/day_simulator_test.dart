@@ -35,11 +35,27 @@ void main() {
   });
 
   test('an idle city survives its first month without warnings', () {
-    final month = runDays(newBaku(), 30);
+    final month = runDays(newBaku(budget: 0), 30);
 
     expect(month.events.whereType<CrisisWarning>(), isEmpty);
     expect(month.state.budget, greaterThan(0));
-    expect(month.events.whereType<BudgetAllocated>(), hasLength(1));
+  });
+
+  test('the Cabinet pays every day and pays more to a happy city', () {
+    final city = newBaku(budget: 0);
+    final happy = city.copyWith(
+      satisfaction: {for (final group in StakeholderGroup.values) group: 80},
+    );
+
+    final day = const DaySimulator().advance(city);
+    final happyDay = const DaySimulator().advance(happy);
+
+    expect(day.report.ledger[LedgerItem.governmentBudget], greaterThan(0));
+    expect(day.state.budget, greaterThan(0));
+    expect(
+      happyDay.report.ledger[LedgerItem.governmentBudget],
+      greaterThan(day.report.ledger[LedgerItem.governmentBudget]!),
+    );
   });
 
   test('new buses arrive the next day and make passengers happier', () {
