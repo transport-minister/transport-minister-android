@@ -10,12 +10,14 @@ abstract final class TrafficColors {
   static const smooth = Color(0xFF7BD67B);
   static const busy = Color(0xFFFFD54F);
   static const jammed = Color(0xFFFF7A6E);
+  static const busyFrom = 45.0;
+  static const jammedFrom = 65.0;
 
   static Color of(double congestion) {
-    if (congestion < 45) {
+    if (congestion < busyFrom) {
       return smooth;
     }
-    return congestion < 65 ? busy : jammed;
+    return congestion < jammedFrom ? busy : jammed;
   }
 }
 
@@ -43,7 +45,7 @@ class CityMapPainter extends CustomPainter {
 
   static const land = Color(0xFFEAF3D6);
   static const sea = Color(0xFF7CC6F5);
-  static const roadWidth = 36.0;
+  static const roadWidth = 54.0;
 
   static const _trees = [
     Offset(80, 470),
@@ -74,6 +76,14 @@ class CityMapPainter extends CustomPainter {
     Offset(-130, -60),
     Offset(1010, 160),
     Offset(980, 300),
+    Offset(470, 300),
+    Offset(505, 335),
+    Offset(300, 455),
+    Offset(335, 490),
+    Offset(395, 725),
+    Offset(365, 745),
+    Offset(575, 705),
+    Offset(545, 690),
   ];
 
   static const _waves = [
@@ -271,123 +281,4 @@ class CityMapPainter extends CustomPainter {
   @override
   bool shouldRepaint(CityMapPainter oldDelegate) =>
       oldDelegate.metrics != metrics || oldDelegate.constructionSites != constructionSites;
-}
-
-class TrafficPainter extends CustomPainter {
-  TrafficPainter({required this.progress, required this.metrics, required this.buses})
-    : super(repaint: progress);
-
-  final Animation<double> progress;
-  final CityMetrics metrics;
-  final int buses;
-
-  static const _carColors = [
-    Color(0xFFFF6B5E),
-    Color(0xFF3FA3F0),
-    Color(0xFFFFFFFF),
-    Color(0xFF9B6CF2),
-    Color(0xFF2EC4B6),
-  ];
-  static const _glass = Color(0xFFBFE9FF);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final roads = RoadGeometry.all;
-    for (var roadIndex = 0; roadIndex < roads.length; roadIndex++) {
-      final road = roads[roadIndex];
-      final congestion = road.congestion(metrics);
-      final cars = 2 + (congestion / 100 * 7).round();
-      final speed = 1.6 - congestion / 100;
-      for (var car = 0; car < cars; car++) {
-        final phase = (progress.value * speed + car / cars + roadIndex * 0.13) % 1;
-        _paintVehicle(
-          canvas,
-          road,
-          phase,
-          forward: car.isEven,
-          length: 32,
-          width: 17,
-          color: _carColors[(car + roadIndex) % _carColors.length],
-        );
-      }
-    }
-    for (var bus = 0; bus < buses; bus++) {
-      final road = roads[(bus * 3) % roads.length];
-      final phase = (progress.value * 0.9 + bus * 0.29) % 1;
-      _paintVehicle(
-        canvas,
-        road,
-        phase,
-        forward: bus.isOdd,
-        length: 50,
-        width: 21,
-        color: const Color(0xFFFFC93C),
-        isBus: true,
-      );
-    }
-  }
-
-  void _paintVehicle(
-    Canvas canvas,
-    RoadGeometry road,
-    double phase, {
-    required bool forward,
-    required double length,
-    required double width,
-    required Color color,
-    bool isBus = false,
-  }) {
-    final start = forward ? road.start : road.end;
-    final end = forward ? road.end : road.start;
-    final vector = end - start;
-    final distance = vector.distance;
-    final direction = vector / distance;
-    final lane = Offset(-direction.dy, direction.dx) * 9;
-    final startInset = ((forward ? road.from : road.to).worldRadius + length / 2) / distance;
-    final endInset = ((forward ? road.to : road.from).worldRadius + length / 2) / distance;
-    final travel = startInset + phase * (1 - startInset - endInset);
-    final position = Offset.lerp(start, end, travel)! + lane;
-    canvas
-      ..save()
-      ..translate(position.dx, position.dy)
-      ..rotate(math.atan2(direction.dy, direction.dx));
-    final body = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: Offset.zero, width: length, height: width),
-      const Radius.circular(5),
-    );
-    canvas
-      ..drawRRect(body.shift(const Offset(0, 2)), Paint()..color = GameColors.ink)
-      ..drawRRect(body, Paint()..color = color)
-      ..drawRRect(
-        body,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
-          ..color = GameColors.ink,
-      );
-    if (isBus) {
-      for (var window = 0; window < 4; window++) {
-        canvas.drawRRect(
-          RRect.fromRectAndRadius(
-            Rect.fromLTWH(-length / 2 + 6 + window * 10.5, -width / 2 + 4, 7.5, width - 8),
-            const Radius.circular(2),
-          ),
-          Paint()..color = _glass,
-        );
-      }
-    } else {
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(length / 2 - 13, -width / 2 + 4, 8.5, width - 8),
-          const Radius.circular(2),
-        ),
-        Paint()..color = _glass,
-      );
-    }
-    canvas.restore();
-  }
-
-  @override
-  bool shouldRepaint(TrafficPainter oldDelegate) =>
-      oldDelegate.buses != buses || oldDelegate.metrics != metrics;
 }

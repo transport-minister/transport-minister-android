@@ -81,6 +81,7 @@ class _CityView extends ConsumerStatefulWidget {
 
 class _CityViewState extends ConsumerState<_CityView> {
   static const _cornerButton = 42.0;
+  static const _mapOverlayClearance = 120.0;
 
   final _mapController = CityMapController();
   final _targets = TutorialTargets();
@@ -161,6 +162,7 @@ class _CityViewState extends ConsumerState<_CityView> {
                           metrics: metrics,
                           controller: _mapController,
                           onDistrictPressed: _openDistrict,
+                          homePadding: const EdgeInsets.only(top: _mapOverlayClearance),
                         ),
                         Positioned(
                           left: GameDimens.spaceS,
