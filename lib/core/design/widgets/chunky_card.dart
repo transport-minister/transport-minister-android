@@ -43,7 +43,7 @@ class ChunkyCard extends StatelessWidget {
       margin: EdgeInsets.only(top: pressed ? depth : 0, bottom: pressed ? 0 : depth),
       padding: padding,
       decoration: BoxDecoration(
-        color: color,
+        color: Color.alphaBlend(color, GameColors.paper),
         borderRadius: BorderRadius.circular(radius),
         border: Border.all(color: GameColors.ink, width: GameDimens.outline),
         boxShadow: [BoxShadow(color: GameColors.ink, offset: Offset(0, pressed ? 0 : depth))],
