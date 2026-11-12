@@ -16,7 +16,8 @@ enum LedgerItem {
   vehiclePurchases,
   vehicleUpgrades,
   construction,
-  technology;
+  technology,
+  metro;
 
   bool get isOperating => switch (this) {
     LedgerItem.tickets ||
@@ -27,7 +28,8 @@ enum LedgerItem {
     LedgerItem.roadMaintenance ||
     LedgerItem.administration ||
     LedgerItem.loanRepayment ||
-    LedgerItem.decisions => true,
+    LedgerItem.decisions ||
+    LedgerItem.metro => true,
     LedgerItem.governmentBudget ||
     LedgerItem.levelRewards ||
     LedgerItem.rewards ||

@@ -7,6 +7,7 @@ import 'package:transport_minister/core/simulation/model/city_metrics.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map_painter.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/metro_painter.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class CityMapController extends ChangeNotifier {
@@ -181,6 +182,11 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
                             metrics: widget.metrics,
                             constructionSites: sites,
                           ),
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: CustomPaint(
+                          painter: MetroPainter(progress: _traffic, lines: widget.city.metroLines),
                         ),
                       ),
                       Positioned.fill(

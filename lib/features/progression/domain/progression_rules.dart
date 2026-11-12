@@ -37,6 +37,7 @@ class ProgressionRules {
   static const xpPerDecision = 15;
   static const xpPerDisaster = 25;
   static const xpPerTechnology = 30;
+  static const xpPerMetroLine = 60;
 
   ProgressionUpdate apply(
     MinisterProfile profile, {
@@ -120,6 +121,7 @@ class ProgressionRules {
         DecisionResolved(:final decision, automatic: false) =>
           decision.kind == DecisionKind.disaster ? xpPerDisaster : xpPerDecision,
         TechnologyUnlocked() => xpPerTechnology,
+        MetroLineOpened() => xpPerMetroLine,
         _ => 0,
       };
     }
@@ -167,6 +169,7 @@ class ProgressionRules {
       AchievementId.decisive => career.decisionsMade >= 25,
       AchievementId.stormChaser => career.disastersHandled >= 5,
       AchievementId.innovator => city.technologies.length >= 5,
+      AchievementId.metroPioneer => city.metroLines.any((line) => line.isOpen),
       AchievementId.veteranMinister => career.daysServed >= 365,
     };
   }

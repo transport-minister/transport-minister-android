@@ -3,6 +3,7 @@ import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
+import 'package:transport_minister/core/simulation/model/metro_line.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/progression/domain/achievement.dart';
 import 'package:transport_minister/features/progression/domain/city_badge.dart';
@@ -75,6 +76,27 @@ void main() {
 
     expect(update.profile.bestLevelIn(CityId.baku), 3);
     expect(update.events.whereType<BadgeEarned>().single.tier, BadgeTier.bronze);
+  });
+
+  test('the first open metro line unlocks Metro Pioneer', () {
+    final update = rules.apply(
+      const MinisterProfile(),
+      city: CityId.baku,
+      state: city.copyWith(
+        metroLines: const [
+          MetroLine(
+            from: DistrictId.oldFortress,
+            to: DistrictId.windHeights,
+            totalDays: 8,
+            remainingDays: 0,
+          ),
+        ],
+      ),
+      events: const [MetroLineOpened(DistrictId.oldFortress, DistrictId.windHeights)],
+    );
+
+    expect(update.profile.achievements, contains(AchievementId.metroPioneer));
+    expect(update.profile.xp, ProgressionRules.xpPerMetroLine + AchievementId.metroPioneer.xp);
   });
 
   test('averting a crisis unlocks Survivor', () {

@@ -16,6 +16,7 @@ import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/simulation/model/daily_report.dart';
 import 'package:transport_minister/core/simulation/model/district_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
+import 'package:transport_minister/core/simulation/model/metro_line.dart';
 import 'package:transport_minister/core/simulation/model/project.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
 
@@ -70,6 +71,7 @@ class DaySimulator {
       ],
     );
     next = _progressProjects(next, events);
+    next = _progressMetro(next, events);
     next = _repayLoan(next, events);
     next = next.copyWith(
       modifiers: [
@@ -108,10 +110,12 @@ class DaySimulator {
       ),
     );
     final completed = events.whereType<ProjectCompleted>().length;
+    final opened = events.whereType<MetroLineOpened>().length;
     final (developed, levelEvents) = development.award(
       next,
       CityLevels.dailyPoints(satisfaction: overall, positiveDay: operatingTotal >= 0) +
-          completed * CityLevels.projectCompletionPoints,
+          completed * CityLevels.projectCompletionPoints +
+          opened * CityLevels.metroOpeningPoints,
     );
     next = developed;
     events.addAll(levelEvents);
@@ -155,6 +159,22 @@ class DaySimulator {
       projects: remaining,
       stats: next.stats.copyWith(projectsCompleted: next.stats.projectsCompleted + completed),
     );
+  }
+
+  CityState _progressMetro(CityState state, List<CityEvent> events) {
+    final lines = <MetroLine>[];
+    for (final line in state.metroLines) {
+      if (line.isOpen) {
+        lines.add(line);
+        continue;
+      }
+      final dug = line.copyWith(remainingDays: line.remainingDays - 1);
+      if (dug.isOpen) {
+        events.add(MetroLineOpened(line.from, line.to));
+      }
+      lines.add(dug);
+    }
+    return state.copyWith(metroLines: lines);
   }
 
   CityState _repayLoan(CityState state, List<CityEvent> events) {

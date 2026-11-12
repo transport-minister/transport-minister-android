@@ -121,3 +121,17 @@ final class TechnologyUnlocked extends CityEvent {
 
   final TechnologyId technology;
 }
+
+final class MetroLineStarted extends CityEvent {
+  const MetroLineStarted(this.from, this.to);
+
+  final DistrictId from;
+  final DistrictId to;
+}
+
+final class MetroLineOpened extends CityEvent {
+  const MetroLineOpened(this.from, this.to);
+
+  final DistrictId from;
+  final DistrictId to;
+}

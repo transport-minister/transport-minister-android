@@ -3,9 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
+import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
+import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
+import 'package:transport_minister/features/city_game/data/local_city_save_repository.dart';
+import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 
@@ -109,5 +114,41 @@ void main() {
     expect(find.text('Smart traffic lights: construction started'), findsOneWidget);
     expect(find.text('3 DAYS LEFT'), findsOneWidget);
     expect(find.text('Work is already underway here'), findsWidgets);
+  });
+
+  testWidgets('the metro tab leads to technology until the contract is signed', (tester) async {
+    var opened = false;
+    await openOldFortress(tester, onOpenTechnology: () => opened = true);
+
+    await tester.tap(find.text('Metro'));
+    await tester.pumpAndSettle();
+    await reveal(tester, find.text('Needs Metro contract'));
+    await tester.tap(find.text('Technology'));
+
+    expect(opened, isTrue);
+  });
+
+  testWidgets('with the contract a tunnel can be dug to a neighbour', (tester) async {
+    await LocalCitySaveRepository(store).store(
+      CityId.baku,
+      CitySave(
+        city: const BakuScenario()
+            .create(seed: 1)
+            .copyWith(technologies: {TechnologyId.metroContract}),
+        anchor: TimeAnchor(syncedAtMs: now.current.millisecondsSinceEpoch),
+      ),
+    );
+    final container = await openOldFortress(tester);
+
+    await tester.tap(find.text('Metro'));
+    await tester.pumpAndSettle();
+    await reveal(tester, find.text('Dig · \$1.5M').first);
+    await tester.tap(find.text('Dig · \$1.5M').first);
+    await tester.pumpAndSettle();
+
+    final line = cityIn(container).metroLines.single;
+    expect(line.joins(DistrictId.oldFortress, DistrictId.windHeights), isTrue);
+    expect(find.text('Metro Old Fortress ⇄ Wind Heights: digging started'), findsOneWidget);
+    expect(find.text('8 DAYS LEFT'), findsOneWidget);
   });
 }

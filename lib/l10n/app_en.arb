@@ -112,7 +112,7 @@
       }
     }
   },
-  "districtRidersServed": "Buses can carry {capacity} of {demand} riders a day",
+  "districtRidersServed": "Can carry {capacity} of {demand} riders a day",
   "@districtRidersServed": {
     "placeholders": {
       "capacity": {
@@ -1214,7 +1214,7 @@
   "techMetroContractName": "Metro contract",
   "techMetroContractDescription": "Unlocks metro lines between neighbouring districts.",
   "techMetroAutomationName": "Driverless metro",
-  "techMetroAutomationDescription": "Unlocks metro line upgrades with more frequent trains.",
+  "techMetroAutomationDescription": "Driverless trains run more often and cost less to run.",
   "techSmartTicketingName": "Smart ticketing",
   "techSmartTicketingDescription": "Contactless cards stop fare dodging. Ticket income +8% forever.",
   "techEcoDrivingName": "Eco-driving academy",
@@ -1402,5 +1402,76 @@
   "chipCoverage": "Coverage +10%",
   "chipPassengersHappier": "Passengers happier",
   "chipElectric": "Needed for Volta E-12",
-  "chipDepot": "Depot +20 buses"
+  "chipDepot": "Depot +20 buses",
+  "ledgerMetro": "Metro",
+  "rejectTunnelBusy": "The tunnel crew is busy digging another line",
+  "eventMetroStarted": "Metro {from} ⇄ {to}: digging started",
+  "@eventMetroStarted": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "eventMetroOpened": "Metro {from} ⇄ {to} is open!",
+  "@eventMetroOpened": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "achievementMetroPioneerTitle": "Metro Pioneer",
+  "achievementMetroPioneerDescription": "Open your first metro line.",
+  "metroIntro": "Each station carries {riders} riders a day with no traffic jams. A line costs {cost}/day to run.",
+  "@metroIntro": {
+    "placeholders": {
+      "riders": {
+        "type": "String"
+      },
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
+  "metroTeaser": "Dig tunnels to the neighbours: thousands of riders a day and no traffic jams.",
+  "metroLinesTitle": "Lines from {district}",
+  "@metroLinesTitle": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "metroLineTo": "To {district}",
+  "@metroLineTo": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "metroOpen": "Open",
+  "metroDig": "Dig · {price}",
+  "@metroDig": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "metroWaitingThere": "Waiting there: {minutes} min",
+  "@metroWaitingThere": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  }
 }

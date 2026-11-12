@@ -14,7 +14,11 @@ void main() {
   test('a played city survives a JSON round trip', () {
     const commands = CityCommands();
     var city = newBaku().copyWith(
-      technologies: {TechnologyId.minibusContract, TechnologyId.articulatedContract},
+      technologies: {
+        TechnologyId.minibusContract,
+        TechnologyId.articulatedContract,
+        TechnologyId.metroContract,
+      },
       diplomacyPoints: 12,
     );
     city = applied(
@@ -24,6 +28,7 @@ void main() {
       commands.startProject(city, ProjectType.bikeLanes, district: DistrictId.flameHills),
     );
     city = applied(commands.takeLoan(city, 500000));
+    city = applied(commands.buildMetroLine(city, DistrictId.oldFortress, DistrictId.oilHarbor));
     city = runDays(city, 12).state;
 
     final restored = CityState.fromJson(

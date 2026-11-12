@@ -23,6 +23,7 @@ extension AchievementPresentation on AchievementId {
     AchievementId.decisive => l10n.achievementDecisiveTitle,
     AchievementId.stormChaser => l10n.achievementStormChaserTitle,
     AchievementId.innovator => l10n.achievementInnovatorTitle,
+    AchievementId.metroPioneer => l10n.achievementMetroPioneerTitle,
     AchievementId.veteranMinister => l10n.achievementVeteranMinisterTitle,
   };
 
@@ -44,6 +45,7 @@ extension AchievementPresentation on AchievementId {
     AchievementId.decisive => l10n.achievementDecisiveDescription,
     AchievementId.stormChaser => l10n.achievementStormChaserDescription,
     AchievementId.innovator => l10n.achievementInnovatorDescription,
+    AchievementId.metroPioneer => l10n.achievementMetroPioneerDescription,
     AchievementId.veteranMinister => l10n.achievementVeteranMinisterDescription,
   };
 
@@ -65,6 +67,7 @@ extension AchievementPresentation on AchievementId {
     AchievementId.decisive => Icons.how_to_vote_rounded,
     AchievementId.stormChaser => Icons.thunderstorm_rounded,
     AchievementId.innovator => Icons.science_rounded,
+    AchievementId.metroPioneer => Icons.subway_rounded,
     AchievementId.veteranMinister => Icons.military_tech_rounded,
   };
 

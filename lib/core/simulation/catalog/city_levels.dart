@@ -8,6 +8,7 @@ abstract final class CityLevels {
   static const busPurchasePoints = 4;
   static const busUpgradePoints = 3;
   static const projectCompletionPoints = 12;
+  static const metroOpeningPoints = 30;
   static const positiveDayPoints = 2;
 
   static int levelFor(int points) {

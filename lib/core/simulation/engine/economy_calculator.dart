@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
+import 'package:transport_minister/core/simulation/catalog/metro_rules.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
 import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
@@ -38,6 +39,9 @@ class EconomyCalculator {
       LedgerItem.roadMaintenance: -state.districts.length * state.roadMaintenance.costPerDistrict,
       LedgerItem.administration: -GameBalance.administrationPerDay,
       if (loan != null) LedgerItem.loanRepayment: -loan.dailyInstallment,
+      LedgerItem.metro:
+          -state.metroLines.where((line) => line.isOpen).length *
+          MetroRules.lineCost(automated: state.metroAutomated),
       LedgerItem.decisions:
           (state.additive(ModifierType.dailyIncome) - state.additive(ModifierType.dailyCost))
               .round(),

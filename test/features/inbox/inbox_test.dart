@@ -29,14 +29,16 @@ void main() {
       DecisionArrived(DecisionId.flood, DistrictId.oilHarbor),
       ProjectCompleted(ProjectType.roadRepair, DistrictId.windHeights),
       BudgetAllocated(450000),
+      MetroLineOpened(DistrictId.oldFortress, DistrictId.windHeights),
     ], now);
 
     expect(inbox.items.map((item) => item.kind), [
+      NotificationKind.metro,
       NotificationKind.budget,
       NotificationKind.project,
       NotificationKind.disaster,
     ]);
-    expect(inbox.unread, 3);
+    expect(inbox.unread, 4);
     expect(rules.markAllRead(inbox).unread, 0);
   });
 
