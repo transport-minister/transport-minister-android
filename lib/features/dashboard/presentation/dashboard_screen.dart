@@ -134,7 +134,6 @@ class _CityViewState extends ConsumerState<_CityView> {
               city: city,
               rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
               onProfilePressed: () => _leaveFor(AppRoute.profile.path),
-              onDiplomacyPressed: _openDiplomacy,
               onSettingsPressed: () => _leaveFor(AppRoute.settings.path),
             ),
             KeyedSubtree(

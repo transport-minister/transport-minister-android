@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
@@ -16,6 +17,7 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_stats_panel.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/dashboard_hud.dart';
 import 'package:transport_minister/features/inbox/data/local_inbox_repository.dart';
 import 'package:transport_minister/features/inbox/domain/inbox.dart';
 import 'package:transport_minister/features/inbox/domain/inbox_rules.dart';
@@ -58,6 +60,17 @@ void main() {
     expect(find.byIcon(Icons.favorite_rounded), findsNothing);
     expect(find.byIcon(Icons.settings_rounded), findsOneWidget);
     expect(find.byIcon(Icons.handshake_rounded), findsWidgets);
+    expect(
+      tester
+          .widget<StatPill>(
+            find.descendant(
+              of: find.byType(DashboardHud),
+              matching: find.widgetWithIcon(StatPill, Icons.handshake_rounded),
+            ),
+          )
+          .onPressed,
+      isNull,
+    );
     expect(
       find.descendant(of: find.byType(CityStatsPanel), matching: find.textContaining('/s')),
       findsOneWidget,
