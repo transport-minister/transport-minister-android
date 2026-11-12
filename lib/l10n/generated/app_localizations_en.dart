@@ -1438,7 +1438,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tutorialClock =>
-      'A day passes every minute, even while you are away, for up to a week.';
+      'A day passes every minute while you are on this map. Leave it and time stops.';
 
   @override
   String tutorialDistrict(String district) {

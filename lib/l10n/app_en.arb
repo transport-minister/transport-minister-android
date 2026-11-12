@@ -1126,7 +1126,7 @@
   "tutorialWelcome": "I'm Mr. Bus, your transport advisor. Let me show you Baku in 30 seconds!",
   "tutorialBudget": "This is your budget. Tickets and the Cabinet fill it. Fuel, wages and repairs drain it.",
   "tutorialMood": "This heart shows how happy citizens are. Below 30% for too long and the President fires you!",
-  "tutorialClock": "A day passes every minute, even while you are away, for up to a week.",
+  "tutorialClock": "A day passes every minute while you are on this map. Leave it and time stops.",
   "tutorialDistrict": "People in {district} wait the longest. Find it on the map and tap it!",
   "@tutorialDistrict": {
     "placeholders": {
