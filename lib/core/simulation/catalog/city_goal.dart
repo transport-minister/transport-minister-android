@@ -3,7 +3,7 @@ import 'package:transport_minister/core/simulation/catalog/technology_catalog.da
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 
 abstract final class CityGoal {
-  static const happiness = 75.0;
+  static const happiness = 78.0;
   static const parts = 3;
 
   static bool levelReached(CityState city) => city.level >= CityLevels.targetLevel;

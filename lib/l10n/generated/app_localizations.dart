@@ -2437,8 +2437,8 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialLevel.
   ///
   /// In en, this message translates to:
-  /// **'Reach level 10, unlock every technology and make people 75% happy to complete Baku!'**
-  String get tutorialLevel;
+  /// **'Reach level 10, unlock every technology and make people {percent}% happy to complete Baku!'**
+  String tutorialLevel(int percent);
 
   /// No description provided for @tutorialNews.
   ///

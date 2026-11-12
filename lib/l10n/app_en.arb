@@ -1082,7 +1082,14 @@
     }
   },
   "tutorialBusBought": "Your bus arrives in a few seconds. Faster service means happier citizens and more money!",
-  "tutorialLevel": "Reach level 10, unlock every technology and make people 75% happy to complete Baku!",
+  "tutorialLevel": "Reach level 10, unlock every technology and make people {percent}% happy to complete Baku!",
+  "@tutorialLevel": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
   "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
   "tutorialDiplomacy": "This is diplomacy. Spend money on gestures people love and they pay you back in points for new technology.",

@@ -1396,8 +1396,9 @@ class AppLocalizationsTr extends AppLocalizations {
       'Otobüsün birkaç saniye içinde gelir. Daha hızlı hizmet daha mutlu vatandaş ve daha çok para demek!';
 
   @override
-  String get tutorialLevel =>
-      'Bakü\'yü tamamlamak için 10. seviyeye ulaş, tüm teknolojileri aç ve insanları %75 mutlu et!';
+  String tutorialLevel(int percent) {
+    return 'Bakü\'yü tamamlamak için 10. seviyeye ulaş, tüm teknolojileri aç ve insanları %$percent mutlu et!';
+  }
 
   @override
   String get tutorialNews =>

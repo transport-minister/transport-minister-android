@@ -86,7 +86,7 @@ void main() {
     expect(find.text('City goal'), findsOneWidget);
     expect(find.text('Level 1/10'), findsOneWidget);
     expect(find.text('0/13'), findsOneWidget);
-    expect(find.text('Make citizens 75% happy'), findsOneWidget);
+    expect(find.text('Make citizens 78% happy'), findsOneWidget);
     expect(find.text('Complete Baku to unlock Istanbul.'), findsOneWidget);
   });
 
