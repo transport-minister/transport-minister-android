@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus.dart';
@@ -160,7 +158,7 @@ class _ContractCard extends StatefulWidget {
 
   final BusModelId model;
   final CityState city;
-  final Future<CommandOutcome> Function(int count) onSign;
+  final ValueChanged<int> onSign;
   final VoidCallback onOpenTechnology;
 
   @override
@@ -169,32 +167,8 @@ class _ContractCard extends StatefulWidget {
 
 class _ContractCardState extends State<_ContractCard> {
   static const _maxOrder = 5;
-  static const _signedFor = Duration(seconds: 2);
 
   var _count = 1;
-  int? _signed;
-  Timer? _signedTimer;
-
-  @override
-  void dispose() {
-    _signedTimer?.cancel();
-    super.dispose();
-  }
-
-  Future<void> _sign() async {
-    final count = _count;
-    final outcome = await widget.onSign(count);
-    if (!mounted || outcome is! CommandApplied) {
-      return;
-    }
-    _signedTimer?.cancel();
-    _signedTimer = Timer(_signedFor, () {
-      if (mounted) {
-        setState(() => _signed = null);
-      }
-    });
-    setState(() => _signed = count);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -286,41 +260,15 @@ class _ContractCardState extends State<_ContractCard> {
                       label: l10n.contractSign(MoneyFormat.compact(spec.price * _count)),
                       icon: Icons.draw_rounded,
                       size: ChunkySize.small,
-                      onPressed: problem == null ? _sign : null,
+                      onPressed: problem == null ? () => widget.onSign(_count) : null,
                     ),
                   ),
                 ),
               ],
             ),
-            if (_signed case final signed?)
-              _SignedTag(label: l10n.contractSigned(signed))
-            else if (problem != null)
-              ProblemText(problem.message(l10n)),
+            if (problem != null) ProblemText(problem.message(l10n)),
           ],
         ],
-      ),
-    );
-  }
-}
-
-class _SignedTag extends StatelessWidget {
-  const _SignedTag({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: GameDimens.spaceS),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.5, end: 1),
-          duration: GameDimens.releaseDuration,
-          curve: Curves.easeOutBack,
-          builder: (context, scale, child) => Transform.scale(scale: scale, child: child),
-          child: GameTag(label: label, palette: ChunkyPalette.green, icon: Icons.check_rounded),
-        ),
       ),
     );
   }

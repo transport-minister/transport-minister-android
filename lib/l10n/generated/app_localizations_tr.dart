@@ -1707,17 +1707,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get contractMore => 'Daha çok otobüs';
 
   @override
-  String contractSigned(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'İmzalandı! $count otobüs yolda',
-      one: 'İmzalandı! Otobüs yolda',
-    );
-    return '$_temp0';
-  }
-
-  @override
   String busSeats(int count) {
     return '$count koltuk';
   }

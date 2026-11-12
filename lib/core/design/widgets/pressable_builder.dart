@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/game_dimens.dart';
-import 'package:transport_minister/core/design/widgets/tap_burst.dart';
 
 typedef PressedWidgetBuilder = Widget Function(BuildContext context, bool pressed);
 
@@ -29,7 +28,6 @@ class _PressableBuilderState extends State<PressableBuilder> {
   var _pressed = false;
   var _down = false;
   Timer? _hold;
-  Offset? _tapPosition;
 
   bool get _enabled => widget.onPressed != null;
 
@@ -75,7 +73,6 @@ class _PressableBuilderState extends State<PressableBuilder> {
 
   void _handleTapUp(TapUpDetails details) {
     _down = false;
-    _tapPosition = details.globalPosition;
     if (_hold == null) {
       _updatePressed(false);
     }
@@ -96,10 +93,6 @@ class _PressableBuilderState extends State<PressableBuilder> {
 
   void _handleTap() {
     HapticFeedback.lightImpact();
-    final position = _tapPosition;
-    if (position != null) {
-      TapBurst.show(context, position);
-    }
     widget.onPressed?.call();
   }
 }

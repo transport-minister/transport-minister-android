@@ -476,7 +476,6 @@
   "contractOpenTechnology": "Технологии",
   "contractFewer": "Меньше автобусов",
   "contractMore": "Больше автобусов",
-  "contractSigned": "{count, plural, one{Подписано! {count} автобус в пути} few{Подписано! {count} автобуса в пути} many{Подписано! {count} автобусов в пути} other{Подписано! {count} автобуса в пути}}",
   "busSeats": "{count} мест",
   "busRunningCost": "{amount}/с",
   "busComfort": "Комфорт {value}",
