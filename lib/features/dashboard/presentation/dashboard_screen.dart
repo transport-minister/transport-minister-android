@@ -30,7 +30,7 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/city_
 import 'package:transport_minister/features/dashboard/presentation/widgets/crisis_banner.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dashboard_hud.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/district_sheet.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
@@ -169,8 +169,7 @@ class _CityViewState extends ConsumerState<_CityView> {
                               (technology) =>
                                   const CityCommands().technologyProblem(city, technology) == null,
                             ),
-                            onPressed: () =>
-                                _leaveFor(AppRoute.technology.forCity(widget.cityId.name)),
+                            onPressed: _openTechnology,
                           ),
                         ),
                         Positioned(
@@ -251,12 +250,21 @@ class _CityViewState extends ConsumerState<_CityView> {
 
   Future<void> _openDistrict(DistrictId district) async {
     final tutorial = ref.read(tutorialProvider.notifier)..onDistrictOpened();
-    await showChunkySheet<void>(
+    final technology = await showChunkySheet<bool>(
       context: context,
-      builder: (context) => DistrictSheet(cityId: widget.cityId, district: district),
+      builder: (context) => DistrictSheet(
+        cityId: widget.cityId,
+        district: district,
+        onOpenTechnology: () => Navigator.of(context).pop(true),
+      ),
     );
     tutorial.onDistrictClosed();
+    if (mounted && (technology ?? false)) {
+      await _openTechnology();
+    }
   }
+
+  Future<void> _openTechnology() => _leaveFor(AppRoute.technology.forCity(widget.cityId.name));
 
   Future<void> _startTutorial() async {
     final profile = await ref.read(profileProvider.future);

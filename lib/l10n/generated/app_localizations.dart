@@ -500,18 +500,6 @@ abstract class AppLocalizations {
   /// **'{project}: {days, plural, =1{1 day left} other{{days} days left}}'**
   String districtDaysLeft(String project, int days);
 
-  /// No description provided for @actionAddBus.
-  ///
-  /// In en, this message translates to:
-  /// **'Add bus · {price}'**
-  String actionAddBus(String price);
-
-  /// No description provided for @actionRepairRoad.
-  ///
-  /// In en, this message translates to:
-  /// **'Repair road · {price}'**
-  String actionRepairRoad(String price);
-
   /// No description provided for @ledgerTickets.
   ///
   /// In en, this message translates to:
@@ -701,8 +689,8 @@ abstract class AppLocalizations {
   /// No description provided for @eventBusPurchased.
   ///
   /// In en, this message translates to:
-  /// **'Bus ordered! It joins the fleet tomorrow.'**
-  String get eventBusPurchased;
+  /// **'{count, plural, =1{Bus ordered! It joins the fleet tomorrow.} other{{count} buses ordered! They join the fleet tomorrow.}}'**
+  String eventBusPurchased(int count);
 
   /// No description provided for @eventBusUpgraded.
   ///
@@ -2483,7 +2471,7 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialBuyBus.
   ///
   /// In en, this message translates to:
-  /// **'Tap Add bus. New buses cut waiting times!'**
+  /// **'Pick a bus model and tap Sign. New buses cut waiting times!'**
   String get tutorialBuyBus;
 
   /// No description provided for @tutorialBusBought.
@@ -2797,6 +2785,318 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock 5 technologies.'**
   String get achievementInnovatorDescription;
+
+  /// No description provided for @tabBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'Buses'**
+  String get tabBuses;
+
+  /// No description provided for @tabBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Build'**
+  String get tabBuild;
+
+  /// No description provided for @tabMetro.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro'**
+  String get tabMetro;
+
+  /// No description provided for @contractsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign a contract'**
+  String get contractsTitle;
+
+  /// No description provided for @contractSign.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign · {price}'**
+  String contractSign(String price);
+
+  /// No description provided for @contractOpenTechnology.
+  ///
+  /// In en, this message translates to:
+  /// **'Technology'**
+  String get contractOpenTechnology;
+
+  /// No description provided for @contractFewer.
+  ///
+  /// In en, this message translates to:
+  /// **'Fewer buses'**
+  String get contractFewer;
+
+  /// No description provided for @contractMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More buses'**
+  String get contractMore;
+
+  /// No description provided for @busSeats.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} seats'**
+  String busSeats(int count);
+
+  /// No description provided for @busRunningCost.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount}/day'**
+  String busRunningCost(String amount);
+
+  /// No description provided for @busComfort.
+  ///
+  /// In en, this message translates to:
+  /// **'Comfort {value}'**
+  String busComfort(int value);
+
+  /// No description provided for @ecoZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Zero emissions'**
+  String get ecoZero;
+
+  /// No description provided for @ecoLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low emissions'**
+  String get ecoLow;
+
+  /// No description provided for @ecoMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium emissions'**
+  String get ecoMedium;
+
+  /// No description provided for @ecoHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High emissions'**
+  String get ecoHigh;
+
+  /// No description provided for @fleetHereTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Buses here'**
+  String get fleetHereTitle;
+
+  /// No description provided for @fleetEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No buses here yet. Sign a contract above!'**
+  String get fleetEmpty;
+
+  /// No description provided for @fleetGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} × {model}'**
+  String fleetGroup(int count, String model);
+
+  /// No description provided for @fleetLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level} · Reliability {percent}%'**
+  String fleetLevel(int level, int percent);
+
+  /// No description provided for @fleetUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade · {price}'**
+  String fleetUpgrade(String price);
+
+  /// No description provided for @fleetSell.
+  ///
+  /// In en, this message translates to:
+  /// **'Sell · +{price}'**
+  String fleetSell(String price);
+
+  /// No description provided for @fleetMaxLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Max level'**
+  String get fleetMaxLevel;
+
+  /// No description provided for @fleetMoveHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Bring a bus from {district}'**
+  String fleetMoveHere(String district);
+
+  /// No description provided for @depotSpace.
+  ///
+  /// In en, this message translates to:
+  /// **'Depot {used}/{capacity}'**
+  String depotSpace(int used, int capacity);
+
+  /// No description provided for @fleetOnOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} tomorrow'**
+  String fleetOnOrder(int count);
+
+  /// No description provided for @fleetSold.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus sold · +{price}'**
+  String fleetSold(String price);
+
+  /// No description provided for @fleetMoved.
+  ///
+  /// In en, this message translates to:
+  /// **'A bus moved in from {district}'**
+  String fleetMoved(String district);
+
+  /// No description provided for @buildDistrictTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build in {district}'**
+  String buildDistrictTitle(String district);
+
+  /// No description provided for @buildCityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'City-wide'**
+  String get buildCityTitle;
+
+  /// No description provided for @buildAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Build · {price}'**
+  String buildAction(String price);
+
+  /// No description provided for @buildDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day} other{{days} days}}'**
+  String buildDays(int days);
+
+  /// No description provided for @buildDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Built'**
+  String get buildDone;
+
+  /// No description provided for @buildRoadFine.
+  ///
+  /// In en, this message translates to:
+  /// **'Road is in great shape'**
+  String get buildRoadFine;
+
+  /// No description provided for @buildDaysLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{1 day left} other{{days} days left}}'**
+  String buildDaysLeft(int days);
+
+  /// No description provided for @projectRoadRepairInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Patch every pothole and bring the road back to 100%.'**
+  String get projectRoadRepairInfo;
+
+  /// No description provided for @projectRoadExpansionInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add lanes so traffic flows better for good.'**
+  String get projectRoadExpansionInfo;
+
+  /// No description provided for @projectBikeLanesInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'A short jam while building, then fewer cars and cleaner air.'**
+  String get projectBikeLanesInfo;
+
+  /// No description provided for @projectSmartSignalsInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic lights that adapt to the traffic.'**
+  String get projectSmartSignalsInfo;
+
+  /// No description provided for @projectModernStopsInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Shelters, screens and benches at every stop.'**
+  String get projectModernStopsInfo;
+
+  /// No description provided for @projectChargingDepotInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Power for electric buses.'**
+  String get projectChargingDepotInfo;
+
+  /// No description provided for @projectDepotExpansionInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Room for 20 more buses.'**
+  String get projectDepotExpansionInfo;
+
+  /// No description provided for @chipRoadFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Road 100%'**
+  String get chipRoadFull;
+
+  /// No description provided for @chipDriversHappier.
+  ///
+  /// In en, this message translates to:
+  /// **'Drivers happier'**
+  String get chipDriversHappier;
+
+  /// No description provided for @chipSafer.
+  ///
+  /// In en, this message translates to:
+  /// **'Safer streets'**
+  String get chipSafer;
+
+  /// No description provided for @chipTrafficDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Less traffic'**
+  String get chipTrafficDown;
+
+  /// No description provided for @chipJams.
+  ///
+  /// In en, this message translates to:
+  /// **'Jams while building'**
+  String get chipJams;
+
+  /// No description provided for @chipCyclists.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyclists love it'**
+  String get chipCyclists;
+
+  /// No description provided for @chipCleanAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleaner air'**
+  String get chipCleanAir;
+
+  /// No description provided for @chipCoverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Coverage +10%'**
+  String get chipCoverage;
+
+  /// No description provided for @chipPassengersHappier.
+  ///
+  /// In en, this message translates to:
+  /// **'Passengers happier'**
+  String get chipPassengersHappier;
+
+  /// No description provided for @chipElectric.
+  ///
+  /// In en, this message translates to:
+  /// **'Needed for Volta E-12'**
+  String get chipElectric;
+
+  /// No description provided for @chipDepot.
+  ///
+  /// In en, this message translates to:
+  /// **'Depot +20 buses'**
+  String get chipDepot;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -26,24 +26,34 @@ class CityCommands {
   final ProjectRules projects;
   final CityDevelopment development;
 
+  RejectionReason? purchaseProblem(CityState state, BusModelId model, {int count = 1, int? price}) {
+    if (count < 1) {
+      return RejectionReason.invalidTarget;
+    }
+    if (!state.has(TechnologyId.forModel(model))) {
+      return RejectionReason.locked;
+    }
+    if (state.fleet.length + count > state.depotCapacity) {
+      return RejectionReason.depotFull;
+    }
+    if (model.spec.electric && !state.hasChargingDepot) {
+      return RejectionReason.requiresChargingDepot;
+    }
+    if (state.budget < (price ?? model.spec.price) * count) {
+      return RejectionReason.insufficientFunds;
+    }
+    return null;
+  }
+
   CommandOutcome buyBus(
     CityState state, {
     required BusModelId model,
     required DistrictId district,
     int? price,
   }) {
-    final cost = price ?? model.spec.price;
-    if (!state.has(TechnologyId.forModel(model))) {
-      return const CommandRejected(RejectionReason.locked);
-    }
-    if (state.fleet.length >= state.depotCapacity) {
-      return const CommandRejected(RejectionReason.depotFull);
-    }
-    if (model.spec.electric && !state.hasChargingDepot) {
-      return const CommandRejected(RejectionReason.requiresChargingDepot);
-    }
-    if (state.budget < cost) {
-      return const CommandRejected(RejectionReason.insufficientFunds);
+    final problem = purchaseProblem(state, model, price: price);
+    if (problem != null) {
+      return CommandRejected(problem);
     }
     final bus = Bus(
       id: state.nextId,
@@ -52,7 +62,7 @@ class CityCommands {
       deliveryDay: state.day + GameBalance.busDeliveryDays,
     );
     final (developed, levelEvents) = development.award(
-      _record(state, LedgerItem.vehiclePurchases, -cost).copyWith(
+      _record(state, LedgerItem.vehiclePurchases, -(price ?? model.spec.price)).copyWith(
         fleet: [...state.fleet, bus],
         nextId: state.nextId + 1,
         stats: state.stats.copyWith(busesBought: state.stats.busesBought + 1),
@@ -60,6 +70,36 @@ class CityCommands {
       CityLevels.busPurchasePoints,
     );
     return CommandApplied(developed, events: [BusPurchased(model, district), ...levelEvents]);
+  }
+
+  CommandOutcome buyBuses(
+    CityState state, {
+    required BusModelId model,
+    required DistrictId district,
+    required int count,
+  }) {
+    final problem = purchaseProblem(state, model, count: count);
+    if (problem != null) {
+      return CommandRejected(problem);
+    }
+    var current = state;
+    final levelEvents = <CityEvent>[];
+    for (var bought = 0; bought < count; bought++) {
+      switch (buyBus(current, model: model, district: district)) {
+        case CommandApplied(state: final next, :final events):
+          current = next;
+          levelEvents.addAll(events.where((event) => event is! BusPurchased));
+        case final CommandRejected rejection:
+          return rejection;
+      }
+    }
+    return CommandApplied(
+      current,
+      events: [
+        BusPurchased(model, district, count: count),
+        ...levelEvents,
+      ],
+    );
   }
 
   CommandOutcome sellBus(CityState state, int busId) {
@@ -78,24 +118,38 @@ class CityCommands {
     );
   }
 
-  CommandOutcome upgradeBus(CityState state, int busId) {
-    final bus = _bus(state, busId);
-    if (bus == null || !bus.isActiveOn(state.day)) {
-      return const CommandRejected(RejectionReason.invalidTarget);
+  RejectionReason? upgradeProblem(CityState state, Bus bus) {
+    if (!bus.isActiveOn(state.day)) {
+      return RejectionReason.invalidTarget;
     }
     if (bus.level >= BusUpgrades.maxLevel) {
-      return const CommandRejected(RejectionReason.maxLevelReached);
+      return RejectionReason.maxLevelReached;
+    }
+    if (!state.has(TechnologyId.forUpgradeLevel(bus.level + 1))) {
+      return RejectionReason.locked;
+    }
+    if (state.budget < BusUpgrades.costToReach(bus.model, bus.level + 1)) {
+      return RejectionReason.insufficientFunds;
+    }
+    return null;
+  }
+
+  CommandOutcome upgradeBus(CityState state, int busId) {
+    final bus = _bus(state, busId);
+    if (bus == null) {
+      return const CommandRejected(RejectionReason.invalidTarget);
+    }
+    final problem = upgradeProblem(state, bus);
+    if (problem != null) {
+      return CommandRejected(problem);
     }
     final level = bus.level + 1;
-    if (!state.has(TechnologyId.forUpgradeLevel(level))) {
-      return const CommandRejected(RejectionReason.locked);
-    }
-    final cost = BusUpgrades.costToReach(bus.model, level);
-    if (state.budget < cost) {
-      return const CommandRejected(RejectionReason.insufficientFunds);
-    }
     final (developed, levelEvents) = development.award(
-      _record(state, LedgerItem.vehicleUpgrades, -cost).copyWith(
+      _record(
+        state,
+        LedgerItem.vehicleUpgrades,
+        -BusUpgrades.costToReach(bus.model, level),
+      ).copyWith(
         fleet: [
           for (final other in state.fleet) other.id == busId ? other.copyWith(level: level) : other,
         ],

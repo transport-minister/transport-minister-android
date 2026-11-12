@@ -51,7 +51,7 @@ class ProjectRules {
     if (busy) {
       return RejectionReason.alreadyInProgress;
     }
-    if (!_isUseful(state, type, district == null ? null : state.district(district))) {
+    if (!isUseful(state, type, district: district)) {
       return RejectionReason.alreadyBuilt;
     }
     if (state.budget < cost(state, type, district: district)) {
@@ -60,15 +60,18 @@ class ProjectRules {
     return null;
   }
 
-  bool _isUseful(CityState state, ProjectType type, DistrictState? target) => switch (type) {
-    ProjectType.roadRepair => target!.roadCondition < 95,
-    ProjectType.roadExpansion => target!.roadLevel < maxRoadLevel,
-    ProjectType.bikeLanes => !target!.hasBikeLanes,
-    ProjectType.smartSignals => !target!.hasSmartSignals,
-    ProjectType.modernStops => !target!.hasModernStops,
-    ProjectType.chargingDepot => !state.hasChargingDepot,
-    ProjectType.depotExpansion => state.depotCapacity < maxDepotCapacity,
-  };
+  bool isUseful(CityState state, ProjectType type, {DistrictId? district}) {
+    final target = district == null ? null : state.district(district);
+    return switch (type) {
+      ProjectType.roadRepair => target!.roadCondition < 95,
+      ProjectType.roadExpansion => target!.roadLevel < maxRoadLevel,
+      ProjectType.bikeLanes => !target!.hasBikeLanes,
+      ProjectType.smartSignals => !target!.hasSmartSignals,
+      ProjectType.modernStops => !target!.hasModernStops,
+      ProjectType.chargingDepot => !state.hasChargingDepot,
+      ProjectType.depotExpansion => state.depotCapacity < maxDepotCapacity,
+    };
+  }
 
   CityState complete(CityState state, ProjectType type, DistrictId? district) {
     if (district == null) {

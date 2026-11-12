@@ -1,0 +1,113 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/model/city_state.dart';
+import 'package:transport_minister/core/storage/in_memory_document_store.dart';
+import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
+import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
+
+import '../../helpers/fake_now.dart';
+import '../../helpers/game_screen_harness.dart';
+
+void main() {
+  late InMemoryDocumentStore store;
+  late FakeNow now;
+
+  setUp(() {
+    store = InMemoryDocumentStore();
+    now = FakeNow(DateTime(2026, 11, 11, 8));
+  });
+
+  Future<ProviderContainer> openOldFortress(
+    WidgetTester tester, {
+    VoidCallback? onOpenTechnology,
+  }) async {
+    await pumpGameScreen(
+      tester,
+      Scaffold(
+        body: DistrictSheet(
+          cityId: CityId.baku,
+          district: DistrictId.oldFortress,
+          onOpenTechnology: onOpenTechnology ?? () {},
+        ),
+      ),
+      store: store,
+      now: now,
+    );
+    return ProviderScope.containerOf(tester.element(find.byType(DistrictSheet)));
+  }
+
+  CityState cityIn(ProviderContainer container) =>
+      container.read(cityGameProvider(CityId.baku)).requireValue.city;
+
+  Finder cardOf(String title) =>
+      find.ancestor(of: find.text(title), matching: find.byType(ChunkyCard));
+
+  Future<void> reveal(WidgetTester tester, Finder finder) async {
+    await tester.scrollUntilVisible(finder, 200, scrollable: find.byType(Scrollable).first);
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('a contract can order several buses at once', (tester) async {
+    final container = await openOldFortress(tester);
+    final before = cityIn(container);
+    final card = cardOf('CityRunner 12');
+
+    for (var extra = 0; extra < 2; extra++) {
+      await tester.tap(find.descendant(of: card, matching: find.byIcon(Icons.add_rounded)));
+      await tester.pump();
+    }
+    await tester.tap(find.text('Sign · \$630K'));
+    await tester.pumpAndSettle();
+
+    final after = cityIn(container);
+    expect(after.budget, before.budget - 630000);
+    expect(after.fleet, hasLength(before.fleet.length + 3));
+    expect(find.text('3 buses ordered! They join the fleet tomorrow.'), findsOneWidget);
+    await reveal(tester, find.text('+3 TOMORROW'));
+    expect(find.text('+3 TOMORROW'), findsOneWidget);
+  });
+
+  testWidgets('locked bus models lead to the technology tree', (tester) async {
+    var opened = false;
+    await openOldFortress(tester, onOpenTechnology: () => opened = true);
+
+    await reveal(tester, find.text('Needs Hop Mini contract'));
+    await tester.tap(find.descendant(of: cardOf('Hop Mini'), matching: find.text('Technology')));
+
+    expect(opened, isTrue);
+  });
+
+  testWidgets('a bus can be sold for part of its value', (tester) async {
+    final container = await openOldFortress(tester);
+    final before = cityIn(container);
+
+    await reveal(tester, find.text('Buses here'));
+    await reveal(tester, find.textContaining('Sell ·').first);
+    await tester.tap(find.textContaining('Sell ·').first);
+    await tester.pumpAndSettle();
+
+    final after = cityIn(container);
+    expect(after.fleet, hasLength(before.fleet.length - 1));
+    expect(after.budget, greaterThan(before.budget));
+    expect(find.textContaining('Bus sold'), findsOneWidget);
+  });
+
+  testWidgets('the build tab starts construction and blocks a second site', (tester) async {
+    final container = await openOldFortress(tester);
+
+    await tester.tap(find.text('Build'));
+    await tester.pumpAndSettle();
+    await reveal(tester, find.text('Build · \$180K'));
+    await tester.tap(find.text('Build · \$180K'));
+    await tester.pumpAndSettle();
+
+    expect(cityIn(container).projects.single.districtId, DistrictId.oldFortress);
+    expect(find.text('Smart traffic lights: construction started'), findsOneWidget);
+    expect(find.text('3 DAYS LEFT'), findsOneWidget);
+    expect(find.text('Work is already underway here'), findsWidgets);
+  });
+}
