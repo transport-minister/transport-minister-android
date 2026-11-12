@@ -139,13 +139,6 @@ class _RankHero extends StatelessWidget {
                     MoneyFormat.count(nextRequirement.xp),
                   ),
           ),
-          if (next != null && nextRequirement != null) ...[
-            const SizedBox(height: GameDimens.spaceS),
-            Text(
-              l10n.profileNextRank(next.title(l10n), nextRequirement.reputation.round()),
-              style: textTheme.bodySmall,
-            ),
-          ],
         ],
       ),
     );

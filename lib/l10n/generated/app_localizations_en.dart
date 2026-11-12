@@ -512,11 +512,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String profileNextRank(String rank, int reputation) {
-    return 'Next: $rank · needs $reputation% reputation';
-  }
-
-  @override
   String get profileRanks => 'Ranks';
 
   @override

@@ -144,7 +144,6 @@
   "profileReputation": "Репутация",
   "profileXp": "{xp} / {next} XP",
   "profileXpMax": "{xp} XP · Высшее звание",
-  "profileNextRank": "Далее: {rank} · нужно {reputation}% репутации",
   "profileRanks": "Звания",
   "profileCityBadges": "Значки городов",
   "profileAchievements": "Достижения {done}/{total}",

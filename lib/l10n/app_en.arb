@@ -377,17 +377,6 @@
       }
     }
   },
-  "profileNextRank": "Next: {rank} · needs {reputation}% reputation",
-  "@profileNextRank": {
-    "placeholders": {
-      "rank": {
-        "type": "String"
-      },
-      "reputation": {
-        "type": "int"
-      }
-    }
-  },
   "profileRanks": "Ranks",
   "profileCityBadges": "City badges",
   "profileAchievements": "Achievements {done}/{total}",
