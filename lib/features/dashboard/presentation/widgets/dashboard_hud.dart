@@ -14,7 +14,6 @@ class DashboardHud extends StatelessWidget {
     required this.city,
     required this.rank,
     required this.onProfilePressed,
-    required this.onDiplomacyPressed,
     required this.onSettingsPressed,
     this.targets,
   });
@@ -22,7 +21,6 @@ class DashboardHud extends StatelessWidget {
   final CityState city;
   final MinisterialRank rank;
   final VoidCallback onProfilePressed;
-  final VoidCallback onDiplomacyPressed;
   final VoidCallback onSettingsPressed;
   final TutorialTargets? targets;
 
@@ -73,7 +71,6 @@ class DashboardHud extends StatelessWidget {
                           icon: DiplomacyStyle.icon,
                           value: '${city.diplomacyPoints}',
                           palette: DiplomacyStyle.palette,
-                          onPressed: onDiplomacyPressed,
                         ),
                       ),
                     ],
