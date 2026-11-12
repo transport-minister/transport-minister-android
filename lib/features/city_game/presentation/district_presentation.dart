@@ -71,11 +71,13 @@ extension DistrictPresentation on DistrictId {
 }
 
 abstract final class CityWorld {
-  static const spread = 1.22;
+  static const spreadX = 1.25;
+  static const spreadY = 1.6;
   static const margin = 300.0;
-  static const size = Size(900 * spread + margin * 2, 1200 * spread + margin * 2);
+  static const size = Size(900 * spreadX + margin * 2, 1200 * spreadY + margin * 2);
 
-  static Offset place(Offset layout) => layout * spread + const Offset(margin, margin);
+  static Offset place(Offset layout) =>
+      Offset(layout.dx * spreadX + margin, layout.dy * spreadY + margin);
 
   static final districtBounds = DistrictId.values
       .map(

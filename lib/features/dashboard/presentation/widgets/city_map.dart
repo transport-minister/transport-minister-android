@@ -8,6 +8,7 @@ import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map_painter.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/metro_painter.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/traffic_painter.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class CityMapController extends ChangeNotifier {
@@ -33,12 +34,14 @@ class CityMap extends StatefulWidget {
     required this.metrics,
     required this.controller,
     required this.onDistrictPressed,
+    this.homePadding = EdgeInsets.zero,
   });
 
   final CityState city;
   final CityMetrics metrics;
   final CityMapController controller;
   final ValueChanged<DistrictId> onDistrictPressed;
+  final EdgeInsets homePadding;
 
   @override
   State<CityMap> createState() => _CityMapState();
@@ -48,8 +51,9 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
   static const _focusScale = 1.05;
   static const _maxScale = 1.6;
   static const _homeCrop = 0.92;
+  static const _labelRoom = EdgeInsets.only(bottom: 28);
 
-  late final _traffic = AnimationController(vsync: this, duration: const Duration(seconds: 24));
+  late final _traffic = AnimationController(vsync: this, duration: TrafficPainter.cycle);
   late final _camera = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 450),
@@ -61,11 +65,25 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
   double get _minScale =>
       math.max(_viewport.width / CityWorld.size.width, _viewport.height / CityWorld.size.height);
 
-  double get _homeScale => (_viewport.width / (CityWorld.districtBounds.width * _homeCrop))
-      .clamp(_minScale, 0.9)
-      .toDouble();
+  EdgeInsets get _homePadding => widget.homePadding + _labelRoom;
 
-  Matrix4 get _home => _insideWorld(_cameraOn(CityWorld.districtBounds.center, _homeScale));
+  double get _homeScale {
+    final area = _homePadding.deflateSize(_viewport);
+    final bounds = CityWorld.districtBounds;
+    return math
+        .min(area.width / (bounds.width * _homeCrop), area.height / bounds.height)
+        .clamp(_minScale, 0.9)
+        .toDouble();
+  }
+
+  Matrix4 get _home {
+    final padding = _homePadding;
+    final anchor = Offset(
+      padding.left + (_viewport.width - padding.horizontal) / 2,
+      padding.top + (_viewport.height - padding.vertical) / 2,
+    );
+    return _insideWorld(_cameraOn(CityWorld.districtBounds.center, _homeScale, anchor: anchor));
+  }
 
   @override
   void initState() {
@@ -102,11 +120,12 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Matrix4 _cameraOn(Offset worldPoint, double scale) {
+  Matrix4 _cameraOn(Offset worldPoint, double scale, {Offset? anchor}) {
+    final screen = anchor ?? _viewport.center(Offset.zero);
     return Matrix4.identity()
       ..translateByDouble(
-        _viewport.width / 2 - worldPoint.dx * scale,
-        _viewport.height / 2 - worldPoint.dy * scale,
+        screen.dx - worldPoint.dx * scale,
+        screen.dy - worldPoint.dy * scale,
         0,
         1,
       )
@@ -151,7 +170,6 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
       for (final project in widget.city.projects)
         if (project.districtId != null) project.districtId!,
     };
-    final buses = math.min(math.max(widget.city.activeBuses.length ~/ 2, 3), 18);
     final l10n = AppLocalizations.of(context);
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -191,11 +209,7 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
                       ),
                       Positioned.fill(
                         child: CustomPaint(
-                          painter: TrafficPainter(
-                            progress: _traffic,
-                            metrics: widget.metrics,
-                            buses: buses,
-                          ),
+                          painter: TrafficPainter(progress: _traffic, metrics: widget.metrics),
                         ),
                       ),
                     ],
