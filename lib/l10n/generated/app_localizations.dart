@@ -2459,7 +2459,7 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialClock.
   ///
   /// In en, this message translates to:
-  /// **'A day passes every minute, even while you are away, for up to a week.'**
+  /// **'A day passes every minute while you are on this map. Leave it and time stops.'**
   String get tutorialClock;
 
   /// No description provided for @tutorialDistrict.
