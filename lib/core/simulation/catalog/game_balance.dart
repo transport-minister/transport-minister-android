@@ -53,6 +53,5 @@ abstract final class GameBalance {
   static const bikeAdoptionPerDay = 0.03;
   static const smartSignalsCongestionFactor = 0.9;
   static const modernStopsCoverageBonus = 0.1;
-  static const caspianGardensGrowthPerDay = 0.0005;
   static const congestionRoadWear = 0.001;
 }

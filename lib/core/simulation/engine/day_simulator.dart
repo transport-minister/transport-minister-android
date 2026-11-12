@@ -2,8 +2,8 @@ import 'dart:math' as math;
 
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/diplomacy_rules.dart';
-import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
+import 'package:transport_minister/core/simulation/catalog/population_rules.dart';
 import 'package:transport_minister/core/simulation/engine/city_development.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
@@ -129,9 +129,7 @@ class DaySimulator {
   DistrictState _age(CityState state, DistrictState district, CityMetrics today) {
     final congestion = today.of(district.id).congestion;
     final decay = state.roadMaintenance.decayPerDay + congestion * GameBalance.congestionRoadWear;
-    final growth = district.id == DistrictId.caspianGardens
-        ? (district.population * GameBalance.caspianGardensGrowthPerDay).round()
-        : 0;
+    final growth = PopulationRules.dailyGrowth(district, state.overallSatisfaction);
     return district.copyWith(
       roadCondition: math.max(district.roadCondition - decay, 0),
       population: district.population + growth,

@@ -123,6 +123,17 @@
       }
     }
   },
+  "districtResidents": "{count} residents · +{growth} a day",
+  "@districtResidents": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "growth": {
+        "type": "String"
+      }
+    }
+  },
   "districtFeatureBikeLanes": "Bike lanes",
   "districtFeatureSignals": "Smart lights",
   "districtFeatureStops": "Modern stops",

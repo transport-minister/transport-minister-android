@@ -219,6 +219,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String districtResidents(String count, String growth) {
+    return '$count residents · +$growth a day';
+  }
+
+  @override
   String get districtFeatureBikeLanes => 'Bike lanes';
 
   @override

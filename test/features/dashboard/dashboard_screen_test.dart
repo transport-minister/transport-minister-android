@@ -72,6 +72,8 @@ void main() {
       find.descendant(of: find.byType(DistrictMarker), matching: find.text('Old Fortress')),
     );
     await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Sign · \$210K'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Sign · \$210K'));
     await tester.pumpAndSettle();
 
