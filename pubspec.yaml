@@ -45,11 +45,3 @@ flutter:
           weight: 600
         - asset: assets/fonts/fredoka/Fredoka-Bold.ttf
           weight: 700
-    - family: NunitoFallback
-      fonts:
-        - asset: assets/fonts/nunito/NunitoFallback-SemiBold.ttf
-          weight: 500
-        - asset: assets/fonts/nunito/NunitoFallback-Bold.ttf
-          weight: 600
-        - asset: assets/fonts/nunito/NunitoFallback-ExtraBold.ttf
-          weight: 700

@@ -3,7 +3,6 @@ import 'package:transport_minister/core/design/game_colors.dart';
 
 abstract final class GameTypography {
   static const fontFamily = 'Fredoka';
-  static const fontFamilyFallback = ['NunitoFallback'];
 
   static const textTheme = TextTheme(
     displayLarge: TextStyle(fontSize: 44, height: 1.05, fontWeight: FontWeight.w700),

@@ -8,23 +8,12 @@ const fredokaFiles = [
   'assets/fonts/fredoka/Fredoka-Bold.ttf',
 ];
 
-const fallbackFiles = [
-  'assets/fonts/nunito/NunitoFallback-SemiBold.ttf',
-  'assets/fonts/nunito/NunitoFallback-Bold.ttf',
-  'assets/fonts/nunito/NunitoFallback-ExtraBold.ttf',
-];
-
 Future<void> loadGameFonts() async {
-  for (final (family, files) in const [
-    ('Fredoka', fredokaFiles),
-    ('NunitoFallback', fallbackFiles),
-  ]) {
-    final loader = FontLoader(family);
-    for (final file in files) {
-      loader.addFont(Future.value(ByteData.sublistView(File(file).readAsBytesSync())));
-    }
-    await loader.load();
+  final loader = FontLoader('Fredoka');
+  for (final file in fredokaFiles) {
+    loader.addFont(Future.value(ByteData.sublistView(File(file).readAsBytesSync())));
   }
+  await loader.load();
 }
 
 Set<int> fontCharacters(String file) {

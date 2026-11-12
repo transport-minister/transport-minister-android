@@ -26,7 +26,6 @@ abstract final class GameTheme {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: GameColors.cream,
       fontFamily: GameTypography.fontFamily,
-      fontFamilyFallback: GameTypography.fontFamilyFallback,
       textTheme: GameTypography.textTheme.apply(
         bodyColor: GameColors.ink,
         displayColor: GameColors.ink,
@@ -48,7 +47,6 @@ abstract final class GameTheme {
         backgroundColor: GameColors.ink,
         contentTextStyle: const TextStyle(
           fontFamily: GameTypography.fontFamily,
-          fontFamilyFallback: GameTypography.fontFamilyFallback,
           fontSize: 15,
           fontWeight: FontWeight.w600,
           color: GameColors.paper,
