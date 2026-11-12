@@ -18,9 +18,9 @@ class EconomyCalculator {
       LedgerItem.tickets:
           (metrics.riders * state.fare / 100 * state.multiplier(ModifierType.ticketRevenue))
               .round(),
-      LedgerItem.subsidy:
-          (GameBalance.dailySubsidy *
-                  (0.6 + state.overallSatisfaction / 100 * 0.8) *
+      LedgerItem.governmentBudget:
+          (GameBalance.dailyBudgetBase *
+                  budgetFactor(state.overallSatisfaction) *
                   state.multiplier(ModifierType.subsidy))
               .round(),
       LedgerItem.energy:
@@ -50,11 +50,8 @@ class EconomyCalculator {
     return ledger;
   }
 
-  int monthlyAllocation(double overallSatisfaction) {
-    final factor = math.min(
-      math.max(0.4 + overallSatisfaction / 100 * 1.2, GameBalance.minAllocationFactor),
-      GameBalance.maxAllocationFactor,
-    );
-    return (GameBalance.monthlyAllocationBase * factor).round();
-  }
+  static double budgetFactor(double overallSatisfaction) => math.min(
+    math.max(0.4 + overallSatisfaction / 100 * 1.2, GameBalance.minBudgetFactor),
+    GameBalance.maxBudgetFactor,
+  );
 }

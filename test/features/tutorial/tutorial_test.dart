@@ -27,11 +27,11 @@ void main() {
     tutorial.next();
     final waiting = container.read(tutorialProvider);
     tutorial
-      ..onDistrictOpened()
+      ..onDistrictOpened(CityId.baku)
       ..onDistrictClosed();
     final reverted = container.read(tutorialProvider);
     tutorial
-      ..onDistrictOpened()
+      ..onDistrictOpened(CityId.baku)
       ..onCityEvents(const [BusPurchased(BusModelId.cityRunner, DistrictId.oilHarbor)]);
 
     expect(waiting, TutorialStep.district);

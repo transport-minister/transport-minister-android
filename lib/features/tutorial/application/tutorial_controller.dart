@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
@@ -26,8 +28,10 @@ final tutorialProvider = NotifierProvider<TutorialController, TutorialStep?>(
 );
 
 class TutorialController extends Notifier<TutorialStep?> {
-  static const rewardMoney = 100000;
+  static const welcomeGift = 100000;
   static const rewardXp = 50;
+
+  var _gifted = false;
 
   @override
   TutorialStep? build() => null;
@@ -44,10 +48,23 @@ class TutorialController extends Notifier<TutorialStep?> {
     state = step == TutorialStep.values.last ? null : TutorialStep.values[step.index + 1];
   }
 
-  void onDistrictOpened() {
+  void onDistrictOpened(CityId city) {
     if (state == TutorialStep.district) {
       state = TutorialStep.buyBus;
+      _sendWelcomeGift(city);
     }
+  }
+
+  void _sendWelcomeGift(CityId city) {
+    if (_gifted || !ref.read(cityGameProvider(city)).hasValue) {
+      return;
+    }
+    _gifted = true;
+    unawaited(
+      ref
+          .read(cityGameProvider(city).notifier)
+          .perform((current) => const CityCommands().grantReward(current, welcomeGift)),
+    );
   }
 
   void onDistrictClosed() {
@@ -65,9 +82,6 @@ class TutorialController extends Notifier<TutorialStep?> {
   Future<void> finish(CityId city) async {
     state = null;
     await ref.read(profileProvider.notifier).completeTutorial();
-    await ref
-        .read(cityGameProvider(city).notifier)
-        .perform((current) => const CityCommands().grantReward(current, rewardMoney));
     await ref.read(profileProvider.notifier).addXp(rewardXp);
   }
 

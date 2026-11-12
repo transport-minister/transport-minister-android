@@ -15,15 +15,17 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 
 import '../../helpers/fake_now.dart';
+import '../../helpers/funded_city.dart';
 import '../../helpers/game_screen_harness.dart';
 
 void main() {
   late InMemoryDocumentStore store;
   late FakeNow now;
 
-  setUp(() {
+  setUp(() async {
     store = InMemoryDocumentStore();
     now = FakeNow(DateTime(2026, 11, 11, 8));
+    await saveFundedBaku(store, now);
   });
 
   Future<ProviderContainer> openOldFortress(
@@ -134,7 +136,7 @@ void main() {
       CitySave(
         city: const BakuScenario()
             .create(seed: 1)
-            .copyWith(technologies: {TechnologyId.metroContract}),
+            .copyWith(budget: fundedBudget, technologies: {TechnologyId.metroContract}),
         anchor: TimeAnchor(syncedAtMs: now.current.millisecondsSinceEpoch),
       ),
     );

@@ -2471,13 +2471,13 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialBudget.
   ///
   /// In en, this message translates to:
-  /// **'This is your budget. Tickets and the Cabinet fill it. Fuel, wages and repairs drain it.'**
+  /// **'This is your budget. It starts empty: the Cabinet pays you every day, more when people are happy. Fuel, wages and repairs drain it.'**
   String get tutorialBudget;
 
   /// No description provided for @tutorialMood.
   ///
   /// In en, this message translates to:
-  /// **'This heart shows how happy citizens are. Below 30% for too long and the President fires you!'**
+  /// **'This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!'**
   String get tutorialMood;
 
   /// No description provided for @tutorialClock.
@@ -2495,8 +2495,8 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialBuyBus.
   ///
   /// In en, this message translates to:
-  /// **'Pick a bus model and tap Sign. New buses cut waiting times!'**
-  String get tutorialBuyBus;
+  /// **'The Cabinet sent {amount} to get you started. Pick a bus and tap Sign!'**
+  String tutorialBuyBus(String amount);
 
   /// No description provided for @tutorialBusBought.
   ///

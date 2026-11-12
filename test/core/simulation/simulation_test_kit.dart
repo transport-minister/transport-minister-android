@@ -4,7 +4,10 @@ import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 
-CityState newBaku({int seed = 7}) => const BakuScenario().create(seed: seed);
+const fundedBudget = 2500000;
+
+CityState newBaku({int seed = 7, int budget = fundedBudget}) =>
+    const BakuScenario().create(seed: seed).copyWith(budget: budget);
 
 CityState applied(CommandOutcome outcome) => switch (outcome) {
   CommandApplied(:final state) => state,

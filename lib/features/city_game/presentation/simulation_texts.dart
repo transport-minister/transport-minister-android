@@ -82,7 +82,6 @@ extension CityEventText on CityEvent {
     BusesDelivered(:final count) => l10n.eventBusesDelivered(count),
     ProjectStarted(:final type) => l10n.eventProjectStarted(type.label(l10n)),
     ProjectCompleted(:final type) => l10n.eventProjectCompleted(type.label(l10n)),
-    BudgetAllocated(:final amount) => l10n.eventBudgetAllocated(MoneyFormat.compact(amount)),
     LoanRepaid() => l10n.eventLoanRepaid,
     CrisisWarning(:final level) => l10n.eventCrisisWarning(level),
     MinisterDismissed() => l10n.dismissedTitle,

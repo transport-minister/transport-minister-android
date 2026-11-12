@@ -1444,11 +1444,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tutorialBudget =>
-      'This is your budget. Tickets and the Cabinet fill it. Fuel, wages and repairs drain it.';
+      'This is your budget. It starts empty: the Cabinet pays you every day, more when people are happy. Fuel, wages and repairs drain it.';
 
   @override
   String get tutorialMood =>
-      'This heart shows how happy citizens are. Below 30% for too long and the President fires you!';
+      'This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!';
 
   @override
   String get tutorialClock =>
@@ -1460,7 +1460,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get tutorialBuyBus => 'Pick a bus model and tap Sign. New buses cut waiting times!';
+  String tutorialBuyBus(String amount) {
+    return 'The Cabinet sent $amount to get you started. Pick a bus and tap Sign!';
+  }
 
   @override
   String get tutorialBusBought =>

@@ -43,12 +43,6 @@ final class ProjectCompleted extends CityEvent {
   final DistrictId? district;
 }
 
-final class BudgetAllocated extends CityEvent {
-  const BudgetAllocated(this.amount);
-
-  final int amount;
-}
-
 final class LoanRepaid extends CityEvent {
   const LoanRepaid();
 }

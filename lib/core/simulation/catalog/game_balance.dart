@@ -2,7 +2,7 @@ abstract final class GameBalance {
   static const dayLength = Duration(minutes: 1);
   static const maxCatchUpDays = 7;
 
-  static const startingBudget = 2500000;
+  static const startingBudget = 0;
   static const startingFare = 60;
   static const minFare = 20;
   static const maxFare = 150;
@@ -28,18 +28,16 @@ abstract final class GameBalance {
   static const maxReliability = 0.98;
   static const maintenanceAgeFactorDays = 2000;
 
-  static const dailySubsidy = 6000;
+  static const dailyBudgetBase = 90000;
+  static const minBudgetFactor = 0.5;
+  static const maxBudgetFactor = 1.5;
   static const administrationPerDay = 1500;
   static const driverWagePerBusDay = 110;
-  static const monthLengthDays = 30;
-  static const monthlyAllocationBase = 500000;
-  static const minAllocationFactor = 0.5;
-  static const maxAllocationFactor = 1.5;
 
   static const satisfactionSmoothing = 0.15;
   static const crisisSatisfactionThreshold = 30.0;
   static const crisisBudgetThreshold = -250000;
-  static const gridlockCongestion = 70.0;
+  static const gridlockCongestion = 65.0;
   static const crisisWarningDays = [3, 6, 9];
   static const dismissalCrisisDays = 10;
 

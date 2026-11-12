@@ -5,15 +5,19 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 
 import '../../helpers/fake_now.dart';
+import '../../helpers/funded_city.dart';
 import '../../helpers/game_screen_harness.dart';
 
 void main() {
   testWidgets('the daily gift adds money to the city', (tester) async {
+    final store = InMemoryDocumentStore();
+    final now = FakeNow(DateTime(2026, 11, 16, 9));
+    await saveFundedBaku(store, now);
     await pumpGameScreen(
       tester,
       const DashboardScreen(cityId: CityId.baku),
-      store: InMemoryDocumentStore(),
-      now: FakeNow(DateTime(2026, 11, 16, 9)),
+      store: store,
+      now: now,
     );
 
     await tester.tap(find.byIcon(Icons.task_alt_rounded));

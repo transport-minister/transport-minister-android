@@ -35,17 +35,17 @@ class SatisfactionCalculator {
             stopsShare * 6,
       ),
       StakeholderGroup.drivers: _clamp(
-        85 - metrics.congestion * 0.6 - (100 - averageCondition) * 0.2 - newBikeDistricts * 3,
+        90 - metrics.congestion * 0.6 - (100 - averageCondition) * 0.2 - newBikeDistricts * 3,
       ),
       StakeholderGroup.pedestrians: _clamp(
-        50 + metrics.safety * 0.3 - metrics.pollution * 0.2 + bikeDistricts,
+        54 + metrics.safety * 0.3 - metrics.pollution * 0.2 + bikeDistricts,
       ),
       StakeholderGroup.cyclists: _clamp(30 + bikeDistricts * 12 + metrics.safety * 0.2),
       StakeholderGroup.businesses: _clamp(
-        60 - metrics.congestion * 0.4 + metrics.coverage * 0.2 - projects * 3,
+        63 - metrics.congestion * 0.4 + metrics.coverage * 0.2 - projects * 3,
       ),
       StakeholderGroup.transportWorkers: _clamp(
-        55 +
+        60 +
             (metrics.fleetReliability - 60) * 0.3 -
             crowding * 15 +
             (metrics.fleetComfort - 50) * 0.1,
@@ -54,7 +54,7 @@ class SatisfactionCalculator {
         70 - metrics.pollution * 0.6 + metrics.electricShare * 30 + bikeDistricts * 4,
       ),
       StakeholderGroup.logistics: _clamp(
-        70 - harborCongestion * 0.4 - (100 - harbor.roadCondition) * 0.15 - projects * 2,
+        76 - harborCongestion * 0.4 - (100 - harbor.roadCondition) * 0.15 - projects * 2,
       ),
     };
     return {
@@ -75,7 +75,7 @@ class SatisfactionCalculator {
 
   double _farePenalty(int fare) {
     final pricedOut = math.max(1 - MetricsCalculator.demandFactorForFare(fare), 0);
-    return math.max(fare - 50, 0) * 0.5 + pricedOut * 40;
+    return math.max(fare - GameBalance.referenceFare, 0) * 0.5 + pricedOut * 40;
   }
 
   double _approach(double value, double target) =>

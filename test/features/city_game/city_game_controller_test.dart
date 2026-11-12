@@ -11,6 +11,7 @@ import 'package:transport_minister/features/city_game/application/city_game_prov
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 
 import '../../helpers/fake_now.dart';
+import '../../helpers/funded_city.dart';
 
 void main() {
   late InMemoryDocumentStore store;
@@ -106,6 +107,7 @@ void main() {
   });
 
   test('applied commands are saved and rejected ones change nothing', () async {
+    await saveFundedBaku(store, now);
     final container = openGame();
     final before = await container.read(baku.future);
     final controller = container.read(baku.notifier);

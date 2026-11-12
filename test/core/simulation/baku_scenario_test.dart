@@ -7,11 +7,12 @@ import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'simulation_test_kit.dart';
 
 void main() {
-  test('Baku starts with an old fleet, a starting budget and the default fare', () {
-    final city = newBaku();
+  test('Baku starts with an old fleet, an empty budget and the default fare', () {
+    final city = const BakuScenario().create(seed: 7);
 
     expect(city.day, 1);
-    expect(city.budget, GameBalance.startingBudget);
+    expect(city.budget, 0);
+    expect(city.diplomacyPoints, 0);
     expect(city.fare, GameBalance.startingFare);
     expect(city.fleet, hasLength(GameBalance.startingFleetSize));
     expect(city.fleet.every((bus) => bus.model == BusModelId.veteran), isTrue);
