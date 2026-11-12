@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
@@ -8,11 +6,9 @@ import 'package:transport_minister/core/simulation/catalog/district_catalog.dart
 import 'package:transport_minister/core/simulation/catalog/population_rules.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
-import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/features/city_game/application/city_game_controller.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
-import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_build_tab.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_buses_tab.dart';
@@ -53,18 +49,7 @@ class DistrictSheet extends ConsumerStatefulWidget {
 }
 
 class _DistrictSheetState extends ConsumerState<DistrictSheet> {
-  static const _receiptTime = Duration(milliseconds: 2600);
-
   var _tab = DistrictTab.buses;
-  var _receipts = 0;
-  (String, bool)? _receipt;
-  Timer? _receiptTimer;
-
-  @override
-  void dispose() {
-    _receiptTimer?.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,87 +63,54 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
       return const SizedBox.shrink();
     }
     final metrics = const MetricsCalculator().calculate(city);
-    final receipt = _receipt;
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * 0.8,
-      child: Stack(
-        children: [
-          CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: _Header(
-                  district: widget.district,
-                  metrics: metrics.of(widget.district),
-                  road: city.district(widget.district).roadCondition,
-                  growth: PopulationRules.dailyGrowth(
-                    city.district(widget.district),
-                    city.overallSatisfaction,
-                  ),
-                ),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: _Header(
+              district: widget.district,
+              metrics: metrics.of(widget.district),
+              road: city.district(widget.district).roadCondition,
+              growth: PopulationRules.dailyGrowth(
+                city.district(widget.district),
+                city.overallSatisfaction,
               ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _PinnedTabs(
-                  selected: _tab,
-                  onSelected: (tab) => setState(() => _tab = tab),
-                ),
-              ),
-              switch (_tab) {
-                DistrictTab.buses => DistrictBusesTab(
-                  city: city,
-                  metrics: metrics,
-                  district: widget.district,
-                  guided: ref.watch(tutorialProvider) == TutorialStep.buyBus,
-                  onAction: _run,
-                  onOpenTechnology: widget.onOpenTechnology,
-                ),
-                DistrictTab.build => DistrictBuildTab(
-                  city: city,
-                  district: widget.district,
-                  onAction: _run,
-                ),
-                DistrictTab.metro => DistrictMetroTab(
-                  city: city,
-                  metrics: metrics,
-                  district: widget.district,
-                  onAction: _run,
-                  onOpenTechnology: widget.onOpenTechnology,
-                ),
-              },
-            ],
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              child: receipt == null
-                  ? const SizedBox.shrink()
-                  : _Receipt(key: ValueKey(_receipts), message: receipt.$1, success: receipt.$2),
             ),
           ),
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _PinnedTabs(selected: _tab, onSelected: (tab) => setState(() => _tab = tab)),
+          ),
+          switch (_tab) {
+            DistrictTab.buses => DistrictBusesTab(
+              city: city,
+              metrics: metrics,
+              district: widget.district,
+              guided: ref.watch(tutorialProvider) == TutorialStep.buyBus,
+              onAction: _run,
+              onOpenTechnology: widget.onOpenTechnology,
+            ),
+            DistrictTab.build => DistrictBuildTab(
+              city: city,
+              district: widget.district,
+              onAction: _run,
+            ),
+            DistrictTab.metro => DistrictMetroTab(
+              city: city,
+              metrics: metrics,
+              district: widget.district,
+              onAction: _run,
+              onOpenTechnology: widget.onOpenTechnology,
+            ),
+          },
         ],
       ),
     );
   }
 
-  Future<void> _run(CityCommand command, String success) async {
-    final l10n = AppLocalizations.of(context);
-    final outcome = await ref.read(cityGameProvider(widget.cityId).notifier).perform(command);
-    if (!mounted) {
-      return;
-    }
-    _receiptTimer?.cancel();
-    _receiptTimer = Timer(_receiptTime, () => setState(() => _receipt = null));
-    setState(() {
-      _receipts++;
-      _receipt = switch (outcome) {
-        CommandApplied() => (success, true),
-        CommandRejected(:final reason) => (reason.message(l10n), false),
-      };
-    });
-  }
+  Future<void> _run(CityCommand command) =>
+      ref.read(cityGameProvider(widget.cityId).notifier).perform(command);
 }
 
 class _Header extends StatelessWidget {
@@ -327,47 +279,6 @@ class _PinnedTabs extends SliverPersistentHeaderDelegate {
             ],
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _Receipt extends StatelessWidget {
-  const _Receipt({super.key, required this.message, required this.success});
-
-  final String message;
-  final bool success;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = success ? ChunkyPalette.green : ChunkyPalette.coral;
-    return Container(
-      margin: const EdgeInsets.only(bottom: GameDimens.spaceXS),
-      padding: const EdgeInsets.symmetric(
-        horizontal: GameDimens.spaceM,
-        vertical: GameDimens.spaceM,
-      ),
-      decoration: BoxDecoration(
-        color: palette.face,
-        borderRadius: BorderRadius.circular(GameDimens.radiusM),
-        border: Border.all(color: GameColors.ink, width: GameDimens.outline),
-        boxShadow: const [BoxShadow(color: GameColors.ink, offset: Offset(0, 3))],
-      ),
-      child: Row(
-        children: [
-          Icon(
-            success ? Icons.check_circle_rounded : Icons.error_rounded,
-            color: palette.onFace,
-            size: 22,
-          ),
-          const SizedBox(width: GameDimens.spaceS),
-          Expanded(
-            child: Text(
-              message,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: palette.onFace),
-            ),
-          ),
-        ],
       ),
     );
   }

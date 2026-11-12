@@ -46,9 +46,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cityStatusComingSoon => 'Coming soon';
 
   @override
-  String get cityStatusLocked => 'Locked';
-
-  @override
   String cityComingSoonTitle(String city) {
     return '$city is on its way!';
   }
@@ -241,26 +238,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get districtFeatureBikeLanes => 'Bike lanes';
-
-  @override
-  String get districtFeatureSignals => 'Smart lights';
-
-  @override
-  String get districtFeatureStops => 'Modern stops';
-
-  @override
-  String districtDaysLeft(String project, int days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days days left',
-      one: '1 day left',
-    );
-    return '$project: $_temp0';
-  }
-
-  @override
   String get ledgerTickets => 'Ticket sales';
 
   @override
@@ -354,22 +331,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rejectFareOutOfRange => 'That fare is not allowed';
 
   @override
-  String eventBusPurchased(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count buses ordered! They join the fleet tomorrow.',
-      one: 'Bus ordered! It joins the fleet tomorrow.',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String eventBusUpgraded(int level) {
-    return 'Bus upgraded to level $level';
-  }
-
-  @override
   String eventBusesDelivered(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -381,11 +342,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String eventProjectStarted(String project) {
-    return '$project: construction started';
-  }
-
-  @override
   String eventProjectCompleted(String project) {
     return '$project is ready!';
   }
@@ -394,9 +350,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String eventBudgetAllocated(String amount) {
     return 'The Cabinet sent $amount for this month';
   }
-
-  @override
-  String get eventLoanRepaid => 'Loan fully repaid';
 
   @override
   String eventCrisisWarning(int level) {
@@ -434,9 +387,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mapRecenter => 'Recenter map';
-
-  @override
-  String get mrBusName => 'Mr. Bus';
 
   @override
   String get advisorTitle => 'Mr. Bus says';
@@ -488,20 +438,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get cityStatusUnlocked => 'Unlocked';
-
-  @override
   String cityLevelChip(int level, int target) {
     return 'Level $level · Target $target';
   }
 
   @override
   String get ledgerLevelRewards => 'Level rewards';
-
-  @override
-  String eventCityLeveledUp(int level, String amount) {
-    return 'City level $level! Reward $amount';
-  }
 
   @override
   String levelBarLabel(int level) {
@@ -952,11 +894,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String effectFare(String change) {
     return 'Fare $change';
-  }
-
-  @override
-  String effectMoney(String amount) {
-    return '$amount';
   }
 
   @override
@@ -1511,9 +1448,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diplomacyLabel => 'Diplomacy';
-
-  @override
   String get diplomacyOpen => 'Open technology';
 
   @override
@@ -1742,16 +1676,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String fleetSold(String price) {
-    return 'Bus sold · +$price';
-  }
-
-  @override
-  String fleetMoved(String district) {
-    return 'A bus moved in from $district';
-  }
-
-  @override
   String buildDistrictTitle(String district) {
     return 'Build in $district';
   }
@@ -1853,11 +1777,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rejectTunnelBusy => 'The tunnel crew is busy digging another line';
 
   @override
-  String eventMetroStarted(String from, String to) {
-    return 'Metro $from ⇄ $to: digging started';
-  }
-
-  @override
   String eventMetroOpened(String from, String to) {
     return 'Metro $from ⇄ $to is open!';
   }
@@ -1898,19 +1817,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String metroWaitingThere(int minutes) {
     return 'Waiting there: $minutes min';
-  }
-
-  @override
-  String get trafficMeterLabel => 'City traffic';
-
-  @override
-  String trafficInfoTitle(int percent) {
-    return 'City traffic $percent%';
-  }
-
-  @override
-  String trafficInfoBody(int limit) {
-    return 'If city traffic reaches $limit%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.';
   }
 
   @override

@@ -15,7 +15,6 @@ import 'package:transport_minister/features/advisor/presentation/advisor_sheet.d
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
-import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/domain/city_unlocks.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_presentation.dart';
@@ -31,14 +30,11 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dashb
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/traffic_meter.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
-import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
-import 'package:transport_minister/features/progression/presentation/progression_texts.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/promotion_sheet.dart';
 import 'package:transport_minister/features/technology/presentation/diplomacy_button.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
@@ -170,20 +166,6 @@ class _CityViewState extends ConsumerState<_CityView> {
                           ),
                         ),
                         Positioned(
-                          left: 0,
-                          right: 0,
-                          top: GameDimens.spaceS,
-                          child: Center(
-                            child: TrafficMeter(
-                              congestion: metrics.congestion,
-                              onPressed: () => showChunkySheet<void>(
-                                context: context,
-                                builder: (context) => TrafficSheet(congestion: metrics.congestion),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
                           right: GameDimens.spaceS,
                           top: GameDimens.spaceS,
                           child: ChunkyIconButton(
@@ -293,26 +275,11 @@ class _CityViewState extends ConsumerState<_CityView> {
   }
 
   void _celebrate(List<ProgressionEvent> events) {
-    final l10n = AppLocalizations.of(context);
-    final messenger = ScaffoldMessenger.of(context);
-    for (final event in events) {
-      switch (event) {
-        case RankPromoted(:final rank):
-          showChunkySheet<void>(
-            context: context,
-            builder: (context) => PromotionSheet(rank: rank),
-          );
-        case AchievementUnlocked(:final achievement):
-          messenger.showSnackBar(
-            SnackBar(content: Text(l10n.achievementToast(achievement.title(l10n), achievement.xp))),
-          );
-        case BadgeEarned(:final city, :final tier):
-          messenger.showSnackBar(
-            SnackBar(
-              content: Text(l10n.badgeEarnedToast(tier.label(l10n), city.displayName(l10n))),
-            ),
-          );
-      }
+    for (final rank in events.whereType<RankPromoted>().map((event) => event.rank)) {
+      showChunkySheet<void>(
+        context: context,
+        builder: (context) => PromotionSheet(rank: rank),
+      );
     }
   }
 
@@ -354,31 +321,13 @@ class _CityViewState extends ConsumerState<_CityView> {
         ),
       );
     }
-    final messenger = ScaffoldMessenger.of(context);
     for (final arrival in session.latestEvents.whereType<DecisionArrived>()) {
       final decision = session.city.decisions
           .where((pending) => pending.template == arrival.decision)
           .lastOrNull;
-      if (decision == null) {
-        continue;
-      }
-      if (arrival.decision.kind == DecisionKind.disaster) {
+      if (decision != null && arrival.decision.kind == DecisionKind.disaster) {
         showDecision(context, widget.cityId, decision.id);
-      } else {
-        messenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              l10n.eventDecisionArrived(arrival.decision.title(l10n, arrival.district)),
-            ),
-          ),
-        );
       }
-    }
-    final others = session.latestEvents.where((event) => !event.isSilent);
-    for (final event in others.toList().reversed.take(2)) {
-      messenger.showSnackBar(
-        SnackBar(duration: const Duration(seconds: 2), content: Text(event.message(l10n))),
-      );
     }
   }
 }

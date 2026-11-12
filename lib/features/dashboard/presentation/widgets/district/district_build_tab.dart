@@ -152,7 +152,6 @@ class _ProjectCard extends StatelessWidget {
                                   type,
                                   district: district,
                                 ),
-                                l10n.eventProjectStarted(type.label(l10n)),
                               )
                             : null,
                       ),

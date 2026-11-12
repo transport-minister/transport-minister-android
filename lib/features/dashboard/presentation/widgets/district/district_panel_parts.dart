@@ -2,7 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/features/city_game/application/city_game_controller.dart';
 
-typedef DistrictAction = Future<void> Function(CityCommand command, String success);
+typedef DistrictAction = Future<void> Function(CityCommand command);
 
 const panelBottomSpace = 84.0;
 

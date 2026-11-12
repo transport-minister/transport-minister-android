@@ -80,7 +80,6 @@ class DistrictBusesTab extends StatelessWidget {
                   district: district,
                   count: count,
                 ),
-                l10n.eventBusPurchased(count),
               ),
             ),
             const SizedBox(height: GameDimens.spaceS),
@@ -112,7 +111,6 @@ class DistrictBusesTab extends StatelessWidget {
               onPressed: () => onAction(
                 (city) =>
                     const CityCommands().reassignBus(city, city.busesIn(donor).first.id, district),
-                l10n.fleetMoved(donor.displayName(l10n)),
               ),
             ),
           ],
@@ -400,10 +398,7 @@ class _FleetCard extends StatelessWidget {
                         size: ChunkySize.small,
                         expanded: true,
                         onPressed: problem == null
-                            ? () => onAction(
-                                (city) => commands.upgradeBus(city, sample.id),
-                                l10n.eventBusUpgraded(next),
-                              )
+                            ? () => onAction((city) => commands.upgradeBus(city, sample.id))
                             : null,
                       ),
               ),
@@ -414,8 +409,7 @@ class _FleetCard extends StatelessWidget {
                   palette: ChunkyPalette.coral,
                   size: ChunkySize.small,
                   expanded: true,
-                  onPressed: () =>
-                      onAction((city) => commands.sellBus(city, oldest.id), l10n.fleetSold(resale)),
+                  onPressed: () => onAction((city) => commands.sellBus(city, oldest.id)),
                 ),
               ),
             ],

@@ -73,7 +73,6 @@ void main() {
     final after = cityIn(container);
     expect(after.budget, before.budget - 630000);
     expect(after.fleet, hasLength(before.fleet.length + 3));
-    expect(find.text('3 buses ordered! They join the fleet tomorrow.'), findsOneWidget);
     await reveal(tester, find.text('+3 TOMORROW'));
     expect(find.text('+3 TOMORROW'), findsOneWidget);
   });
@@ -100,7 +99,6 @@ void main() {
     final after = cityIn(container);
     expect(after.fleet, hasLength(before.fleet.length - 1));
     expect(after.budget, greaterThan(before.budget));
-    expect(find.textContaining('Bus sold'), findsOneWidget);
   });
 
   testWidgets('the build tab starts construction and blocks a second site', (tester) async {
@@ -113,7 +111,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(cityIn(container).projects.single.districtId, DistrictId.oldFortress);
-    expect(find.text('Smart traffic lights: construction started'), findsOneWidget);
     expect(find.text('3 DAYS LEFT'), findsOneWidget);
     expect(find.text('Work is already underway here'), findsWidgets);
   });
@@ -150,7 +147,6 @@ void main() {
 
     final line = cityIn(container).metroLines.single;
     expect(line.joins(DistrictId.oldFortress, DistrictId.windHeights), isTrue);
-    expect(find.text('Metro Old Fortress ⇄ Wind Heights: digging started'), findsOneWidget);
     expect(find.text('8 DAYS LEFT'), findsOneWidget);
   });
 }

@@ -175,13 +175,7 @@ class _MetroLineCard extends StatelessWidget {
                         palette: ChunkyPalette.grape,
                         size: ChunkySize.small,
                         onPressed: problem == null
-                            ? () => onAction(
-                                (city) => commands.buildMetroLine(city, from, to),
-                                l10n.eventMetroStarted(
-                                  from.displayName(l10n),
-                                  to.displayName(l10n),
-                                ),
-                              )
+                            ? () => onAction((city) => commands.buildMetroLine(city, from, to))
                             : null,
                       ),
                     ),
