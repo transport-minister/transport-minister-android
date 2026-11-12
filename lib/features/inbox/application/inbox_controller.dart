@@ -30,6 +30,8 @@ class InboxController extends AsyncNotifier<Inbox> {
 
   Future<void> markAllRead() => _update(_rules.markAllRead);
 
+  Future<void> clear() => _update(_rules.clear);
+
   Future<void> _update(Inbox Function(Inbox inbox) change) {
     return _queue = _queue.then((_) async {
       if (!ref.mounted) {

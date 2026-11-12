@@ -135,6 +135,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     _anchor = TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch);
     final city = _newCity(now);
     state = AsyncData(CityGameSession(city: city));
+    await ref.read(inboxProvider.notifier).clear();
     await _persist(city);
     if (!_paused) {
       _startTicker();

@@ -52,6 +52,8 @@ class InboxRules {
     return _append(inbox, entries, now);
   }
 
+  Inbox clear(Inbox inbox) => inbox.copyWith(items: const []);
+
   Inbox markAllRead(Inbox inbox) =>
       inbox.copyWith(items: [for (final item in inbox.items) item.copyWith(read: true)]);
 
