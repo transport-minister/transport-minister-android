@@ -40,7 +40,7 @@ void main() {
   test('buying a bus earns development points', () {
     final outcome = const CityCommands().buyBus(
       newBaku().copyWith(developmentPoints: 37),
-      model: BusModelId.hopMini,
+      model: BusModelId.cityRunner,
       district: DistrictId.oldFortress,
     );
 

@@ -3,9 +3,11 @@ import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
 import 'package:transport_minister/core/simulation/engine/city_development.dart';
 import 'package:transport_minister/core/simulation/engine/project_rules.dart';
+import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
@@ -31,6 +33,9 @@ class CityCommands {
     int? price,
   }) {
     final cost = price ?? model.spec.price;
+    if (!state.has(TechnologyId.forModel(model))) {
+      return const CommandRejected(RejectionReason.locked);
+    }
     if (state.fleet.length >= state.depotCapacity) {
       return const CommandRejected(RejectionReason.depotFull);
     }
@@ -82,6 +87,9 @@ class CityCommands {
       return const CommandRejected(RejectionReason.maxLevelReached);
     }
     final level = bus.level + 1;
+    if (!state.has(TechnologyId.forUpgradeLevel(level))) {
+      return const CommandRejected(RejectionReason.locked);
+    }
     final cost = BusUpgrades.costToReach(bus.model, level);
     if (state.budget < cost) {
       return const CommandRejected(RejectionReason.insufficientFunds);
@@ -163,6 +171,51 @@ class CityCommands {
         ),
       ),
     );
+  }
+
+  CommandOutcome unlockTechnology(CityState state, TechnologyId technology) {
+    final rejection = technologyProblem(state, technology);
+    if (rejection != null) {
+      return CommandRejected(rejection);
+    }
+    final perk = _perkOf(technology);
+    return CommandApplied(
+      _record(state, LedgerItem.technology, -technology.money).copyWith(
+        diplomacyPoints: state.diplomacyPoints - technology.diplomacy,
+        technologies: {...state.technologies, technology},
+        modifiers: [...state.modifiers, ?perk],
+      ),
+      events: [TechnologyUnlocked(technology)],
+    );
+  }
+
+  RejectionReason? technologyProblem(CityState state, TechnologyId technology) {
+    if (state.technologies.contains(technology)) {
+      return RejectionReason.alreadyUnlocked;
+    }
+    if (!state.has(technology.requires)) {
+      return RejectionReason.locked;
+    }
+    if (state.budget < technology.money) {
+      return RejectionReason.insufficientFunds;
+    }
+    if (state.diplomacyPoints < technology.diplomacy) {
+      return RejectionReason.insufficientDiplomacy;
+    }
+    return null;
+  }
+
+  ActiveModifier? _perkOf(TechnologyId technology) {
+    final (type, value) = switch (technology) {
+      TechnologyId.smartTicketing => (ModifierType.ticketRevenue, 1.08),
+      TechnologyId.ecoDriving => (ModifierType.energyCost, 0.9),
+      TechnologyId.depotRobotics => (ModifierType.maintenanceCost, 0.85),
+      _ => (null, 0.0),
+    };
+    if (type == null) {
+      return null;
+    }
+    return ActiveModifier(type: type, value: value, remainingDays: ActiveModifier.permanent);
   }
 
   CommandOutcome grantReward(CityState state, int amount) {

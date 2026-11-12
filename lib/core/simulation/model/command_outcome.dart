@@ -12,6 +12,9 @@ enum RejectionReason {
   invalidTarget,
   loanActive,
   fareOutOfRange,
+  locked,
+  insufficientDiplomacy,
+  alreadyUnlocked,
 }
 
 sealed class CommandOutcome {

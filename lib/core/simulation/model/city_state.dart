@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_stats.dart';
@@ -42,6 +43,8 @@ abstract class CityState with _$CityState {
     @Default([]) List<ActiveModifier> modifiers,
     @Default([]) List<DecisionRecord> decisionLog,
     @Default(0) int lastDecisionDay,
+    @Default(0) int diplomacyPoints,
+    @Default({}) Set<TechnologyId> technologies,
   }) = _CityState;
 
   const CityState._();
@@ -59,6 +62,8 @@ abstract class CityState with _$CityState {
   DailyReport? get lastReport => reports.isEmpty ? null : reports.last;
 
   int get level => CityLevels.levelFor(developmentPoints);
+
+  bool has(TechnologyId? technology) => technology == null || technologies.contains(technology);
 
   double multiplier(ModifierType type, {DistrictId? district}) => modifiers
       .where((modifier) => modifier.type == type && _covers(modifier, district))

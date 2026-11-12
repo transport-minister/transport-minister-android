@@ -899,7 +899,7 @@ abstract class AppLocalizations {
   /// No description provided for @levelBarPoints.
   ///
   /// In en, this message translates to:
-  /// **'{points} / {next} DP'**
+  /// **'{points} / {next} pts'**
   String levelBarPoints(int points, int next);
 
   /// No description provided for @levelBarMax.
@@ -923,7 +923,7 @@ abstract class AppLocalizations {
   /// No description provided for @levelSheetBody.
   ///
   /// In en, this message translates to:
-  /// **'Earn development points (DP) every day by keeping citizens happy and the budget positive. New buses, upgrades and finished projects give extra DP. Each level pays a reward from the Cabinet.'**
+  /// **'Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.'**
   String get levelSheetBody;
 
   /// No description provided for @levelSheetTarget.
@@ -947,8 +947,8 @@ abstract class AppLocalizations {
   /// No description provided for @levelUpReward.
   ///
   /// In en, this message translates to:
-  /// **'The Cabinet sends a bonus of {amount}.'**
-  String levelUpReward(String amount);
+  /// **'The Cabinet sends {amount} and {diplomacy} diplomacy points.'**
+  String levelUpReward(String amount, int diplomacy);
 
   /// No description provided for @levelUpUnlocked.
   ///
@@ -2515,6 +2515,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Climb nine ranks and collect achievements and city badges. Good luck, Minister!'**
   String get tutorialProfile;
+
+  /// No description provided for @ledgerTechnology.
+  ///
+  /// In en, this message translates to:
+  /// **'Technology contracts'**
+  String get ledgerTechnology;
+
+  /// No description provided for @rejectLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock it in Technology first'**
+  String get rejectLocked;
+
+  /// No description provided for @rejectInsufficientDiplomacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough diplomacy points'**
+  String get rejectInsufficientDiplomacy;
+
+  /// No description provided for @rejectAlreadyUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Already unlocked'**
+  String get rejectAlreadyUnlocked;
+
+  /// No description provided for @eventTechnologyUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract signed: {technology}!'**
+  String eventTechnologyUnlocked(String technology);
+
+  /// No description provided for @effectMaintenanceCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus repairs {change}'**
+  String effectMaintenanceCost(String change);
+
+  /// No description provided for @diplomacyAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'+{amount}'**
+  String diplomacyAmount(int amount);
+
+  /// No description provided for @diplomacyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Diplomacy'**
+  String get diplomacyLabel;
+
+  /// No description provided for @diplomacyOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open technology'**
+  String get diplomacyOpen;
+
+  /// No description provided for @decisionDiplomacyEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'Citizens appreciate it: +{amount} diplomacy points!'**
+  String decisionDiplomacyEarned(int amount);
+
+  /// No description provided for @technologyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Technology'**
+  String get technologyTitle;
+
+  /// No description provided for @technologyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Happy citizens and wise decisions earn diplomacy points. Spend them with money to sign contracts and unlock new technology!'**
+  String get technologyIntro;
+
+  /// No description provided for @technologyUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get technologyUnlock;
+
+  /// No description provided for @technologyUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked'**
+  String get technologyUnlocked;
+
+  /// No description provided for @technologyRequires.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs {technology}'**
+  String technologyRequires(String technology);
+
+  /// No description provided for @branchBuses.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus contracts'**
+  String get branchBuses;
+
+  /// No description provided for @branchUpgrades.
+  ///
+  /// In en, this message translates to:
+  /// **'Bus upgrades'**
+  String get branchUpgrades;
+
+  /// No description provided for @branchMetro.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro'**
+  String get branchMetro;
+
+  /// No description provided for @branchOperations.
+  ///
+  /// In en, this message translates to:
+  /// **'Operations'**
+  String get branchOperations;
+
+  /// No description provided for @techMinibusContractName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hop Mini contract'**
+  String get techMinibusContractName;
+
+  /// No description provided for @techMinibusContractDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Nimble 28-seat minibuses from Silkway Motors. Cheap and great for narrow streets.'**
+  String get techMinibusContractDescription;
+
+  /// No description provided for @techArticulatedContractName.
+  ///
+  /// In en, this message translates to:
+  /// **'MegaLink contract'**
+  String get techArticulatedContractName;
+
+  /// No description provided for @techArticulatedContractDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Bendy 150-seat buses for the busiest districts.'**
+  String get techArticulatedContractDescription;
+
+  /// No description provided for @techElectricContractName.
+  ///
+  /// In en, this message translates to:
+  /// **'Volta E-12 contract'**
+  String get techElectricContractName;
+
+  /// No description provided for @techElectricContractDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Silent electric buses with zero emissions. Needs a charging depot.'**
+  String get techElectricContractDescription;
+
+  /// No description provided for @techEngineTuningName.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine tuning'**
+  String get techEngineTuningName;
+
+  /// No description provided for @techEngineTuningDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks bus level 2: more reliable buses and cheaper repairs.'**
+  String get techEngineTuningDescription;
+
+  /// No description provided for @techBiggerCabinsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bigger cabins'**
+  String get techBiggerCabinsName;
+
+  /// No description provided for @techBiggerCabinsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks bus level 3: 15% more seats.'**
+  String get techBiggerCabinsDescription;
+
+  /// No description provided for @techComfortKitName.
+  ///
+  /// In en, this message translates to:
+  /// **'Comfort kit'**
+  String get techComfortKitName;
+
+  /// No description provided for @techComfortKitDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks bus level 4: air-con and soft seats passengers love.'**
+  String get techComfortKitDescription;
+
+  /// No description provided for @techSmartBusesName.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart buses'**
+  String get techSmartBusesName;
+
+  /// No description provided for @techSmartBusesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks bus level 5: efficient engines and cleaner exhaust.'**
+  String get techSmartBusesDescription;
+
+  /// No description provided for @techMetroStudyName.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro study'**
+  String get techMetroStudyName;
+
+  /// No description provided for @techMetroStudyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Engineers survey the ground for an underground railway.'**
+  String get techMetroStudyDescription;
+
+  /// No description provided for @techMetroContractName.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro contract'**
+  String get techMetroContractName;
+
+  /// No description provided for @techMetroContractDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks metro lines between neighbouring districts.'**
+  String get techMetroContractDescription;
+
+  /// No description provided for @techMetroAutomationName.
+  ///
+  /// In en, this message translates to:
+  /// **'Driverless metro'**
+  String get techMetroAutomationName;
+
+  /// No description provided for @techMetroAutomationDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks metro line upgrades with more frequent trains.'**
+  String get techMetroAutomationDescription;
+
+  /// No description provided for @techSmartTicketingName.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart ticketing'**
+  String get techSmartTicketingName;
+
+  /// No description provided for @techSmartTicketingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Contactless cards stop fare dodging. Ticket income +8% forever.'**
+  String get techSmartTicketingDescription;
+
+  /// No description provided for @techEcoDrivingName.
+  ///
+  /// In en, this message translates to:
+  /// **'Eco-driving academy'**
+  String get techEcoDrivingName;
+
+  /// No description provided for @techEcoDrivingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Trained drivers use 10% less fuel and power.'**
+  String get techEcoDrivingDescription;
+
+  /// No description provided for @techDepotRoboticsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Depot robotics'**
+  String get techDepotRoboticsName;
+
+  /// No description provided for @techDepotRoboticsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Robots help the mechanics. Bus repairs cost 15% less.'**
+  String get techDepotRoboticsDescription;
+
+  /// No description provided for @achievementInnovatorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Innovator'**
+  String get achievementInnovatorTitle;
+
+  /// No description provided for @achievementInnovatorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock 5 technologies.'**
+  String get achievementInnovatorDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

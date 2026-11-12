@@ -66,12 +66,14 @@ class LevelUpSheet extends StatelessWidget {
     required this.cityName,
     required this.level,
     required this.reward,
+    required this.diplomacy,
     required this.unlockedCityName,
   });
 
   final String cityName;
   final int level;
   final int reward;
+  final int diplomacy;
   final String? unlockedCityName;
 
   @override
@@ -86,7 +88,7 @@ class LevelUpSheet extends StatelessWidget {
           mood: MrBusMood.excited,
           title: l10n.levelUpTitle(cityName, level),
           message: [
-            l10n.levelUpReward(MoneyFormat.compact(reward)),
+            l10n.levelUpReward(MoneyFormat.compact(reward), diplomacy),
             if (unlocked != null) l10n.levelUpUnlocked(unlocked),
           ].join('\n'),
         ),

@@ -31,10 +31,10 @@ class EconomyCalculator {
                   GameBalance.driverWagePerBusDay *
                   state.multiplier(ModifierType.salaryCost))
               .round(),
-      LedgerItem.vehicleMaintenance: -performances.fold(
-        0,
-        (sum, bus) => sum + bus.maintenancePerDay,
-      ),
+      LedgerItem.vehicleMaintenance:
+          -(performances.fold(0, (sum, bus) => sum + bus.maintenancePerDay) *
+                  state.multiplier(ModifierType.maintenanceCost))
+              .round(),
       LedgerItem.roadMaintenance: -state.districts.length * state.roadMaintenance.costPerDistrict,
       LedgerItem.administration: -GameBalance.administrationPerDay,
       if (loan != null) LedgerItem.loanRepayment: -loan.dailyInstallment,

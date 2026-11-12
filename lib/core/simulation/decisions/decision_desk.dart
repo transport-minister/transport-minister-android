@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:transport_minister/core/simulation/catalog/diplomacy_rules.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_effect.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_effects.dart';
@@ -12,11 +13,17 @@ import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/pending_decision.dart';
 
 class DecisionChoice {
-  const DecisionChoice({required this.option, required this.problems, required this.cost});
+  const DecisionChoice({
+    required this.option,
+    required this.problems,
+    required this.cost,
+    required this.diplomacy,
+  });
 
   final DecisionOption option;
   final List<RejectionReason> problems;
   final int cost;
+  final int diplomacy;
 
   bool get available => problems.isEmpty;
 }
@@ -52,6 +59,7 @@ class DecisionDesk {
           option: option,
           problems: effects.problems(state, option.effects),
           cost: effects.cost(state, option.effects),
+          diplomacy: DiplomacyRules.forChoice(option.effects),
         ),
     ];
   }
@@ -140,6 +148,11 @@ class DecisionDesk {
       DecisionResolved(decision.template, riskTriggered: triggered, automatic: automatic),
     ];
     if (!automatic) {
+      final diplomacy = triggered ? 0 : DiplomacyRules.forChoice(option.effects);
+      if (diplomacy > 0) {
+        next = next.copyWith(diplomacyPoints: next.diplomacyPoints + diplomacy);
+        resolvedEvents.add(DiplomacyEarned(diplomacy));
+      }
       final points = decision.template.kind == DecisionKind.disaster
           ? disasterPoints
           : decisionPoints;

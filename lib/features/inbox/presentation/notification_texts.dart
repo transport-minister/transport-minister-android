@@ -3,6 +3,7 @@ import 'package:transport_minister/core/design/chunky_palette.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
@@ -15,6 +16,7 @@ import 'package:transport_minister/features/progression/domain/city_badge.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/presentation/ministerial_rank_text.dart';
 import 'package:transport_minister/features/progression/presentation/progression_texts.dart';
+import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 extension NotificationTexts on GameNotification {
@@ -49,6 +51,9 @@ extension NotificationTexts on GameNotification {
       NotificationKind.warning => l10n.eventCrisisWarning(_int('level')),
       NotificationKind.averted => l10n.eventCrisisAverted,
       NotificationKind.dismissed => l10n.dismissedTitle,
+      NotificationKind.technology => l10n.eventTechnologyUnlocked(
+        _byName(TechnologyId.values, data['technology'])!.label(l10n),
+      ),
     };
   }
 
@@ -65,6 +70,7 @@ extension NotificationTexts on GameNotification {
     NotificationKind.warning => Icons.gavel_rounded,
     NotificationKind.averted => Icons.shield_rounded,
     NotificationKind.dismissed => Icons.sentiment_very_dissatisfied_rounded,
+    NotificationKind.technology => Icons.science_rounded,
   };
 
   ChunkyPalette get palette => switch (kind) {
@@ -77,6 +83,7 @@ extension NotificationTexts on GameNotification {
     NotificationKind.budget || NotificationKind.averted => ChunkyPalette.green,
     NotificationKind.levelUp || NotificationKind.promotion => ChunkyPalette.grape,
     NotificationKind.achievement || NotificationKind.badge => ChunkyPalette.bubblegum,
+    NotificationKind.technology => ChunkyPalette.lagoon,
   };
 
   DecisionId get _decision => _byName(DecisionId.values, data['decision'])!;

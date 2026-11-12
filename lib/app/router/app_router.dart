@@ -8,6 +8,7 @@ import 'package:transport_minister/features/dashboard/presentation/dashboard_scr
 import 'package:transport_minister/features/inbox/presentation/inbox_screen.dart';
 import 'package:transport_minister/features/progression/presentation/profile_screen.dart';
 import 'package:transport_minister/features/splash/presentation/splash_screen.dart';
+import 'package:transport_minister/features/technology/presentation/technology_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   CityId? playableCityFrom(GoRouterState state) {
@@ -44,6 +45,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoute.dashboard.name,
         redirect: (context, state) => playableCityFrom(state) == null ? AppRoute.cities.path : null,
         builder: (context, state) => DashboardScreen(cityId: playableCityFrom(state)!),
+      ),
+      GoRoute(
+        path: AppRoute.technology.path,
+        name: AppRoute.technology.name,
+        redirect: (context, state) => playableCityFrom(state) == null ? AppRoute.cities.path : null,
+        builder: (context, state) => TechnologyScreen(cityId: playableCityFrom(state)!),
       ),
     ],
   );

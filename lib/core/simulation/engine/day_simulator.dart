@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
+import 'package:transport_minister/core/simulation/catalog/diplomacy_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/engine/city_development.dart';
@@ -60,6 +61,8 @@ class DaySimulator {
     var next = state.copyWith(
       budget: budget,
       satisfaction: groups,
+      diplomacyPoints:
+          state.diplomacyPoints + DiplomacyRules.daily(StakeholderGroup.overall(groups)),
       districts: [for (final district in state.districts) _age(state, district, today)],
       fleet: [
         for (final bus in state.fleet)

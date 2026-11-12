@@ -18,10 +18,11 @@ import 'package:transport_minister/features/decisions/presentation/effect_chips.
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DecisionResult {
-  const DecisionResult({required this.riskHit, required this.riskEffects});
+  const DecisionResult({required this.riskHit, required this.riskEffects, required this.diplomacy});
 
   final bool riskHit;
   final List<DecisionEffect> riskEffects;
+  final int diplomacy;
 }
 
 Future<void> showDecision(BuildContext context, CityId cityId, int decisionId) async {
@@ -34,8 +35,11 @@ Future<void> showDecision(BuildContext context, CityId cityId, int decisionId) a
   }
   await showChunkySheet<void>(
     context: context,
-    builder: (context) =>
-        DecisionResultSheet(riskHit: result.riskHit, riskEffects: result.riskEffects),
+    builder: (context) => DecisionResultSheet(
+      riskHit: result.riskHit,
+      riskEffects: result.riskEffects,
+      diplomacy: result.diplomacy,
+    ),
   );
 }
 
@@ -144,6 +148,10 @@ class DecisionSheet extends ConsumerWidget {
           DecisionResult(
             riskHit: riskHit,
             riskEffects: riskHit ? option.risk?.effects ?? const [] : const [],
+            diplomacy: events.whereType<DiplomacyEarned>().fold(
+              0,
+              (sum, event) => sum + event.amount,
+            ),
           ),
         );
     }
@@ -172,6 +180,14 @@ class _OptionCard extends StatelessWidget {
             children: [
               Expanded(child: Text(label, style: textTheme.titleMedium)),
               const SizedBox(width: GameDimens.spaceS),
+              if (choice.diplomacy > 0) ...[
+                GameTag(
+                  label: l10n.diplomacyAmount(choice.diplomacy),
+                  palette: ChunkyPalette.lagoon,
+                  icon: Icons.handshake_rounded,
+                ),
+                const SizedBox(width: GameDimens.spaceXS),
+              ],
               GameTag(
                 label: choice.cost > 0
                     ? l10n.decisionCost(MoneyFormat.compact(choice.cost))
@@ -229,10 +245,16 @@ class _OptionCard extends StatelessWidget {
 }
 
 class DecisionResultSheet extends StatelessWidget {
-  const DecisionResultSheet({super.key, required this.riskHit, required this.riskEffects});
+  const DecisionResultSheet({
+    super.key,
+    required this.riskHit,
+    required this.riskEffects,
+    this.diplomacy = 0,
+  });
 
   final bool riskHit;
   final List<DecisionEffect> riskEffects;
+  final int diplomacy;
 
   @override
   Widget build(BuildContext context) {
@@ -249,6 +271,26 @@ class DecisionResultSheet extends StatelessWidget {
         if (riskHit) ...[
           const SizedBox(height: GameDimens.spaceM),
           EffectChips(effects: riskEffects),
+        ],
+        if (diplomacy > 0) ...[
+          const SizedBox(height: GameDimens.spaceM),
+          ChunkyCard(
+            color: ChunkyPalette.lagoon.glow.withValues(alpha: 0.5),
+            depth: 3,
+            padding: const EdgeInsets.all(GameDimens.spaceM),
+            child: Row(
+              children: [
+                const IconBubble(icon: Icons.handshake_rounded, palette: ChunkyPalette.lagoon),
+                const SizedBox(width: GameDimens.spaceM),
+                Expanded(
+                  child: Text(
+                    l10n.decisionDiplomacyEarned(diplomacy),
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
         const SizedBox(height: GameDimens.spaceXL),
         ChunkyButton(

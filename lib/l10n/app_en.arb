@@ -333,7 +333,7 @@
       }
     }
   },
-  "levelBarPoints": "{points} / {next} DP",
+  "levelBarPoints": "{points} / {next} pts",
   "@levelBarPoints": {
     "placeholders": {
       "points": {
@@ -361,7 +361,7 @@
       }
     }
   },
-  "levelSheetBody": "Earn development points (DP) every day by keeping citizens happy and the budget positive. New buses, upgrades and finished projects give extra DP. Each level pays a reward from the Cabinet.",
+  "levelSheetBody": "Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.",
   "levelSheetTarget": "Reach level {target} to unlock {city}!",
   "@levelSheetTarget": {
     "placeholders": {
@@ -385,11 +385,14 @@
       }
     }
   },
-  "levelUpReward": "The Cabinet sends a bonus of {amount}.",
+  "levelUpReward": "The Cabinet sends {amount} and {diplomacy} diplomacy points.",
   "@levelUpReward": {
     "placeholders": {
       "amount": {
         "type": "String"
+      },
+      "diplomacy": {
+        "type": "int"
       }
     }
   },
@@ -1146,5 +1149,87 @@
   "tutorialLevel": "Baku grows as you play. Reach level 10 to unlock Istanbul!",
   "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
   "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
-  "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!"
+  "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!",
+  "ledgerTechnology": "Technology contracts",
+  "rejectLocked": "Unlock it in Technology first",
+  "rejectInsufficientDiplomacy": "Not enough diplomacy points",
+  "rejectAlreadyUnlocked": "Already unlocked",
+  "eventTechnologyUnlocked": "Contract signed: {technology}!",
+  "@eventTechnologyUnlocked": {
+    "placeholders": {
+      "technology": {
+        "type": "String"
+      }
+    }
+  },
+  "effectMaintenanceCost": "Bus repairs {change}",
+  "@effectMaintenanceCost": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
+  "diplomacyAmount": "+{amount}",
+  "@diplomacyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "diplomacyLabel": "Diplomacy",
+  "diplomacyOpen": "Open technology",
+  "decisionDiplomacyEarned": "Citizens appreciate it: +{amount} diplomacy points!",
+  "@decisionDiplomacyEarned": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "technologyTitle": "Technology",
+  "technologyIntro": "Happy citizens and wise decisions earn diplomacy points. Spend them with money to sign contracts and unlock new technology!",
+  "technologyUnlock": "Unlock",
+  "technologyUnlocked": "Unlocked",
+  "technologyRequires": "Needs {technology}",
+  "@technologyRequires": {
+    "placeholders": {
+      "technology": {
+        "type": "String"
+      }
+    }
+  },
+  "branchBuses": "Bus contracts",
+  "branchUpgrades": "Bus upgrades",
+  "branchMetro": "Metro",
+  "branchOperations": "Operations",
+  "techMinibusContractName": "Hop Mini contract",
+  "techMinibusContractDescription": "Nimble 28-seat minibuses from Silkway Motors. Cheap and great for narrow streets.",
+  "techArticulatedContractName": "MegaLink contract",
+  "techArticulatedContractDescription": "Bendy 150-seat buses for the busiest districts.",
+  "techElectricContractName": "Volta E-12 contract",
+  "techElectricContractDescription": "Silent electric buses with zero emissions. Needs a charging depot.",
+  "techEngineTuningName": "Engine tuning",
+  "techEngineTuningDescription": "Unlocks bus level 2: more reliable buses and cheaper repairs.",
+  "techBiggerCabinsName": "Bigger cabins",
+  "techBiggerCabinsDescription": "Unlocks bus level 3: 15% more seats.",
+  "techComfortKitName": "Comfort kit",
+  "techComfortKitDescription": "Unlocks bus level 4: air-con and soft seats passengers love.",
+  "techSmartBusesName": "Smart buses",
+  "techSmartBusesDescription": "Unlocks bus level 5: efficient engines and cleaner exhaust.",
+  "techMetroStudyName": "Metro study",
+  "techMetroStudyDescription": "Engineers survey the ground for an underground railway.",
+  "techMetroContractName": "Metro contract",
+  "techMetroContractDescription": "Unlocks metro lines between neighbouring districts.",
+  "techMetroAutomationName": "Driverless metro",
+  "techMetroAutomationDescription": "Unlocks metro line upgrades with more frequent trains.",
+  "techSmartTicketingName": "Smart ticketing",
+  "techSmartTicketingDescription": "Contactless cards stop fare dodging. Ticket income +8% forever.",
+  "techEcoDrivingName": "Eco-driving academy",
+  "techEcoDrivingDescription": "Trained drivers use 10% less fuel and power.",
+  "techDepotRoboticsName": "Depot robotics",
+  "techDepotRoboticsDescription": "Robots help the mechanics. Bus repairs cost 15% less.",
+  "achievementInnovatorTitle": "Innovator",
+  "achievementInnovatorDescription": "Unlock 5 technologies."
 }

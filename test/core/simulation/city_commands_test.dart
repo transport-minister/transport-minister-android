@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
@@ -54,13 +55,30 @@ void main() {
       );
       expect(
         rejected(commands.buyBus(city, model: BusModelId.voltaE, district: DistrictId.flameHills)),
+        RejectionReason.locked,
+      );
+      expect(
+        rejected(
+          commands.buyBus(
+            city.copyWith(technologies: {TechnologyId.electricContract}),
+            model: BusModelId.voltaE,
+            district: DistrictId.flameHills,
+          ),
+        ),
         RejectionReason.requiresChargingDepot,
       );
     });
   });
 
   test('upgrades raise the level until the maximum', () {
-    var city = newBaku();
+    var city = newBaku().copyWith(
+      technologies: {
+        TechnologyId.engineTuning,
+        TechnologyId.biggerCabins,
+        TechnologyId.comfortKit,
+        TechnologyId.smartBuses,
+      },
+    );
     final busId = city.fleet.first.id;
 
     for (var level = 2; level <= BusUpgrades.maxLevel; level++) {
