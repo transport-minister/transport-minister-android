@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
+import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
@@ -15,6 +16,9 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_stats_panel.dart';
+import 'package:transport_minister/features/inbox/data/local_inbox_repository.dart';
+import 'package:transport_minister/features/inbox/domain/inbox.dart';
+import 'package:transport_minister/features/inbox/domain/inbox_rules.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/funded_city.dart';
@@ -190,10 +194,16 @@ void main() {
     expect(find.text('Hooray!'), findsNothing);
   });
 
-  testWidgets('a dismissed minister can start over', (tester) async {
+  testWidgets('a dismissed minister can start over with an empty inbox', (tester) async {
     await saveBaku(
       syncedAt: now.current,
       crisis: const CrisisState(seconds: 300, warnings: 3, dismissed: true),
+    );
+    await LocalInboxRepository(store).save(
+      const InboxRules().addCityEvents(const Inbox(), CityId.baku, const [
+        CrisisWarning(3),
+        MinisterDismissed(),
+      ], now.current),
     );
 
     await pumpGameScreen(
@@ -210,6 +220,7 @@ void main() {
 
     expect(find.text('You have been dismissed'), findsNothing);
     expect(find.text('Wind Heights'), findsWidgets);
+    expect((await LocalInboxRepository(store).load())?.items, isEmpty);
   });
 
   testWidgets('tapping a district on the map opens it', (tester) async {
