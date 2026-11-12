@@ -511,11 +511,6 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String profileNextRank(String rank, int reputation) {
-    return 'Sıradaki: $rank · %$reputation itibar gerekli';
-  }
-
-  @override
   String get profileRanks => 'Rütbeler';
 
   @override

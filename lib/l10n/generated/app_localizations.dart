@@ -958,12 +958,6 @@ abstract class AppLocalizations {
   /// **'{xp} XP · Highest rank'**
   String profileXpMax(String xp);
 
-  /// No description provided for @profileNextRank.
-  ///
-  /// In en, this message translates to:
-  /// **'Next: {rank} · needs {reputation}% reputation'**
-  String profileNextRank(String rank, int reputation);
-
   /// No description provided for @profileRanks.
   ///
   /// In en, this message translates to:

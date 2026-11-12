@@ -144,7 +144,6 @@
   "profileReputation": "İtibar",
   "profileXp": "{xp} / {next} XP",
   "profileXpMax": "{xp} XP · En yüksek rütbe",
-  "profileNextRank": "Sıradaki: {rank} · %{reputation} itibar gerekli",
   "profileRanks": "Rütbeler",
   "profileCityBadges": "Şehir rozetleri",
   "profileAchievements": "Başarımlar {done}/{total}",

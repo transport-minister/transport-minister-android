@@ -514,11 +514,6 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String profileNextRank(String rank, int reputation) {
-    return 'Далее: $rank · нужно $reputation% репутации';
-  }
-
-  @override
   String get profileRanks => 'Звания';
 
   @override
