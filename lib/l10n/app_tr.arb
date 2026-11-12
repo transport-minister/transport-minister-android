@@ -476,6 +476,7 @@
   "contractOpenTechnology": "Teknoloji",
   "contractFewer": "Daha az otobüs",
   "contractMore": "Daha çok otobüs",
+  "contractSigned": "{count, plural, =1{İmzalandı! Otobüs yolda} other{İmzalandı! {count} otobüs yolda}}",
   "busSeats": "{count} koltuk",
   "busRunningCost": "{amount}/sn",
   "busComfort": "Konfor {value}",

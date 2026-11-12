@@ -50,6 +50,7 @@ class ChunkyButton extends StatelessWidget {
     return PressableBuilder(
       onPressed: onPressed,
       semanticsLabel: label,
+      pressedScale: 0.96,
       builder: (context, pressed) => ChunkySlab(
         palette: effectivePalette,
         pressed: pressed,

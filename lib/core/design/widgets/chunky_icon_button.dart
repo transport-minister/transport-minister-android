@@ -29,6 +29,7 @@ class ChunkyIconButton extends StatelessWidget {
     return PressableBuilder(
       onPressed: onPressed,
       semanticsLabel: semanticsLabel,
+      pressedScale: 0.9,
       builder: (context, pressed) => Stack(
         clipBehavior: Clip.none,
         children: [

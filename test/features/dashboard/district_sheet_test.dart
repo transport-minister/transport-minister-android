@@ -73,6 +73,11 @@ void main() {
     final after = cityIn(container);
     expect(after.budget, before.budget - 630000);
     expect(after.fleet, hasLength(before.fleet.length + 3));
+    expect(find.text('SIGNED! 3 BUSES ON THE WAY'), findsOneWidget);
+
+    await tester.pump(const Duration(seconds: 2));
+
+    expect(find.text('SIGNED! 3 BUSES ON THE WAY'), findsNothing);
     await reveal(tester, find.text('+3 COMING'));
     expect(find.text('+3 COMING'), findsOneWidget);
   });

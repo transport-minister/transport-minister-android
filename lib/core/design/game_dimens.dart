@@ -13,5 +13,7 @@ abstract final class GameDimens {
   static const spaceXL = 24.0;
   static const spaceXXL = 32.0;
   static const pressDuration = Duration(milliseconds: 70);
+  static const pressHold = Duration(milliseconds: 120);
+  static const releaseDuration = Duration(milliseconds: 280);
   static const fillDuration = Duration(milliseconds: 450);
 }

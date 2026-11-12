@@ -59,8 +59,7 @@ class StatPill extends StatelessWidget {
     return PressableBuilder(
       onPressed: onPressed,
       semanticsLabel: value,
-      builder: (context, pressed) =>
-          AnimatedScale(scale: pressed ? 0.94 : 1, duration: GameDimens.pressDuration, child: pill),
+      builder: (context, pressed) => pill,
     );
   }
 }

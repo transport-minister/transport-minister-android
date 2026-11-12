@@ -103,27 +103,24 @@ class _LanguageCard extends StatelessWidget {
     return PressableBuilder(
       onPressed: onPressed,
       semanticsLabel: language.nativeName,
-      builder: (context, pressed) => AnimatedScale(
-        scale: pressed ? 0.97 : 1,
-        duration: GameDimens.pressDuration,
-        child: ChunkyCard(
-          depth: 3,
-          color: selected ? ChunkyPalette.lagoon.glow.withValues(alpha: 0.45) : GameColors.paper,
-          padding: const EdgeInsets.all(GameDimens.spaceM),
-          child: Row(
-            children: [
-              LanguageFlag(language: language),
-              const SizedBox(width: GameDimens.spaceM),
-              Expanded(
-                child: Text(language.nativeName, style: Theme.of(context).textTheme.titleMedium),
-              ),
-              Icon(
-                selected ? Icons.check_circle_rounded : Icons.circle_outlined,
-                color: selected ? ChunkyPalette.lagoon.deep : GameColors.inkFaint,
-                size: 28,
-              ),
-            ],
-          ),
+      pressedScale: 0.97,
+      builder: (context, pressed) => ChunkyCard(
+        depth: 3,
+        color: selected ? ChunkyPalette.lagoon.glow.withValues(alpha: 0.45) : GameColors.paper,
+        padding: const EdgeInsets.all(GameDimens.spaceM),
+        child: Row(
+          children: [
+            LanguageFlag(language: language),
+            const SizedBox(width: GameDimens.spaceM),
+            Expanded(
+              child: Text(language.nativeName, style: Theme.of(context).textTheme.titleMedium),
+            ),
+            Icon(
+              selected ? Icons.check_circle_rounded : Icons.circle_outlined,
+              color: selected ? ChunkyPalette.lagoon.deep : GameColors.inkFaint,
+              size: 28,
+            ),
+          ],
         ),
       ),
     );
