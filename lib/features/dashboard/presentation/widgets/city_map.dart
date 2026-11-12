@@ -303,14 +303,16 @@ class DistrictMarker extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        height: 1.1,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        name,
+                        maxLines: 1,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          height: 1.1,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 2),

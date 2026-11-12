@@ -12,6 +12,8 @@ import 'package:transport_minister/features/city_game/application/city_game_prov
 import 'package:transport_minister/features/city_game/data/local_city_save_repository.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/settings/data/local_settings_repository.dart';
+import 'package:transport_minister/features/settings/domain/app_language.dart';
 
 import '../helpers/phone_viewport.dart';
 
@@ -43,6 +45,22 @@ void main() {
 
     expect(find.text('Choose your city'), findsOneWidget);
     expect(find.text('Baku'), findsOneWidget);
+  });
+
+  testWidgets('a chosen language translates the whole app', (tester) async {
+    for (final (language, title) in const [
+      (AppLanguage.turkish, 'Şehrini seç'),
+      (AppLanguage.russian, 'Выбери свой город'),
+    ]) {
+      final store = InMemoryDocumentStore();
+      await LocalSettingsRepository(store).saveLanguage(language);
+      usePhoneViewport(tester);
+      await tester.pumpWidget(_app(store));
+      await tester.pumpAndSettle();
+
+      expect(find.text(title), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    }
   });
 
   testWidgets('tapping the splash skips to the city selection', (tester) async {

@@ -8,6 +8,7 @@ import 'package:transport_minister/features/dashboard/presentation/dashboard_scr
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_screen.dart';
 import 'package:transport_minister/features/inbox/presentation/inbox_screen.dart';
 import 'package:transport_minister/features/progression/presentation/profile_screen.dart';
+import 'package:transport_minister/features/settings/presentation/settings_screen.dart';
 import 'package:transport_minister/features/splash/presentation/splash_screen.dart';
 import 'package:transport_minister/features/technology/presentation/technology_screen.dart';
 
@@ -40,6 +41,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoute.inbox.path,
         name: AppRoute.inbox.name,
         builder: (context, state) => const InboxScreen(),
+      ),
+      GoRoute(
+        path: AppRoute.settings.path,
+        name: AppRoute.settings.name,
+        builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
         path: AppRoute.dashboard.path,

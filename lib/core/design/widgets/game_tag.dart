@@ -29,7 +29,7 @@ class GameTag extends StatelessWidget {
           ],
           Flexible(
             child: Text(
-              label.toUpperCase(),
+              _upperCase(Localizations.maybeLocaleOf(context)),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -44,5 +44,11 @@ class GameTag extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _upperCase(Locale? locale) {
+    final turkish = locale?.languageCode == 'tr';
+    final text = turkish ? label.replaceAll('i', 'İ').replaceAll('ı', 'I') : label;
+    return text.toUpperCase();
   }
 }
