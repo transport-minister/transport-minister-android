@@ -100,13 +100,9 @@ class _CityViewState extends ConsumerState<_CityView> {
   Widget build(BuildContext context) {
     ref.listen(progressionFeedProvider, (previous, next) => _celebrate(next));
     ref.listen(cityGameProvider(widget.cityId), (previous, next) {
-      final before = previous?.value;
-      final after = next.value;
-      if (before == null || after == null) {
-        return;
-      }
-      if (!identical(after.latestEvents, before.latestEvents)) {
-        _announce(after);
+      final session = next.value;
+      if (previous?.value != null && session != null && session.latestEvents.isNotEmpty) {
+        _announce(session);
       }
     });
     final city = widget.session.city;

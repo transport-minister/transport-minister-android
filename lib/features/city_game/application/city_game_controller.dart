@@ -56,7 +56,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     final reading = ref.read(simulationClockProvider).read(_anchor, time);
     _anchor = reading.anchor;
     if (reading.days == 0) {
-      state = AsyncData(session.copyWith(dayProgress: reading.dayProgress));
+      state = AsyncData(session.copyWith(dayProgress: reading.dayProgress, latestEvents: const []));
       return;
     }
     final (city, events) = _simulate(session.city, reading.days);

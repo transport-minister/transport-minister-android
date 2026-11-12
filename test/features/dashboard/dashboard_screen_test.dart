@@ -173,6 +173,41 @@ void main() {
     expect(container.read(cityGameProvider(CityId.baku)).requireValue.city.day, 2);
   });
 
+  testWidgets('a level up is celebrated once', (tester) async {
+    final city = const BakuScenario().create(seed: 1).copyWith(developmentPoints: 39);
+    await LocalCitySaveRepository(store).store(
+      CityId.baku,
+      CitySave(
+        city: city,
+        anchor: TimeAnchor(syncedAtMs: now.current.millisecondsSinceEpoch),
+      ),
+    );
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+    final controller = container.read(cityGameProvider(CityId.baku).notifier);
+
+    now.advance(const Duration(seconds: 61));
+    controller.tick();
+    await tester.pumpAndSettle();
+    for (var second = 0; second < 3; second++) {
+      now.advance(const Duration(seconds: 1));
+      controller.tick();
+      await tester.pumpAndSettle();
+    }
+
+    expect(find.text('Hooray!'), findsOneWidget);
+
+    await tester.tap(find.text('Hooray!'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Hooray!'), findsNothing);
+  });
+
   testWidgets('a dismissed minister can start over', (tester) async {
     await saveBaku(
       syncedAt: now.current,
