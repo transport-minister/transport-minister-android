@@ -23,12 +23,12 @@ class ProgressionUpdate {
 class ProgressionRules {
   const ProgressionRules();
 
-  static const xpPerDay = 2;
+  static const xpPerMinute = 4;
   static const xpPerBus = 10;
   static const xpPerUpgrade = 8;
   static const xpPerProject = 40;
   static const xpPerCityLevel = 50;
-  static const reputationDrift = 0.05;
+  static const reputationDrift = 0.1;
   static const warningPenalty = 5.0;
   static const dismissalPenalty = 20.0;
   static const levelUpBonus = 2.0;
@@ -85,7 +85,7 @@ class ProgressionRules {
     var next = career;
     for (final event in events) {
       next = switch (event) {
-        DayClosed() => next.copyWith(daysServed: next.daysServed + 1),
+        MinutePassed() => next.copyWith(minutesServed: next.minutesServed + 1),
         BusPurchased(:final model, :final count) => next.copyWith(
           busesBought: next.busesBought + count,
           electricBusesBought: next.electricBusesBought + (model.spec.electric ? count : 0),
@@ -112,7 +112,7 @@ class ProgressionRules {
     var xp = 0;
     for (final event in events) {
       xp += switch (event) {
-        DayClosed() => xpPerDay,
+        MinutePassed() => xpPerMinute,
         BusPurchased(:final count) => xpPerBus * count,
         BusUpgraded() => xpPerUpgrade,
         ProjectCompleted() => xpPerProject,
@@ -132,7 +132,7 @@ class ProgressionRules {
     var value = reputation;
     for (final event in events) {
       value = switch (event) {
-        DayClosed(:final satisfaction) => value + (satisfaction - value) * reputationDrift,
+        MinutePassed(:final satisfaction) => value + (satisfaction - value) * reputationDrift,
         CrisisWarning() => value - warningPenalty,
         MinisterDismissed() => value - dismissalPenalty,
         CityLeveledUp() => value + levelUpBonus,
@@ -160,7 +160,7 @@ class ProgressionRules {
       AchievementId.roadWarrior => career.roadRepairs >= 10,
       AchievementId.bikeFriendly => city.districts.where((d) => d.hasBikeLanes).length >= 3,
       AchievementId.infrastructureMaster => career.projectsCompleted >= 50,
-      AchievementId.economicStrategist => city.stats.bestPositiveBudgetStreak >= 30,
+      AchievementId.economicStrategist => city.stats.bestPositiveBudgetStreak >= 900,
       AchievementId.smilingCity => city.overallSatisfaction >= 60,
       AchievementId.happyCitizens => city.overallSatisfaction >= 90,
       AchievementId.risingCity => city.level >= 5,
@@ -170,7 +170,7 @@ class ProgressionRules {
       AchievementId.stormChaser => career.disastersHandled >= 5,
       AchievementId.innovator => city.technologies.length >= 5,
       AchievementId.metroPioneer => city.metroLines.any((line) => line.isOpen),
-      AchievementId.veteranMinister => career.daysServed >= 365,
+      AchievementId.veteranMinister => career.minutesServed >= 180,
     };
   }
 }

@@ -11,7 +11,7 @@ class CrisisBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (crisis.days == 0) {
+    if (crisis.seconds == 0) {
       return const SizedBox.shrink();
     }
     final l10n = AppLocalizations.of(context);

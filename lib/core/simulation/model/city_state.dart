@@ -6,7 +6,6 @@ import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_stats.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
-import 'package:transport_minister/core/simulation/model/daily_report.dart';
 import 'package:transport_minister/core/simulation/model/district_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/loan.dart';
@@ -23,7 +22,7 @@ part 'city_state.g.dart';
 abstract class CityState with _$CityState {
   const factory CityState({
     required int seed,
-    required int day,
+    required int tick,
     required int budget,
     required int fare,
     required int depotCapacity,
@@ -37,13 +36,12 @@ abstract class CityState with _$CityState {
     @Default(CrisisState()) CrisisState crisis,
     @Default(CityStats()) CityStats stats,
     @Default({}) Map<LedgerItem, int> pendingLedger,
-    @Default([]) List<DailyReport> reports,
     @Default(1) int nextId,
     @Default(0) int developmentPoints,
     @Default([]) List<PendingDecision> decisions,
     @Default([]) List<ActiveModifier> modifiers,
     @Default([]) List<DecisionRecord> decisionLog,
-    @Default(0) int lastDecisionDay,
+    @Default(0) int lastDecisionTick,
     @Default(0) int diplomacyPoints,
     @Default({}) Set<TechnologyId> technologies,
     @Default([]) List<MetroLine> metroLines,
@@ -56,13 +54,11 @@ abstract class CityState with _$CityState {
 
   DistrictState district(DistrictId id) => districts.firstWhere((district) => district.id == id);
 
-  Iterable<Bus> get activeBuses => fleet.where((bus) => bus.isActiveOn(day));
+  Iterable<Bus> get activeBuses => fleet.where((bus) => bus.isActiveAt(tick));
 
   Iterable<Bus> busesIn(DistrictId id) => activeBuses.where((bus) => bus.districtId == id);
 
   double get overallSatisfaction => StakeholderGroup.overall(satisfaction);
-
-  DailyReport? get lastReport => reports.isEmpty ? null : reports.last;
 
   int get level => CityLevels.levelFor(developmentPoints);
 

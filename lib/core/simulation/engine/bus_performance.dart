@@ -9,8 +9,8 @@ class BusPerformance {
     required this.capacity,
     required this.reliability,
     required this.comfort,
-    required this.energyPerDay,
-    required this.maintenancePerDay,
+    required this.energyPerSecond,
+    required this.maintenancePerSecond,
     required this.emission,
     required this.speed,
   });
@@ -19,10 +19,10 @@ class BusPerformance {
     final spec = bus.model.spec;
     final level = bus.level;
     var reliability = spec.reliability;
-    var maintenance = spec.maintenancePerDay.toDouble();
+    var maintenance = spec.maintenancePerSecond;
     var capacity = spec.capacity.toDouble();
     var comfort = spec.comfort;
-    var energy = spec.energyPerDay.toDouble();
+    var energy = spec.energyPerSecond;
     var emission = spec.emission;
     if (level >= 2) {
       reliability += 0.06;
@@ -39,8 +39,8 @@ class BusPerformance {
       emission *= 0.7;
       reliability += 0.04;
     }
-    reliability -= bus.ageDays * GameBalance.reliabilityLossPerDay;
-    maintenance *= 1 + bus.ageDays / GameBalance.maintenanceAgeFactorDays;
+    reliability -= bus.ageSeconds * GameBalance.reliabilityLossPerSecond;
+    maintenance *= 1 + bus.ageSeconds / GameBalance.maintenanceAgeFactorSeconds;
     return BusPerformance(
       capacity: capacity.round(),
       reliability: math.min(
@@ -48,8 +48,8 @@ class BusPerformance {
         GameBalance.maxReliability,
       ),
       comfort: math.min(comfort, 100),
-      energyPerDay: energy.round(),
-      maintenancePerDay: maintenance.round(),
+      energyPerSecond: energy,
+      maintenancePerSecond: maintenance,
       emission: emission,
       speed: spec.speed,
     );
@@ -58,22 +58,25 @@ class BusPerformance {
   final int capacity;
   final double reliability;
   final double comfort;
-  final int energyPerDay;
-  final int maintenancePerDay;
+  final double energyPerSecond;
+  final double maintenancePerSecond;
   final double emission;
   final double speed;
 
-  int dailyRidersAt(double congestion) {
+  double ridersPerSecondAt(double congestion) {
     final trips =
-        GameBalance.baseTripsPerBusDay *
+        GameBalance.baseTripsPerBusSecond *
         speed *
         (1 - congestion / 100 * GameBalance.congestionTripPenalty);
-    return (capacity * trips * reliability).round();
+    return capacity * trips * reliability;
   }
 
   static int resaleValue(Bus bus) {
     final invested = bus.model.spec.price + BusUpgrades.investedUntil(bus.model, bus.level);
-    final share = math.min(math.max(0.7 - bus.ageDays / 1500, 0.15), 0.7);
+    final share = math.min(
+      math.max(0.7 - bus.ageSeconds / GameBalance.resaleAgeFactorSeconds, 0.15),
+      0.7,
+    );
     return (invested * share).round();
   }
 }

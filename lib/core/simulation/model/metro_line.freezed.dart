@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MetroLine {
 
- DistrictId get from; DistrictId get to; int get totalDays; int get remainingDays;
+ DistrictId get from; DistrictId get to; int get totalSeconds; int get remainingSeconds;
 /// Create a copy of MetroLine
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $MetroLineCopyWith<MetroLine> get copyWith => _$MetroLineCopyWithImpl<MetroLine>
 @override
 bool operator ==(Object other) {
   final _this = this as MetroLine;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetroLine&&(identical(other.from, _this.from) || other.from == _this.from)&&(identical(other.to, _this.to) || other.to == _this.to)&&(identical(other.totalDays, _this.totalDays) || other.totalDays == _this.totalDays)&&(identical(other.remainingDays, _this.remainingDays) || other.remainingDays == _this.remainingDays));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetroLine&&(identical(other.from, _this.from) || other.from == _this.from)&&(identical(other.to, _this.to) || other.to == _this.to)&&(identical(other.totalSeconds, _this.totalSeconds) || other.totalSeconds == _this.totalSeconds)&&(identical(other.remainingSeconds, _this.remainingSeconds) || other.remainingSeconds == _this.remainingSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as MetroLine;
-  return Object.hash(runtimeType,_this.from,_this.to,_this.totalDays,_this.remainingDays);
+  return Object.hash(runtimeType,_this.from,_this.to,_this.totalSeconds,_this.remainingSeconds);
 }
 
 @override
 String toString() {
   final _this = this as MetroLine;
-  return 'MetroLine(from: ${_this.from}, to: ${_this.to}, totalDays: ${_this.totalDays}, remainingDays: ${_this.remainingDays})';
+  return 'MetroLine(from: ${_this.from}, to: ${_this.to}, totalSeconds: ${_this.totalSeconds}, remainingSeconds: ${_this.remainingSeconds})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $MetroLineCopyWith<$Res>  {
   factory $MetroLineCopyWith(MetroLine value, $Res Function(MetroLine) _then) = _$MetroLineCopyWithImpl;
 @useResult
 $Res call({
- DistrictId from, DistrictId to, int totalDays, int remainingDays
+ DistrictId from, DistrictId to, int totalSeconds, int remainingSeconds
 });
 
 
@@ -71,12 +71,12 @@ class _$MetroLineCopyWithImpl<$Res>
 
 /// Create a copy of MetroLine
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? from = null,Object? to = null,Object? totalDays = null,Object? remainingDays = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? from = null,Object? to = null,Object? totalSeconds = null,Object? remainingSeconds = null,}) {
   return _then(MetroLine(
 from: null == from ? _self.from : from // ignore: cast_nullable_to_non_nullable
 as DistrictId,to: null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
-as DistrictId,totalDays: null == totalDays ? _self.totalDays : totalDays // ignore: cast_nullable_to_non_nullable
-as int,remainingDays: null == remainingDays ? _self.remainingDays : remainingDays // ignore: cast_nullable_to_non_nullable
+as DistrictId,totalSeconds: null == totalSeconds ? _self.totalSeconds : totalSeconds // ignore: cast_nullable_to_non_nullable
+as int,remainingSeconds: null == remainingSeconds ? _self.remainingSeconds : remainingSeconds // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -162,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DistrictId from,  DistrictId to,  int totalDays,  int remainingDays)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DistrictId from,  DistrictId to,  int totalSeconds,  int remainingSeconds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MetroLine() when $default != null:
-return $default(_that.from,_that.to,_that.totalDays,_that.remainingDays);case _:
+return $default(_that.from,_that.to,_that.totalSeconds,_that.remainingSeconds);case _:
   return orElse();
 
 }
@@ -183,10 +183,10 @@ return $default(_that.from,_that.to,_that.totalDays,_that.remainingDays);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DistrictId from,  DistrictId to,  int totalDays,  int remainingDays)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DistrictId from,  DistrictId to,  int totalSeconds,  int remainingSeconds)  $default,) {final _that = this;
 switch (_that) {
 case _MetroLine():
-return $default(_that.from,_that.to,_that.totalDays,_that.remainingDays);case _:
+return $default(_that.from,_that.to,_that.totalSeconds,_that.remainingSeconds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +203,10 @@ return $default(_that.from,_that.to,_that.totalDays,_that.remainingDays);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DistrictId from,  DistrictId to,  int totalDays,  int remainingDays)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DistrictId from,  DistrictId to,  int totalSeconds,  int remainingSeconds)?  $default,) {final _that = this;
 switch (_that) {
 case _MetroLine() when $default != null:
-return $default(_that.from,_that.to,_that.totalDays,_that.remainingDays);case _:
+return $default(_that.from,_that.to,_that.totalSeconds,_that.remainingSeconds);case _:
   return null;
 
 }
@@ -218,13 +218,13 @@ return $default(_that.from,_that.to,_that.totalDays,_that.remainingDays);case _:
 @JsonSerializable()
 
 class _MetroLine extends MetroLine {
-  const _MetroLine({required this.from, required this.to, required this.totalDays, required this.remainingDays}): super._();
+  const _MetroLine({required this.from, required this.to, required this.totalSeconds, required this.remainingSeconds}): super._();
   factory _MetroLine.fromJson(Map<String, dynamic> json) => _$MetroLineFromJson(json);
 
 @override final  DistrictId from;
 @override final  DistrictId to;
-@override final  int totalDays;
-@override final  int remainingDays;
+@override final  int totalSeconds;
+@override final  int remainingSeconds;
 
 /// Create a copy of MetroLine
 /// with the given fields replaced by the non-null parameter values.
@@ -239,18 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetroLine&&(identical(other.from, from) || other.from == from)&&(identical(other.to, to) || other.to == to)&&(identical(other.totalDays, totalDays) || other.totalDays == totalDays)&&(identical(other.remainingDays, remainingDays) || other.remainingDays == remainingDays));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetroLine&&(identical(other.from, from) || other.from == from)&&(identical(other.to, to) || other.to == to)&&(identical(other.totalSeconds, totalSeconds) || other.totalSeconds == totalSeconds)&&(identical(other.remainingSeconds, remainingSeconds) || other.remainingSeconds == remainingSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,from,to,totalDays,remainingDays);
+    return Object.hash(runtimeType,from,to,totalSeconds,remainingSeconds);
 }
 
 @override
 String toString() {
-    return 'MetroLine(from: $from, to: $to, totalDays: $totalDays, remainingDays: $remainingDays)';
+    return 'MetroLine(from: $from, to: $to, totalSeconds: $totalSeconds, remainingSeconds: $remainingSeconds)';
 }
 
 
@@ -261,7 +261,7 @@ abstract mixin class _$MetroLineCopyWith<$Res> implements $MetroLineCopyWith<$Re
   factory _$MetroLineCopyWith(_MetroLine value, $Res Function(_MetroLine) _then) = __$MetroLineCopyWithImpl;
 @override @useResult
 $Res call({
- DistrictId from, DistrictId to, int totalDays, int remainingDays
+ DistrictId from, DistrictId to, int totalSeconds, int remainingSeconds
 });
 
 
@@ -278,12 +278,12 @@ class __$MetroLineCopyWithImpl<$Res>
 
 /// Create a copy of MetroLine
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? from = null,Object? to = null,Object? totalDays = null,Object? remainingDays = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? from = null,Object? to = null,Object? totalSeconds = null,Object? remainingSeconds = null,}) {
   return _then(_MetroLine(
 from: null == from ? _self.from : from // ignore: cast_nullable_to_non_nullable
 as DistrictId,to: null == to ? _self.to : to // ignore: cast_nullable_to_non_nullable
-as DistrictId,totalDays: null == totalDays ? _self.totalDays : totalDays // ignore: cast_nullable_to_non_nullable
-as int,remainingDays: null == remainingDays ? _self.remainingDays : remainingDays // ignore: cast_nullable_to_non_nullable
+as DistrictId,totalSeconds: null == totalSeconds ? _self.totalSeconds : totalSeconds // ignore: cast_nullable_to_non_nullable
+as int,remainingSeconds: null == remainingSeconds ? _self.remainingSeconds : remainingSeconds // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

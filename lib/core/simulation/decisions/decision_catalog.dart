@@ -51,7 +51,7 @@ class DecisionTemplate {
   final OptionsBuilder options;
   final List<DecisionEffect> Function(DecisionContext context, DistrictId? district)? arrival;
 
-  int get expiresIn => id.kind == DecisionKind.disaster ? 2 : 3;
+  int get expiresIn => id.kind == DecisionKind.disaster ? 60 : 90;
 }
 
 abstract final class DecisionCatalog {
@@ -68,8 +68,8 @@ abstract final class DecisionCatalog {
           const Mood(StakeholderGroup.passengers, 4),
         ]),
         DecisionOption([
-          Modify(ModifierType.capacity, 1.25, 5, district: d),
-          const Modify(ModifierType.dailyCost, 8000, 5),
+          Modify(ModifierType.capacity, 1.25, 150, district: d),
+          const Modify(ModifierType.extraCost, 267, 150),
           const Mood(StakeholderGroup.transportWorkers, -3),
         ]),
         const DecisionOption([Mood(StakeholderGroup.passengers, -6), Reputation(-2)]),
@@ -93,7 +93,7 @@ abstract final class DecisionCatalog {
           risk: DecisionRisk(0.25, [
             const Mood(StakeholderGroup.passengers, -4),
             const Reputation(-3),
-            Modify(ModifierType.safety, -10, 10, district: d),
+            Modify(ModifierType.safety, -10, 300, district: d),
           ]),
         ),
       ],
@@ -126,13 +126,13 @@ abstract final class DecisionCatalog {
       district: (c, _) => c.mostCongested.id,
       options: (c, d) => [
         DecisionOption([
-          const Modify(ModifierType.dailyIncome, 3000, 30),
-          Modify(ModifierType.congestion, -8, 30, district: d),
+          const Modify(ModifierType.extraIncome, 100, 900),
+          Modify(ModifierType.congestion, -8, 900, district: d),
           const Mood(StakeholderGroup.drivers, -8),
         ]),
         DecisionOption([
           const Spend(180000),
-          Modify(ModifierType.congestion, -5, 60, district: d),
+          Modify(ModifierType.congestion, -5, 1800, district: d),
           const Mood(StakeholderGroup.drivers, 6),
           const Mood(StakeholderGroup.businesses, 3),
         ]),
@@ -152,14 +152,14 @@ abstract final class DecisionCatalog {
       },
       options: (c, d) => const [
         DecisionOption([
-          Modify(ModifierType.salaryCost, 1.15, 120),
+          Modify(ModifierType.salaryCost, 1.15, 3600),
           Mood(StakeholderGroup.transportWorkers, 15),
         ]),
         DecisionOption([Spend(60000), Mood(StakeholderGroup.transportWorkers, 8)]),
         DecisionOption(
           [Mood(StakeholderGroup.transportWorkers, -6)],
           risk: DecisionRisk(0.4, [
-            Modify(ModifierType.capacity, 0.5, 2),
+            Modify(ModifierType.capacity, 0.5, 60),
             Mood(StakeholderGroup.passengers, -10),
             Reputation(-4),
           ]),
@@ -178,7 +178,7 @@ abstract final class DecisionCatalog {
         ]),
         DecisionOption([
           const Spend(40000),
-          Modify(ModifierType.safety, 8, 20, district: d),
+          Modify(ModifierType.safety, 8, 600, district: d),
           const Mood(StakeholderGroup.pedestrians, 3),
         ]),
         const DecisionOption([Mood(StakeholderGroup.pedestrians, -8), Reputation(-3)]),
@@ -188,13 +188,13 @@ abstract final class DecisionCatalog {
       id: DecisionId.fuelSpike,
       weight: (c) => c.city.activeBuses.any((bus) => !bus.model.spec.electric) ? 1 : 0,
       options: (c, d) => const [
-        DecisionOption([Spend(80000), Modify(ModifierType.energyCost, 1.05, 10)]),
+        DecisionOption([Spend(80000), Modify(ModifierType.energyCost, 1.05, 300)]),
         DecisionOption([
-          Modify(ModifierType.energyCost, 1.3, 10),
-          Modify(ModifierType.ticketRevenue, 1.15, 10),
+          Modify(ModifierType.energyCost, 1.3, 300),
+          Modify(ModifierType.ticketRevenue, 1.15, 300),
           Mood(StakeholderGroup.passengers, -6),
         ]),
-        DecisionOption([Modify(ModifierType.energyCost, 1.3, 10)]),
+        DecisionOption([Modify(ModifierType.energyCost, 1.3, 300)]),
       ],
     ),
     DecisionTemplate(
@@ -213,18 +213,18 @@ abstract final class DecisionCatalog {
     ),
     DecisionTemplate(
       id: DecisionId.privateOperator,
-      weight: (c) => c.city.day > 10 && c.worstService.serviceRatio < 0.7 ? 1.5 : 0,
+      weight: (c) => c.city.tick > 300 && c.worstService.serviceRatio < 0.7 ? 1.5 : 0,
       district: (c, _) => c.worstService.id,
       options: (c, d) => [
         DecisionOption([
-          Modify(ModifierType.capacity, 1.3, 30, district: d),
-          const Modify(ModifierType.ticketRevenue, 0.9, 30),
+          Modify(ModifierType.capacity, 1.3, 900, district: d),
+          const Modify(ModifierType.ticketRevenue, 0.9, 900),
           const Mood(StakeholderGroup.transportWorkers, -6),
           const Mood(StakeholderGroup.passengers, 5),
         ]),
         DecisionOption([
-          Modify(ModifierType.capacity, 1.3, 30, district: d),
-          const Modify(ModifierType.ticketRevenue, 0.95, 30),
+          Modify(ModifierType.capacity, 1.3, 900, district: d),
+          const Modify(ModifierType.ticketRevenue, 0.95, 900),
           const Mood(StakeholderGroup.passengers, 5),
         ], risk: const DecisionRisk(0.5, [Reputation(-1)], replacesOutcome: true)),
         const DecisionOption([Mood(StakeholderGroup.passengers, -2)]),
@@ -232,7 +232,8 @@ abstract final class DecisionCatalog {
     ),
     DecisionTemplate(
       id: DecisionId.budgetHearing,
-      weight: (c) => c.city.day > 15 && !_recently(c.city, DecisionId.budgetHearing, 25) ? 1.2 : 0,
+      weight: (c) =>
+          c.city.tick > 450 && !_recently(c.city, DecisionId.budgetHearing, 750) ? 1.2 : 0,
       options: (c, d) => [
         DecisionOption(
           [Earn(c.city.overallSatisfaction >= 50 ? 600000 : 300000)],
@@ -240,7 +241,7 @@ abstract final class DecisionCatalog {
               ? null
               : const DecisionRisk(0.5, [Reputation(-3)], replacesOutcome: true),
         ),
-        const DecisionOption([Modify(ModifierType.subsidy, 1.3, 30)]),
+        const DecisionOption([Modify(ModifierType.subsidy, 1.3, 900)]),
         const DecisionOption([Spend(150000), Reputation(6)]),
         const DecisionOption([Reputation(-2)]),
       ],
@@ -251,17 +252,17 @@ abstract final class DecisionCatalog {
       options: (c, d) => const [
         DecisionOption([
           Spend(30000),
-          Modify(ModifierType.demand, 1.4, 2, district: DistrictId.seasideBoulevard),
+          Modify(ModifierType.demand, 1.4, 60, district: DistrictId.seasideBoulevard),
           Mood(StakeholderGroup.passengers, 5),
           Mood(StakeholderGroup.businesses, 5),
         ]),
         DecisionOption([
-          Modify(ModifierType.congestion, 15, 2, district: DistrictId.seasideBoulevard),
+          Modify(ModifierType.congestion, 15, 60, district: DistrictId.seasideBoulevard),
           Mood(StakeholderGroup.pedestrians, 8),
           Mood(StakeholderGroup.drivers, -6),
         ]),
         DecisionOption([
-          Modify(ModifierType.congestion, 20, 2, district: DistrictId.seasideBoulevard),
+          Modify(ModifierType.congestion, 20, 60, district: DistrictId.seasideBoulevard),
           Mood(StakeholderGroup.businesses, -2),
         ]),
       ],
@@ -272,20 +273,22 @@ abstract final class DecisionCatalog {
       options: (c, d) => const [
         DecisionOption([
           Spend(40000),
-          Modify(ModifierType.demand, 1.3, 7, district: DistrictId.oldFortress),
-          Modify(ModifierType.capacity, 1.2, 7, district: DistrictId.oldFortress),
+          Modify(ModifierType.demand, 1.3, 210, district: DistrictId.oldFortress),
+          Modify(ModifierType.capacity, 1.2, 210, district: DistrictId.oldFortress),
           Mood(StakeholderGroup.businesses, 6),
         ]),
         DecisionOption([
-          Modify(ModifierType.ticketRevenue, 1.12, 7),
+          Modify(ModifierType.ticketRevenue, 1.12, 210),
           Mood(StakeholderGroup.passengers, -3),
         ]),
-        DecisionOption([Modify(ModifierType.congestion, 10, 5, district: DistrictId.oldFortress)]),
+        DecisionOption([
+          Modify(ModifierType.congestion, 10, 150, district: DistrictId.oldFortress),
+        ]),
       ],
     ),
     DecisionTemplate(
       id: DecisionId.greenFund,
-      weight: (c) => !c.city.hasChargingDepot && c.city.day > 20 ? 1 : 0,
+      weight: (c) => !c.city.hasChargingDepot && c.city.tick > 600 ? 1 : 0,
       options: (c, d) => const [
         DecisionOption([
           LaunchProject(ProjectType.chargingDepot, null, discount: 0.4),
@@ -304,20 +307,20 @@ abstract final class DecisionCatalog {
       ][random.nextInt(3)],
       arrival: (c, d) => [
         RoadDamage(d!, 20),
-        Modify(ModifierType.congestion, 30, 3, district: d),
-        Modify(ModifierType.capacity, 0.7, 3, district: d),
+        Modify(ModifierType.congestion, 30, 90, district: d),
+        Modify(ModifierType.capacity, 0.7, 90, district: d),
       ],
       options: (c, d) => [
         DecisionOption([
           const Spend(120000),
-          Modify(ModifierType.congestion, -25, 3, district: d),
-          Modify(ModifierType.capacity, 1.3, 3, district: d),
+          Modify(ModifierType.congestion, -25, 90, district: d),
+          Modify(ModifierType.capacity, 1.3, 90, district: d),
           const Reputation(3),
         ]),
         const DecisionOption([
           Spend(50000),
           Mood(StakeholderGroup.passengers, 6),
-          Modify(ModifierType.capacity, 0.9, 2),
+          Modify(ModifierType.capacity, 0.9, 60),
         ]),
         DecisionOption(const [
           Mood(StakeholderGroup.passengers, -8),
@@ -329,17 +332,17 @@ abstract final class DecisionCatalog {
       id: DecisionId.windStorm,
       weight: (c) => 1.2,
       arrival: (c, d) => const [
-        Modify(ModifierType.capacity, 0.75, 2),
-        Modify(ModifierType.capacity, 0.95, 3),
+        Modify(ModifierType.capacity, 0.75, 60),
+        Modify(ModifierType.capacity, 0.95, 90),
       ],
       options: (c, d) => const [
         DecisionOption([
-          Modify(ModifierType.capacity, 0.4, 1),
-          Modify(ModifierType.safety, 10, 2),
+          Modify(ModifierType.capacity, 0.4, 30),
+          Modify(ModifierType.safety, 10, 60),
           Reputation(4),
           Mood(StakeholderGroup.passengers, -4),
         ]),
-        DecisionOption([Spend(90000), Modify(ModifierType.capacity, 1.25, 2)]),
+        DecisionOption([Spend(90000), Modify(ModifierType.capacity, 1.25, 60)]),
         DecisionOption(
           [],
           risk: DecisionRisk(0.3, [
@@ -354,12 +357,12 @@ abstract final class DecisionCatalog {
       id: DecisionId.heatwave,
       weight: (c) => 1,
       arrival: (c, d) => const [
-        Modify(ModifierType.mood, -4, 3, group: StakeholderGroup.passengers),
+        Modify(ModifierType.mood, -4, 90, group: StakeholderGroup.passengers),
       ],
       options: (c, d) => [
         const DecisionOption([Spend(25000), Mood(StakeholderGroup.passengers, 5)]),
         const DecisionOption([
-          Modify(ModifierType.capacity, 0.85, 3),
+          Modify(ModifierType.capacity, 0.85, 90),
           Mood(StakeholderGroup.passengers, 3),
           Mood(StakeholderGroup.transportWorkers, 4),
         ]),
@@ -372,8 +375,8 @@ abstract final class DecisionCatalog {
       district: (c, random) => DistrictId.values[random.nextInt(DistrictId.values.length)],
       arrival: (c, d) => [
         RoadDamage(d!, 35),
-        Modify(ModifierType.congestion, 20, 5, district: d),
-        Modify(ModifierType.safety, -10, 5, district: d),
+        Modify(ModifierType.congestion, 20, 150, district: d),
+        Modify(ModifierType.safety, -10, 150, district: d),
       ],
       options: (c, d) => [
         DecisionOption([
@@ -392,18 +395,18 @@ abstract final class DecisionCatalog {
     DecisionTemplate(
       id: DecisionId.snowstorm,
       weight: (c) => 0.5,
-      arrival: (c, d) => const [Modify(ModifierType.congestion, 25, 2)],
+      arrival: (c, d) => const [Modify(ModifierType.congestion, 25, 60)],
       options: (c, d) => const [
-        DecisionOption([Spend(70000), Modify(ModifierType.congestion, -20, 2)]),
+        DecisionOption([Spend(70000), Modify(ModifierType.congestion, -20, 60)]),
         DecisionOption([
           Spend(30000),
-          Modify(ModifierType.capacity, 1.1, 2),
+          Modify(ModifierType.capacity, 1.1, 60),
           Mood(StakeholderGroup.drivers, -8),
         ]),
         DecisionOption([
           Mood(StakeholderGroup.passengers, -5),
           Mood(StakeholderGroup.drivers, -5),
-        ], risk: DecisionRisk(0.25, [Modify(ModifierType.safety, -15, 3), Reputation(-3)])),
+        ], risk: DecisionRisk(0.25, [Modify(ModifierType.safety, -15, 90), Reputation(-3)])),
       ],
     ),
     DecisionTemplate(
@@ -411,13 +414,13 @@ abstract final class DecisionCatalog {
       weight: (c) => 0.6,
       district: (c, _) => DistrictId.oilHarbor,
       arrival: (c, d) => const [
-        Modify(ModifierType.congestion, 20, 2, district: DistrictId.oilHarbor),
+        Modify(ModifierType.congestion, 20, 60, district: DistrictId.oilHarbor),
         Mood(StakeholderGroup.logistics, -5),
       ],
       options: (c, d) => const [
         DecisionOption([
-          Modify(ModifierType.congestion, 30, 2, district: DistrictId.oilHarbor),
-          Modify(ModifierType.safety, 15, 2, district: DistrictId.oilHarbor),
+          Modify(ModifierType.congestion, 30, 60, district: DistrictId.oilHarbor),
+          Modify(ModifierType.safety, 15, 60, district: DistrictId.oilHarbor),
           Mood(StakeholderGroup.logistics, -10),
           Reputation(3),
         ]),
@@ -425,7 +428,7 @@ abstract final class DecisionCatalog {
           Spend(20000),
           Mood(StakeholderGroup.transportWorkers, 4),
           Reputation(5),
-          Modify(ModifierType.capacity, 0.8, 1),
+          Modify(ModifierType.capacity, 0.8, 30),
         ]),
         DecisionOption(
           [],
@@ -443,16 +446,16 @@ abstract final class DecisionCatalog {
       district: (c, _) => DistrictId.windHeights,
       arrival: (c, d) => const [
         RoadDamage(DistrictId.windHeights, 25),
-        Modify(ModifierType.congestion, 30, 4, district: DistrictId.windHeights),
+        Modify(ModifierType.congestion, 30, 120, district: DistrictId.windHeights),
       ],
       options: (c, d) => const [
         DecisionOption([
           Spend(150000),
-          Modify(ModifierType.congestion, -25, 4, district: DistrictId.windHeights),
+          Modify(ModifierType.congestion, -25, 120, district: DistrictId.windHeights),
           Mood(StakeholderGroup.drivers, 4),
         ]),
         DecisionOption([
-          Modify(ModifierType.capacity, 0.8, 4, district: DistrictId.windHeights),
+          Modify(ModifierType.capacity, 0.8, 120, district: DistrictId.windHeights),
           Mood(StakeholderGroup.passengers, -3),
         ]),
         DecisionOption([Mood(StakeholderGroup.passengers, -6), Mood(StakeholderGroup.drivers, -6)]),
@@ -475,6 +478,6 @@ abstract final class DecisionCatalog {
     return candidates.reduce((a, b) => b.congestion > a.congestion ? b : a).id;
   }
 
-  static bool _recently(CityState city, DecisionId id, int days) =>
-      city.decisionLog.any((record) => record.template == id && city.day - record.day < days);
+  static bool _recently(CityState city, DecisionId id, int seconds) =>
+      city.decisionLog.any((record) => record.template == id && city.tick - record.tick < seconds);
 }

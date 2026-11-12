@@ -120,7 +120,7 @@ class MetricsCalculator {
     );
     return DistrictMetrics(
       id: district.id,
-      population: district.population,
+      population: district.population.round(),
       demand: demand,
       capacity: capacity,
       waitingMinutes: _clamp(
@@ -134,8 +134,8 @@ class MetricsCalculator {
     );
   }
 
-  int _capacity(List<BusPerformance> buses, double congestion) =>
-      buses.fold(0, (sum, bus) => sum + bus.dailyRidersAt(congestion));
+  double _capacity(List<BusPerformance> buses, double congestion) =>
+      buses.fold(0.0, (sum, bus) => sum + bus.ridersPerSecondAt(congestion));
 
   double _ratio(int capacity, int demand) => demand == 0 ? 1 : capacity / demand;
 

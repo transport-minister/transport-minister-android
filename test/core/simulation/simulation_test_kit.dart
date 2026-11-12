@@ -1,5 +1,5 @@
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
-import 'package:transport_minister/core/simulation/engine/day_simulator.dart';
+import 'package:transport_minister/core/simulation/engine/tick_simulator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
@@ -19,11 +19,11 @@ RejectionReason rejected(CommandOutcome outcome) => switch (outcome) {
   CommandApplied() => throw StateError('Command was applied'),
 };
 
-({CityState state, List<CityEvent> events}) runDays(CityState start, int days) {
+({CityState state, List<CityEvent> events}) runSeconds(CityState start, int seconds) {
   var state = start;
   final events = <CityEvent>[];
-  for (var day = 0; day < days; day++) {
-    final result = const DaySimulator().advance(state);
+  for (var second = 0; second < seconds; second++) {
+    final result = const TickSimulator().advance(state);
     state = result.state;
     events.addAll(result.events);
   }

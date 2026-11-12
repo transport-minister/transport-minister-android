@@ -12,13 +12,13 @@ abstract class Bus with _$Bus {
     required BusModelId model,
     required DistrictId districtId,
     @Default(1) int level,
-    @Default(0) int ageDays,
-    @Default(0) int deliveryDay,
+    @Default(0) int ageSeconds,
+    @Default(0) int deliveryTick,
   }) = _Bus;
 
   const Bus._();
 
   factory Bus.fromJson(Map<String, dynamic> json) => _$BusFromJson(json);
 
-  bool isActiveOn(int day) => deliveryDay <= day;
+  bool isActiveAt(int tick) => deliveryTick <= tick;
 }

@@ -19,31 +19,31 @@ class EconomyCalculator {
           (metrics.riders * state.fare / 100 * state.multiplier(ModifierType.ticketRevenue))
               .round(),
       LedgerItem.governmentBudget:
-          (GameBalance.dailyBudgetBase *
+          (GameBalance.budgetPerSecond *
                   budgetFactor(state.overallSatisfaction) *
                   state.multiplier(ModifierType.subsidy))
               .round(),
       LedgerItem.energy:
-          -(performances.fold(0, (sum, bus) => sum + bus.energyPerDay) *
+          -(performances.fold(0.0, (sum, bus) => sum + bus.energyPerSecond) *
                   state.multiplier(ModifierType.energyCost))
               .round(),
       LedgerItem.salaries:
           -(performances.length *
-                  GameBalance.driverWagePerBusDay *
+                  GameBalance.driverWagePerBusSecond *
                   state.multiplier(ModifierType.salaryCost))
               .round(),
       LedgerItem.vehicleMaintenance:
-          -(performances.fold(0, (sum, bus) => sum + bus.maintenancePerDay) *
+          -(performances.fold(0.0, (sum, bus) => sum + bus.maintenancePerSecond) *
                   state.multiplier(ModifierType.maintenanceCost))
               .round(),
       LedgerItem.roadMaintenance: -state.districts.length * state.roadMaintenance.costPerDistrict,
-      LedgerItem.administration: -GameBalance.administrationPerDay,
-      if (loan != null) LedgerItem.loanRepayment: -loan.dailyInstallment,
+      LedgerItem.administration: -GameBalance.administrationPerSecond,
+      if (loan != null) LedgerItem.loanRepayment: -loan.installment,
       LedgerItem.metro:
           -state.metroLines.where((line) => line.isOpen).length *
           MetroRules.lineCost(automated: state.metroAutomated),
       LedgerItem.decisions:
-          (state.additive(ModifierType.dailyIncome) - state.additive(ModifierType.dailyCost))
+          (state.additive(ModifierType.extraIncome) - state.additive(ModifierType.extraCost))
               .round(),
     };
     ledger.removeWhere((_, amount) => amount == 0);

@@ -43,7 +43,7 @@ class DistrictBusesTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final onOrder = city.fleet
-        .where((bus) => bus.districtId == district && !bus.isActiveOn(city.day))
+        .where((bus) => bus.districtId == district && !bus.isActiveAt(city.tick))
         .length;
     final groups = _groups();
     final donor = _donor();
@@ -207,7 +207,9 @@ class _ContractCardState extends State<_ContractCard> {
                         _Spec(icon: Icons.event_seat_rounded, label: l10n.busSeats(spec.capacity)),
                         _Spec(
                           icon: Icons.payments_rounded,
-                          label: l10n.busRunningCost(MoneyFormat.compact(model.runningCostPerDay)),
+                          label: l10n.busRunningCost(
+                            MoneyFormat.compact(model.runningCostPerSecond),
+                          ),
                         ),
                         _Spec(
                           icon: Icons.sentiment_satisfied_rounded,
@@ -345,7 +347,7 @@ class _FleetCard extends StatelessWidget {
     final next = sample.level + 1;
     final reliability =
         buses.fold(0.0, (sum, bus) => sum + BusPerformance.of(bus).reliability) / buses.length;
-    final oldest = buses.reduce((a, b) => b.ageDays > a.ageDays ? b : a);
+    final oldest = buses.reduce((a, b) => b.ageSeconds > a.ageSeconds ? b : a);
     final resale = MoneyFormat.compact(BusPerformance.resaleValue(oldest));
     final problem = commands.upgradeProblem(city, sample);
     final maxed = problem == RejectionReason.maxLevelReached;

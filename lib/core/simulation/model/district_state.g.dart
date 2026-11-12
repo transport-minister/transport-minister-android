@@ -8,7 +8,7 @@ part of 'district_state.dart';
 
 _DistrictState _$DistrictStateFromJson(Map<String, dynamic> json) => _DistrictState(
   id: $enumDecode(_$DistrictIdEnumMap, json['id']),
-  population: (json['population'] as num).toInt(),
+  population: (json['population'] as num).toDouble(),
   roadCondition: (json['roadCondition'] as num).toDouble(),
   roadLevel: (json['roadLevel'] as num).toInt(),
   hasBikeLanes: json['hasBikeLanes'] as bool? ?? false,

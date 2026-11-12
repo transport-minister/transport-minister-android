@@ -19,15 +19,15 @@ void main() {
 
   CityState contracted() => newBaku().copyWith(technologies: {TechnologyId.metroContract});
 
-  CityState withLine({required int remainingDays, Set<TechnologyId> technologies = const {}}) =>
+  CityState withLine({required int remainingSeconds, Set<TechnologyId> technologies = const {}}) =>
       newBaku().copyWith(
         technologies: technologies,
         metroLines: [
           MetroLine(
             from: DistrictId.oldFortress,
             to: DistrictId.windHeights,
-            totalDays: MetroRules.buildDays,
-            remainingDays: remainingDays,
+            totalSeconds: MetroRules.buildSeconds,
+            remainingSeconds: remainingSeconds,
           ),
         ],
       );
@@ -59,7 +59,7 @@ void main() {
     );
 
     expect(digging.budget, city.budget - MetroRules.buildCost);
-    expect(digging.metroLines.single.remainingDays, MetroRules.buildDays);
+    expect(digging.metroLines.single.remainingSeconds, MetroRules.buildSeconds);
     expect(
       rejected(commands.buildMetroLine(digging, DistrictId.windHeights, DistrictId.oldFortress)),
       RejectionReason.alreadyBuilt,
@@ -75,7 +75,7 @@ void main() {
       commands.buildMetroLine(contracted(), DistrictId.oldFortress, DistrictId.windHeights),
     );
 
-    final result = runDays(city, MetroRules.buildDays);
+    final result = runSeconds(city, MetroRules.buildSeconds);
 
     expect(result.state.metroLines.single.isOpen, isTrue);
     expect(result.events.whereType<MetroLineOpened>(), hasLength(1));
@@ -83,8 +83,8 @@ void main() {
 
   test('stations carry riders and take cars off the road', () {
     final before = metrics.calculate(newBaku()).of(DistrictId.oldFortress);
-    final digging = metrics.calculate(withLine(remainingDays: 3)).of(DistrictId.oldFortress);
-    final open = metrics.calculate(withLine(remainingDays: 0)).of(DistrictId.oldFortress);
+    final digging = metrics.calculate(withLine(remainingSeconds: 3)).of(DistrictId.oldFortress);
+    final open = metrics.calculate(withLine(remainingSeconds: 0)).of(DistrictId.oldFortress);
 
     expect(digging.congestion, greaterThan(before.congestion));
     expect(open.congestion, lessThan(before.congestion));
@@ -94,12 +94,12 @@ void main() {
 
   test('open lines cost money every day and driverless trains are cheaper', () {
     const economy = EconomyCalculator();
-    final manual = withLine(remainingDays: 0);
-    final driverless = withLine(remainingDays: 0, technologies: {TechnologyId.metroAutomation});
+    final manual = withLine(remainingSeconds: 0);
+    final driverless = withLine(remainingSeconds: 0, technologies: {TechnologyId.metroAutomation});
 
     expect(
       economy.operatingLedger(manual, metrics.calculate(manual))[LedgerItem.metro],
-      -MetroRules.dailyCost,
+      -MetroRules.costPerSecond,
     );
     expect(
       economy.operatingLedger(driverless, metrics.calculate(driverless))[LedgerItem.metro],

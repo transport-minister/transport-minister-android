@@ -124,7 +124,6 @@ class _CityViewState extends ConsumerState<_CityView> {
               targets: _targets,
               city: city,
               rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
-              dayProgress: widget.session.dayProgress,
               onProfilePressed: () => _leaveFor(AppRoute.profile.path),
             ),
             KeyedSubtree(

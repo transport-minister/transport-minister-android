@@ -7,8 +7,8 @@ part 'loan.g.dart';
 abstract class Loan with _$Loan {
   const factory Loan({
     required int principal,
-    required int dailyInstallment,
-    required int remainingDays,
+    required int installment,
+    required int remainingSeconds,
   }) = _Loan;
 
   factory Loan.fromJson(Map<String, dynamic> json) => _$LoanFromJson(json);

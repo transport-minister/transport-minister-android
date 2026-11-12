@@ -40,11 +40,11 @@ class DecisionDesk {
   final CityDevelopment development;
 
   static const maxPending = 3;
-  static const firstDecisionDay = 3;
-  static const dailyChance = 0.3;
-  static const guaranteedAfterDays = 4;
-  static const disasterChance = 0.035;
-  static const firstDisasterDay = 6;
+  static const firstDecisionTick = 90;
+  static const chancePerSecond = 0.012;
+  static const guaranteedAfterSeconds = 120;
+  static const disasterChancePerSecond = 0.0012;
+  static const firstDisasterTick = 180;
   static const historyLimit = 20;
   static const decisionPoints = 6;
   static const disasterPoints = 10;
@@ -92,10 +92,10 @@ class DecisionDesk {
     return random.nextDouble() < risk.chance;
   }
 
-  (CityState, List<CityEvent>) onNewDay(CityState state) {
+  (CityState, List<CityEvent>) onTick(CityState state) {
     var next = state;
     final events = <CityEvent>[];
-    for (final decision in state.decisions.where((pending) => pending.expiresDay < state.day)) {
+    for (final decision in state.decisions.where((pending) => pending.expiresTick < state.tick)) {
       final options = DecisionCatalog.of(decision.template)
           .options(context(next), decision.district);
       final (resolved, resolvedEvents) = _resolve(
@@ -136,7 +136,7 @@ class DecisionDesk {
         DecisionRecord(
           template: decision.template,
           option: optionIndex,
-          day: state.day,
+          tick: state.tick,
           riskTriggered: triggered,
           automatic: automatic,
           district: decision.district,
@@ -164,17 +164,18 @@ class DecisionDesk {
   }
 
   (CityState, List<CityEvent>) _spawn(CityState state) {
-    if (state.day < firstDecisionDay || state.decisions.length >= maxPending) {
+    if (state.tick < firstDecisionTick || state.decisions.length >= maxPending) {
       return (state, const []);
     }
-    final random = math.Random(state.seed * 31 + state.day);
+    final random = math.Random(state.seed * 31 + state.tick);
+    final disaster =
+        state.tick >= firstDisasterTick && random.nextDouble() < disasterChancePerSecond;
+    final quiet = state.tick - state.lastDecisionTick;
+    if (!disaster && quiet < guaranteedAfterSeconds && random.nextDouble() >= chancePerSecond) {
+      return (state, const []);
+    }
     final situation = context(state);
     final pendingIds = state.decisions.map((pending) => pending.template).toSet();
-    final disaster = state.day >= firstDisasterDay && random.nextDouble() < disasterChance;
-    final quiet = state.day - state.lastDecisionDay;
-    if (!disaster && quiet < guaranteedAfterDays && random.nextDouble() >= dailyChance) {
-      return (state, const []);
-    }
     final candidates = [
       for (final template in DecisionCatalog.all)
         if ((template.id.kind == DecisionKind.disaster) == disaster &&
@@ -199,13 +200,13 @@ class DecisionDesk {
       id: state.nextId,
       template: chosen.id,
       district: district,
-      createdDay: state.day,
-      expiresDay: state.day + chosen.expiresIn,
+      createdTick: state.tick,
+      expiresTick: state.tick + chosen.expiresIn,
     );
     var next = state.copyWith(
       decisions: [...state.decisions, decision],
       nextId: state.nextId + 1,
-      lastDecisionDay: state.day,
+      lastDecisionTick: state.tick,
     );
     final events = <CityEvent>[DecisionArrived(chosen.id, district)];
     final arrival = chosen.arrival;

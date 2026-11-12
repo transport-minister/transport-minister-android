@@ -10,7 +10,7 @@ void main() {
   test('Baku starts with an old fleet, an empty budget and the default fare', () {
     final city = const BakuScenario().create(seed: 7);
 
-    expect(city.day, 1);
+    expect(city.tick, 0);
     expect(city.budget, 0);
     expect(city.diplomacyPoints, 0);
     expect(city.fare, GameBalance.startingFare);

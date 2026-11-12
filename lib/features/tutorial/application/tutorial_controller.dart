@@ -11,7 +11,6 @@ enum TutorialStep {
   welcome,
   budget,
   mood,
-  clock,
   district,
   buyBus,
   busBought,

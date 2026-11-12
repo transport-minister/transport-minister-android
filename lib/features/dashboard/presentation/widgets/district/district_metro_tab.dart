@@ -11,6 +11,7 @@ import 'package:transport_minister/core/simulation/model/city_metrics.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
+import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_panel_parts.dart';
 import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -161,7 +162,7 @@ class _MetroLineCard extends StatelessWidget {
               Row(
                 children: [
                   GameTag(
-                    label: l10n.buildDays(MetroRules.buildDays),
+                    label: TimeTexts.duration(l10n, MetroRules.buildSeconds),
                     palette: ChunkyPalette.snow,
                     icon: Icons.schedule_rounded,
                   ),
@@ -196,7 +197,7 @@ class _MetroLineCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: GameTag(
-                  label: l10n.buildDaysLeft(line.remainingDays),
+                  label: l10n.buildTimeLeft(TimeTexts.duration(l10n, line.remainingSeconds)),
                   palette: ChunkyPalette.tangerine,
                   icon: Icons.hourglass_top_rounded,
                 ),

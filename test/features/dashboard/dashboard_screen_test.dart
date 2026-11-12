@@ -14,7 +14,6 @@ import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/funded_city.dart';
@@ -41,7 +40,7 @@ void main() {
     );
   }
 
-  testWidgets('a new city shows its day, budget and mood', (tester) async {
+  testWidgets('a new city shows its budget and level without days', (tester) async {
     await pumpGameScreen(
       tester,
       const DashboardScreen(cityId: CityId.baku),
@@ -49,10 +48,7 @@ void main() {
       now: now,
     );
 
-    expect(
-      find.descendant(of: find.byType(DayClockBadge), matching: find.text('1')),
-      findsOneWidget,
-    );
+    expect(find.text('DAY'), findsNothing);
     expect(find.text('\$2.5M'), findsOneWidget);
     expect(find.text('Wind Heights'), findsWidgets);
     expect(find.text('Level 1'), findsOneWidget);
@@ -85,7 +81,7 @@ void main() {
   testWidgets('a gridlock crisis is named in the banner', (tester) async {
     await saveBaku(
       syncedAt: now.current,
-      crisis: const CrisisState(days: 4, warnings: 1, cause: CrisisCause.gridlock),
+      crisis: const CrisisState(seconds: 120, warnings: 1, cause: CrisisCause.gridlock),
     );
 
     await pumpGameScreen(
@@ -129,10 +125,10 @@ void main() {
     final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
     final controller = container.read(cityGameProvider(CityId.baku).notifier);
 
-    now.advance(const Duration(seconds: 61));
+    now.advance(const Duration(seconds: 5));
     controller.tick();
     await tester.pumpAndSettle();
-    final whilePlaying = container.read(cityGameProvider(CityId.baku)).requireValue.city.day;
+    final whilePlaying = container.read(cityGameProvider(CityId.baku)).requireValue.city.tick;
 
     unawaited(
       tester
@@ -143,8 +139,8 @@ void main() {
     now.advance(const Duration(minutes: 30));
     controller.tick();
 
-    expect(whilePlaying, 2);
-    expect(container.read(cityGameProvider(CityId.baku)).requireValue.city.day, 2);
+    expect(whilePlaying, 5);
+    expect(container.read(cityGameProvider(CityId.baku)).requireValue.city.tick, 5);
   });
 
   testWidgets('a level up is celebrated once', (tester) async {
@@ -185,7 +181,7 @@ void main() {
   testWidgets('a dismissed minister can start over', (tester) async {
     await saveBaku(
       syncedAt: now.current,
-      crisis: const CrisisState(days: 10, warnings: 3, dismissed: true),
+      crisis: const CrisisState(seconds: 300, warnings: 3, dismissed: true),
     );
 
     await pumpGameScreen(

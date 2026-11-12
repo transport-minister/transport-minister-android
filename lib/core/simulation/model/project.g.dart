@@ -9,16 +9,16 @@ part of 'project.dart';
 _Project _$ProjectFromJson(Map<String, dynamic> json) => _Project(
   id: (json['id'] as num).toInt(),
   type: $enumDecode(_$ProjectTypeEnumMap, json['type']),
-  totalDays: (json['totalDays'] as num).toInt(),
-  remainingDays: (json['remainingDays'] as num).toInt(),
+  totalSeconds: (json['totalSeconds'] as num).toInt(),
+  remainingSeconds: (json['remainingSeconds'] as num).toInt(),
   districtId: $enumDecodeNullable(_$DistrictIdEnumMap, json['districtId']),
 );
 
 Map<String, dynamic> _$ProjectToJson(_Project instance) => <String, dynamic>{
   'id': instance.id,
   'type': _$ProjectTypeEnumMap[instance.type]!,
-  'totalDays': instance.totalDays,
-  'remainingDays': instance.remainingDays,
+  'totalSeconds': instance.totalSeconds,
+  'remainingSeconds': instance.remainingSeconds,
   'districtId': ?_$DistrictIdEnumMap[instance.districtId],
 };
 

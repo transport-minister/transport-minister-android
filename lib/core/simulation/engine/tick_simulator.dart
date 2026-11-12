@@ -14,23 +14,23 @@ import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
-import 'package:transport_minister/core/simulation/model/daily_report.dart';
 import 'package:transport_minister/core/simulation/model/district_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/metro_line.dart';
 import 'package:transport_minister/core/simulation/model/project.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
+import 'package:transport_minister/core/simulation/model/tick_report.dart';
 
-class DayResult {
-  const DayResult({required this.state, required this.report, required this.events});
+class TickResult {
+  const TickResult({required this.state, required this.report, required this.events});
 
   final CityState state;
-  final DailyReport report;
+  final TickReport report;
   final List<CityEvent> events;
 }
 
-class DaySimulator {
-  const DaySimulator({
+class TickSimulator {
+  const TickSimulator({
     this.metrics = const MetricsCalculator(),
     this.economy = const EconomyCalculator(),
     this.satisfaction = const SatisfactionCalculator(),
@@ -44,26 +44,30 @@ class DaySimulator {
   final ProjectRules projects;
   final CityDevelopment development;
 
-  DayResult advance(CityState state) {
+  TickResult advance(CityState state) {
     if (state.crisis.dismissed) {
       throw StateError('A dismissed minister cannot run the city.');
     }
     final events = <CityEvent>[];
-    final today = metrics.calculate(state);
-    final operating = economy.operatingLedger(state, today);
+    final now = metrics.calculate(state);
+    final operating = economy.operatingLedger(state, now);
     final operatingTotal = operating.values.fold(0, (sum, amount) => sum + amount);
     final budget = state.budget + operatingTotal;
-    final groups = satisfaction.smooth(state.satisfaction, satisfaction.targets(state, today));
+    final groups = satisfaction.smooth(state.satisfaction, satisfaction.targets(state, now));
+    final overall = StakeholderGroup.overall(groups);
+    final tick = state.tick + 1;
+    final minuteClosed = tick % GameBalance.ticksPerMinute == 0;
 
     var next = state.copyWith(
+      tick: tick,
       budget: budget,
       satisfaction: groups,
       diplomacyPoints:
-          state.diplomacyPoints + DiplomacyRules.daily(StakeholderGroup.overall(groups)),
-      districts: [for (final district in state.districts) _age(state, district, today)],
+          state.diplomacyPoints + (minuteClosed ? DiplomacyRules.perMinute(overall) : 0),
+      districts: [for (final district in state.districts) _age(state, district, now)],
       fleet: [
         for (final bus in state.fleet)
-          bus.isActiveOn(state.day) ? bus.copyWith(ageDays: bus.ageDays + 1) : bus,
+          bus.isActiveAt(state.tick) ? bus.copyWith(ageSeconds: bus.ageSeconds + 1) : bus,
       ],
     );
     next = _progressProjects(next, events);
@@ -74,46 +78,46 @@ class DaySimulator {
         for (final modifier in next.modifiers)
           if (modifier.isPermanent)
             modifier
-          else if (modifier.remainingDays > 1)
-            modifier.copyWith(remainingDays: modifier.remainingDays - 1),
+          else if (modifier.remainingSeconds > 1)
+            modifier.copyWith(remainingSeconds: modifier.remainingSeconds - 1),
       ],
     );
 
-    final overall = StakeholderGroup.overall(groups);
-    events.add(DayClosed(state.day, overall, tickets: operating[LedgerItem.tickets] ?? 0));
-    final crisis = _evaluateCrisis(
-      next.crisis,
-      _causeOf(overall, budget, today.congestion),
-      events,
-    );
-    final report = DailyReport(
-      day: state.day,
+    if (minuteClosed) {
+      events.add(
+        MinutePassed(
+          tick ~/ GameBalance.ticksPerMinute,
+          overall,
+          tickets: (operating[LedgerItem.tickets] ?? 0) * GameBalance.ticksPerMinute,
+        ),
+      );
+    }
+    final crisis = _evaluateCrisis(next.crisis, _causeOf(overall, budget, now.congestion), events);
+    final report = TickReport(
+      tick: tick,
       ledger: _merge(state.pendingLedger, operating),
-      riders: today.riders,
-      demand: today.demand,
+      riders: now.riders,
+      demand: now.demand,
       satisfaction: overall,
       budget: budget,
     );
     final streak = operatingTotal >= 0 ? state.stats.positiveBudgetStreak + 1 : 0;
-    final reports = [...state.reports, report];
     next = next.copyWith(
-      day: state.day + 1,
       crisis: crisis,
       pendingLedger: const {},
-      reports: reports.length > GameBalance.reportHistoryDays
-          ? reports.sublist(reports.length - GameBalance.reportHistoryDays)
-          : reports,
       stats: next.stats.copyWith(
         positiveBudgetStreak: streak,
         bestPositiveBudgetStreak: math.max(streak, state.stats.bestPositiveBudgetStreak),
-        totalRiders: state.stats.totalRiders + today.riders,
+        totalRiders: state.stats.totalRiders + now.riders,
       ),
     );
     final completed = events.whereType<ProjectCompleted>().length;
     final opened = events.whereType<MetroLineOpened>().length;
     final (developed, levelEvents) = development.award(
       next,
-      CityLevels.dailyPoints(satisfaction: overall, positiveDay: operatingTotal >= 0) +
+      (minuteClosed
+              ? CityLevels.minutePoints(satisfaction: overall, positive: operatingTotal >= 0)
+              : 0) +
           completed * CityLevels.projectCompletionPoints +
           opened * CityLevels.metroOpeningPoints,
     );
@@ -123,22 +127,23 @@ class DaySimulator {
       next = next.copyWith(completed: true);
       events.add(const CityCompleted());
     }
-    final delivered = next.fleet.where((bus) => bus.deliveryDay == next.day).length;
+    final delivered = next.fleet.where((bus) => bus.deliveryTick == tick).length;
     if (delivered > 0) {
       events.add(BusesDelivered(delivered));
     }
-    return DayResult(state: next, report: report, events: events);
+    return TickResult(state: next, report: report, events: events);
   }
 
-  DistrictState _age(CityState state, DistrictState district, CityMetrics today) {
-    final congestion = today.of(district.id).congestion;
-    final decay = state.roadMaintenance.decayPerDay + congestion * GameBalance.congestionRoadWear;
-    final growth = PopulationRules.dailyGrowth(district, state.overallSatisfaction);
+  DistrictState _age(CityState state, DistrictState district, CityMetrics now) {
+    final congestion = now.of(district.id).congestion;
+    final decay =
+        state.roadMaintenance.decayPerSecond + congestion * GameBalance.congestionRoadWear;
+    final growth = PopulationRules.growthPerSecond(district, state.overallSatisfaction);
     return district.copyWith(
       roadCondition: math.max(district.roadCondition - decay, 0),
       population: district.population + growth,
       bikeAdoption: district.hasBikeLanes
-          ? math.min(district.bikeAdoption + GameBalance.bikeAdoptionPerDay, 1)
+          ? math.min(district.bikeAdoption + GameBalance.bikeAdoptionPerSecond, 1)
           : district.bikeAdoption,
     );
   }
@@ -148,9 +153,9 @@ class DaySimulator {
     final remaining = <Project>[];
     var completed = 0;
     for (final project in state.projects) {
-      final left = project.remainingDays - 1;
+      final left = project.remainingSeconds - 1;
       if (left > 0) {
-        remaining.add(project.copyWith(remainingDays: left));
+        remaining.add(project.copyWith(remainingSeconds: left));
         continue;
       }
       next = projects.complete(next, project.type, project.districtId);
@@ -170,7 +175,7 @@ class DaySimulator {
         lines.add(line);
         continue;
       }
-      final dug = line.copyWith(remainingDays: line.remainingDays - 1);
+      final dug = line.copyWith(remainingSeconds: line.remainingSeconds - 1);
       if (dug.isOpen) {
         events.add(MetroLineOpened(line.from, line.to));
       }
@@ -184,11 +189,11 @@ class DaySimulator {
     if (loan == null) {
       return state;
     }
-    if (loan.remainingDays <= 1) {
+    if (loan.remainingSeconds <= 1) {
       events.add(const LoanRepaid());
       return state.copyWith(loan: null);
     }
-    return state.copyWith(loan: loan.copyWith(remainingDays: loan.remainingDays - 1));
+    return state.copyWith(loan: loan.copyWith(remainingSeconds: loan.remainingSeconds - 1));
   }
 
   CrisisCause? _causeOf(double satisfaction, int budget, double congestion) {
@@ -203,25 +208,23 @@ class DaySimulator {
 
   CrisisState _evaluateCrisis(CrisisState crisis, CrisisCause? cause, List<CityEvent> events) {
     if (cause == null) {
-      final days = math.max(crisis.days - 1, 0);
-      if (days == 0 && crisis.warnings > 0) {
+      final seconds = math.max(crisis.seconds - 1, 0);
+      if (seconds == 0 && crisis.warnings > 0) {
         events.add(const CrisisAverted());
       }
-      return days == 0
-          ? const CrisisState()
-          : crisis.copyWith(days: days, warnings: crisis.warnings);
+      return seconds == 0 ? const CrisisState() : crisis.copyWith(seconds: seconds);
     }
-    final days = crisis.days + 1;
-    if (days >= GameBalance.dismissalCrisisDays) {
+    final seconds = crisis.seconds + 1;
+    if (seconds >= GameBalance.dismissalCrisisSeconds) {
       events.add(const MinisterDismissed());
-      return crisis.copyWith(days: days, dismissed: true, cause: cause);
+      return crisis.copyWith(seconds: seconds, dismissed: true, cause: cause);
     }
-    final level = GameBalance.crisisWarningDays.indexOf(days) + 1;
+    final level = GameBalance.crisisWarningSeconds.indexOf(seconds) + 1;
     if (level > crisis.warnings) {
       events.add(CrisisWarning(level));
-      return crisis.copyWith(days: days, warnings: level, cause: cause);
+      return crisis.copyWith(seconds: seconds, warnings: level, cause: cause);
     }
-    return crisis.copyWith(days: days, cause: cause);
+    return crisis.copyWith(seconds: seconds, cause: cause);
   }
 
   Map<LedgerItem, int> _merge(Map<LedgerItem, int> first, Map<LedgerItem, int> second) {

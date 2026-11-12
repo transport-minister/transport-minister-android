@@ -15,8 +15,8 @@ enum ModifierType {
   maintenanceCost,
   ticketRevenue,
   subsidy,
-  dailyCost,
-  dailyIncome,
+  extraCost,
+  extraIncome,
   mood;
 
   bool get isMultiplier => switch (this) {
@@ -27,7 +27,7 @@ enum ModifierType {
     maintenanceCost ||
     ticketRevenue ||
     subsidy => true,
-    congestion || safety || dailyCost || dailyIncome || mood => false,
+    congestion || safety || extraCost || extraIncome || mood => false,
   };
 }
 
@@ -36,7 +36,7 @@ abstract class ActiveModifier with _$ActiveModifier {
   const factory ActiveModifier({
     required ModifierType type,
     required double value,
-    required int remainingDays,
+    required int remainingSeconds,
     DistrictId? district,
     StakeholderGroup? group,
   }) = _ActiveModifier;
@@ -47,5 +47,5 @@ abstract class ActiveModifier with _$ActiveModifier {
 
   static const permanent = -1;
 
-  bool get isPermanent => remainingDays == permanent;
+  bool get isPermanent => remainingSeconds == permanent;
 }

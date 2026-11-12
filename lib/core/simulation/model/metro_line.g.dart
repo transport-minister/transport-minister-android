@@ -9,15 +9,15 @@ part of 'metro_line.dart';
 _MetroLine _$MetroLineFromJson(Map<String, dynamic> json) => _MetroLine(
   from: $enumDecode(_$DistrictIdEnumMap, json['from']),
   to: $enumDecode(_$DistrictIdEnumMap, json['to']),
-  totalDays: (json['totalDays'] as num).toInt(),
-  remainingDays: (json['remainingDays'] as num).toInt(),
+  totalSeconds: (json['totalSeconds'] as num).toInt(),
+  remainingSeconds: (json['remainingSeconds'] as num).toInt(),
 );
 
 Map<String, dynamic> _$MetroLineToJson(_MetroLine instance) => <String, dynamic>{
   'from': _$DistrictIdEnumMap[instance.from]!,
   'to': _$DistrictIdEnumMap[instance.to]!,
-  'totalDays': instance.totalDays,
-  'remainingDays': instance.remainingDays,
+  'totalSeconds': instance.totalSeconds,
+  'remainingSeconds': instance.remainingSeconds,
 };
 
 const _$DistrictIdEnumMap = {

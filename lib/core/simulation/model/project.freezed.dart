@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Project {
 
- int get id; ProjectType get type; int get totalDays; int get remainingDays; DistrictId? get districtId;
+ int get id; ProjectType get type; int get totalSeconds; int get remainingSeconds; DistrictId? get districtId;
 /// Create a copy of Project
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $ProjectCopyWith<Project> get copyWith => _$ProjectCopyWithImpl<Project>(this as
 @override
 bool operator ==(Object other) {
   final _this = this as Project;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Project&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.totalDays, _this.totalDays) || other.totalDays == _this.totalDays)&&(identical(other.remainingDays, _this.remainingDays) || other.remainingDays == _this.remainingDays)&&(identical(other.districtId, _this.districtId) || other.districtId == _this.districtId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Project&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.totalSeconds, _this.totalSeconds) || other.totalSeconds == _this.totalSeconds)&&(identical(other.remainingSeconds, _this.remainingSeconds) || other.remainingSeconds == _this.remainingSeconds)&&(identical(other.districtId, _this.districtId) || other.districtId == _this.districtId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Project;
-  return Object.hash(runtimeType,_this.id,_this.type,_this.totalDays,_this.remainingDays,_this.districtId);
+  return Object.hash(runtimeType,_this.id,_this.type,_this.totalSeconds,_this.remainingSeconds,_this.districtId);
 }
 
 @override
 String toString() {
   final _this = this as Project;
-  return 'Project(id: ${_this.id}, type: ${_this.type}, totalDays: ${_this.totalDays}, remainingDays: ${_this.remainingDays}, districtId: ${_this.districtId})';
+  return 'Project(id: ${_this.id}, type: ${_this.type}, totalSeconds: ${_this.totalSeconds}, remainingSeconds: ${_this.remainingSeconds}, districtId: ${_this.districtId})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $ProjectCopyWith<$Res>  {
   factory $ProjectCopyWith(Project value, $Res Function(Project) _then) = _$ProjectCopyWithImpl;
 @useResult
 $Res call({
- int id, ProjectType type, int totalDays, int remainingDays, DistrictId? districtId
+ int id, ProjectType type, int totalSeconds, int remainingSeconds, DistrictId? districtId
 });
 
 
@@ -71,12 +71,12 @@ class _$ProjectCopyWithImpl<$Res>
 
 /// Create a copy of Project
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? totalDays = null,Object? remainingDays = null,Object? districtId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? totalSeconds = null,Object? remainingSeconds = null,Object? districtId = freezed,}) {
   return _then(Project(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as ProjectType,totalDays: null == totalDays ? _self.totalDays : totalDays // ignore: cast_nullable_to_non_nullable
-as int,remainingDays: null == remainingDays ? _self.remainingDays : remainingDays // ignore: cast_nullable_to_non_nullable
+as ProjectType,totalSeconds: null == totalSeconds ? _self.totalSeconds : totalSeconds // ignore: cast_nullable_to_non_nullable
+as int,remainingSeconds: null == remainingSeconds ? _self.remainingSeconds : remainingSeconds // ignore: cast_nullable_to_non_nullable
 as int,districtId: freezed == districtId ? _self.districtId : districtId // ignore: cast_nullable_to_non_nullable
 as DistrictId?,
   ));
@@ -163,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  ProjectType type,  int totalDays,  int remainingDays,  DistrictId? districtId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  ProjectType type,  int totalSeconds,  int remainingSeconds,  DistrictId? districtId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Project() when $default != null:
-return $default(_that.id,_that.type,_that.totalDays,_that.remainingDays,_that.districtId);case _:
+return $default(_that.id,_that.type,_that.totalSeconds,_that.remainingSeconds,_that.districtId);case _:
   return orElse();
 
 }
@@ -184,10 +184,10 @@ return $default(_that.id,_that.type,_that.totalDays,_that.remainingDays,_that.di
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  ProjectType type,  int totalDays,  int remainingDays,  DistrictId? districtId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  ProjectType type,  int totalSeconds,  int remainingSeconds,  DistrictId? districtId)  $default,) {final _that = this;
 switch (_that) {
 case _Project():
-return $default(_that.id,_that.type,_that.totalDays,_that.remainingDays,_that.districtId);case _:
+return $default(_that.id,_that.type,_that.totalSeconds,_that.remainingSeconds,_that.districtId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +204,10 @@ return $default(_that.id,_that.type,_that.totalDays,_that.remainingDays,_that.di
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  ProjectType type,  int totalDays,  int remainingDays,  DistrictId? districtId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  ProjectType type,  int totalSeconds,  int remainingSeconds,  DistrictId? districtId)?  $default,) {final _that = this;
 switch (_that) {
 case _Project() when $default != null:
-return $default(_that.id,_that.type,_that.totalDays,_that.remainingDays,_that.districtId);case _:
+return $default(_that.id,_that.type,_that.totalSeconds,_that.remainingSeconds,_that.districtId);case _:
   return null;
 
 }
@@ -219,13 +219,13 @@ return $default(_that.id,_that.type,_that.totalDays,_that.remainingDays,_that.di
 @JsonSerializable()
 
 class _Project extends Project {
-  const _Project({required this.id, required this.type, required this.totalDays, required this.remainingDays, this.districtId}): super._();
+  const _Project({required this.id, required this.type, required this.totalSeconds, required this.remainingSeconds, this.districtId}): super._();
   factory _Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
 
 @override final  int id;
 @override final  ProjectType type;
-@override final  int totalDays;
-@override final  int remainingDays;
+@override final  int totalSeconds;
+@override final  int remainingSeconds;
 @override final  DistrictId? districtId;
 
 /// Create a copy of Project
@@ -241,18 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Project&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.totalDays, totalDays) || other.totalDays == totalDays)&&(identical(other.remainingDays, remainingDays) || other.remainingDays == remainingDays)&&(identical(other.districtId, districtId) || other.districtId == districtId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Project&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.totalSeconds, totalSeconds) || other.totalSeconds == totalSeconds)&&(identical(other.remainingSeconds, remainingSeconds) || other.remainingSeconds == remainingSeconds)&&(identical(other.districtId, districtId) || other.districtId == districtId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,type,totalDays,remainingDays,districtId);
+    return Object.hash(runtimeType,id,type,totalSeconds,remainingSeconds,districtId);
 }
 
 @override
 String toString() {
-    return 'Project(id: $id, type: $type, totalDays: $totalDays, remainingDays: $remainingDays, districtId: $districtId)';
+    return 'Project(id: $id, type: $type, totalSeconds: $totalSeconds, remainingSeconds: $remainingSeconds, districtId: $districtId)';
 }
 
 
@@ -263,7 +263,7 @@ abstract mixin class _$ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
   factory _$ProjectCopyWith(_Project value, $Res Function(_Project) _then) = __$ProjectCopyWithImpl;
 @override @useResult
 $Res call({
- int id, ProjectType type, int totalDays, int remainingDays, DistrictId? districtId
+ int id, ProjectType type, int totalSeconds, int remainingSeconds, DistrictId? districtId
 });
 
 
@@ -280,12 +280,12 @@ class __$ProjectCopyWithImpl<$Res>
 
 /// Create a copy of Project
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? totalDays = null,Object? remainingDays = null,Object? districtId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? totalSeconds = null,Object? remainingSeconds = null,Object? districtId = freezed,}) {
   return _then(_Project(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as ProjectType,totalDays: null == totalDays ? _self.totalDays : totalDays // ignore: cast_nullable_to_non_nullable
-as int,remainingDays: null == remainingDays ? _self.remainingDays : remainingDays // ignore: cast_nullable_to_non_nullable
+as ProjectType,totalSeconds: null == totalSeconds ? _self.totalSeconds : totalSeconds // ignore: cast_nullable_to_non_nullable
+as int,remainingSeconds: null == remainingSeconds ? _self.remainingSeconds : remainingSeconds // ignore: cast_nullable_to_non_nullable
 as int,districtId: freezed == districtId ? _self.districtId : districtId // ignore: cast_nullable_to_non_nullable
 as DistrictId?,
   ));

@@ -11,12 +11,12 @@ class LocalCitySaveRepository implements CitySaveRepository {
   final DocumentStore _store;
 
   static const _collection = 'city_saves';
-  static const _version = 1;
+  static const _version = 2;
 
   @override
   Future<CitySave?> load(CityId city) async {
     final document = await _store.read(_collection, city.name);
-    if (document == null) {
+    if (document == null || document.version != _version) {
       return null;
     }
     return CitySave(

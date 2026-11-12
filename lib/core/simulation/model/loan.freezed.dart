@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Loan {
 
- int get principal; int get dailyInstallment; int get remainingDays;
+ int get principal; int get installment; int get remainingSeconds;
 /// Create a copy of Loan
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $LoanCopyWith<Loan> get copyWith => _$LoanCopyWithImpl<Loan>(this as Loan, _$ide
 @override
 bool operator ==(Object other) {
   final _this = this as Loan;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loan&&(identical(other.principal, _this.principal) || other.principal == _this.principal)&&(identical(other.dailyInstallment, _this.dailyInstallment) || other.dailyInstallment == _this.dailyInstallment)&&(identical(other.remainingDays, _this.remainingDays) || other.remainingDays == _this.remainingDays));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loan&&(identical(other.principal, _this.principal) || other.principal == _this.principal)&&(identical(other.installment, _this.installment) || other.installment == _this.installment)&&(identical(other.remainingSeconds, _this.remainingSeconds) || other.remainingSeconds == _this.remainingSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as Loan;
-  return Object.hash(runtimeType,_this.principal,_this.dailyInstallment,_this.remainingDays);
+  return Object.hash(runtimeType,_this.principal,_this.installment,_this.remainingSeconds);
 }
 
 @override
 String toString() {
   final _this = this as Loan;
-  return 'Loan(principal: ${_this.principal}, dailyInstallment: ${_this.dailyInstallment}, remainingDays: ${_this.remainingDays})';
+  return 'Loan(principal: ${_this.principal}, installment: ${_this.installment}, remainingSeconds: ${_this.remainingSeconds})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $LoanCopyWith<$Res>  {
   factory $LoanCopyWith(Loan value, $Res Function(Loan) _then) = _$LoanCopyWithImpl;
 @useResult
 $Res call({
- int principal, int dailyInstallment, int remainingDays
+ int principal, int installment, int remainingSeconds
 });
 
 
@@ -71,11 +71,11 @@ class _$LoanCopyWithImpl<$Res>
 
 /// Create a copy of Loan
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? principal = null,Object? dailyInstallment = null,Object? remainingDays = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? principal = null,Object? installment = null,Object? remainingSeconds = null,}) {
   return _then(Loan(
 principal: null == principal ? _self.principal : principal // ignore: cast_nullable_to_non_nullable
-as int,dailyInstallment: null == dailyInstallment ? _self.dailyInstallment : dailyInstallment // ignore: cast_nullable_to_non_nullable
-as int,remainingDays: null == remainingDays ? _self.remainingDays : remainingDays // ignore: cast_nullable_to_non_nullable
+as int,installment: null == installment ? _self.installment : installment // ignore: cast_nullable_to_non_nullable
+as int,remainingSeconds: null == remainingSeconds ? _self.remainingSeconds : remainingSeconds // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -161,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int principal,  int dailyInstallment,  int remainingDays)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int principal,  int installment,  int remainingSeconds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Loan() when $default != null:
-return $default(_that.principal,_that.dailyInstallment,_that.remainingDays);case _:
+return $default(_that.principal,_that.installment,_that.remainingSeconds);case _:
   return orElse();
 
 }
@@ -182,10 +182,10 @@ return $default(_that.principal,_that.dailyInstallment,_that.remainingDays);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int principal,  int dailyInstallment,  int remainingDays)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int principal,  int installment,  int remainingSeconds)  $default,) {final _that = this;
 switch (_that) {
 case _Loan():
-return $default(_that.principal,_that.dailyInstallment,_that.remainingDays);case _:
+return $default(_that.principal,_that.installment,_that.remainingSeconds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +202,10 @@ return $default(_that.principal,_that.dailyInstallment,_that.remainingDays);case
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int principal,  int dailyInstallment,  int remainingDays)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int principal,  int installment,  int remainingSeconds)?  $default,) {final _that = this;
 switch (_that) {
 case _Loan() when $default != null:
-return $default(_that.principal,_that.dailyInstallment,_that.remainingDays);case _:
+return $default(_that.principal,_that.installment,_that.remainingSeconds);case _:
   return null;
 
 }
@@ -217,12 +217,12 @@ return $default(_that.principal,_that.dailyInstallment,_that.remainingDays);case
 @JsonSerializable()
 
 class _Loan implements Loan {
-  const _Loan({required this.principal, required this.dailyInstallment, required this.remainingDays});
+  const _Loan({required this.principal, required this.installment, required this.remainingSeconds});
   factory _Loan.fromJson(Map<String, dynamic> json) => _$LoanFromJson(json);
 
 @override final  int principal;
-@override final  int dailyInstallment;
-@override final  int remainingDays;
+@override final  int installment;
+@override final  int remainingSeconds;
 
 /// Create a copy of Loan
 /// with the given fields replaced by the non-null parameter values.
@@ -237,18 +237,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loan&&(identical(other.principal, principal) || other.principal == principal)&&(identical(other.dailyInstallment, dailyInstallment) || other.dailyInstallment == dailyInstallment)&&(identical(other.remainingDays, remainingDays) || other.remainingDays == remainingDays));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loan&&(identical(other.principal, principal) || other.principal == principal)&&(identical(other.installment, installment) || other.installment == installment)&&(identical(other.remainingSeconds, remainingSeconds) || other.remainingSeconds == remainingSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,principal,dailyInstallment,remainingDays);
+    return Object.hash(runtimeType,principal,installment,remainingSeconds);
 }
 
 @override
 String toString() {
-    return 'Loan(principal: $principal, dailyInstallment: $dailyInstallment, remainingDays: $remainingDays)';
+    return 'Loan(principal: $principal, installment: $installment, remainingSeconds: $remainingSeconds)';
 }
 
 
@@ -259,7 +259,7 @@ abstract mixin class _$LoanCopyWith<$Res> implements $LoanCopyWith<$Res> {
   factory _$LoanCopyWith(_Loan value, $Res Function(_Loan) _then) = __$LoanCopyWithImpl;
 @override @useResult
 $Res call({
- int principal, int dailyInstallment, int remainingDays
+ int principal, int installment, int remainingSeconds
 });
 
 
@@ -276,11 +276,11 @@ class __$LoanCopyWithImpl<$Res>
 
 /// Create a copy of Loan
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? principal = null,Object? dailyInstallment = null,Object? remainingDays = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? principal = null,Object? installment = null,Object? remainingSeconds = null,}) {
   return _then(_Loan(
 principal: null == principal ? _self.principal : principal // ignore: cast_nullable_to_non_nullable
-as int,dailyInstallment: null == dailyInstallment ? _self.dailyInstallment : dailyInstallment // ignore: cast_nullable_to_non_nullable
-as int,remainingDays: null == remainingDays ? _self.remainingDays : remainingDays // ignore: cast_nullable_to_non_nullable
+as int,installment: null == installment ? _self.installment : installment // ignore: cast_nullable_to_non_nullable
+as int,remainingSeconds: null == remainingSeconds ? _self.remainingSeconds : remainingSeconds // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

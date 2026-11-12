@@ -8,7 +8,7 @@ enum CrisisCause { gridlock, unhappy, debt }
 @freezed
 abstract class CrisisState with _$CrisisState {
   const factory CrisisState({
-    @Default(0) int days,
+    @Default(0) int seconds,
     @Default(0) int warnings,
     @Default(false) bool dismissed,
     CrisisCause? cause,

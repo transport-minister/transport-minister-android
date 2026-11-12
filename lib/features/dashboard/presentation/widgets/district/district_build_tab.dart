@@ -9,6 +9,7 @@ import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/city_game/presentation/project_presentation.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
+import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_panel_parts.dart';
 import 'package:transport_minister/features/decisions/presentation/effect_chips.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -106,7 +107,7 @@ class _ProjectCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: GameTag(
-                  label: l10n.buildDaysLeft(running.remainingDays),
+                  label: l10n.buildTimeLeft(TimeTexts.duration(l10n, running.remainingSeconds)),
                   palette: ChunkyPalette.tangerine,
                   icon: Icons.hourglass_top_rounded,
                 ),
@@ -130,7 +131,7 @@ class _ProjectCard extends StatelessWidget {
               Row(
                 children: [
                   GameTag(
-                    label: l10n.buildDays(rules.duration(city, type, district: district)),
+                    label: TimeTexts.duration(l10n, rules.duration(city, type, district: district)),
                     palette: ChunkyPalette.snow,
                     icon: Icons.schedule_rounded,
                   ),

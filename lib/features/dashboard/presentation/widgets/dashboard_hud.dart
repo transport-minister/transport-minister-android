@@ -2,7 +2,6 @@ import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/rank_insignia.dart';
 import 'package:transport_minister/features/tutorial/presentation/tutorial_overlay.dart';
@@ -13,14 +12,12 @@ class DashboardHud extends StatelessWidget {
     super.key,
     required this.city,
     required this.rank,
-    required this.dayProgress,
     required this.onProfilePressed,
     this.targets,
   });
 
   final CityState city;
   final MinisterialRank rank;
-  final double dayProgress;
   final VoidCallback onProfilePressed;
   final TutorialTargets? targets;
 
@@ -59,15 +56,6 @@ class DashboardHud extends StatelessWidget {
               ),
             ),
             const SizedBox(width: GameDimens.spaceM),
-            KeyedSubtree(
-              key: targets?.clock,
-              child: DayClockBadge(
-                day: city.day,
-                progress: dayProgress,
-                label: l10n.hudDay(city.day),
-              ),
-            ),
-            const SizedBox(width: GameDimens.spaceS),
             Expanded(
               child: Align(
                 alignment: Alignment.centerRight,

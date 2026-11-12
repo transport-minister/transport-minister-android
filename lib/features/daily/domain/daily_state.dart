@@ -6,7 +6,7 @@ part 'daily_state.g.dart';
 enum TaskType {
   buyBuses(target: 2, money: 80000, xp: 40),
   makeDecisions(target: 2, money: 60000, xp: 40),
-  runDays(target: 10, money: 50000, xp: 30),
+  runMinutes(target: 5, money: 50000, xp: 30),
   earnTickets(target: 30000, money: 70000, xp: 40),
   finishProject(target: 1, money: 90000, xp: 50),
   repairRoad(target: 1, money: 90000, xp: 50),

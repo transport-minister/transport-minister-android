@@ -8,16 +8,16 @@ import 'package:transport_minister/core/simulation/model/stakeholder_group.dart'
 import 'simulation_test_kit.dart';
 
 void main() {
-  int population(CityState city) =>
+  double population(CityState city) =>
       city.districts.fold(0, (sum, district) => sum + district.population);
 
   CityState withMood(double mood) =>
       newBaku().copyWith(satisfaction: {for (final group in StakeholderGroup.values) group: mood});
 
-  test('every district grows a little every day', () {
+  test('every district grows a little every second', () {
     final city = newBaku();
 
-    final grown = runDays(city, 30).state;
+    final grown = runSeconds(city, 900).state;
 
     for (final district in grown.districts) {
       expect(district.population, greaterThan(city.district(district.id).population));
@@ -36,8 +36,8 @@ void main() {
       greaterThan(PopulationRules.growthRate(DistrictId.windHeights, 50)),
     );
     expect(
-      population(runDays(withMood(80), 20).state),
-      greaterThan(population(runDays(withMood(30), 20).state)),
+      population(runSeconds(withMood(80), 600).state),
+      greaterThan(population(runSeconds(withMood(30), 600).state)),
     );
   });
 
@@ -47,7 +47,7 @@ void main() {
     final crowded = city.copyWith(
       districts: [
         for (final district in city.districts)
-          district.copyWith(population: (district.population * 1.2).round()),
+          district.copyWith(population: district.population * 1.2),
       ],
     );
 

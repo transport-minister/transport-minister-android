@@ -72,7 +72,7 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
               district: widget.district,
               metrics: metrics.of(widget.district),
               road: city.district(widget.district).roadCondition,
-              growth: PopulationRules.dailyGrowth(
+              growth: PopulationRules.growthPerSecond(
                 city.district(widget.district),
                 city.overallSatisfaction,
               ),
@@ -124,7 +124,7 @@ class _Header extends StatelessWidget {
   final DistrictId district;
   final DistrictMetrics metrics;
   final double road;
-  final int growth;
+  final double growth;
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +153,7 @@ class _Header extends StatelessWidget {
                         child: Text(
                           l10n.districtResidents(
                             MoneyFormat.count(metrics.population),
-                            MoneyFormat.count(growth),
+                            MoneyFormat.rate(growth),
                           ),
                           style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
                         ),

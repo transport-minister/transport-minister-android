@@ -47,11 +47,11 @@ final class RoadRestore extends DecisionEffect {
 }
 
 final class Modify extends DecisionEffect {
-  const Modify(this.type, this.value, this.days, {this.district, this.group});
+  const Modify(this.type, this.value, this.seconds, {this.district, this.group});
 
   final ModifierType type;
   final double value;
-  final int days;
+  final int seconds;
   final DistrictId? district;
   final StakeholderGroup? group;
 }

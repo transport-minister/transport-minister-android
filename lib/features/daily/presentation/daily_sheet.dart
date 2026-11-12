@@ -185,7 +185,7 @@ class _TaskCard extends StatelessWidget {
   String _title(AppLocalizations l10n, TaskType type) => switch (type) {
     TaskType.buyBuses => l10n.taskBuyBuses(type.target),
     TaskType.makeDecisions => l10n.taskMakeDecisions(type.target),
-    TaskType.runDays => l10n.taskRunDays(type.target),
+    TaskType.runMinutes => l10n.taskRunMinutes(type.target),
     TaskType.earnTickets => l10n.taskEarnTickets(MoneyFormat.compact(type.target)),
     TaskType.finishProject => l10n.taskFinishProject,
     TaskType.repairRoad => l10n.taskRepairRoad,
@@ -195,7 +195,7 @@ class _TaskCard extends StatelessWidget {
   IconData _icon(TaskType type) => switch (type) {
     TaskType.buyBuses => Icons.directions_bus_rounded,
     TaskType.makeDecisions => Icons.how_to_vote_rounded,
-    TaskType.runDays => Icons.calendar_month_rounded,
+    TaskType.runMinutes => Icons.calendar_month_rounded,
     TaskType.earnTickets => Icons.confirmation_number_rounded,
     TaskType.finishProject => Icons.construction_rounded,
     TaskType.repairRoad => Icons.add_road_rounded,
@@ -205,7 +205,7 @@ class _TaskCard extends StatelessWidget {
   ChunkyPalette _palette(TaskType type) => switch (type) {
     TaskType.buyBuses => ChunkyPalette.ocean,
     TaskType.makeDecisions => ChunkyPalette.sunny,
-    TaskType.runDays => ChunkyPalette.grape,
+    TaskType.runMinutes => ChunkyPalette.grape,
     TaskType.earnTickets => ChunkyPalette.green,
     TaskType.finishProject || TaskType.repairRoad => ChunkyPalette.tangerine,
     TaskType.reachSatisfaction => ChunkyPalette.bubblegum,

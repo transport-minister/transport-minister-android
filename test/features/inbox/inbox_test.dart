@@ -25,7 +25,7 @@ void main() {
 
   test('important city news lands in the inbox, routine days do not', () {
     final inbox = rules.addCityEvents(const Inbox(), CityId.baku, const [
-      DayClosed(4, 40),
+      MinutePassed(4, 40),
       DecisionArrived(DecisionId.flood, DistrictId.oilHarbor),
       ProjectCompleted(ProjectType.roadRepair, DistrictId.windHeights),
       MetroLineOpened(DistrictId.oldFortress, DistrictId.windHeights),

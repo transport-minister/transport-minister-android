@@ -40,7 +40,7 @@ void main() {
     final session = await openGame().read(baku.future);
     final saved = await openGame().read(citySaveRepositoryProvider).load(CityId.baku);
 
-    expect(session.city.day, 1);
+    expect(session.city.tick, 0);
     expect(saved?.city, session.city);
   });
 
@@ -50,7 +50,7 @@ void main() {
 
     final session = await openGame().read(baku.future);
 
-    expect(session.city.day, 1);
+    expect(session.city.tick, 0);
   });
 
   test('time only runs while the minister is on the city dashboard', () async {
@@ -60,12 +60,12 @@ void main() {
 
     now.advance(const Duration(minutes: 3));
     controller.tick();
-    final beforeEntering = container.read(baku).requireValue.city.day;
+    final beforeEntering = container.read(baku).requireValue.city.tick;
 
     controller.enterDashboard();
-    now.advance(const Duration(seconds: 61));
+    now.advance(const Duration(seconds: 7));
     controller.tick();
-    final whilePlaying = container.read(baku).requireValue.city.day;
+    final whilePlaying = container.read(baku).requireValue.city.tick;
 
     controller.leaveDashboard();
     now.advance(const Duration(minutes: 10));
@@ -73,9 +73,9 @@ void main() {
       ..enterDashboard()
       ..tick();
 
-    expect(beforeEntering, 1);
-    expect(whilePlaying, 2);
-    expect(container.read(baku).requireValue.city.day, 2);
+    expect(beforeEntering, 0);
+    expect(whilePlaying, 7);
+    expect(container.read(baku).requireValue.city.tick, 7);
   });
 
   test('a minimized app stops the clock even on the dashboard', () async {
@@ -90,20 +90,21 @@ void main() {
       ..appResumed()
       ..tick();
 
-    expect(container.read(baku).requireValue.city.day, 1);
+    expect(container.read(baku).requireValue.city.tick, 0);
   });
 
-  test('partial days are kept when leaving the city', () async {
+  test('partial seconds are kept when leaving the city', () async {
     final container = openGame();
     await container.read(baku.future);
     container.read(baku.notifier).enterDashboard();
-    now.advance(const Duration(seconds: 40));
+    now.advance(const Duration(milliseconds: 40400));
     container.read(baku.notifier).leaveDashboard();
     await Future<void>.delayed(Duration.zero);
 
     final saved = await container.read(citySaveRepositoryProvider).load(CityId.baku);
 
-    expect(saved?.anchor.carriedMs, 40000);
+    expect(saved?.city.tick, 40);
+    expect(saved?.anchor.carriedMs, 400);
   });
 
   test('applied commands are saved and rejected ones change nothing', () async {

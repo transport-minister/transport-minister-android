@@ -9,7 +9,7 @@ part of 'active_modifier.dart';
 _ActiveModifier _$ActiveModifierFromJson(Map<String, dynamic> json) => _ActiveModifier(
   type: $enumDecode(_$ModifierTypeEnumMap, json['type']),
   value: (json['value'] as num).toDouble(),
-  remainingDays: (json['remainingDays'] as num).toInt(),
+  remainingSeconds: (json['remainingSeconds'] as num).toInt(),
   district: $enumDecodeNullable(_$DistrictIdEnumMap, json['district']),
   group: $enumDecodeNullable(_$StakeholderGroupEnumMap, json['group']),
 );
@@ -17,7 +17,7 @@ _ActiveModifier _$ActiveModifierFromJson(Map<String, dynamic> json) => _ActiveMo
 Map<String, dynamic> _$ActiveModifierToJson(_ActiveModifier instance) => <String, dynamic>{
   'type': _$ModifierTypeEnumMap[instance.type]!,
   'value': instance.value,
-  'remainingDays': instance.remainingDays,
+  'remainingSeconds': instance.remainingSeconds,
   'district': ?_$DistrictIdEnumMap[instance.district],
   'group': ?_$StakeholderGroupEnumMap[instance.group],
 };
@@ -32,8 +32,8 @@ const _$ModifierTypeEnumMap = {
   ModifierType.maintenanceCost: 'maintenanceCost',
   ModifierType.ticketRevenue: 'ticketRevenue',
   ModifierType.subsidy: 'subsidy',
-  ModifierType.dailyCost: 'dailyCost',
-  ModifierType.dailyIncome: 'dailyIncome',
+  ModifierType.extraCost: 'extraCost',
+  ModifierType.extraIncome: 'extraIncome',
   ModifierType.mood: 'mood',
 };
 

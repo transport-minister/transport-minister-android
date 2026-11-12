@@ -22,7 +22,7 @@ class BakuScenario {
       for (final id in DistrictId.values)
         DistrictState(
           id: id,
-          population: id.blueprint.population,
+          population: id.blueprint.population.toDouble(),
           roadCondition: id.blueprint.roadCondition,
           roadLevel: id.blueprint.roadLevel,
         ),
@@ -30,7 +30,7 @@ class BakuScenario {
     final fleet = _startingFleet(districts, seed);
     final draft = CityState(
       seed: seed,
-      day: 1,
+      tick: 0,
       budget: GameBalance.startingBudget,
       fare: GameBalance.startingFare,
       depotCapacity: GameBalance.startingDepotCapacity,
@@ -44,7 +44,7 @@ class BakuScenario {
   }
 
   List<Bus> _startingFleet(List<DistrictState> districts, int seed) {
-    final population = districts.fold(0, (sum, district) => sum + district.population);
+    final population = districts.fold(0.0, (sum, district) => sum + district.population);
     final quotas = [
       for (final district in districts)
         GameBalance.startingFleetSize * district.population / population,
@@ -69,7 +69,7 @@ class BakuScenario {
             id: id,
             model: BusModelId.veteran,
             districtId: districts[index].id,
-            ageDays: 600 + (id * 137 + seed) % 900,
+            ageSeconds: 18000 + (id * 137 + seed) % 27000,
           ),
         );
       }

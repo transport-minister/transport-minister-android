@@ -11,7 +11,6 @@ import 'package:transport_minister/l10n/generated/app_localizations.dart';
 class TutorialTargets {
   final budget = GlobalKey(debugLabel: 'budget');
   final mood = GlobalKey(debugLabel: 'mood');
-  final clock = GlobalKey(debugLabel: 'clock');
   final rank = GlobalKey(debugLabel: 'rank');
   final map = GlobalKey(debugLabel: 'map');
   final level = GlobalKey(debugLabel: 'level');
@@ -21,7 +20,6 @@ class TutorialTargets {
   GlobalKey? of(TutorialStep step) => switch (step) {
     TutorialStep.budget => budget,
     TutorialStep.mood => mood,
-    TutorialStep.clock => clock,
     TutorialStep.district => map,
     TutorialStep.level => level,
     TutorialStep.news => news,
@@ -137,7 +135,6 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay> {
     TutorialStep.welcome => l10n.tutorialWelcome,
     TutorialStep.budget => l10n.tutorialBudget,
     TutorialStep.mood => l10n.tutorialMood,
-    TutorialStep.clock => l10n.tutorialClock,
     TutorialStep.district => l10n.tutorialDistrict(widget.districtName),
     TutorialStep.buyBus => l10n.tutorialBuyBus(MoneyFormat.compact(TutorialController.welcomeGift)),
     TutorialStep.busBought => l10n.tutorialBusBought,

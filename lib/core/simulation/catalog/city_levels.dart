@@ -9,7 +9,7 @@ abstract final class CityLevels {
   static const busUpgradePoints = 3;
   static const projectCompletionPoints = 12;
   static const metroOpeningPoints = 30;
-  static const positiveDayPoints = 2;
+  static const positiveMinutePoints = 4;
 
   static int levelFor(int points) {
     var level = 1;
@@ -34,9 +34,9 @@ abstract final class CityLevels {
     return (points - floor) / (pointsFor(level + 1) - floor);
   }
 
-  static int dailyPoints({required double satisfaction, required bool positiveDay}) {
-    final mood = math.max(((satisfaction - 25) / 5).round(), 0);
-    return mood + (positiveDay ? positiveDayPoints : 0);
+  static int minutePoints({required double satisfaction, required bool positive}) {
+    final mood = math.max(((satisfaction - 25) / 2.5).round(), 0);
+    return mood + (positive ? positiveMinutePoints : 0);
   }
 
   static int rewardFor(int level) => rewardPerLevel * level;

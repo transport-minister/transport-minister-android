@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PendingDecision {
 
- int get id; DecisionId get template; int get createdDay; int get expiresDay; DistrictId? get district;
+ int get id; DecisionId get template; int get createdTick; int get expiresTick; DistrictId? get district;
 /// Create a copy of PendingDecision
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $PendingDecisionCopyWith<PendingDecision> get copyWith => _$PendingDecisionCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as PendingDecision;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PendingDecision&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.template, _this.template) || other.template == _this.template)&&(identical(other.createdDay, _this.createdDay) || other.createdDay == _this.createdDay)&&(identical(other.expiresDay, _this.expiresDay) || other.expiresDay == _this.expiresDay)&&(identical(other.district, _this.district) || other.district == _this.district));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PendingDecision&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.template, _this.template) || other.template == _this.template)&&(identical(other.createdTick, _this.createdTick) || other.createdTick == _this.createdTick)&&(identical(other.expiresTick, _this.expiresTick) || other.expiresTick == _this.expiresTick)&&(identical(other.district, _this.district) || other.district == _this.district));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as PendingDecision;
-  return Object.hash(runtimeType,_this.id,_this.template,_this.createdDay,_this.expiresDay,_this.district);
+  return Object.hash(runtimeType,_this.id,_this.template,_this.createdTick,_this.expiresTick,_this.district);
 }
 
 @override
 String toString() {
   final _this = this as PendingDecision;
-  return 'PendingDecision(id: ${_this.id}, template: ${_this.template}, createdDay: ${_this.createdDay}, expiresDay: ${_this.expiresDay}, district: ${_this.district})';
+  return 'PendingDecision(id: ${_this.id}, template: ${_this.template}, createdTick: ${_this.createdTick}, expiresTick: ${_this.expiresTick}, district: ${_this.district})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $PendingDecisionCopyWith<$Res>  {
   factory $PendingDecisionCopyWith(PendingDecision value, $Res Function(PendingDecision) _then) = _$PendingDecisionCopyWithImpl;
 @useResult
 $Res call({
- int id, DecisionId template, int createdDay, int expiresDay, DistrictId? district
+ int id, DecisionId template, int createdTick, int expiresTick, DistrictId? district
 });
 
 
@@ -71,12 +71,12 @@ class _$PendingDecisionCopyWithImpl<$Res>
 
 /// Create a copy of PendingDecision
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? template = null,Object? createdDay = null,Object? expiresDay = null,Object? district = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? template = null,Object? createdTick = null,Object? expiresTick = null,Object? district = freezed,}) {
   return _then(PendingDecision(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,template: null == template ? _self.template : template // ignore: cast_nullable_to_non_nullable
-as DecisionId,createdDay: null == createdDay ? _self.createdDay : createdDay // ignore: cast_nullable_to_non_nullable
-as int,expiresDay: null == expiresDay ? _self.expiresDay : expiresDay // ignore: cast_nullable_to_non_nullable
+as DecisionId,createdTick: null == createdTick ? _self.createdTick : createdTick // ignore: cast_nullable_to_non_nullable
+as int,expiresTick: null == expiresTick ? _self.expiresTick : expiresTick // ignore: cast_nullable_to_non_nullable
 as int,district: freezed == district ? _self.district : district // ignore: cast_nullable_to_non_nullable
 as DistrictId?,
   ));
@@ -163,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DecisionId template,  int createdDay,  int expiresDay,  DistrictId? district)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DecisionId template,  int createdTick,  int expiresTick,  DistrictId? district)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PendingDecision() when $default != null:
-return $default(_that.id,_that.template,_that.createdDay,_that.expiresDay,_that.district);case _:
+return $default(_that.id,_that.template,_that.createdTick,_that.expiresTick,_that.district);case _:
   return orElse();
 
 }
@@ -184,10 +184,10 @@ return $default(_that.id,_that.template,_that.createdDay,_that.expiresDay,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DecisionId template,  int createdDay,  int expiresDay,  DistrictId? district)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DecisionId template,  int createdTick,  int expiresTick,  DistrictId? district)  $default,) {final _that = this;
 switch (_that) {
 case _PendingDecision():
-return $default(_that.id,_that.template,_that.createdDay,_that.expiresDay,_that.district);case _:
+return $default(_that.id,_that.template,_that.createdTick,_that.expiresTick,_that.district);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +204,10 @@ return $default(_that.id,_that.template,_that.createdDay,_that.expiresDay,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DecisionId template,  int createdDay,  int expiresDay,  DistrictId? district)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DecisionId template,  int createdTick,  int expiresTick,  DistrictId? district)?  $default,) {final _that = this;
 switch (_that) {
 case _PendingDecision() when $default != null:
-return $default(_that.id,_that.template,_that.createdDay,_that.expiresDay,_that.district);case _:
+return $default(_that.id,_that.template,_that.createdTick,_that.expiresTick,_that.district);case _:
   return null;
 
 }
@@ -219,13 +219,13 @@ return $default(_that.id,_that.template,_that.createdDay,_that.expiresDay,_that.
 @JsonSerializable()
 
 class _PendingDecision implements PendingDecision {
-  const _PendingDecision({required this.id, required this.template, required this.createdDay, required this.expiresDay, this.district});
+  const _PendingDecision({required this.id, required this.template, required this.createdTick, required this.expiresTick, this.district});
   factory _PendingDecision.fromJson(Map<String, dynamic> json) => _$PendingDecisionFromJson(json);
 
 @override final  int id;
 @override final  DecisionId template;
-@override final  int createdDay;
-@override final  int expiresDay;
+@override final  int createdTick;
+@override final  int expiresTick;
 @override final  DistrictId? district;
 
 /// Create a copy of PendingDecision
@@ -241,18 +241,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PendingDecision&&(identical(other.id, id) || other.id == id)&&(identical(other.template, template) || other.template == template)&&(identical(other.createdDay, createdDay) || other.createdDay == createdDay)&&(identical(other.expiresDay, expiresDay) || other.expiresDay == expiresDay)&&(identical(other.district, district) || other.district == district));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PendingDecision&&(identical(other.id, id) || other.id == id)&&(identical(other.template, template) || other.template == template)&&(identical(other.createdTick, createdTick) || other.createdTick == createdTick)&&(identical(other.expiresTick, expiresTick) || other.expiresTick == expiresTick)&&(identical(other.district, district) || other.district == district));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,template,createdDay,expiresDay,district);
+    return Object.hash(runtimeType,id,template,createdTick,expiresTick,district);
 }
 
 @override
 String toString() {
-    return 'PendingDecision(id: $id, template: $template, createdDay: $createdDay, expiresDay: $expiresDay, district: $district)';
+    return 'PendingDecision(id: $id, template: $template, createdTick: $createdTick, expiresTick: $expiresTick, district: $district)';
 }
 
 
@@ -263,7 +263,7 @@ abstract mixin class _$PendingDecisionCopyWith<$Res> implements $PendingDecision
   factory _$PendingDecisionCopyWith(_PendingDecision value, $Res Function(_PendingDecision) _then) = __$PendingDecisionCopyWithImpl;
 @override @useResult
 $Res call({
- int id, DecisionId template, int createdDay, int expiresDay, DistrictId? district
+ int id, DecisionId template, int createdTick, int expiresTick, DistrictId? district
 });
 
 
@@ -280,12 +280,12 @@ class __$PendingDecisionCopyWithImpl<$Res>
 
 /// Create a copy of PendingDecision
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? template = null,Object? createdDay = null,Object? expiresDay = null,Object? district = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? template = null,Object? createdTick = null,Object? expiresTick = null,Object? district = freezed,}) {
   return _then(_PendingDecision(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,template: null == template ? _self.template : template // ignore: cast_nullable_to_non_nullable
-as DecisionId,createdDay: null == createdDay ? _self.createdDay : createdDay // ignore: cast_nullable_to_non_nullable
-as int,expiresDay: null == expiresDay ? _self.expiresDay : expiresDay // ignore: cast_nullable_to_non_nullable
+as DecisionId,createdTick: null == createdTick ? _self.createdTick : createdTick // ignore: cast_nullable_to_non_nullable
+as int,expiresTick: null == expiresTick ? _self.expiresTick : expiresTick // ignore: cast_nullable_to_non_nullable
 as int,district: freezed == district ? _self.district : district // ignore: cast_nullable_to_non_nullable
 as DistrictId?,
   ));
@@ -298,7 +298,7 @@ as DistrictId?,
 /// @nodoc
 mixin _$DecisionRecord {
 
- DecisionId get template; int get option; int get day; bool get riskTriggered; bool get automatic; DistrictId? get district;
+ DecisionId get template; int get option; int get tick; bool get riskTriggered; bool get automatic; DistrictId? get district;
 /// Create a copy of DecisionRecord
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -312,20 +312,20 @@ $DecisionRecordCopyWith<DecisionRecord> get copyWith => _$DecisionRecordCopyWith
 @override
 bool operator ==(Object other) {
   final _this = this as DecisionRecord;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DecisionRecord&&(identical(other.template, _this.template) || other.template == _this.template)&&(identical(other.option, _this.option) || other.option == _this.option)&&(identical(other.day, _this.day) || other.day == _this.day)&&(identical(other.riskTriggered, _this.riskTriggered) || other.riskTriggered == _this.riskTriggered)&&(identical(other.automatic, _this.automatic) || other.automatic == _this.automatic)&&(identical(other.district, _this.district) || other.district == _this.district));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DecisionRecord&&(identical(other.template, _this.template) || other.template == _this.template)&&(identical(other.option, _this.option) || other.option == _this.option)&&(identical(other.tick, _this.tick) || other.tick == _this.tick)&&(identical(other.riskTriggered, _this.riskTriggered) || other.riskTriggered == _this.riskTriggered)&&(identical(other.automatic, _this.automatic) || other.automatic == _this.automatic)&&(identical(other.district, _this.district) || other.district == _this.district));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as DecisionRecord;
-  return Object.hash(runtimeType,_this.template,_this.option,_this.day,_this.riskTriggered,_this.automatic,_this.district);
+  return Object.hash(runtimeType,_this.template,_this.option,_this.tick,_this.riskTriggered,_this.automatic,_this.district);
 }
 
 @override
 String toString() {
   final _this = this as DecisionRecord;
-  return 'DecisionRecord(template: ${_this.template}, option: ${_this.option}, day: ${_this.day}, riskTriggered: ${_this.riskTriggered}, automatic: ${_this.automatic}, district: ${_this.district})';
+  return 'DecisionRecord(template: ${_this.template}, option: ${_this.option}, tick: ${_this.tick}, riskTriggered: ${_this.riskTriggered}, automatic: ${_this.automatic}, district: ${_this.district})';
 }
 
 
@@ -336,7 +336,7 @@ abstract mixin class $DecisionRecordCopyWith<$Res>  {
   factory $DecisionRecordCopyWith(DecisionRecord value, $Res Function(DecisionRecord) _then) = _$DecisionRecordCopyWithImpl;
 @useResult
 $Res call({
- DecisionId template, int option, int day, bool riskTriggered, bool automatic, DistrictId? district
+ DecisionId template, int option, int tick, bool riskTriggered, bool automatic, DistrictId? district
 });
 
 
@@ -353,11 +353,11 @@ class _$DecisionRecordCopyWithImpl<$Res>
 
 /// Create a copy of DecisionRecord
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? template = null,Object? option = null,Object? day = null,Object? riskTriggered = null,Object? automatic = null,Object? district = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? template = null,Object? option = null,Object? tick = null,Object? riskTriggered = null,Object? automatic = null,Object? district = freezed,}) {
   return _then(DecisionRecord(
 template: null == template ? _self.template : template // ignore: cast_nullable_to_non_nullable
 as DecisionId,option: null == option ? _self.option : option // ignore: cast_nullable_to_non_nullable
-as int,day: null == day ? _self.day : day // ignore: cast_nullable_to_non_nullable
+as int,tick: null == tick ? _self.tick : tick // ignore: cast_nullable_to_non_nullable
 as int,riskTriggered: null == riskTriggered ? _self.riskTriggered : riskTriggered // ignore: cast_nullable_to_non_nullable
 as bool,automatic: null == automatic ? _self.automatic : automatic // ignore: cast_nullable_to_non_nullable
 as bool,district: freezed == district ? _self.district : district // ignore: cast_nullable_to_non_nullable
@@ -446,10 +446,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DecisionId template,  int option,  int day,  bool riskTriggered,  bool automatic,  DistrictId? district)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DecisionId template,  int option,  int tick,  bool riskTriggered,  bool automatic,  DistrictId? district)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DecisionRecord() when $default != null:
-return $default(_that.template,_that.option,_that.day,_that.riskTriggered,_that.automatic,_that.district);case _:
+return $default(_that.template,_that.option,_that.tick,_that.riskTriggered,_that.automatic,_that.district);case _:
   return orElse();
 
 }
@@ -467,10 +467,10 @@ return $default(_that.template,_that.option,_that.day,_that.riskTriggered,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DecisionId template,  int option,  int day,  bool riskTriggered,  bool automatic,  DistrictId? district)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DecisionId template,  int option,  int tick,  bool riskTriggered,  bool automatic,  DistrictId? district)  $default,) {final _that = this;
 switch (_that) {
 case _DecisionRecord():
-return $default(_that.template,_that.option,_that.day,_that.riskTriggered,_that.automatic,_that.district);case _:
+return $default(_that.template,_that.option,_that.tick,_that.riskTriggered,_that.automatic,_that.district);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -487,10 +487,10 @@ return $default(_that.template,_that.option,_that.day,_that.riskTriggered,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DecisionId template,  int option,  int day,  bool riskTriggered,  bool automatic,  DistrictId? district)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DecisionId template,  int option,  int tick,  bool riskTriggered,  bool automatic,  DistrictId? district)?  $default,) {final _that = this;
 switch (_that) {
 case _DecisionRecord() when $default != null:
-return $default(_that.template,_that.option,_that.day,_that.riskTriggered,_that.automatic,_that.district);case _:
+return $default(_that.template,_that.option,_that.tick,_that.riskTriggered,_that.automatic,_that.district);case _:
   return null;
 
 }
@@ -502,12 +502,12 @@ return $default(_that.template,_that.option,_that.day,_that.riskTriggered,_that.
 @JsonSerializable()
 
 class _DecisionRecord implements DecisionRecord {
-  const _DecisionRecord({required this.template, required this.option, required this.day, required this.riskTriggered, required this.automatic, this.district});
+  const _DecisionRecord({required this.template, required this.option, required this.tick, required this.riskTriggered, required this.automatic, this.district});
   factory _DecisionRecord.fromJson(Map<String, dynamic> json) => _$DecisionRecordFromJson(json);
 
 @override final  DecisionId template;
 @override final  int option;
-@override final  int day;
+@override final  int tick;
 @override final  bool riskTriggered;
 @override final  bool automatic;
 @override final  DistrictId? district;
@@ -525,18 +525,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DecisionRecord&&(identical(other.template, template) || other.template == template)&&(identical(other.option, option) || other.option == option)&&(identical(other.day, day) || other.day == day)&&(identical(other.riskTriggered, riskTriggered) || other.riskTriggered == riskTriggered)&&(identical(other.automatic, automatic) || other.automatic == automatic)&&(identical(other.district, district) || other.district == district));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DecisionRecord&&(identical(other.template, template) || other.template == template)&&(identical(other.option, option) || other.option == option)&&(identical(other.tick, tick) || other.tick == tick)&&(identical(other.riskTriggered, riskTriggered) || other.riskTriggered == riskTriggered)&&(identical(other.automatic, automatic) || other.automatic == automatic)&&(identical(other.district, district) || other.district == district));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,template,option,day,riskTriggered,automatic,district);
+    return Object.hash(runtimeType,template,option,tick,riskTriggered,automatic,district);
 }
 
 @override
 String toString() {
-    return 'DecisionRecord(template: $template, option: $option, day: $day, riskTriggered: $riskTriggered, automatic: $automatic, district: $district)';
+    return 'DecisionRecord(template: $template, option: $option, tick: $tick, riskTriggered: $riskTriggered, automatic: $automatic, district: $district)';
 }
 
 
@@ -547,7 +547,7 @@ abstract mixin class _$DecisionRecordCopyWith<$Res> implements $DecisionRecordCo
   factory _$DecisionRecordCopyWith(_DecisionRecord value, $Res Function(_DecisionRecord) _then) = __$DecisionRecordCopyWithImpl;
 @override @useResult
 $Res call({
- DecisionId template, int option, int day, bool riskTriggered, bool automatic, DistrictId? district
+ DecisionId template, int option, int tick, bool riskTriggered, bool automatic, DistrictId? district
 });
 
 
@@ -564,11 +564,11 @@ class __$DecisionRecordCopyWithImpl<$Res>
 
 /// Create a copy of DecisionRecord
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? template = null,Object? option = null,Object? day = null,Object? riskTriggered = null,Object? automatic = null,Object? district = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? template = null,Object? option = null,Object? tick = null,Object? riskTriggered = null,Object? automatic = null,Object? district = freezed,}) {
   return _then(_DecisionRecord(
 template: null == template ? _self.template : template // ignore: cast_nullable_to_non_nullable
 as DecisionId,option: null == option ? _self.option : option // ignore: cast_nullable_to_non_nullable
-as int,day: null == day ? _self.day : day // ignore: cast_nullable_to_non_nullable
+as int,tick: null == tick ? _self.tick : tick // ignore: cast_nullable_to_non_nullable
 as int,riskTriggered: null == riskTriggered ? _self.riskTriggered : riskTriggered // ignore: cast_nullable_to_non_nullable
 as bool,automatic: null == automatic ? _self.automatic : automatic // ignore: cast_nullable_to_non_nullable
 as bool,district: freezed == district ? _self.district : district // ignore: cast_nullable_to_non_nullable

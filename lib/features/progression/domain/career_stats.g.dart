@@ -7,7 +7,7 @@ part of 'career_stats.dart';
 // **************************************************************************
 
 _CareerStats _$CareerStatsFromJson(Map<String, dynamic> json) => _CareerStats(
-  daysServed: (json['daysServed'] as num?)?.toInt() ?? 0,
+  minutesServed: (json['minutesServed'] as num?)?.toInt() ?? 0,
   busesBought: (json['busesBought'] as num?)?.toInt() ?? 0,
   electricBusesBought: (json['electricBusesBought'] as num?)?.toInt() ?? 0,
   busUpgrades: (json['busUpgrades'] as num?)?.toInt() ?? 0,
@@ -20,7 +20,7 @@ _CareerStats _$CareerStatsFromJson(Map<String, dynamic> json) => _CareerStats(
 );
 
 Map<String, dynamic> _$CareerStatsToJson(_CareerStats instance) => <String, dynamic>{
-  'daysServed': instance.daysServed,
+  'minutesServed': instance.minutesServed,
   'busesBought': instance.busesBought,
   'electricBusesBought': instance.electricBusesBought,
   'busUpgrades': instance.busUpgrades,

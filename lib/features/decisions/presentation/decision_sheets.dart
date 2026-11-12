@@ -12,6 +12,7 @@ import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/pending_decision.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
+import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/features/decisions/presentation/effect_chips.dart';
@@ -97,7 +98,9 @@ class DecisionSheet extends ConsumerWidget {
                 ),
                 const SizedBox(width: GameDimens.spaceS),
                 GameTag(
-                  label: l10n.decisionDaysLeft(decision.expiresDay - city.day),
+                  label: l10n.decisionTimeLeft(
+                    TimeTexts.duration(l10n, decision.expiresTick - city.tick),
+                  ),
                   palette: ChunkyPalette.snow,
                   icon: Icons.hourglass_bottom_rounded,
                 ),
@@ -347,7 +350,9 @@ class NewsListSheet extends ConsumerWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
-                        l10n.decisionDaysLeft(decision.expiresDay - (city?.day ?? 0)),
+                        l10n.decisionTimeLeft(
+                          TimeTexts.duration(l10n, decision.expiresTick - (city?.tick ?? 0)),
+                        ),
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],

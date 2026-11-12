@@ -4,8 +4,8 @@ class BusModel {
   const BusModel({
     required this.price,
     required this.capacity,
-    required this.energyPerDay,
-    required this.maintenancePerDay,
+    required this.energyPerSecond,
+    required this.maintenancePerSecond,
     required this.reliability,
     required this.comfort,
     required this.emission,
@@ -15,8 +15,8 @@ class BusModel {
 
   final int price;
   final int capacity;
-  final int energyPerDay;
-  final int maintenancePerDay;
+  final double energyPerSecond;
+  final double maintenancePerSecond;
   final double reliability;
   final double comfort;
   final double emission;
@@ -29,8 +29,8 @@ extension BusModels on BusModelId {
     BusModelId.veteran => const BusModel(
       price: 90000,
       capacity: 80,
-      energyPerDay: 240,
-      maintenancePerDay: 110,
+      energyPerSecond: 8,
+      maintenancePerSecond: 3.7,
       reliability: 0.72,
       comfort: 30,
       emission: 1.3,
@@ -39,8 +39,8 @@ extension BusModels on BusModelId {
     BusModelId.hopMini => const BusModel(
       price: 60000,
       capacity: 28,
-      energyPerDay: 90,
-      maintenancePerDay: 40,
+      energyPerSecond: 3,
+      maintenancePerSecond: 1.3,
       reliability: 0.8,
       comfort: 40,
       emission: 0.5,
@@ -49,8 +49,8 @@ extension BusModels on BusModelId {
     BusModelId.cityRunner => const BusModel(
       price: 210000,
       capacity: 90,
-      energyPerDay: 190,
-      maintenancePerDay: 70,
+      energyPerSecond: 6.3,
+      maintenancePerSecond: 2.3,
       reliability: 0.86,
       comfort: 55,
       emission: 0.85,
@@ -59,8 +59,8 @@ extension BusModels on BusModelId {
     BusModelId.megaLink => const BusModel(
       price: 340000,
       capacity: 150,
-      energyPerDay: 290,
-      maintenancePerDay: 120,
+      energyPerSecond: 9.7,
+      maintenancePerSecond: 4,
       reliability: 0.82,
       comfort: 60,
       emission: 1.1,
@@ -69,8 +69,8 @@ extension BusModels on BusModelId {
     BusModelId.voltaE => const BusModel(
       price: 480000,
       capacity: 85,
-      energyPerDay: 70,
-      maintenancePerDay: 55,
+      energyPerSecond: 2.3,
+      maintenancePerSecond: 1.8,
       reliability: 0.9,
       comfort: 78,
       emission: 0,

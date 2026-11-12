@@ -6,7 +6,7 @@ part 'career_stats.g.dart';
 @freezed
 abstract class CareerStats with _$CareerStats {
   const factory CareerStats({
-    @Default(0) int daysServed,
+    @Default(0) int minutesServed,
     @Default(0) int busesBought,
     @Default(0) int electricBusesBought,
     @Default(0) int busUpgrades,

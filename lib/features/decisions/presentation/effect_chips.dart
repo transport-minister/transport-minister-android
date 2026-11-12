@@ -5,6 +5,7 @@ import 'package:transport_minister/core/simulation/decisions/decision_effect.dar
 import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
+import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
@@ -73,13 +74,13 @@ class EffectChips extends StatelessWidget {
       ModifierType.maintenanceCost => l10n.effectMaintenanceCost(_percent(value)),
       ModifierType.ticketRevenue => l10n.effectTicketRevenue(_percent(value)),
       ModifierType.subsidy => l10n.effectSubsidy(_percent(value)),
-      ModifierType.dailyCost => l10n.effectDailyCost(MoneyFormat.compact(value.round())),
-      ModifierType.dailyIncome => l10n.effectDailyIncome(MoneyFormat.compact(value.round())),
+      ModifierType.extraCost => l10n.effectExtraCost(MoneyFormat.compact(value.round())),
+      ModifierType.extraIncome => l10n.effectExtraIncome(MoneyFormat.compact(value.round())),
       ModifierType.mood => l10n.effectMoodTrend(effect.group?.label(l10n) ?? '', _signed(value)),
     };
-    final duration = effect.days == ActiveModifier.permanent
+    final duration = effect.seconds == ActiveModifier.permanent
         ? l10n.effectForever
-        : l10n.effectDays(effect.days);
+        : TimeTexts.duration(l10n, effect.seconds);
     final district = effect.district?.displayName(l10n);
     return [base, duration, ?district].join(' · ');
   }
@@ -99,8 +100,8 @@ class EffectChips extends StatelessWidget {
         ModifierType.maintenanceCost => value > 1 ? EffectTone.bad : EffectTone.good,
         ModifierType.congestion => value > 0 ? EffectTone.bad : EffectTone.good,
         ModifierType.safety || ModifierType.mood => _sign(value),
-        ModifierType.dailyCost => EffectTone.bad,
-        ModifierType.dailyIncome => EffectTone.good,
+        ModifierType.extraCost => EffectTone.bad,
+        ModifierType.extraIncome => EffectTone.good,
         ModifierType.demand => EffectTone.neutral,
       },
     };
