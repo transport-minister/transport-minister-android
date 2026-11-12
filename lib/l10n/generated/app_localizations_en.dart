@@ -1399,8 +1399,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your bus arrives in a few seconds. Faster service means happier citizens and more money!';
 
   @override
-  String get tutorialLevel =>
-      'Reach level 10, unlock every technology and make people 75% happy to complete Baku!';
+  String tutorialLevel(int percent) {
+    return 'Reach level 10, unlock every technology and make people $percent% happy to complete Baku!';
+  }
 
   @override
   String get tutorialNews =>

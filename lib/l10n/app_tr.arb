@@ -390,7 +390,7 @@
   "tutorialDistrict": "En uzun {district} bölgesindekiler bekliyor. Haritada bul ve dokun!",
   "tutorialBuyBus": "Kabine başlaman için {amount} gönderdi. Bir otobüs seç ve İmzala'ya dokun!",
   "tutorialBusBought": "Otobüsün birkaç saniye içinde gelir. Daha hızlı hizmet daha mutlu vatandaş ve daha çok para demek!",
-  "tutorialLevel": "Bakü'yü tamamlamak için 10. seviyeye ulaş, tüm teknolojileri aç ve insanları %75 mutlu et!",
+  "tutorialLevel": "Bakü'yü tamamlamak için 10. seviyeye ulaş, tüm teknolojileri aç ve insanları %{percent} mutlu et!",
   "tutorialNews": "Burada el sallarsam haberim var: talepler, teklifler ve afetler. Kararı sen ver!",
   "tutorialTasks": "Günlük görevler ve günlük hediye her gün ek para getirir.",
   "tutorialDiplomacy": "Burası diplomasi. İnsanların sevdiği jestlere para harca, onlar da yeni teknoloji için puanla karşılık versin.",

@@ -1402,8 +1402,9 @@ class AppLocalizationsRu extends AppLocalizations {
       'Твой автобус приедет через пару секунд. Быстрее сервис — довольнее жители и больше денег!';
 
   @override
-  String get tutorialLevel =>
-      'Достигни 10-го уровня, открой все технологии и сделай людей довольными на 75%, чтобы завершить Баку!';
+  String tutorialLevel(int percent) {
+    return 'Достигни 10-го уровня, открой все технологии и сделай людей довольными на $percent%, чтобы завершить Баку!';
+  }
 
   @override
   String get tutorialNews =>

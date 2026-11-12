@@ -4,6 +4,7 @@ import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
+import 'package:transport_minister/core/simulation/catalog/city_goal.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -140,7 +141,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay> {
     TutorialStep.district => l10n.tutorialDistrict(widget.districtName),
     TutorialStep.buyBus => l10n.tutorialBuyBus(MoneyFormat.compact(TutorialController.welcomeGift)),
     TutorialStep.busBought => l10n.tutorialBusBought,
-    TutorialStep.level => l10n.tutorialLevel,
+    TutorialStep.level => l10n.tutorialLevel(CityGoal.happiness.round()),
     TutorialStep.news => l10n.tutorialNews,
     TutorialStep.tasks => l10n.tutorialTasks,
     TutorialStep.diplomacy => l10n.tutorialDiplomacy,

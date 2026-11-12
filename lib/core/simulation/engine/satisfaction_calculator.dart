@@ -59,7 +59,9 @@ class SatisfactionCalculator {
     };
     return {
       for (final entry in targets.entries)
-        entry.key: _clamp(entry.value + state.additive(ModifierType.mood, group: entry.key)),
+        entry.key: _clamp(
+          _spread(entry.value) + state.additive(ModifierType.mood, group: entry.key),
+        ),
     };
   }
 
@@ -77,6 +79,10 @@ class SatisfactionCalculator {
     final pricedOut = math.max(1 - MetricsCalculator.demandFactorForFare(fare), 0);
     return math.max(fare - GameBalance.referenceFare, 0) * 0.5 + pricedOut * 40;
   }
+
+  double _spread(double target) =>
+      GameBalance.neutralSatisfaction +
+      (target - GameBalance.neutralSatisfaction) * GameBalance.satisfactionSpread;
 
   double _approach(double value, double target) =>
       value + (target - value) * GameBalance.satisfactionSmoothing;

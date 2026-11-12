@@ -35,7 +35,9 @@ abstract final class GameBalance {
   static const administrationPerSecond = 50;
   static const driverWagePerBusSecond = 3.7;
 
-  static const satisfactionSmoothing = 0.0054;
+  static const satisfactionSmoothing = 0.0075;
+  static const neutralSatisfaction = 50.0;
+  static const satisfactionSpread = 1.3;
   static const crisisSatisfactionThreshold = 30.0;
   static const crisisBudgetThreshold = -250000;
   static const gridlockCongestion = 62.0;
