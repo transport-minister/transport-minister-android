@@ -164,12 +164,6 @@ abstract class AppLocalizations {
   /// **'Coming soon'**
   String get cityStatusComingSoon;
 
-  /// No description provided for @cityStatusLocked.
-  ///
-  /// In en, this message translates to:
-  /// **'Locked'**
-  String get cityStatusLocked;
-
   /// No description provided for @cityComingSoonTitle.
   ///
   /// In en, this message translates to:
@@ -506,30 +500,6 @@ abstract class AppLocalizations {
   /// **'{count} residents · +{growth} a day'**
   String districtResidents(String count, String growth);
 
-  /// No description provided for @districtFeatureBikeLanes.
-  ///
-  /// In en, this message translates to:
-  /// **'Bike lanes'**
-  String get districtFeatureBikeLanes;
-
-  /// No description provided for @districtFeatureSignals.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart lights'**
-  String get districtFeatureSignals;
-
-  /// No description provided for @districtFeatureStops.
-  ///
-  /// In en, this message translates to:
-  /// **'Modern stops'**
-  String get districtFeatureStops;
-
-  /// No description provided for @districtDaysLeft.
-  ///
-  /// In en, this message translates to:
-  /// **'{project}: {days, plural, =1{1 day left} other{{days} days left}}'**
-  String districtDaysLeft(String project, int days);
-
   /// No description provided for @ledgerTickets.
   ///
   /// In en, this message translates to:
@@ -716,29 +686,11 @@ abstract class AppLocalizations {
   /// **'That fare is not allowed'**
   String get rejectFareOutOfRange;
 
-  /// No description provided for @eventBusPurchased.
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{Bus ordered! It joins the fleet tomorrow.} other{{count} buses ordered! They join the fleet tomorrow.}}'**
-  String eventBusPurchased(int count);
-
-  /// No description provided for @eventBusUpgraded.
-  ///
-  /// In en, this message translates to:
-  /// **'Bus upgraded to level {level}'**
-  String eventBusUpgraded(int level);
-
   /// No description provided for @eventBusesDelivered.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, =1{A new bus joined the fleet} other{{count} new buses joined the fleet}}'**
   String eventBusesDelivered(int count);
-
-  /// No description provided for @eventProjectStarted.
-  ///
-  /// In en, this message translates to:
-  /// **'{project}: construction started'**
-  String eventProjectStarted(String project);
 
   /// No description provided for @eventProjectCompleted.
   ///
@@ -751,12 +703,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The Cabinet sent {amount} for this month'**
   String eventBudgetAllocated(String amount);
-
-  /// No description provided for @eventLoanRepaid.
-  ///
-  /// In en, this message translates to:
-  /// **'Loan fully repaid'**
-  String get eventLoanRepaid;
 
   /// No description provided for @eventCrisisWarning.
   ///
@@ -823,12 +769,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recenter map'**
   String get mapRecenter;
-
-  /// No description provided for @mrBusName.
-  ///
-  /// In en, this message translates to:
-  /// **'Mr. Bus'**
-  String get mrBusName;
 
   /// No description provided for @advisorTitle.
   ///
@@ -902,12 +842,6 @@ abstract class AppLocalizations {
   /// **'Complete {city}'**
   String cityRequirement(String city);
 
-  /// No description provided for @cityStatusUnlocked.
-  ///
-  /// In en, this message translates to:
-  /// **'Unlocked'**
-  String get cityStatusUnlocked;
-
   /// No description provided for @cityLevelChip.
   ///
   /// In en, this message translates to:
@@ -919,12 +853,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Level rewards'**
   String get ledgerLevelRewards;
-
-  /// No description provided for @eventCityLeveledUp.
-  ///
-  /// In en, this message translates to:
-  /// **'City level {level}! Reward {amount}'**
-  String eventCityLeveledUp(int level, String amount);
 
   /// No description provided for @levelBarLabel.
   ///
@@ -1627,12 +1555,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fare {change}'**
   String effectFare(String change);
-
-  /// No description provided for @effectMoney.
-  ///
-  /// In en, this message translates to:
-  /// **'{amount}'**
-  String effectMoney(String amount);
 
   /// No description provided for @decisionOvercrowdedBusesTitle.
   ///
@@ -2570,12 +2492,6 @@ abstract class AppLocalizations {
   /// **'+{amount}'**
   String diplomacyAmount(int amount);
 
-  /// No description provided for @diplomacyLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Diplomacy'**
-  String get diplomacyLabel;
-
   /// No description provided for @diplomacyOpen.
   ///
   /// In en, this message translates to:
@@ -2960,18 +2876,6 @@ abstract class AppLocalizations {
   /// **'+{count} tomorrow'**
   String fleetOnOrder(int count);
 
-  /// No description provided for @fleetSold.
-  ///
-  /// In en, this message translates to:
-  /// **'Bus sold · +{price}'**
-  String fleetSold(String price);
-
-  /// No description provided for @fleetMoved.
-  ///
-  /// In en, this message translates to:
-  /// **'A bus moved in from {district}'**
-  String fleetMoved(String district);
-
   /// No description provided for @buildDistrictTitle.
   ///
   /// In en, this message translates to:
@@ -3134,12 +3038,6 @@ abstract class AppLocalizations {
   /// **'The tunnel crew is busy digging another line'**
   String get rejectTunnelBusy;
 
-  /// No description provided for @eventMetroStarted.
-  ///
-  /// In en, this message translates to:
-  /// **'Metro {from} ⇄ {to}: digging started'**
-  String eventMetroStarted(String from, String to);
-
   /// No description provided for @eventMetroOpened.
   ///
   /// In en, this message translates to:
@@ -3199,24 +3097,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Waiting there: {minutes} min'**
   String metroWaitingThere(int minutes);
-
-  /// No description provided for @trafficMeterLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'City traffic'**
-  String get trafficMeterLabel;
-
-  /// No description provided for @trafficInfoTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'City traffic {percent}%'**
-  String trafficInfoTitle(int percent);
-
-  /// No description provided for @trafficInfoBody.
-  ///
-  /// In en, this message translates to:
-  /// **'If city traffic reaches {limit}%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.'**
-  String trafficInfoBody(int limit);
 
   /// No description provided for @levelBarGoal.
   ///

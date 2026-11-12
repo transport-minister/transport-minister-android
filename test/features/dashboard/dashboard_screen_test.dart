@@ -15,8 +15,6 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/traffic_meter.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/funded_city.dart';
@@ -61,10 +59,7 @@ void main() {
     expect(find.text('Yesterday\'s money'), findsNothing);
     expect(find.text('Smooth'), findsNothing);
     expect(find.byIcon(Icons.add_rounded), findsNothing);
-    expect(
-      find.descendant(of: find.byType(TrafficMeter), matching: find.text('58%')),
-      findsOneWidget,
-    );
+    expect(find.text('58%'), findsNothing);
   });
 
   testWidgets('the goal chip opens the city goal', (tester) async {
@@ -85,21 +80,6 @@ void main() {
     expect(find.text('0/13'), findsOneWidget);
     expect(find.text('Make citizens 75% happy'), findsOneWidget);
     expect(find.text('Complete Baku to unlock Istanbul.'), findsOneWidget);
-  });
-
-  testWidgets('the traffic meter explains gridlock', (tester) async {
-    await pumpGameScreen(
-      tester,
-      const DashboardScreen(cityId: CityId.baku),
-      store: store,
-      now: now,
-    );
-
-    await tester.tap(find.byType(TrafficMeter));
-    await tester.pumpAndSettle();
-
-    expect(find.text('City traffic 58%'), findsOneWidget);
-    expect(find.textContaining('reaches 65%'), findsOneWidget);
   });
 
   testWidgets('a gridlock crisis is named in the banner', (tester) async {
@@ -136,13 +116,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('\$2.29M'), findsOneWidget);
-    expect(
-      find.descendant(
-        of: find.byType(DistrictSheet),
-        matching: find.text('Bus ordered! It joins the fleet tomorrow.'),
-      ),
-      findsOneWidget,
-    );
+    expect(find.byType(SnackBar), findsNothing);
   });
 
   testWidgets('the clock stops when the minister leaves the dashboard', (tester) async {

@@ -1,11 +1,6 @@
-import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
-import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
-import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
-import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
-import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 extension LedgerItemText on LedgerItem {
@@ -60,53 +55,5 @@ extension RejectionReasonText on RejectionReason {
     RejectionReason.insufficientDiplomacy => l10n.rejectInsufficientDiplomacy,
     RejectionReason.alreadyUnlocked => l10n.rejectAlreadyUnlocked,
     RejectionReason.tunnelBusy => l10n.rejectTunnelBusy,
-  };
-}
-
-extension CityEventText on CityEvent {
-  bool get isSilent => switch (this) {
-    DayClosed() ||
-    CityLeveledUp() ||
-    ReputationShift() ||
-    DecisionArrived() ||
-    RewardGranted() ||
-    DiplomacyEarned() ||
-    CityCompleted() => true,
-    DecisionResolved(:final automatic) => !automatic,
-    _ => false,
-  };
-
-  String message(AppLocalizations l10n) => switch (this) {
-    BusPurchased(:final count) => l10n.eventBusPurchased(count),
-    BusUpgraded(:final level) => l10n.eventBusUpgraded(level),
-    BusesDelivered(:final count) => l10n.eventBusesDelivered(count),
-    ProjectStarted(:final type) => l10n.eventProjectStarted(type.label(l10n)),
-    ProjectCompleted(:final type) => l10n.eventProjectCompleted(type.label(l10n)),
-    LoanRepaid() => l10n.eventLoanRepaid,
-    CrisisWarning(:final level) => l10n.eventCrisisWarning(level),
-    MinisterDismissed() => l10n.dismissedTitle,
-    CityLeveledUp(:final level, :final reward) => l10n.eventCityLeveledUp(
-      level,
-      MoneyFormat.compact(reward),
-    ),
-    DayClosed(:final day) => l10n.hudDay(day),
-    CrisisAverted() => l10n.eventCrisisAverted,
-    DecisionArrived(:final decision, :final district) => l10n.eventDecisionArrived(
-      decision.title(l10n, district),
-    ),
-    DecisionResolved(:final decision) => l10n.eventDecisionAutomatic(decision.title(l10n, null)),
-    ReputationShift() => '',
-    RewardGranted(:final amount) => MoneyFormat.signed(amount),
-    DiplomacyEarned(:final amount) => l10n.decisionDiplomacyEarned(amount),
-    TechnologyUnlocked(:final technology) => l10n.eventTechnologyUnlocked(technology.label(l10n)),
-    MetroLineStarted(:final from, :final to) => l10n.eventMetroStarted(
-      from.displayName(l10n),
-      to.displayName(l10n),
-    ),
-    MetroLineOpened(:final from, :final to) => l10n.eventMetroOpened(
-      from.displayName(l10n),
-      to.displayName(l10n),
-    ),
-    CityCompleted() => l10n.levelBarComplete,
   };
 }

@@ -12,7 +12,6 @@
   "cityPlay": "Play",
   "cityStatusPlayable": "Playable",
   "cityStatusComingSoon": "Coming soon",
-  "cityStatusLocked": "Locked",
   "cityComingSoonTitle": "{city} is on its way!",
   "@cityComingSoonTitle": {
     "placeholders": {
@@ -152,20 +151,6 @@
       }
     }
   },
-  "districtFeatureBikeLanes": "Bike lanes",
-  "districtFeatureSignals": "Smart lights",
-  "districtFeatureStops": "Modern stops",
-  "districtDaysLeft": "{project}: {days, plural, =1{1 day left} other{{days} days left}}",
-  "@districtDaysLeft": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "days": {
-        "type": "int"
-      }
-    }
-  },
   "ledgerTickets": "Ticket sales",
   "ledgerSubsidy": "Daily subsidy",
   "ledgerGovernmentBudget": "Cabinet budget",
@@ -197,35 +182,11 @@
   "rejectInvalidTarget": "That is not possible right now",
   "rejectLoanActive": "Repay your current loan first",
   "rejectFareOutOfRange": "That fare is not allowed",
-  "eventBusPurchased": "{count, plural, =1{Bus ordered! It joins the fleet tomorrow.} other{{count} buses ordered! They join the fleet tomorrow.}}",
-  "@eventBusPurchased": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "eventBusUpgraded": "Bus upgraded to level {level}",
-  "@eventBusUpgraded": {
-    "placeholders": {
-      "level": {
-        "type": "int"
-      }
-    }
-  },
   "eventBusesDelivered": "{count, plural, =1{A new bus joined the fleet} other{{count} new buses joined the fleet}}",
   "@eventBusesDelivered": {
     "placeholders": {
       "count": {
         "type": "int"
-      }
-    }
-  },
-  "eventProjectStarted": "{project}: construction started",
-  "@eventProjectStarted": {
-    "placeholders": {
-      "project": {
-        "type": "String"
       }
     }
   },
@@ -245,7 +206,6 @@
       }
     }
   },
-  "eventLoanRepaid": "Loan fully repaid",
   "eventCrisisWarning": "President's warning {level}/3",
   "@eventCrisisWarning": {
     "placeholders": {
@@ -271,7 +231,6 @@
   "loadingFailed": "The city could not be opened.",
   "commonRetry": "Try again",
   "mapRecenter": "Recenter map",
-  "mrBusName": "Mr. Bus",
   "advisorTitle": "Mr. Bus says",
   "advisorShowMe": "Show me",
   "tipNegativeBudget": "Our budget is below zero! Raise fares a little or sell old buses before the President notices.",
@@ -325,7 +284,6 @@
       }
     }
   },
-  "cityStatusUnlocked": "Unlocked",
   "cityLevelChip": "Level {level} · Target {target}",
   "@cityLevelChip": {
     "placeholders": {
@@ -338,17 +296,6 @@
     }
   },
   "ledgerLevelRewards": "Level rewards",
-  "eventCityLeveledUp": "City level {level}! Reward {amount}",
-  "@eventCityLeveledUp": {
-    "placeholders": {
-      "level": {
-        "type": "int"
-      },
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
   "levelBarLabel": "Level {level}",
   "@levelBarLabel": {
     "placeholders": {
@@ -778,14 +725,6 @@
       }
     }
   },
-  "effectMoney": "{amount}",
-  "@effectMoney": {
-    "placeholders": {
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
   "decisionOvercrowdedBusesTitle": "Packed buses in {district}!",
   "@decisionOvercrowdedBusesTitle": {
     "placeholders": {
@@ -1181,7 +1120,6 @@
       }
     }
   },
-  "diplomacyLabel": "Diplomacy",
   "diplomacyOpen": "Open technology",
   "decisionDiplomacyEarned": "Citizens appreciate it: +{amount} diplomacy points!",
   "@decisionDiplomacyEarned": {
@@ -1346,22 +1284,6 @@
       }
     }
   },
-  "fleetSold": "Bus sold · +{price}",
-  "@fleetSold": {
-    "placeholders": {
-      "price": {
-        "type": "String"
-      }
-    }
-  },
-  "fleetMoved": "A bus moved in from {district}",
-  "@fleetMoved": {
-    "placeholders": {
-      "district": {
-        "type": "String"
-      }
-    }
-  },
   "buildDistrictTitle": "Build in {district}",
   "@buildDistrictTitle": {
     "placeholders": {
@@ -1417,17 +1339,6 @@
   "chipDepot": "Depot +20 buses",
   "ledgerMetro": "Metro",
   "rejectTunnelBusy": "The tunnel crew is busy digging another line",
-  "eventMetroStarted": "Metro {from} ⇄ {to}: digging started",
-  "@eventMetroStarted": {
-    "placeholders": {
-      "from": {
-        "type": "String"
-      },
-      "to": {
-        "type": "String"
-      }
-    }
-  },
   "eventMetroOpened": "Metro {from} ⇄ {to} is open!",
   "@eventMetroOpened": {
     "placeholders": {
@@ -1482,23 +1393,6 @@
   "@metroWaitingThere": {
     "placeholders": {
       "minutes": {
-        "type": "int"
-      }
-    }
-  },
-  "trafficMeterLabel": "City traffic",
-  "trafficInfoTitle": "City traffic {percent}%",
-  "@trafficInfoTitle": {
-    "placeholders": {
-      "percent": {
-        "type": "int"
-      }
-    }
-  },
-  "trafficInfoBody": "If city traffic reaches {limit}%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.",
-  "@trafficInfoBody": {
-    "placeholders": {
-      "limit": {
         "type": "int"
       }
     }

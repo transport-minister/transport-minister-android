@@ -132,28 +132,23 @@ class DecisionSheet extends ConsumerWidget {
     int index,
   ) async {
     final navigator = Navigator.of(context);
-    final messenger = ScaffoldMessenger.of(context);
-    final l10n = AppLocalizations.of(context);
     final city = ref.read(cityGameProvider(cityId)).requireValue.city;
     final option = _desk.choices(city, decision)[index].option;
     final outcome = await ref
         .read(cityGameProvider(cityId).notifier)
         .perform((current) => _desk.choose(current, decision.id, index));
-    switch (outcome) {
-      case CommandRejected(:final reason):
-        messenger.showSnackBar(SnackBar(content: Text(reason.message(l10n))));
-      case CommandApplied(:final events):
-        final riskHit = events.whereType<DecisionResolved>().any((event) => event.riskTriggered);
-        navigator.pop(
-          DecisionResult(
-            riskHit: riskHit,
-            riskEffects: riskHit ? option.risk?.effects ?? const [] : const [],
-            diplomacy: events.whereType<DiplomacyEarned>().fold(
-              0,
-              (sum, event) => sum + event.amount,
-            ),
+    if (outcome case CommandApplied(:final events)) {
+      final riskHit = events.whereType<DecisionResolved>().any((event) => event.riskTriggered);
+      navigator.pop(
+        DecisionResult(
+          riskHit: riskHit,
+          riskEffects: riskHit ? option.risk?.effects ?? const [] : const [],
+          diplomacy: events.whereType<DiplomacyEarned>().fold(
+            0,
+            (sum, event) => sum + event.amount,
           ),
-        );
+        ),
+      );
     }
   }
 }

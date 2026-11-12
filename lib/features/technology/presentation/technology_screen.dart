@@ -8,7 +8,6 @@ import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
-import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
@@ -74,7 +73,11 @@ class TechnologyScreen extends ConsumerWidget {
                         _TechnologyCard(
                           technology: technology,
                           city: city,
-                          onUnlock: () => _unlock(context, ref, technology),
+                          onUnlock: () => ref
+                              .read(cityGameProvider(cityId).notifier)
+                              .perform(
+                                (city) => const CityCommands().unlockTechnology(city, technology),
+                              ),
                         ),
                       ],
                     ],
@@ -83,22 +86,6 @@ class TechnologyScreen extends ConsumerWidget {
               ),
           ],
         ),
-      ),
-    );
-  }
-
-  Future<void> _unlock(BuildContext context, WidgetRef ref, TechnologyId technology) async {
-    final messenger = ScaffoldMessenger.of(context);
-    final l10n = AppLocalizations.of(context);
-    final outcome = await ref
-        .read(cityGameProvider(cityId).notifier)
-        .perform((city) => const CityCommands().unlockTechnology(city, technology));
-    messenger.showSnackBar(
-      SnackBar(
-        content: Text(switch (outcome) {
-          CommandApplied() => l10n.eventTechnologyUnlocked(technology.label(l10n)),
-          CommandRejected(:final reason) => reason.message(l10n),
-        }),
       ),
     );
   }

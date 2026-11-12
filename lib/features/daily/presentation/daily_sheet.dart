@@ -66,8 +66,7 @@ class DailySheet extends ConsumerWidget {
                           icon: Icons.redeem_rounded,
                           palette: ChunkyPalette.grape,
                           expanded: true,
-                          onPressed: () =>
-                              _claim(context, ref.read(dailyProvider.notifier).claimStreak(cityId)),
+                          onPressed: () => ref.read(dailyProvider.notifier).claimStreak(cityId),
                         )
                       : Text(
                           l10n.dailyStreakDone,
@@ -83,8 +82,7 @@ class DailySheet extends ConsumerWidget {
             for (var index = 0; index < daily.tasks.length; index++) ...[
               _TaskCard(
                 task: daily.tasks[index],
-                onClaim: () =>
-                    _claim(context, ref.read(dailyProvider.notifier).claimTask(cityId, index)),
+                onClaim: () => ref.read(dailyProvider.notifier).claimTask(cityId, index),
               ),
               const SizedBox(height: GameDimens.spaceM),
             ],
@@ -93,17 +91,6 @@ class DailySheet extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _claim(BuildContext context, Future<Reward?> claim) async {
-    final messenger = ScaffoldMessenger.of(context);
-    final l10n = AppLocalizations.of(context);
-    final reward = await claim;
-    if (reward != null) {
-      messenger.showSnackBar(
-        SnackBar(content: Text(l10n.dailyReward(MoneyFormat.compact(reward.money), reward.xp))),
-      );
-    }
   }
 }
 
