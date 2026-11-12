@@ -241,9 +241,6 @@
   "loadingFailed": "The city could not be opened.",
   "commonRetry": "Try again",
   "mapRecenter": "Recenter map",
-  "trafficSmooth": "Smooth",
-  "trafficBusy": "Busy",
-  "trafficJammed": "Jam",
   "mrBusName": "Mr. Bus",
   "advisorTitle": "Mr. Bus says",
   "advisorShowMe": "Show me",
@@ -1149,7 +1146,5 @@
   "tutorialLevel": "Baku grows as you play. Reach level 10 to unlock Istanbul!",
   "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
   "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
-  "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!",
-  "mapZoomIn": "Zoom in",
-  "mapZoomOut": "Zoom out"
+  "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!"
 }

@@ -406,15 +406,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mapRecenter => 'Recenter map';
 
   @override
-  String get trafficSmooth => 'Smooth';
-
-  @override
-  String get trafficBusy => 'Busy';
-
-  @override
-  String get trafficJammed => 'Jam';
-
-  @override
   String get mrBusName => 'Mr. Bus';
 
   @override
@@ -1476,10 +1467,4 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get tutorialProfile =>
       'Climb nine ranks and collect achievements and city badges. Good luck, Minister!';
-
-  @override
-  String get mapZoomIn => 'Zoom in';
-
-  @override
-  String get mapZoomOut => 'Zoom out';
 }
