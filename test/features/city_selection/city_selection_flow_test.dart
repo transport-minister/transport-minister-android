@@ -48,7 +48,7 @@ void main() {
     expect(find.text('Wind Heights'), findsWidgets);
   });
 
-  testWidgets('the next city stays locked until Baku reaches its target', (tester) async {
+  testWidgets('the next city stays locked until Baku is complete', (tester) async {
     await _openCitySelection(tester);
 
     await tester.scrollUntilVisible(find.text('Istanbul'), 200);
@@ -56,13 +56,14 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Istanbul is locked'), findsOneWidget);
-    expect(find.text('Reach level 10 in Baku to unlock it.'), findsOneWidget);
+    expect(find.text('Complete Baku to unlock it.'), findsOneWidget);
   });
 
-  testWidgets('reaching the target unlocks the next city', (tester) async {
+  testWidgets('completing Baku unlocks the next city', (tester) async {
     final store = InMemoryDocumentStore();
-    await LocalProfileRepository(store)
-        .save(const MinisterProfile(bestCityLevels: {CityId.baku: 10}));
+    await LocalProfileRepository(store).save(
+      const MinisterProfile(bestCityLevels: {CityId.baku: 10}, completedCities: {CityId.baku}),
+    );
     await _openCitySelection(tester, store: store);
 
     await tester.scrollUntilVisible(find.text('Istanbul'), 200);

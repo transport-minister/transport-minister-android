@@ -65,6 +65,26 @@ void main() {
     );
   });
 
+  testWidgets('the goal chip opens the city goal', (tester) async {
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+
+    expect(find.text('GOAL 0/3'), findsOneWidget);
+
+    await tester.tap(find.text('GOAL 0/3'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('City goal'), findsOneWidget);
+    expect(find.text('Level 1/10'), findsOneWidget);
+    expect(find.text('0/13'), findsOneWidget);
+    expect(find.text('Make citizens 75% happy'), findsOneWidget);
+    expect(find.text('Complete Baku to unlock Istanbul.'), findsOneWidget);
+  });
+
   testWidgets('the traffic meter explains gridlock', (tester) async {
     await pumpGameScreen(
       tester,

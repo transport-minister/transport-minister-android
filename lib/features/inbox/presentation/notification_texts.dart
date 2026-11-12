@@ -54,6 +54,7 @@ extension NotificationTexts on GameNotification {
       NotificationKind.technology => l10n.eventTechnologyUnlocked(
         _byName(TechnologyId.values, data['technology'])!.label(l10n),
       ),
+      NotificationKind.cityComplete => l10n.cityCompleteTitle(_city.displayName(l10n)),
       NotificationKind.metro => l10n.eventMetroOpened(
         _byName(DistrictId.values, data['from'])!.displayName(l10n),
         _byName(DistrictId.values, data['to'])!.displayName(l10n),
@@ -76,6 +77,7 @@ extension NotificationTexts on GameNotification {
     NotificationKind.dismissed => Icons.sentiment_very_dissatisfied_rounded,
     NotificationKind.technology => Icons.science_rounded,
     NotificationKind.metro => Icons.subway_rounded,
+    NotificationKind.cityComplete => Icons.emoji_events_rounded,
   };
 
   ChunkyPalette get palette => switch (kind) {
@@ -90,6 +92,7 @@ extension NotificationTexts on GameNotification {
     NotificationKind.achievement || NotificationKind.badge => ChunkyPalette.bubblegum,
     NotificationKind.technology => ChunkyPalette.lagoon,
     NotificationKind.metro => ChunkyPalette.grape,
+    NotificationKind.cityComplete => ChunkyPalette.sunny,
   };
 
   DecisionId get _decision => _byName(DecisionId.values, data['decision'])!;

@@ -44,6 +44,7 @@ class InboxRules {
             NotificationKind.metro,
             {'from': from.name, 'to': to.name},
           ),
+          CityCompleted() => (NotificationKind.cityComplete, {'city': city.name}),
           _ => null,
         },
     ];

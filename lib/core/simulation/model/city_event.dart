@@ -135,3 +135,7 @@ final class MetroLineOpened extends CityEvent {
   final DistrictId from;
   final DistrictId to;
 }
+
+final class CityCompleted extends CityEvent {
+  const CityCompleted();
+}

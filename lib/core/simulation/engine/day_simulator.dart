@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:transport_minister/core/simulation/catalog/city_goal.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/diplomacy_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
@@ -123,6 +124,10 @@ class DaySimulator {
     );
     next = developed;
     events.addAll(levelEvents);
+    if (!next.completed && CityGoal.isMet(next)) {
+      next = next.copyWith(completed: true);
+      events.add(const CityCompleted());
+    }
     final delivered = next.fleet.where((bus) => bus.deliveryDay == next.day).length;
     if (delivered > 0) {
       events.add(BusesDelivered(delivered));

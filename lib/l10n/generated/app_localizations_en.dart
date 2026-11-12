@@ -478,13 +478,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get citySectionNext => 'Next cities';
 
   @override
-  String cityLockedBody(int level, String city) {
-    return 'Reach level $level in $city to unlock it.';
+  String cityLockedBody(String city) {
+    return 'Complete $city to unlock it.';
   }
 
   @override
-  String cityRequirement(int level, String city) {
-    return 'Lv $level in $city';
+  String cityRequirement(String city) {
+    return 'Complete $city';
   }
 
   @override
@@ -517,11 +517,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get levelBarMax => 'Max level reached';
 
   @override
-  String levelBarTarget(int target) {
-    return 'Target $target';
-  }
-
-  @override
   String levelSheetTitle(String city) {
     return '$city development';
   }
@@ -531,14 +526,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.';
 
   @override
-  String levelSheetTarget(int target, String city) {
-    return 'Reach level $target to unlock $city!';
-  }
-
-  @override
-  String get levelSheetTargetDone => 'Target reached! Your next city is unlocked.';
-
-  @override
   String levelUpTitle(String city, int level) {
     return '$city reached level $level!';
   }
@@ -546,11 +533,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String levelUpReward(String amount, int diplomacy) {
     return 'The Cabinet sends $amount and $diplomacy diplomacy points.';
-  }
-
-  @override
-  String levelUpUnlocked(String city) {
-    return '$city is unlocked! It opens soon.';
   }
 
   @override
@@ -726,7 +708,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get achievementCityChampionTitle => 'City Champion';
 
   @override
-  String get achievementCityChampionDescription => 'Reach a city\'s target level.';
+  String get achievementCityChampionDescription => 'Complete a city.';
 
   @override
   String get achievementSurvivorTitle => 'Survivor';
@@ -1485,7 +1467,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your bus arrives tomorrow. Faster service means happier citizens and more money!';
 
   @override
-  String get tutorialLevel => 'Baku grows as you play. Reach level 10 to unlock Istanbul!';
+  String get tutorialLevel =>
+      'Reach level 10, unlock every technology and make people 75% happy to complete Baku!';
 
   @override
   String get tutorialNews =>
@@ -1927,4 +1910,57 @@ class AppLocalizationsEn extends AppLocalizations {
   String trafficInfoBody(int limit) {
     return 'If city traffic reaches $limit%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.';
   }
+
+  @override
+  String levelBarGoal(int done, int total) {
+    return 'Goal $done/$total';
+  }
+
+  @override
+  String get levelBarComplete => 'Complete';
+
+  @override
+  String get goalTitle => 'City goal';
+
+  @override
+  String goalLevel(int level) {
+    return 'Reach level $level';
+  }
+
+  @override
+  String goalLevelProgress(int level, int target) {
+    return 'Level $level/$target';
+  }
+
+  @override
+  String get goalTechnologies => 'Unlock every technology';
+
+  @override
+  String goalTechnologyProgress(int count, int total) {
+    return '$count/$total';
+  }
+
+  @override
+  String goalHappiness(int percent) {
+    return 'Make citizens $percent% happy';
+  }
+
+  @override
+  String goalHappinessProgress(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String goalUnlocks(String city, String next) {
+    return 'Complete $city to unlock $next.';
+  }
+
+  @override
+  String cityCompleteTitle(String city) {
+    return '$city is complete!';
+  }
+
+  @override
+  String get cityCompleteBody =>
+      'Every technology is yours and citizens love their city. New cities are coming soon!';
 }

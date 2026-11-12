@@ -309,23 +309,17 @@
   "tipOldFleet": "Our old buses keep breaking down. Upgrades or newer models will keep the city moving.",
   "tipAllGood": "Things look calm, Minister! Keep an eye on the busiest districts.",
   "citySectionNext": "Next cities",
-  "cityLockedBody": "Reach level {level} in {city} to unlock it.",
+  "cityLockedBody": "Complete {city} to unlock it.",
   "@cityLockedBody": {
     "placeholders": {
-      "level": {
-        "type": "int"
-      },
       "city": {
         "type": "String"
       }
     }
   },
-  "cityRequirement": "Lv {level} in {city}",
+  "cityRequirement": "Complete {city}",
   "@cityRequirement": {
     "placeholders": {
-      "level": {
-        "type": "int"
-      },
       "city": {
         "type": "String"
       }
@@ -375,14 +369,6 @@
     }
   },
   "levelBarMax": "Max level reached",
-  "levelBarTarget": "Target {target}",
-  "@levelBarTarget": {
-    "placeholders": {
-      "target": {
-        "type": "int"
-      }
-    }
-  },
   "levelSheetTitle": "{city} development",
   "@levelSheetTitle": {
     "placeholders": {
@@ -392,18 +378,6 @@
     }
   },
   "levelSheetBody": "Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.",
-  "levelSheetTarget": "Reach level {target} to unlock {city}!",
-  "@levelSheetTarget": {
-    "placeholders": {
-      "target": {
-        "type": "int"
-      },
-      "city": {
-        "type": "String"
-      }
-    }
-  },
-  "levelSheetTargetDone": "Target reached! Your next city is unlocked.",
   "levelUpTitle": "{city} reached level {level}!",
   "@levelUpTitle": {
     "placeholders": {
@@ -423,14 +397,6 @@
       },
       "diplomacy": {
         "type": "int"
-      }
-    }
-  },
-  "levelUpUnlocked": "{city} is unlocked! It opens soon.",
-  "@levelUpUnlocked": {
-    "placeholders": {
-      "city": {
-        "type": "String"
       }
     }
   },
@@ -550,7 +516,7 @@
   "achievementRisingCityTitle": "Rising City",
   "achievementRisingCityDescription": "Reach city level 5.",
   "achievementCityChampionTitle": "City Champion",
-  "achievementCityChampionDescription": "Reach a city's target level.",
+  "achievementCityChampionDescription": "Complete a city.",
   "achievementSurvivorTitle": "Survivor",
   "achievementSurvivorDescription": "Recover after a President's warning.",
   "achievementVeteranMinisterTitle": "Veteran Minister",
@@ -1176,7 +1142,7 @@
   },
   "tutorialBuyBus": "Pick a bus model and tap Sign. New buses cut waiting times!",
   "tutorialBusBought": "Your bus arrives tomorrow. Faster service means happier citizens and more money!",
-  "tutorialLevel": "Baku grows as you play. Reach level 10 to unlock Istanbul!",
+  "tutorialLevel": "Reach level 10, unlock every technology and make people 75% happy to complete Baku!",
   "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
   "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
   "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!",
@@ -1529,5 +1495,85 @@
         "type": "int"
       }
     }
-  }
+  },
+  "levelBarGoal": "Goal {done}/{total}",
+  "@levelBarGoal": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "levelBarComplete": "Complete",
+  "goalTitle": "City goal",
+  "goalLevel": "Reach level {level}",
+  "@goalLevel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "goalLevelProgress": "Level {level}/{target}",
+  "@goalLevelProgress": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "goalTechnologies": "Unlock every technology",
+  "goalTechnologyProgress": "{count}/{total}",
+  "@goalTechnologyProgress": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "goalHappiness": "Make citizens {percent}% happy",
+  "@goalHappiness": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "goalHappinessProgress": "{percent}%",
+  "@goalHappinessProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "goalUnlocks": "Complete {city} to unlock {next}.",
+  "@goalUnlocks": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      },
+      "next": {
+        "type": "String"
+      }
+    }
+  },
+  "cityCompleteTitle": "{city} is complete!",
+  "@cityCompleteTitle": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "cityCompleteBody": "Every technology is yours and citizens love their city. New cities are coming soon!"
 }

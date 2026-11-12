@@ -1,5 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/catalog/city_goal.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -71,11 +72,18 @@ class CityLevelBar extends StatelessWidget {
               ),
             ),
             const SizedBox(width: GameDimens.spaceS),
-            GameTag(
-              label: l10n.levelBarTarget(CityLevels.targetLevel),
-              palette: ChunkyPalette.sunny,
-              icon: Icons.flag_rounded,
-            ),
+            if (city.completed)
+              GameTag(
+                label: l10n.levelBarComplete,
+                palette: ChunkyPalette.green,
+                icon: Icons.emoji_events_rounded,
+              )
+            else
+              GameTag(
+                label: l10n.levelBarGoal(CityGoal.partsDone(city), CityGoal.parts),
+                palette: ChunkyPalette.sunny,
+                icon: Icons.flag_rounded,
+              ),
           ],
         ),
       ),
