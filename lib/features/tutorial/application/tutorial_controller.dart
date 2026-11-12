@@ -17,6 +17,7 @@ enum TutorialStep {
   level,
   news,
   tasks,
+  diplomacy,
   profile;
 
   bool get waitsForAction => this == district || this == buyBus;

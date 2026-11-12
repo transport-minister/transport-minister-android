@@ -16,6 +16,7 @@ import 'package:transport_minister/features/city_game/presentation/time_texts.da
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/features/decisions/presentation/effect_chips.dart';
+import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DecisionResult {
@@ -182,7 +183,7 @@ class _OptionCard extends StatelessWidget {
                 GameTag(
                   label: l10n.diplomacyAmount(choice.diplomacy),
                   palette: ChunkyPalette.lagoon,
-                  icon: Icons.handshake_rounded,
+                  icon: DiplomacyStyle.icon,
                 ),
                 const SizedBox(width: GameDimens.spaceXS),
               ],
@@ -278,7 +279,7 @@ class DecisionResultSheet extends StatelessWidget {
             padding: const EdgeInsets.all(GameDimens.spaceM),
             child: Row(
               children: [
-                const IconBubble(icon: Icons.handshake_rounded, palette: ChunkyPalette.lagoon),
+                const IconBubble(icon: DiplomacyStyle.icon, palette: ChunkyPalette.lagoon),
                 const SizedBox(width: GameDimens.spaceM),
                 Expanded(
                   child: Text(

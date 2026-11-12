@@ -11,6 +11,7 @@ import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
@@ -45,7 +46,7 @@ class TechnologyScreen extends ConsumerWidget {
                     Row(
                       children: [
                         StatPill(
-                          icon: Icons.handshake_rounded,
+                          icon: DiplomacyStyle.icon,
                           value: '${city.diplomacyPoints}',
                           palette: ChunkyPalette.lagoon,
                         ),
@@ -171,7 +172,7 @@ class _TechnologyCard extends StatelessWidget {
                 GameTag(
                   label: '${technology.diplomacy}',
                   palette: ChunkyPalette.lagoon,
-                  icon: Icons.handshake_rounded,
+                  icon: DiplomacyStyle.icon,
                 ),
                 const Spacer(),
                 ChunkyButton(

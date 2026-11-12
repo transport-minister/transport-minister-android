@@ -64,6 +64,11 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
           ?.map((e) => $enumDecode(_$TechnologyIdEnumMap, e))
           .toSet() ??
       const {},
+  diplomacyReadyAt:
+      (json['diplomacyReadyAt'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry($enumDecode(_$DiplomacyActionIdEnumMap, k), (e as num).toInt()),
+      ) ??
+      const {},
   metroLines:
       (json['metroLines'] as List<dynamic>?)
           ?.map((e) => MetroLine.fromJson(e as Map<String, dynamic>))
@@ -96,6 +101,9 @@ Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>
   'lastDecisionTick': instance.lastDecisionTick,
   'diplomacyPoints': instance.diplomacyPoints,
   'technologies': instance.technologies.map((e) => _$TechnologyIdEnumMap[e]!).toList(),
+  'diplomacyReadyAt': instance.diplomacyReadyAt.map(
+    (k, e) => MapEntry(_$DiplomacyActionIdEnumMap[k]!, e),
+  ),
   'metroLines': instance.metroLines.map((e) => e.toJson()).toList(),
   'completed': instance.completed,
 };
@@ -153,4 +161,13 @@ const _$TechnologyIdEnumMap = {
   TechnologyId.smartTicketing: 'smartTicketing',
   TechnologyId.ecoDriving: 'ecoDriving',
   TechnologyId.depotRobotics: 'depotRobotics',
+};
+
+const _$DiplomacyActionIdEnumMap = {
+  DiplomacyActionId.cheaperTickets: 'cheaperTickets',
+  DiplomacyActionId.hackathon: 'hackathon',
+  DiplomacyActionId.driverRaise: 'driverRaise',
+  DiplomacyActionId.shopTaxBreak: 'shopTaxBreak',
+  DiplomacyActionId.cleanAir: 'cleanAir',
+  DiplomacyActionId.cityFestival: 'cityFestival',
 };

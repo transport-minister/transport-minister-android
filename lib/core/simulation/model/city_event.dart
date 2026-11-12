@@ -3,6 +3,7 @@ import 'package:transport_minister/core/simulation/catalog/district_catalog.dart
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
+import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.dart';
 
 sealed class CityEvent {
   const CityEvent();
@@ -108,6 +109,12 @@ final class DiplomacyEarned extends CityEvent {
   const DiplomacyEarned(this.amount);
 
   final int amount;
+}
+
+final class DiplomacyActionTaken extends CityEvent {
+  const DiplomacyActionTaken(this.action);
+
+  final DiplomacyActionId action;
 }
 
 final class TechnologyUnlocked extends CityEvent {

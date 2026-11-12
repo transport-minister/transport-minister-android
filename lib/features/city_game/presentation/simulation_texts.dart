@@ -55,5 +55,6 @@ extension RejectionReasonText on RejectionReason {
     RejectionReason.insufficientDiplomacy => l10n.rejectInsufficientDiplomacy,
     RejectionReason.alreadyUnlocked => l10n.rejectAlreadyUnlocked,
     RejectionReason.tunnelBusy => l10n.rejectTunnelBusy,
+    RejectionReason.coolingDown => l10n.rejectCoolingDown,
   };
 }

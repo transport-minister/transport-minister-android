@@ -398,6 +398,12 @@ abstract class AppLocalizations {
   /// **'Budget'**
   String get hudBudgetLabel;
 
+  /// No description provided for @hudDiplomacyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Diplomacy points'**
+  String get hudDiplomacyLabel;
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:
@@ -2426,6 +2432,12 @@ abstract class AppLocalizations {
   /// **'Daily tasks and a daily gift bring extra money every day.'**
   String get tutorialTasks;
 
+  /// No description provided for @tutorialDiplomacy.
+  ///
+  /// In en, this message translates to:
+  /// **'This is diplomacy. Spend money on gestures people love and they pay you back in points for new technology.'**
+  String get tutorialDiplomacy;
+
   /// No description provided for @tutorialProfile.
   ///
   /// In en, this message translates to:
@@ -2477,8 +2489,140 @@ abstract class AppLocalizations {
   /// No description provided for @diplomacyOpen.
   ///
   /// In en, this message translates to:
-  /// **'Open technology'**
+  /// **'Open diplomacy'**
   String get diplomacyOpen;
+
+  /// No description provided for @diplomacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Diplomacy'**
+  String get diplomacyTitle;
+
+  /// No description provided for @diplomacyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Gestures people love cost money, but citizens pay you back in diplomacy points. Spend the points on new technology.'**
+  String get diplomacyIntro;
+
+  /// No description provided for @diplomacyTechnologyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Spend diplomacy points on new buses, upgrades and the metro.'**
+  String get diplomacyTechnologyBody;
+
+  /// No description provided for @diplomacyOpenTechnology.
+  ///
+  /// In en, this message translates to:
+  /// **'Open technology'**
+  String get diplomacyOpenTechnology;
+
+  /// No description provided for @diplomacyTechnologyReady.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 technology ready} other{{count} technologies ready}}'**
+  String diplomacyTechnologyReady(int count);
+
+  /// No description provided for @diplomacyActionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Win people over'**
+  String get diplomacyActionsTitle;
+
+  /// No description provided for @diplomacyGain.
+  ///
+  /// In en, this message translates to:
+  /// **'+{points} diplomacy'**
+  String diplomacyGain(int points);
+
+  /// No description provided for @diplomacyXp.
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP'**
+  String diplomacyXp(int xp);
+
+  /// No description provided for @diplomacyAct.
+  ///
+  /// In en, this message translates to:
+  /// **'Do it · {cost}'**
+  String diplomacyAct(String cost);
+
+  /// No description provided for @diplomacyReadyIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready in {time}'**
+  String diplomacyReadyIn(String time);
+
+  /// No description provided for @actionCheaperTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'Cheaper tickets'**
+  String get actionCheaperTickets;
+
+  /// No description provided for @actionCheaperTicketsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay part of every fare for a while. Passengers love it and more people ride.'**
+  String get actionCheaperTicketsBody;
+
+  /// No description provided for @actionHackathon.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport hackathon'**
+  String get actionHackathon;
+
+  /// No description provided for @actionHackathonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite young coders to fix city transport. Smart ideas bring in more ticket money.'**
+  String get actionHackathonBody;
+
+  /// No description provided for @actionDriverRaise.
+  ///
+  /// In en, this message translates to:
+  /// **'Raise bus driver pay'**
+  String get actionDriverRaise;
+
+  /// No description provided for @actionDriverRaiseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Drivers work happier, but wages cost more for a while.'**
+  String get actionDriverRaiseBody;
+
+  /// No description provided for @actionShopTaxBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax break for shops'**
+  String get actionShopTaxBreak;
+
+  /// No description provided for @actionShopTaxBreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower taxes for shops along the bus routes. Businesses and deliveries cheer.'**
+  String get actionShopTaxBreakBody;
+
+  /// No description provided for @actionCleanAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean air campaign'**
+  String get actionCleanAir;
+
+  /// No description provided for @actionCleanAirBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Plant trees and wash the buses. Greener streets make many people smile.'**
+  String get actionCleanAirBody;
+
+  /// No description provided for @actionCityFestival.
+  ///
+  /// In en, this message translates to:
+  /// **'City festival'**
+  String get actionCityFestival;
+
+  /// No description provided for @actionCityFestivalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A huge party for the whole city. Everyone smiles, but the streets get crowded for a while.'**
+  String get actionCityFestivalBody;
 
   /// No description provided for @decisionDiplomacyEarned.
   ///
@@ -3037,6 +3181,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The tunnel crew is busy digging another line'**
   String get rejectTunnelBusy;
+
+  /// No description provided for @rejectCoolingDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Not ready yet'**
+  String get rejectCoolingDown;
 
   /// No description provided for @eventMetroOpened.
   ///

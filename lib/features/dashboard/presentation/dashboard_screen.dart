@@ -31,12 +31,12 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dismi
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
+import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/promotion_sheet.dart';
-import 'package:transport_minister/features/technology/presentation/diplomacy_button.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/features/tutorial/presentation/tutorial_overlay.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -77,6 +77,8 @@ class _CityView extends ConsumerStatefulWidget {
 }
 
 class _CityViewState extends ConsumerState<_CityView> {
+  static const _cornerButton = 42.0;
+
   final _mapController = CityMapController();
   final _targets = TutorialTargets();
 
@@ -116,6 +118,9 @@ class _CityViewState extends ConsumerState<_CityView> {
         ? 0
         : const DailyRules().claimable(daily, ref.watch(nowProvider)());
     final slowest = metrics.districts.reduce((a, b) => b.waitingMinutes > a.waitingMinutes ? b : a);
+    final readyTechnologies = TechnologyId.values
+        .where((technology) => const CityCommands().technologyProblem(city, technology) == null)
+        .length;
     return Stack(
       children: [
         Column(
@@ -125,6 +130,7 @@ class _CityViewState extends ConsumerState<_CityView> {
               city: city,
               rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
               onProfilePressed: () => _leaveFor(AppRoute.profile.path),
+              onDiplomacyPressed: _openDiplomacy,
             ),
             KeyedSubtree(
               key: _targets.level,
@@ -153,15 +159,16 @@ class _CityViewState extends ConsumerState<_CityView> {
                           onDistrictPressed: _openDistrict,
                         ),
                         Positioned(
-                          left: GameDimens.spaceS,
+                          right: GameDimens.spaceS * 2 + _cornerButton,
                           top: GameDimens.spaceS,
-                          child: DiplomacyButton(
-                            points: city.diplomacyPoints,
-                            ready: TechnologyId.values.any(
-                              (technology) =>
-                                  const CityCommands().technologyProblem(city, technology) == null,
-                            ),
-                            onPressed: _openTechnology,
+                          child: ChunkyIconButton(
+                            key: _targets.diplomacy,
+                            icon: DiplomacyStyle.icon,
+                            size: _cornerButton,
+                            palette: DiplomacyStyle.palette,
+                            semanticsLabel: AppLocalizations.of(context).diplomacyOpen,
+                            badge: readyTechnologies > 0 ? '$readyTechnologies' : null,
+                            onPressed: _openDiplomacy,
                           ),
                         ),
                         Positioned(
@@ -169,7 +176,7 @@ class _CityViewState extends ConsumerState<_CityView> {
                           top: GameDimens.spaceS,
                           child: ChunkyIconButton(
                             icon: Icons.notifications_rounded,
-                            size: 42,
+                            size: _cornerButton,
                             semanticsLabel: AppLocalizations.of(context).inboxOpen,
                             badge: unread > 0 ? '$unread' : null,
                             onPressed: () => _leaveFor(AppRoute.inbox.path),
@@ -177,11 +184,11 @@ class _CityViewState extends ConsumerState<_CityView> {
                         ),
                         Positioned(
                           right: GameDimens.spaceS,
-                          top: 62,
+                          top: GameDimens.spaceS * 2 + _cornerButton,
                           child: ChunkyIconButton(
                             key: _targets.tasks,
                             icon: Icons.task_alt_rounded,
-                            size: 42,
+                            size: _cornerButton,
                             palette: ChunkyPalette.sunny,
                             semanticsLabel: AppLocalizations.of(context).dailyOpen,
                             badge: claimable > 0 ? '$claimable' : null,
@@ -257,6 +264,8 @@ class _CityViewState extends ConsumerState<_CityView> {
   }
 
   Future<void> _openTechnology() => _leaveFor(AppRoute.technology.forCity(widget.cityId.name));
+
+  Future<void> _openDiplomacy() => _leaveFor(AppRoute.diplomacy.forCity(widget.cityId.name));
 
   Future<void> _startTutorial() async {
     final profile = await ref.read(profileProvider.future);

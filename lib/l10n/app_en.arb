@@ -72,6 +72,7 @@
     }
   },
   "hudBudgetLabel": "Budget",
+  "hudDiplomacyLabel": "Diplomacy points",
   "hudSatisfactionLabel": "Satisfaction",
   "hudBackToCities": "Cities",
   "crisisGridlock": "Gridlock! Traffic is jamming the city. Clear it before the President notices!",
@@ -1074,6 +1075,7 @@
   "tutorialLevel": "Reach level 10, unlock every technology and make people 75% happy to complete Baku!",
   "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
   "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
+  "tutorialDiplomacy": "This is diplomacy. Spend money on gestures people love and they pay you back in points for new technology.",
   "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!",
   "ledgerTechnology": "Technology contracts",
   "rejectLocked": "Unlock it in Technology first",
@@ -1103,7 +1105,64 @@
       }
     }
   },
-  "diplomacyOpen": "Open technology",
+  "diplomacyOpen": "Open diplomacy",
+  "diplomacyTitle": "Diplomacy",
+  "diplomacyIntro": "Gestures people love cost money, but citizens pay you back in diplomacy points. Spend the points on new technology.",
+  "diplomacyTechnologyBody": "Spend diplomacy points on new buses, upgrades and the metro.",
+  "diplomacyOpenTechnology": "Open technology",
+  "diplomacyTechnologyReady": "{count, plural, =1{1 technology ready} other{{count} technologies ready}}",
+  "@diplomacyTechnologyReady": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "diplomacyActionsTitle": "Win people over",
+  "diplomacyGain": "+{points} diplomacy",
+  "@diplomacyGain": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "diplomacyXp": "+{xp} XP",
+  "@diplomacyXp": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "diplomacyAct": "Do it · {cost}",
+  "@diplomacyAct": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
+  "diplomacyReadyIn": "Ready in {time}",
+  "@diplomacyReadyIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "actionCheaperTickets": "Cheaper tickets",
+  "actionCheaperTicketsBody": "Pay part of every fare for a while. Passengers love it and more people ride.",
+  "actionHackathon": "Transport hackathon",
+  "actionHackathonBody": "Invite young coders to fix city transport. Smart ideas bring in more ticket money.",
+  "actionDriverRaise": "Raise bus driver pay",
+  "actionDriverRaiseBody": "Drivers work happier, but wages cost more for a while.",
+  "actionShopTaxBreak": "Tax break for shops",
+  "actionShopTaxBreakBody": "Lower taxes for shops along the bus routes. Businesses and deliveries cheer.",
+  "actionCleanAir": "Clean air campaign",
+  "actionCleanAirBody": "Plant trees and wash the buses. Greener streets make many people smile.",
+  "actionCityFestival": "City festival",
+  "actionCityFestivalBody": "A huge party for the whole city. Everyone smiles, but the streets get crowded for a while.",
   "decisionDiplomacyEarned": "Citizens appreciate it: +{amount} diplomacy points!",
   "@decisionDiplomacyEarned": {
     "placeholders": {
@@ -1352,6 +1411,7 @@
   "chipDepot": "Depot +20 buses",
   "ledgerMetro": "Metro",
   "rejectTunnelBusy": "The tunnel crew is busy digging another line",
+  "rejectCoolingDown": "Not ready yet",
   "eventMetroOpened": "Metro {from} ⇄ {to} is open!",
   "@eventMetroOpened": {
     "placeholders": {
