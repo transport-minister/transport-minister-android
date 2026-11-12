@@ -16,6 +16,7 @@ class TutorialTargets {
   final level = GlobalKey(debugLabel: 'level');
   final news = GlobalKey(debugLabel: 'news');
   final tasks = GlobalKey(debugLabel: 'tasks');
+  final diplomacy = GlobalKey(debugLabel: 'diplomacy');
 
   GlobalKey? of(TutorialStep step) => switch (step) {
     TutorialStep.budget => budget,
@@ -24,6 +25,7 @@ class TutorialTargets {
     TutorialStep.level => level,
     TutorialStep.news => news,
     TutorialStep.tasks => tasks,
+    TutorialStep.diplomacy => diplomacy,
     TutorialStep.profile => rank,
     TutorialStep.welcome || TutorialStep.buyBus || TutorialStep.busBought => null,
   };
@@ -141,6 +143,7 @@ class _TutorialOverlayState extends ConsumerState<TutorialOverlay> {
     TutorialStep.level => l10n.tutorialLevel,
     TutorialStep.news => l10n.tutorialNews,
     TutorialStep.tasks => l10n.tutorialTasks,
+    TutorialStep.diplomacy => l10n.tutorialDiplomacy,
     TutorialStep.profile => l10n.tutorialProfile,
   };
 }

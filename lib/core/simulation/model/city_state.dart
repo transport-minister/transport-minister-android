@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
+import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.dart';
 import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_stats.dart';
@@ -44,6 +45,7 @@ abstract class CityState with _$CityState {
     @Default(0) int lastDecisionTick,
     @Default(0) int diplomacyPoints,
     @Default({}) Set<TechnologyId> technologies,
+    @Default({}) Map<DiplomacyActionId, int> diplomacyReadyAt,
     @Default([]) List<MetroLine> metroLines,
     @Default(false) bool completed,
   }) = _CityState;

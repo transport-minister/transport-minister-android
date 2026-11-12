@@ -5,6 +5,7 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_selection_providers.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_selection_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:transport_minister/features/diplomacy/presentation/diplomacy_screen.dart';
 import 'package:transport_minister/features/inbox/presentation/inbox_screen.dart';
 import 'package:transport_minister/features/progression/presentation/profile_screen.dart';
 import 'package:transport_minister/features/splash/presentation/splash_screen.dart';
@@ -51,6 +52,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoute.technology.name,
         redirect: (context, state) => playableCityFrom(state) == null ? AppRoute.cities.path : null,
         builder: (context, state) => TechnologyScreen(cityId: playableCityFrom(state)!),
+      ),
+      GoRoute(
+        path: AppRoute.diplomacy.path,
+        name: AppRoute.diplomacy.name,
+        redirect: (context, state) => playableCityFrom(state) == null ? AppRoute.cities.path : null,
+        builder: (context, state) => DiplomacyScreen(cityId: playableCityFrom(state)!),
       ),
     ],
   );

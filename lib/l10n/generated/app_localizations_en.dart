@@ -170,6 +170,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hudBudgetLabel => 'Budget';
 
   @override
+  String get hudDiplomacyLabel => 'Diplomacy points';
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override
@@ -1396,6 +1399,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tutorialTasks => 'Daily tasks and a daily gift bring extra money every day.';
 
   @override
+  String get tutorialDiplomacy =>
+      'This is diplomacy. Spend money on gestures people love and they pay you back in points for new technology.';
+
+  @override
   String get tutorialProfile =>
       'Climb nine ranks and collect achievements and city badges. Good luck, Minister!';
 
@@ -1427,7 +1434,96 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get diplomacyOpen => 'Open technology';
+  String get diplomacyOpen => 'Open diplomacy';
+
+  @override
+  String get diplomacyTitle => 'Diplomacy';
+
+  @override
+  String get diplomacyIntro =>
+      'Gestures people love cost money, but citizens pay you back in diplomacy points. Spend the points on new technology.';
+
+  @override
+  String get diplomacyTechnologyBody =>
+      'Spend diplomacy points on new buses, upgrades and the metro.';
+
+  @override
+  String get diplomacyOpenTechnology => 'Open technology';
+
+  @override
+  String diplomacyTechnologyReady(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count technologies ready',
+      one: '1 technology ready',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get diplomacyActionsTitle => 'Win people over';
+
+  @override
+  String diplomacyGain(int points) {
+    return '+$points diplomacy';
+  }
+
+  @override
+  String diplomacyXp(int xp) {
+    return '+$xp XP';
+  }
+
+  @override
+  String diplomacyAct(String cost) {
+    return 'Do it · $cost';
+  }
+
+  @override
+  String diplomacyReadyIn(String time) {
+    return 'Ready in $time';
+  }
+
+  @override
+  String get actionCheaperTickets => 'Cheaper tickets';
+
+  @override
+  String get actionCheaperTicketsBody =>
+      'Pay part of every fare for a while. Passengers love it and more people ride.';
+
+  @override
+  String get actionHackathon => 'Transport hackathon';
+
+  @override
+  String get actionHackathonBody =>
+      'Invite young coders to fix city transport. Smart ideas bring in more ticket money.';
+
+  @override
+  String get actionDriverRaise => 'Raise bus driver pay';
+
+  @override
+  String get actionDriverRaiseBody => 'Drivers work happier, but wages cost more for a while.';
+
+  @override
+  String get actionShopTaxBreak => 'Tax break for shops';
+
+  @override
+  String get actionShopTaxBreakBody =>
+      'Lower taxes for shops along the bus routes. Businesses and deliveries cheer.';
+
+  @override
+  String get actionCleanAir => 'Clean air campaign';
+
+  @override
+  String get actionCleanAirBody =>
+      'Plant trees and wash the buses. Greener streets make many people smile.';
+
+  @override
+  String get actionCityFestival => 'City festival';
+
+  @override
+  String get actionCityFestivalBody =>
+      'A huge party for the whole city. Everyone smiles, but the streets get crowded for a while.';
 
   @override
   String decisionDiplomacyEarned(int amount) {
@@ -1757,6 +1853,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rejectTunnelBusy => 'The tunnel crew is busy digging another line';
+
+  @override
+  String get rejectCoolingDown => 'Not ready yet';
 
   @override
   String eventMetroOpened(String from, String to) {

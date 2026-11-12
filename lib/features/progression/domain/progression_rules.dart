@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
+import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
@@ -120,6 +121,7 @@ class ProgressionRules {
         DecisionResolved(:final decision, automatic: false) =>
           decision.kind == DecisionKind.disaster ? xpPerDisaster : xpPerDecision,
         TechnologyUnlocked() => xpPerTechnology,
+        DiplomacyActionTaken(:final action) => action.spec.xp,
         MetroLineOpened() => xpPerMetroLine,
         CityCompleted() => xpPerCityCompletion,
         _ => 0,

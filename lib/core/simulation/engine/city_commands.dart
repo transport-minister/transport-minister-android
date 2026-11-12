@@ -5,6 +5,8 @@ import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/catalog/metro_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
+import 'package:transport_minister/core/simulation/decisions/decision_effects.dart';
+import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
 import 'package:transport_minister/core/simulation/engine/city_development.dart';
 import 'package:transport_minister/core/simulation/engine/project_rules.dart';
@@ -312,6 +314,29 @@ class CityCommands {
       return null;
     }
     return ActiveModifier(type: type, value: value, remainingSeconds: ActiveModifier.permanent);
+  }
+
+  RejectionReason? diplomacyProblem(CityState state, DiplomacyActionId action) {
+    if (state.tick < (state.diplomacyReadyAt[action] ?? 0)) {
+      return RejectionReason.coolingDown;
+    }
+    return const DecisionEffects().problems(state, action.spec.effects).firstOrNull;
+  }
+
+  CommandOutcome takeDiplomacyAction(CityState state, DiplomacyActionId action) {
+    final problem = diplomacyProblem(state, action);
+    if (problem != null) {
+      return CommandRejected(problem);
+    }
+    final spec = action.spec;
+    final (applied, events) = const DecisionEffects().apply(state, spec.effects);
+    return CommandApplied(
+      applied.copyWith(
+        diplomacyPoints: applied.diplomacyPoints + spec.diplomacy,
+        diplomacyReadyAt: {...applied.diplomacyReadyAt, action: state.tick + spec.cooldown},
+      ),
+      events: [...events, DiplomacyActionTaken(action), DiplomacyEarned(spec.diplomacy)],
+    );
   }
 
   CommandOutcome grantReward(CityState state, int amount) {
