@@ -268,60 +268,57 @@ class DistrictMarker extends StatelessWidget {
     return PressableBuilder(
       onPressed: onPressed,
       semanticsLabel: name,
-      builder: (context, pressed) => AnimatedScale(
-        scale: pressed ? 0.92 : 1,
-        duration: GameDimens.pressDuration,
-        child: SizedBox(
-          width: width,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
+      pressedScale: 0.92,
+      builder: (context, pressed) => SizedBox(
+        width: width,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                IconBubble(icon: district.icon, palette: district.palette, size: bubble),
+                if (underConstruction)
+                  const Positioned(
+                    right: -12,
+                    bottom: -4,
+                    child: IconBubble(
+                      icon: Icons.construction_rounded,
+                      palette: ChunkyPalette.tangerine,
+                      size: 24,
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 3),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+              decoration: BoxDecoration(
+                color: GameColors.paper,
+                borderRadius: BorderRadius.circular(9),
+                border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconBubble(icon: district.icon, palette: district.palette, size: bubble),
-                  if (underConstruction)
-                    const Positioned(
-                      right: -12,
-                      bottom: -4,
-                      child: IconBubble(
-                        icon: Icons.construction_rounded,
-                        palette: ChunkyPalette.tangerine,
-                        size: 24,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      name,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        height: 1.1,
                       ),
                     ),
+                  ),
+                  const SizedBox(height: 2),
+                  WaitChip(minutes: waiting, label: l10n.statMinutes(waiting)),
                 ],
               ),
-              const SizedBox(height: 3),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                decoration: BoxDecoration(
-                  color: GameColors.paper,
-                  borderRadius: BorderRadius.circular(9),
-                  border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        name,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          height: 1.1,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    WaitChip(minutes: waiting, label: l10n.statMinutes(waiting)),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

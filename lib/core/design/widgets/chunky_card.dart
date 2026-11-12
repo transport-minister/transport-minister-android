@@ -32,6 +32,7 @@ class ChunkyCard extends StatelessWidget {
     return PressableBuilder(
       onPressed: onPressed,
       semanticsLabel: semanticsLabel,
+      pressedScale: 0.98,
       builder: (context, pressed) => _face(pressed: pressed),
     );
   }

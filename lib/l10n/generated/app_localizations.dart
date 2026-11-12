@@ -2950,6 +2950,12 @@ abstract class AppLocalizations {
   /// **'More buses'**
   String get contractMore;
 
+  /// No description provided for @contractSigned.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Signed! Bus on the way} other{Signed! {count} buses on the way}}'**
+  String contractSigned(int count);
+
   /// No description provided for @busSeats.
   ///
   /// In en, this message translates to:

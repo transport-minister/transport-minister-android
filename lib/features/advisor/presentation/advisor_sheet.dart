@@ -80,40 +80,37 @@ class MrBusButton extends StatelessWidget {
     return PressableBuilder(
       onPressed: onPressed,
       semanticsLabel: AppLocalizations.of(context).advisorTitle,
-      builder: (context, pressed) => AnimatedScale(
-        scale: pressed ? 0.9 : 1,
-        duration: GameDimens.pressDuration,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            MrBus(mood: mood, size: 64),
-            if (news > 0 || urgent)
-              Positioned(
-                right: -4,
-                top: -2,
-                child: Container(
-                  constraints: const BoxConstraints(minWidth: 24),
-                  height: 24,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  decoration: BoxDecoration(
-                    color: ChunkyPalette.coral.face,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
-                  ),
-                  child: Text(
-                    news > 0 ? '$news' : '!',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: GameColors.paper,
-                      height: 1,
-                    ),
+      pressedScale: 0.9,
+      builder: (context, pressed) => Stack(
+        clipBehavior: Clip.none,
+        children: [
+          MrBus(mood: mood, size: 64),
+          if (news > 0 || urgent)
+            Positioned(
+              right: -4,
+              top: -2,
+              child: Container(
+                constraints: const BoxConstraints(minWidth: 24),
+                height: 24,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                decoration: BoxDecoration(
+                  color: ChunkyPalette.coral.face,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
+                ),
+                child: Text(
+                  news > 0 ? '$news' : '!',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: GameColors.paper,
+                    height: 1,
                   ),
                 ),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }

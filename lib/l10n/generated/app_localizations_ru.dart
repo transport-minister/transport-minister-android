@@ -1716,6 +1716,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get contractMore => 'Больше автобусов';
 
   @override
+  String contractSigned(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Подписано! $count автобуса в пути',
+      many: 'Подписано! $count автобусов в пути',
+      few: 'Подписано! $count автобуса в пути',
+      one: 'Подписано! $count автобус в пути',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String busSeats(int count) {
     return '$count мест';
   }

@@ -6,6 +6,7 @@ import 'package:transport_minister/core/simulation/catalog/district_catalog.dart
 import 'package:transport_minister/core/simulation/catalog/population_rules.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
+import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/features/city_game/application/city_game_controller.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
@@ -109,7 +110,7 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
     );
   }
 
-  Future<void> _run(CityCommand command) =>
+  Future<CommandOutcome> _run(CityCommand command) =>
       ref.read(cityGameProvider(widget.cityId).notifier).perform(command);
 }
 

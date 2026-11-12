@@ -43,13 +43,10 @@ class DashboardHud extends StatelessWidget {
             PressableBuilder(
               onPressed: onProfilePressed,
               semanticsLabel: l10n.profileOpen,
-              builder: (context, pressed) => AnimatedScale(
-                scale: pressed ? 0.9 : 1,
-                duration: GameDimens.pressDuration,
-                child: KeyedSubtree(
-                  key: targets?.rank,
-                  child: RankInsignia(rank: rank, size: 46),
-                ),
+              pressedScale: 0.9,
+              builder: (context, pressed) => KeyedSubtree(
+                key: targets?.rank,
+                child: RankInsignia(rank: rank, size: 46),
               ),
             ),
             const SizedBox(width: GameDimens.spaceM),
