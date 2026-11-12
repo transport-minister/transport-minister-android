@@ -45,8 +45,7 @@ class CityMap extends StatefulWidget {
 
 class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
   static const _focusScale = 1.05;
-  static const _maxScale = 2.0;
-  static const _zoomStep = 1.35;
+  static const _maxScale = 1.6;
   static const _homeCrop = 0.92;
 
   late final _traffic = AnimationController(vsync: this, duration: const Duration(seconds: 24));
@@ -116,17 +115,6 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
   void _onControllerChanged() {
     final focus = widget.controller.focus;
     _flyTo(focus == null ? _home : _cameraOn(focus.worldCenter, _focusScale));
-  }
-
-  void _zoomBy(double factor) {
-    final current = _transform.value.getMaxScaleOnAxis();
-    final applied = (current * factor).clamp(_minScale, _maxScale) / current;
-    final focal = _viewport.center(Offset.zero);
-    final zoom = Matrix4.identity()
-      ..translateByDouble(focal.dx, focal.dy, 0, 1)
-      ..scaleByDouble(applied, applied, applied, 1)
-      ..translateByDouble(-focal.dx, -focal.dy, 0, 1);
-    _flyTo(zoom.multiplied(_transform.value));
   }
 
   void _flyTo(Matrix4 target) {
@@ -218,33 +206,14 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            const Positioned(left: GameDimens.spaceS, top: GameDimens.spaceS, child: _Legend()),
             Positioned(
               right: GameDimens.spaceS,
               bottom: GameDimens.spaceS,
-              child: Column(
-                children: [
-                  ChunkyIconButton(
-                    icon: Icons.add_rounded,
-                    size: 40,
-                    semanticsLabel: l10n.mapZoomIn,
-                    onPressed: () => _zoomBy(_zoomStep),
-                  ),
-                  const SizedBox(height: GameDimens.spaceS),
-                  ChunkyIconButton(
-                    icon: Icons.remove_rounded,
-                    size: 40,
-                    semanticsLabel: l10n.mapZoomOut,
-                    onPressed: () => _zoomBy(1 / _zoomStep),
-                  ),
-                  const SizedBox(height: GameDimens.spaceS),
-                  ChunkyIconButton(
-                    icon: Icons.center_focus_strong_rounded,
-                    size: 40,
-                    semanticsLabel: l10n.mapRecenter,
-                    onPressed: widget.controller.recenter,
-                  ),
-                ],
+              child: ChunkyIconButton(
+                icon: Icons.center_focus_strong_rounded,
+                size: 40,
+                semanticsLabel: l10n.mapRecenter,
+                onPressed: widget.controller.recenter,
               ),
             ),
           ],
@@ -386,60 +355,6 @@ class WaitChip extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Legend extends StatelessWidget {
-  const _Legend();
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-      decoration: BoxDecoration(
-        color: GameColors.paper.withValues(alpha: 0.92),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: GameColors.ink, width: GameDimens.outlineThin),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _Dot(color: TrafficColors.smooth, label: l10n.trafficSmooth),
-          const SizedBox(width: 8),
-          _Dot(color: TrafficColors.busy, label: l10n.trafficBusy),
-          const SizedBox(width: 8),
-          _Dot(color: TrafficColors.jammed, label: l10n.trafficJammed),
-        ],
-      ),
-    );
-  }
-}
-
-class _Dot extends StatelessWidget {
-  const _Dot({required this.color, required this.label});
-
-  final Color color;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-            border: Border.all(color: GameColors.ink, width: 1.5),
-          ),
-        ),
-        const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700)),
-      ],
     );
   }
 }

@@ -788,24 +788,6 @@ abstract class AppLocalizations {
   /// **'Recenter map'**
   String get mapRecenter;
 
-  /// No description provided for @trafficSmooth.
-  ///
-  /// In en, this message translates to:
-  /// **'Smooth'**
-  String get trafficSmooth;
-
-  /// No description provided for @trafficBusy.
-  ///
-  /// In en, this message translates to:
-  /// **'Busy'**
-  String get trafficBusy;
-
-  /// No description provided for @trafficJammed.
-  ///
-  /// In en, this message translates to:
-  /// **'Jam'**
-  String get trafficJammed;
-
   /// No description provided for @mrBusName.
   ///
   /// In en, this message translates to:
@@ -2533,18 +2515,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Climb nine ranks and collect achievements and city badges. Good luck, Minister!'**
   String get tutorialProfile;
-
-  /// No description provided for @mapZoomIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Zoom in'**
-  String get mapZoomIn;
-
-  /// No description provided for @mapZoomOut.
-  ///
-  /// In en, this message translates to:
-  /// **'Zoom out'**
-  String get mapZoomOut;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

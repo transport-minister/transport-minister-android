@@ -55,8 +55,8 @@ void main() {
     expect(find.text('Wind Heights'), findsWidgets);
     expect(find.text('Level 1'), findsOneWidget);
     expect(find.text('Yesterday\'s money'), findsNothing);
-    expect(find.byIcon(Icons.add_rounded), findsOneWidget);
-    expect(find.byIcon(Icons.remove_rounded), findsOneWidget);
+    expect(find.text('Smooth'), findsNothing);
+    expect(find.byIcon(Icons.add_rounded), findsNothing);
   });
 
   testWidgets('adding a bus from a district spends the budget', (tester) async {
