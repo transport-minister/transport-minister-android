@@ -4,24 +4,24 @@ import 'package:transport_minister/core/simulation/decisions/decision_effect.dar
 
 abstract final class DiplomacyRules {
   static const perLevel = 5;
-  static const maxPerDecision = 12;
+  static const maxPerDecision = 6;
 
   static int perMinute(double satisfaction) {
     if (satisfaction >= 80) {
-      return 6;
+      return 3;
     }
     if (satisfaction >= 65) {
-      return 4;
+      return 2;
     }
-    return satisfaction >= 50 ? 2 : 0;
+    return satisfaction >= 50 ? 1 : 0;
   }
 
   static int forChoice(List<DecisionEffect> effects) {
     var score = 0.0;
     for (final effect in effects) {
       score += switch (effect) {
-        Mood(:final delta) => delta / 2,
-        Reputation(:final delta) => delta * 1.5,
+        Mood(:final delta) => delta / 4,
+        Reputation(:final delta) => delta * 0.75,
         _ => 0,
       };
     }

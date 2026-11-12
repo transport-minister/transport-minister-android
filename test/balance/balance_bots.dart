@@ -1,8 +1,12 @@
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/city_goal.dart';
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_desk.dart';
+import 'package:transport_minister/core/simulation/decisions/decision_effect.dart';
+import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/project_rules.dart';
@@ -61,31 +65,52 @@ class CasualBot implements BalanceBot {
   final int everySeconds;
 
   @override
-  String get name => 'casual';
+  String get name => 'casual $everySeconds s';
 
   @override
   CityState play(CityState city) =>
       city.tick % everySeconds == 0 ? const PlannerBot().play(city) : city;
 }
 
+class DistractedBot implements BalanceBot {
+  const DistractedBot({this.everySeconds = 120});
+
+  final int everySeconds;
+
+  @override
+  String get name => 'distracted $everySeconds s';
+
+  @override
+  CityState play(CityState city) =>
+      city.tick % everySeconds == 0 ? const PlannerBot(maxMoves: 2).play(city) : city;
+}
+
 class PlannerBot implements BalanceBot {
-  const PlannerBot();
+  const PlannerBot({this.gestures = true, this.maxMoves = 6});
+
+  final bool gestures;
+  final int maxMoves;
 
   static const _commands = CityCommands();
   static const _desk = DecisionDesk();
   static const _rules = ProjectRules();
   static const _metrics = MetricsCalculator();
-  static const _maxActions = 6;
   static const _reserve = 40000;
   static const _busyCongestion = 45.0;
+  static const _calmCongestion = 55.0;
+  static final _gestureOrder = [...DiplomacyActionId.values]
+    ..sort((a, b) => (b.spec.diplomacy / _price(b)).compareTo(a.spec.diplomacy / _price(a)));
+
+  static int _price(DiplomacyActionId action) =>
+      action.spec.effects.whereType<Spend>().fold(0, (sum, spend) => sum + spend.amount);
 
   @override
-  String get name => 'planner';
+  String get name => gestures ? 'planner' : 'planner without gestures';
 
   @override
   CityState play(CityState city) {
     var current = _decide(city);
-    for (var action = 0; action < _maxActions; action++) {
+    for (var move = 0; move < maxMoves; move++) {
       final next = _nextMove(current);
       if (next == null) {
         break;
@@ -161,10 +186,21 @@ class PlannerBot implements BalanceBot {
           metrics.of(a.$1).congestion + metrics.of(a.$2).congestion,
         ),
       );
+    final lacksDiplomacy =
+        technologies.isNotEmpty && city.diplomacyPoints < technologies.first.diplomacy;
+    final chasingMood =
+        technologies.isEmpty &&
+        city.level >= CityLevels.targetLevel &&
+        city.overallSatisfaction < CityGoal.happiness;
     return [
       for (final technology in technologies)
         if (city.diplomacyPoints >= technology.diplomacy)
           (city) => _commands.unlockTechnology(city, technology),
+      if (gestures && (lacksDiplomacy || chasingMood) && metrics.congestion < _calmCongestion)
+        for (final action in _gestureOrder)
+          if (_commands.diplomacyProblem(city, action)
+              case null || RejectionReason.insufficientFunds)
+            (city) => _commands.takeDiplomacyAction(city, action),
       if (city.has(TechnologyId.electricContract) && !city.hasChargingDepot)
         (city) => _commands.startProject(city, ProjectType.chargingDepot),
       if (city.has(TechnologyId.metroContract))

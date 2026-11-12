@@ -4,8 +4,8 @@ import 'package:transport_minister/core/simulation/catalog/district_catalog.dart
 import 'package:transport_minister/core/simulation/model/district_state.dart';
 
 abstract final class PopulationRules {
-  static const baseGrowthPerSecond = 1e-5;
-  static const happyGrowthPerSecond = 1.67e-5;
+  static const baseGrowthPerSecond = 1.4e-5;
+  static const happyGrowthPerSecond = 2.3e-5;
   static const congestionElasticity = 0.8;
 
   static double growthRate(DistrictId district, double satisfaction) =>

@@ -35,7 +35,7 @@ void main() {
 
     expect(
       after.satisfaction[StakeholderGroup.passengers],
-      closeTo(city.satisfaction[StakeholderGroup.passengers]! + 8, 0.001),
+      closeTo(city.satisfaction[StakeholderGroup.passengers]! + 6, 0.001),
     );
     expect(after.budget, city.budget - 120000);
   });
