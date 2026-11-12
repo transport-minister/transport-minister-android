@@ -303,6 +303,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get projectModernStops => 'Modern duraklar';
 
   @override
+  String get projectCityPark => 'Şehir parkı';
+
+  @override
+  String get projectParkAndRide => 'Park Et-Devam Et';
+
+  @override
   String get projectChargingDepot => 'Şarj garajı';
 
   @override
@@ -1833,6 +1839,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String get projectModernStopsInfo => 'Her durakta sundurma, ekran ve bank.';
 
   @override
+  String get projectCityParkInfo =>
+      'Ağaçlar, yürüyüş yolları ve oyun alanları. İnsanlar kısa yollarda daha çok yürür ve bisiklete biner.';
+
+  @override
+  String get projectParkAndRideInfo =>
+      'Otobüs duraklarının yanında büyük bir otopark. Sürücüler arabayı bırakıp otobüse biner.';
+
+  @override
   String get projectChargingDepotInfo => 'Elektrikli otobüsler için enerji.';
 
   @override
@@ -1864,6 +1878,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get chipPassengersHappier => 'Yolcular daha mutlu';
+
+  @override
+  String get chipWalkersHappier => 'Yayalar daha mutlu';
+
+  @override
+  String get chipMoreRiders => 'Daha çok yolcu';
 
   @override
   String get chipElectric => 'Volta E-12 için gerekli';

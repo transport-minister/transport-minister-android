@@ -304,6 +304,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get projectModernStops => 'Современные остановки';
 
   @override
+  String get projectCityPark => 'Городской парк';
+
+  @override
+  String get projectParkAndRide => 'Перехватывающая парковка';
+
+  @override
   String get projectChargingDepot => 'Зарядное депо';
 
   @override
@@ -1842,6 +1848,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get projectModernStopsInfo => 'Навесы, табло и скамейки на каждой остановке.';
 
   @override
+  String get projectCityParkInfo =>
+      'Деревья, дорожки и детские площадки. Короткие поездки люди чаще проходят пешком или на велосипеде.';
+
+  @override
+  String get projectParkAndRideInfo =>
+      'Большая парковка у остановок. Водители оставляют машину и пересаживаются на автобус.';
+
+  @override
   String get projectChargingDepotInfo => 'Энергия для электробусов.';
 
   @override
@@ -1873,6 +1887,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chipPassengersHappier => 'Пассажиры довольнее';
+
+  @override
+  String get chipWalkersHappier => 'Пешеходы довольнее';
+
+  @override
+  String get chipMoreRiders => 'Больше пассажиров';
 
   @override
   String get chipElectric => 'Нужно для Volta E-12';

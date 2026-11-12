@@ -59,6 +59,29 @@ class BusOnlyBot implements BalanceBot {
   }
 }
 
+class BusesAndParkAndRideBot implements BalanceBot {
+  const BusesAndParkAndRideBot();
+
+  @override
+  String get name => 'buses and park and ride';
+
+  @override
+  CityState play(CityState city) {
+    final current = const BusOnlyBot().play(city);
+    final busiest = [...const MetricsCalculator().calculate(current).districts]
+      ..sort((a, b) => b.congestion.compareTo(a.congestion));
+    for (final district in busiest) {
+      final next = _applied(
+        const CityCommands().startProject(current, ProjectType.parkAndRide, district: district.id),
+      );
+      if (next != null) {
+        return next;
+      }
+    }
+    return current;
+  }
+}
+
 class CasualBot implements BalanceBot {
   const CasualBot({this.everySeconds = 90});
 

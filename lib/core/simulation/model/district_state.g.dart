@@ -15,6 +15,8 @@ _DistrictState _$DistrictStateFromJson(Map<String, dynamic> json) => _DistrictSt
   bikeAdoption: (json['bikeAdoption'] as num?)?.toDouble() ?? 0,
   hasSmartSignals: json['hasSmartSignals'] as bool? ?? false,
   hasModernStops: json['hasModernStops'] as bool? ?? false,
+  hasPark: json['hasPark'] as bool? ?? false,
+  hasParkAndRide: json['hasParkAndRide'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$DistrictStateToJson(_DistrictState instance) => <String, dynamic>{
@@ -26,6 +28,8 @@ Map<String, dynamic> _$DistrictStateToJson(_DistrictState instance) => <String, 
   'bikeAdoption': instance.bikeAdoption,
   'hasSmartSignals': instance.hasSmartSignals,
   'hasModernStops': instance.hasModernStops,
+  'hasPark': instance.hasPark,
+  'hasParkAndRide': instance.hasParkAndRide,
 };
 
 const _$DistrictIdEnumMap = {

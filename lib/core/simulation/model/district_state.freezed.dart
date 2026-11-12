@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DistrictState {
 
- DistrictId get id; double get population; double get roadCondition; int get roadLevel; bool get hasBikeLanes; double get bikeAdoption; bool get hasSmartSignals; bool get hasModernStops;
+ DistrictId get id; double get population; double get roadCondition; int get roadLevel; bool get hasBikeLanes; double get bikeAdoption; bool get hasSmartSignals; bool get hasModernStops; bool get hasPark; bool get hasParkAndRide;
 /// Create a copy of DistrictState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $DistrictStateCopyWith<DistrictState> get copyWith => _$DistrictStateCopyWithImp
 @override
 bool operator ==(Object other) {
   final _this = this as DistrictState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DistrictState&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.population, _this.population) || other.population == _this.population)&&(identical(other.roadCondition, _this.roadCondition) || other.roadCondition == _this.roadCondition)&&(identical(other.roadLevel, _this.roadLevel) || other.roadLevel == _this.roadLevel)&&(identical(other.hasBikeLanes, _this.hasBikeLanes) || other.hasBikeLanes == _this.hasBikeLanes)&&(identical(other.bikeAdoption, _this.bikeAdoption) || other.bikeAdoption == _this.bikeAdoption)&&(identical(other.hasSmartSignals, _this.hasSmartSignals) || other.hasSmartSignals == _this.hasSmartSignals)&&(identical(other.hasModernStops, _this.hasModernStops) || other.hasModernStops == _this.hasModernStops));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DistrictState&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.population, _this.population) || other.population == _this.population)&&(identical(other.roadCondition, _this.roadCondition) || other.roadCondition == _this.roadCondition)&&(identical(other.roadLevel, _this.roadLevel) || other.roadLevel == _this.roadLevel)&&(identical(other.hasBikeLanes, _this.hasBikeLanes) || other.hasBikeLanes == _this.hasBikeLanes)&&(identical(other.bikeAdoption, _this.bikeAdoption) || other.bikeAdoption == _this.bikeAdoption)&&(identical(other.hasSmartSignals, _this.hasSmartSignals) || other.hasSmartSignals == _this.hasSmartSignals)&&(identical(other.hasModernStops, _this.hasModernStops) || other.hasModernStops == _this.hasModernStops)&&(identical(other.hasPark, _this.hasPark) || other.hasPark == _this.hasPark)&&(identical(other.hasParkAndRide, _this.hasParkAndRide) || other.hasParkAndRide == _this.hasParkAndRide));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as DistrictState;
-  return Object.hash(runtimeType,_this.id,_this.population,_this.roadCondition,_this.roadLevel,_this.hasBikeLanes,_this.bikeAdoption,_this.hasSmartSignals,_this.hasModernStops);
+  return Object.hash(runtimeType,_this.id,_this.population,_this.roadCondition,_this.roadLevel,_this.hasBikeLanes,_this.bikeAdoption,_this.hasSmartSignals,_this.hasModernStops,_this.hasPark,_this.hasParkAndRide);
 }
 
 @override
 String toString() {
   final _this = this as DistrictState;
-  return 'DistrictState(id: ${_this.id}, population: ${_this.population}, roadCondition: ${_this.roadCondition}, roadLevel: ${_this.roadLevel}, hasBikeLanes: ${_this.hasBikeLanes}, bikeAdoption: ${_this.bikeAdoption}, hasSmartSignals: ${_this.hasSmartSignals}, hasModernStops: ${_this.hasModernStops})';
+  return 'DistrictState(id: ${_this.id}, population: ${_this.population}, roadCondition: ${_this.roadCondition}, roadLevel: ${_this.roadLevel}, hasBikeLanes: ${_this.hasBikeLanes}, bikeAdoption: ${_this.bikeAdoption}, hasSmartSignals: ${_this.hasSmartSignals}, hasModernStops: ${_this.hasModernStops}, hasPark: ${_this.hasPark}, hasParkAndRide: ${_this.hasParkAndRide})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $DistrictStateCopyWith<$Res>  {
   factory $DistrictStateCopyWith(DistrictState value, $Res Function(DistrictState) _then) = _$DistrictStateCopyWithImpl;
 @useResult
 $Res call({
- DistrictId id, double population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops
+ DistrictId id, double population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops, bool hasPark, bool hasParkAndRide
 });
 
 
@@ -71,7 +71,7 @@ class _$DistrictStateCopyWithImpl<$Res>
 
 /// Create a copy of DistrictState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? population = null,Object? roadCondition = null,Object? roadLevel = null,Object? hasBikeLanes = null,Object? bikeAdoption = null,Object? hasSmartSignals = null,Object? hasModernStops = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? population = null,Object? roadCondition = null,Object? roadLevel = null,Object? hasBikeLanes = null,Object? bikeAdoption = null,Object? hasSmartSignals = null,Object? hasModernStops = null,Object? hasPark = null,Object? hasParkAndRide = null,}) {
   return _then(DistrictState(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as DistrictId,population: null == population ? _self.population : population // ignore: cast_nullable_to_non_nullable
@@ -81,6 +81,8 @@ as int,hasBikeLanes: null == hasBikeLanes ? _self.hasBikeLanes : hasBikeLanes //
 as bool,bikeAdoption: null == bikeAdoption ? _self.bikeAdoption : bikeAdoption // ignore: cast_nullable_to_non_nullable
 as double,hasSmartSignals: null == hasSmartSignals ? _self.hasSmartSignals : hasSmartSignals // ignore: cast_nullable_to_non_nullable
 as bool,hasModernStops: null == hasModernStops ? _self.hasModernStops : hasModernStops // ignore: cast_nullable_to_non_nullable
+as bool,hasPark: null == hasPark ? _self.hasPark : hasPark // ignore: cast_nullable_to_non_nullable
+as bool,hasParkAndRide: null == hasParkAndRide ? _self.hasParkAndRide : hasParkAndRide // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -166,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops,  bool hasPark,  bool hasParkAndRide)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DistrictState() when $default != null:
-return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops);case _:
+return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops,_that.hasPark,_that.hasParkAndRide);case _:
   return orElse();
 
 }
@@ -187,10 +189,10 @@ return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops,  bool hasPark,  bool hasParkAndRide)  $default,) {final _that = this;
 switch (_that) {
 case _DistrictState():
-return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops);case _:
+return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops,_that.hasPark,_that.hasParkAndRide);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +209,10 @@ return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops,  bool hasPark,  bool hasParkAndRide)?  $default,) {final _that = this;
 switch (_that) {
 case _DistrictState() when $default != null:
-return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops);case _:
+return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops,_that.hasPark,_that.hasParkAndRide);case _:
   return null;
 
 }
@@ -222,7 +224,7 @@ return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_t
 @JsonSerializable()
 
 class _DistrictState implements DistrictState {
-  const _DistrictState({required this.id, required this.population, required this.roadCondition, required this.roadLevel, this.hasBikeLanes = false, this.bikeAdoption = 0, this.hasSmartSignals = false, this.hasModernStops = false});
+  const _DistrictState({required this.id, required this.population, required this.roadCondition, required this.roadLevel, this.hasBikeLanes = false, this.bikeAdoption = 0, this.hasSmartSignals = false, this.hasModernStops = false, this.hasPark = false, this.hasParkAndRide = false});
   factory _DistrictState.fromJson(Map<String, dynamic> json) => _$DistrictStateFromJson(json);
 
 @override final  DistrictId id;
@@ -233,6 +235,8 @@ class _DistrictState implements DistrictState {
 @override@JsonKey() final  double bikeAdoption;
 @override@JsonKey() final  bool hasSmartSignals;
 @override@JsonKey() final  bool hasModernStops;
+@override@JsonKey() final  bool hasPark;
+@override@JsonKey() final  bool hasParkAndRide;
 
 /// Create a copy of DistrictState
 /// with the given fields replaced by the non-null parameter values.
@@ -247,18 +251,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DistrictState&&(identical(other.id, id) || other.id == id)&&(identical(other.population, population) || other.population == population)&&(identical(other.roadCondition, roadCondition) || other.roadCondition == roadCondition)&&(identical(other.roadLevel, roadLevel) || other.roadLevel == roadLevel)&&(identical(other.hasBikeLanes, hasBikeLanes) || other.hasBikeLanes == hasBikeLanes)&&(identical(other.bikeAdoption, bikeAdoption) || other.bikeAdoption == bikeAdoption)&&(identical(other.hasSmartSignals, hasSmartSignals) || other.hasSmartSignals == hasSmartSignals)&&(identical(other.hasModernStops, hasModernStops) || other.hasModernStops == hasModernStops));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DistrictState&&(identical(other.id, id) || other.id == id)&&(identical(other.population, population) || other.population == population)&&(identical(other.roadCondition, roadCondition) || other.roadCondition == roadCondition)&&(identical(other.roadLevel, roadLevel) || other.roadLevel == roadLevel)&&(identical(other.hasBikeLanes, hasBikeLanes) || other.hasBikeLanes == hasBikeLanes)&&(identical(other.bikeAdoption, bikeAdoption) || other.bikeAdoption == bikeAdoption)&&(identical(other.hasSmartSignals, hasSmartSignals) || other.hasSmartSignals == hasSmartSignals)&&(identical(other.hasModernStops, hasModernStops) || other.hasModernStops == hasModernStops)&&(identical(other.hasPark, hasPark) || other.hasPark == hasPark)&&(identical(other.hasParkAndRide, hasParkAndRide) || other.hasParkAndRide == hasParkAndRide));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,population,roadCondition,roadLevel,hasBikeLanes,bikeAdoption,hasSmartSignals,hasModernStops);
+    return Object.hash(runtimeType,id,population,roadCondition,roadLevel,hasBikeLanes,bikeAdoption,hasSmartSignals,hasModernStops,hasPark,hasParkAndRide);
 }
 
 @override
 String toString() {
-    return 'DistrictState(id: $id, population: $population, roadCondition: $roadCondition, roadLevel: $roadLevel, hasBikeLanes: $hasBikeLanes, bikeAdoption: $bikeAdoption, hasSmartSignals: $hasSmartSignals, hasModernStops: $hasModernStops)';
+    return 'DistrictState(id: $id, population: $population, roadCondition: $roadCondition, roadLevel: $roadLevel, hasBikeLanes: $hasBikeLanes, bikeAdoption: $bikeAdoption, hasSmartSignals: $hasSmartSignals, hasModernStops: $hasModernStops, hasPark: $hasPark, hasParkAndRide: $hasParkAndRide)';
 }
 
 
@@ -269,7 +273,7 @@ abstract mixin class _$DistrictStateCopyWith<$Res> implements $DistrictStateCopy
   factory _$DistrictStateCopyWith(_DistrictState value, $Res Function(_DistrictState) _then) = __$DistrictStateCopyWithImpl;
 @override @useResult
 $Res call({
- DistrictId id, double population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops
+ DistrictId id, double population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops, bool hasPark, bool hasParkAndRide
 });
 
 
@@ -286,7 +290,7 @@ class __$DistrictStateCopyWithImpl<$Res>
 
 /// Create a copy of DistrictState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? population = null,Object? roadCondition = null,Object? roadLevel = null,Object? hasBikeLanes = null,Object? bikeAdoption = null,Object? hasSmartSignals = null,Object? hasModernStops = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? population = null,Object? roadCondition = null,Object? roadLevel = null,Object? hasBikeLanes = null,Object? bikeAdoption = null,Object? hasSmartSignals = null,Object? hasModernStops = null,Object? hasPark = null,Object? hasParkAndRide = null,}) {
   return _then(_DistrictState(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as DistrictId,population: null == population ? _self.population : population // ignore: cast_nullable_to_non_nullable
@@ -296,6 +300,8 @@ as int,hasBikeLanes: null == hasBikeLanes ? _self.hasBikeLanes : hasBikeLanes //
 as bool,bikeAdoption: null == bikeAdoption ? _self.bikeAdoption : bikeAdoption // ignore: cast_nullable_to_non_nullable
 as double,hasSmartSignals: null == hasSmartSignals ? _self.hasSmartSignals : hasSmartSignals // ignore: cast_nullable_to_non_nullable
 as bool,hasModernStops: null == hasModernStops ? _self.hasModernStops : hasModernStops // ignore: cast_nullable_to_non_nullable
+as bool,hasPark: null == hasPark ? _self.hasPark : hasPark // ignore: cast_nullable_to_non_nullable
+as bool,hasParkAndRide: null == hasParkAndRide ? _self.hasParkAndRide : hasParkAndRide // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

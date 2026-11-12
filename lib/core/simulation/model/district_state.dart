@@ -15,6 +15,8 @@ abstract class DistrictState with _$DistrictState {
     @Default(0) double bikeAdoption,
     @Default(false) bool hasSmartSignals,
     @Default(false) bool hasModernStops,
+    @Default(false) bool hasPark,
+    @Default(false) bool hasParkAndRide,
   }) = _DistrictState;
 
   factory DistrictState.fromJson(Map<String, dynamic> json) => _$DistrictStateFromJson(json);
