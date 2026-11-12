@@ -43,7 +43,7 @@ class CityMapPainter extends CustomPainter {
 
   static const land = Color(0xFFEAF3D6);
   static const sea = Color(0xFF7CC6F5);
-  static const roadWidth = 24.0;
+  static const roadWidth = 36.0;
 
   static const _trees = [
     Offset(80, 470),
@@ -64,6 +64,33 @@ class CityMapPainter extends CustomPainter {
     Offset(130, 1040),
     Offset(620, 880),
     Offset(360, 680),
+    Offset(-120, 220),
+    Offset(-160, 640),
+    Offset(-90, 760),
+    Offset(-140, 1010),
+    Offset(240, -110),
+    Offset(620, -140),
+    Offset(940, -90),
+    Offset(-130, -60),
+    Offset(1010, 160),
+    Offset(980, 300),
+  ];
+
+  static const _waves = [
+    Offset(860, 760),
+    Offset(800, 1000),
+    Offset(620, 1150),
+    Offset(260, 1160),
+    Offset(870, 1110),
+    Offset(80, 1175),
+    Offset(1010, 620),
+    Offset(1050, 960),
+    Offset(980, 1240),
+    Offset(600, 1330),
+    Offset(250, 1310),
+    Offset(-80, 1280),
+    Offset(1060, 1380),
+    Offset(820, 1400),
   ];
 
   @override
@@ -76,7 +103,7 @@ class CityMapPainter extends CustomPainter {
     canvas.drawRect(Offset.zero & size, Paint()..color = land);
     _paintSea(canvas, size, outline);
     for (final tree in _trees) {
-      _paintTree(canvas, tree);
+      _paintTree(canvas, CityWorld.place(tree));
     }
     for (final road in RoadGeometry.all) {
       _paintRoad(canvas, road);
@@ -87,10 +114,17 @@ class CityMapPainter extends CustomPainter {
   }
 
   static Path coastline(Size size) {
+    Offset at(double x, double y) => CityWorld.place(Offset(x, y));
+    final start = at(900, 400);
+    final end = at(-6, 1130);
+    final first = [at(840, 640), at(920, 900), at(700, 1050)];
+    final second = [at(520, 1160), at(240, 1080), end];
     return Path()
-      ..moveTo(size.width + 6, 400)
-      ..cubicTo(840, 640, 920, 900, 700, 1050)
-      ..cubicTo(520, 1160, 240, 1080, -6, 1130);
+      ..moveTo(size.width + 6, start.dy)
+      ..lineTo(start.dx, start.dy)
+      ..cubicTo(first[0].dx, first[0].dy, first[1].dx, first[1].dy, first[2].dx, first[2].dy)
+      ..cubicTo(second[0].dx, second[0].dy, second[1].dx, second[1].dy, end.dx, end.dy)
+      ..lineTo(-6, end.dy);
   }
 
   void _paintSea(Canvas canvas, Size size, Paint outline) {
@@ -102,25 +136,18 @@ class CityMapPainter extends CustomPainter {
     canvas
       ..drawPath(water, Paint()..color = sea)
       ..drawPath(coast, outline);
-    final wave = Paint()
+    final foam = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3
       ..strokeCap = StrokeCap.round
       ..color = GameColors.paper.withValues(alpha: 0.8);
-    for (final center in const [
-      Offset(860, 760),
-      Offset(800, 1000),
-      Offset(620, 1150),
-      Offset(260, 1160),
-      Offset(870, 1110),
-      Offset(80, 1175),
-    ]) {
+    for (final wave in _waves) {
       canvas.drawArc(
-        Rect.fromCenter(center: center, width: 34, height: 14),
+        Rect.fromCenter(center: CityWorld.place(wave), width: 40, height: 16),
         math.pi,
         math.pi,
         false,
-        wave,
+        foam,
       );
     }
   }
@@ -143,7 +170,7 @@ class CityMapPainter extends CustomPainter {
         road.end,
         Paint()
           ..color = GameColors.ink
-          ..strokeWidth = roadWidth + 7
+          ..strokeWidth = roadWidth + 8
           ..strokeCap = StrokeCap.round,
       )
       ..drawLine(
@@ -160,20 +187,20 @@ class CityMapPainter extends CustomPainter {
     final normal = Offset(-direction.dy, direction.dx);
     final edge = Paint()
       ..color = TrafficColors.of(road.congestion(metrics))
-      ..strokeWidth = 4
+      ..strokeWidth = 5
       ..strokeCap = StrokeCap.round;
     for (final side in const [-1.0, 1.0]) {
-      final shift = normal * (roadWidth / 2 - 2) * side;
+      final shift = normal * (roadWidth / 2 - 3) * side;
       canvas.drawLine(road.start + shift, road.end + shift, edge);
     }
     final dash = Paint()
       ..color = GameColors.paper
-      ..strokeWidth = 2.5
+      ..strokeWidth = 3
       ..strokeCap = StrokeCap.round;
-    for (var travelled = 10.0; travelled < length - 10; travelled += 22) {
+    for (var travelled = 12.0; travelled < length - 12; travelled += 30) {
       canvas.drawLine(
         road.start + direction * travelled,
-        road.start + direction * math.min(travelled + 10, length),
+        road.start + direction * math.min(travelled + 14, length),
         dash,
       );
     }
@@ -278,8 +305,8 @@ class TrafficPainter extends CustomPainter {
           road,
           phase,
           forward: car.isEven,
-          length: 26,
-          width: 14,
+          length: 32,
+          width: 17,
           color: _carColors[(car + roadIndex) % _carColors.length],
         );
       }
@@ -292,8 +319,8 @@ class TrafficPainter extends CustomPainter {
         road,
         phase,
         forward: bus.isOdd,
-        length: 40,
-        width: 17,
+        length: 50,
+        width: 21,
         color: const Color(0xFFFFC93C),
         isBus: true,
       );
@@ -315,7 +342,7 @@ class TrafficPainter extends CustomPainter {
     final vector = end - start;
     final distance = vector.distance;
     final direction = vector / distance;
-    final lane = Offset(-direction.dy, direction.dx) * 6;
+    final lane = Offset(-direction.dy, direction.dx) * 9;
     final startInset = ((forward ? road.from : road.to).worldRadius + length / 2) / distance;
     final endInset = ((forward ? road.to : road.from).worldRadius + length / 2) / distance;
     final travel = startInset + phase * (1 - startInset - endInset);
@@ -342,7 +369,7 @@ class TrafficPainter extends CustomPainter {
       for (var window = 0; window < 4; window++) {
         canvas.drawRRect(
           RRect.fromRectAndRadius(
-            Rect.fromLTWH(-length / 2 + 5 + window * 8.5, -width / 2 + 3, 6, width - 6),
+            Rect.fromLTWH(-length / 2 + 6 + window * 10.5, -width / 2 + 4, 7.5, width - 8),
             const Radius.circular(2),
           ),
           Paint()..color = _glass,
@@ -351,7 +378,7 @@ class TrafficPainter extends CustomPainter {
     } else {
       canvas.drawRRect(
         RRect.fromRectAndRadius(
-          Rect.fromLTWH(length / 2 - 11, -width / 2 + 3, 7, width - 6),
+          Rect.fromLTWH(length / 2 - 13, -width / 2 + 4, 8.5, width - 8),
           const Radius.circular(2),
         ),
         Paint()..color = _glass,

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:transport_minister/features/city_game/application/city_game_controller.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 
@@ -15,19 +16,20 @@ class CityLifecycleScope extends ConsumerStatefulWidget {
 
 class _CityLifecycleScopeState extends ConsumerState<CityLifecycleScope> {
   late final AppLifecycleListener _listener;
+  late final CityGameController _clock;
 
   @override
   void initState() {
     super.initState();
-    _listener = AppLifecycleListener(
-      onPause: () => ref.read(cityGameProvider(widget.cityId).notifier).pause(),
-      onResume: () => ref.read(cityGameProvider(widget.cityId).notifier).resume(),
-    );
+    _clock = ref.read(cityGameProvider(widget.cityId).notifier);
+    _listener = AppLifecycleListener(onPause: _clock.appPaused, onResume: _clock.appResumed);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _clock.enterDashboard());
   }
 
   @override
   void dispose() {
     _listener.dispose();
+    _clock.leaveDashboard();
     super.dispose();
   }
 

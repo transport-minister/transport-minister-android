@@ -40,56 +40,69 @@ void main() {
     final saved = await openGame().read(citySaveRepositoryProvider).load(CityId.baku);
 
     expect(session.city.day, 1);
-    expect(session.awaySummary, isNull);
     expect(saved?.city, session.city);
   });
 
-  test('coming back later replays the missed days and summarizes them', () async {
-    await openGame().read(baku.future);
-    now.advance(const Duration(minutes: 3, seconds: 20));
-
-    final session = await openGame().read(baku.future);
-
-    expect(session.city.day, 4);
-    expect(session.dayProgress, closeTo(1 / 3, 0.01));
-    expect(session.awaySummary?.days, 3);
-    expect(session.awaySummary?.capped, isFalse);
-  });
-
-  test('a long absence is capped at seven days', () async {
+  test('time away from the city does not move it', () async {
     await openGame().read(baku.future);
     now.advance(const Duration(hours: 5));
 
     final session = await openGame().read(baku.future);
 
-    expect(session.city.day, 8);
-    expect(session.awaySummary?.capped, isTrue);
+    expect(session.city.day, 1);
   });
 
-  test('time ticks into new days while playing', () async {
+  test('time only runs while the minister is on the city dashboard', () async {
     final container = openGame();
     await container.read(baku.future);
+    final controller = container.read(baku.notifier);
 
+    now.advance(const Duration(minutes: 3));
+    controller.tick();
+    final beforeEntering = container.read(baku).requireValue.city.day;
+
+    controller.enterDashboard();
     now.advance(const Duration(seconds: 61));
-    container.read(baku.notifier).tick();
+    controller.tick();
+    final whilePlaying = container.read(baku).requireValue.city.day;
 
+    controller.leaveDashboard();
+    now.advance(const Duration(minutes: 10));
+    controller
+      ..enterDashboard()
+      ..tick();
+
+    expect(beforeEntering, 1);
+    expect(whilePlaying, 2);
     expect(container.read(baku).requireValue.city.day, 2);
   });
 
-  test('a paused city waits and catches up with a summary on resume', () async {
+  test('a minimized app stops the clock even on the dashboard', () async {
     final container = openGame();
     await container.read(baku.future);
-    final controller = container.read(baku.notifier)..pause();
+    final controller = container.read(baku.notifier)
+      ..enterDashboard()
+      ..appPaused();
 
-    now.advance(const Duration(minutes: 5));
-    controller.tick();
-    final whilePaused = container.read(baku).requireValue.city.day;
-    controller.resume();
-    final resumed = container.read(baku).requireValue;
+    now.advance(const Duration(minutes: 10));
+    controller
+      ..appResumed()
+      ..tick();
 
-    expect(whilePaused, 1);
-    expect(resumed.city.day, 6);
-    expect(resumed.awaySummary?.days, 5);
+    expect(container.read(baku).requireValue.city.day, 1);
+  });
+
+  test('partial days are kept when leaving the city', () async {
+    final container = openGame();
+    await container.read(baku.future);
+    container.read(baku.notifier).enterDashboard();
+    now.advance(const Duration(seconds: 40));
+    container.read(baku.notifier).leaveDashboard();
+    await Future<void>.delayed(Duration.zero);
+
+    final saved = await container.read(citySaveRepositoryProvider).load(CityId.baku);
+
+    expect(saved?.anchor.carriedMs, 40000);
   });
 
   test('applied commands are saved and rejected ones change nothing', () async {

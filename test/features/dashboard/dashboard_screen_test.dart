@@ -1,16 +1,20 @@
+import 'dart:async';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
+import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/data/local_city_save_repository.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/game_screen_harness.dart';
@@ -51,6 +55,8 @@ void main() {
     expect(find.text('Wind Heights'), findsWidgets);
     expect(find.text('Level 1'), findsOneWidget);
     expect(find.text('Yesterday\'s money'), findsNothing);
+    expect(find.byIcon(Icons.add_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.remove_rounded), findsOneWidget);
   });
 
   testWidgets('adding a bus from a district spends the budget', (tester) async {
@@ -72,24 +78,32 @@ void main() {
     expect(find.text('Bus ordered! It joins the fleet tomorrow.'), findsOneWidget);
   });
 
-  testWidgets('coming back after a few minutes shows what happened', (tester) async {
-    await saveBaku(syncedAt: now.current.subtract(const Duration(minutes: 4)));
-
+  testWidgets('the clock stops when the minister leaves the dashboard', (tester) async {
     await pumpGameScreen(
       tester,
       const DashboardScreen(cityId: CityId.baku),
       store: store,
       now: now,
     );
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+    final controller = container.read(cityGameProvider(CityId.baku).notifier);
 
-    expect(find.text('While you were away'), findsOneWidget);
-    expect(find.text('4 days passed in Baku'), findsOneWidget);
-
-    await tester.tap(find.text('Let\'s go!'));
+    now.advance(const Duration(seconds: 61));
+    controller.tick();
     await tester.pumpAndSettle();
+    final whilePlaying = container.read(cityGameProvider(CityId.baku)).requireValue.city.day;
 
-    expect(find.text('While you were away'), findsNothing);
-    expect(find.text('Yesterday\'s money'), findsOneWidget);
+    unawaited(
+      tester
+          .state<NavigatorState>(find.byType(Navigator))
+          .pushReplacement(MaterialPageRoute<void>(builder: (context) => const SizedBox())),
+    );
+    await tester.pumpAndSettle();
+    now.advance(const Duration(minutes: 30));
+    controller.tick();
+
+    expect(whilePlaying, 2);
+    expect(container.read(cityGameProvider(CityId.baku)).requireValue.city.day, 2);
   });
 
   testWidgets('a dismissed minister can start over', (tester) async {
@@ -112,23 +126,6 @@ void main() {
 
     expect(find.text('You have been dismissed'), findsNothing);
     expect(find.text('Wind Heights'), findsWidgets);
-  });
-
-  testWidgets('the busiest district comes first in the strip and opens on tap', (tester) async {
-    await pumpGameScreen(
-      tester,
-      const DashboardScreen(cityId: CityId.baku),
-      store: store,
-      now: now,
-    );
-
-    await tester.tap(
-      find.descendant(of: find.byType(DistrictStrip), matching: find.text('Oil Harbor')),
-    );
-    await tester.pump(const Duration(milliseconds: 400));
-    await tester.pumpAndSettle();
-
-    expect(find.text('Cranes, trucks and the city\'s cargo gate'), findsOneWidget);
   });
 
   testWidgets('tapping a district on the map opens it', (tester) async {

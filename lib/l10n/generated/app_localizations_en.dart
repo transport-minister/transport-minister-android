@@ -249,30 +249,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get reportTitle => 'Yesterday\'s money';
-
-  @override
-  String get reportEmpty => 'Your first day is underway. Reports arrive every minute.';
-
-  @override
-  String reportNet(String amount) {
-    return 'Net $amount';
-  }
-
-  @override
-  String get reportSeeAll => 'See all';
-
-  @override
-  String reportSheetTitle(int day) {
-    return 'Day $day budget';
-  }
-
-  @override
-  String reportBudgetAfter(String amount) {
-    return 'Budget after the day: $amount';
-  }
-
-  @override
   String get ledgerTickets => 'Ticket sales';
 
   @override
@@ -406,38 +382,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String eventCrisisWarning(int level) {
     return 'President\'s warning $level/3';
   }
-
-  @override
-  String get awayTitle => 'While you were away';
-
-  @override
-  String awayDays(int days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days days passed in Baku',
-      one: '1 day passed in Baku',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get awayCapped => 'The city paused after a week to wait for you.';
-
-  @override
-  String get awayBudget => 'Budget';
-
-  @override
-  String get awaySatisfaction => 'Satisfaction';
-
-  @override
-  String get awayBusesDelivered => 'Buses delivered';
-
-  @override
-  String get awayProjectsCompleted => 'Projects finished';
-
-  @override
-  String get awayContinue => 'Let\'s go!';
 
   @override
   String get dismissedTitle => 'You have been dismissed';
@@ -1509,7 +1453,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String tutorialDistrict(String district) {
-    return 'People in $district wait the longest. Tap it!';
+    return 'People in $district wait the longest. Find it on the map and tap it!';
   }
 
   @override
@@ -1532,4 +1476,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get tutorialProfile =>
       'Climb nine ranks and collect achievements and city badges. Good luck, Minister!';
+
+  @override
+  String get mapZoomIn => 'Zoom in';
+
+  @override
+  String get mapZoomOut => 'Zoom out';
 }

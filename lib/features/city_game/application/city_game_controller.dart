@@ -6,7 +6,6 @@ import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/time/clock_providers.dart';
-import 'package:transport_minister/features/city_game/application/away_summary.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
@@ -24,7 +23,9 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
 
   late TimeAnchor _anchor;
   Timer? _ticker;
-  var _paused = false;
+  var _paused = true;
+  var _onDashboard = false;
+  var _appActive = true;
 
   DateTime _now() => ref.read(nowProvider)();
 
@@ -34,20 +35,25 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     final now = _now();
     final saved = await ref.read(citySaveRepositoryProvider).load(cityId);
     final city = saved?.city ?? _newCity(now);
-    _anchor = saved?.anchor ?? TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch);
-    final session = _catchUp(city, now, summarize: saved != null);
-    await _persist(session.city);
-    _recordProgress(session.city, session.latestEvents);
-    _startTicker();
-    return session;
+    _anchor = _restartedAt(now, saved?.anchor);
+    await _persist(city);
+    _recordProgress(city, const []);
+    return CityGameSession(city: city, dayProgress: _progressOf(_anchor));
   }
 
   void tick() {
-    final session = state.value;
-    if (session == null || _paused || session.city.crisis.dismissed) {
+    if (!ref.mounted || _paused) {
       return;
     }
-    final reading = ref.read(simulationClockProvider).read(_anchor, _now());
+    _advanceTo(_now());
+  }
+
+  void _advanceTo(DateTime time) {
+    final session = state.value;
+    if (session == null || session.city.crisis.dismissed) {
+      return;
+    }
+    final reading = ref.read(simulationClockProvider).read(_anchor, time);
     _anchor = reading.anchor;
     if (reading.days == 0) {
       state = AsyncData(session.copyWith(dayProgress: reading.dayProgress));
@@ -61,23 +67,52 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     _recordProgress(city, events);
   }
 
-  void pause() {
-    tick();
-    _paused = true;
-    _stopTicker();
+  void enterDashboard() {
+    _onDashboard = true;
+    _syncClock();
   }
 
-  void resume() {
-    final session = state.value;
-    if (session == null || !_paused) {
+  void leaveDashboard() {
+    _onDashboard = false;
+    _syncClock();
+  }
+
+  void appPaused() {
+    _appActive = false;
+    _syncClock();
+  }
+
+  void appResumed() {
+    _appActive = true;
+    _syncClock();
+  }
+
+  void _syncClock() {
+    if (!ref.mounted) {
       return;
     }
-    _paused = false;
-    final resumed = _catchUp(session.city, _now(), summarize: true);
-    state = AsyncData(resumed.copyWith(awaySummary: resumed.awaySummary ?? session.awaySummary));
-    unawaited(_persist(resumed.city));
-    _recordProgress(resumed.city, resumed.latestEvents);
-    _startTicker();
+    final shouldRun = _onDashboard && _appActive;
+    if (shouldRun && _paused) {
+      _paused = false;
+      _anchor = _restartedAt(_now(), _anchor);
+      _startTicker();
+    } else if (!shouldRun && !_paused) {
+      final stoppedAt = _now();
+      _paused = true;
+      _stopTicker();
+      scheduleMicrotask(() => _settle(stoppedAt));
+    }
+  }
+
+  void _settle(DateTime stoppedAt) {
+    if (!ref.mounted) {
+      return;
+    }
+    _advanceTo(stoppedAt);
+    final city = state.value?.city;
+    if (city != null) {
+      unawaited(_persist(city));
+    }
   }
 
   Future<CommandOutcome> perform(CityCommand command) async {
@@ -91,38 +126,22 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     return outcome;
   }
 
-  void dismissAwaySummary() {
-    final session = state.value;
-    if (session != null) {
-      state = AsyncData(session.copyWith(awaySummary: null));
-    }
-  }
-
   Future<void> restartCity() async {
     final now = _now();
     _anchor = TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch);
     final city = _newCity(now);
     state = AsyncData(CityGameSession(city: city, dayProgress: 0));
     await _persist(city);
-    _startTicker();
+    if (!_paused) {
+      _startTicker();
+    }
   }
 
-  CityGameSession _catchUp(CityState city, DateTime now, {required bool summarize}) {
-    final reading = ref.read(simulationClockProvider).read(_anchor, now);
-    _anchor = reading.anchor;
-    if (reading.days == 0 || city.crisis.dismissed) {
-      return CityGameSession(city: city, dayProgress: reading.dayProgress);
-    }
-    final (next, events) = _simulate(city, reading.days);
-    return CityGameSession(
-      city: next,
-      dayProgress: reading.dayProgress,
-      latestEvents: events,
-      awaySummary: summarize
-          ? AwaySummary.between(city, next, events, capped: reading.capped)
-          : null,
-    );
-  }
+  TimeAnchor _restartedAt(DateTime now, TimeAnchor? previous) =>
+      TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch, carriedMs: previous?.carriedMs ?? 0);
+
+  double _progressOf(TimeAnchor anchor) =>
+      anchor.carriedMs / ref.read(simulationClockProvider).dayLength.inMilliseconds;
 
   void _recordProgress(CityState city, List<CityEvent> events) {
     unawaited(ref.read(profileProvider.notifier).applyCity(cityId, city, events));

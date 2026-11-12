@@ -12,7 +12,7 @@ class TutorialTargets {
   final mood = GlobalKey(debugLabel: 'mood');
   final clock = GlobalKey(debugLabel: 'clock');
   final rank = GlobalKey(debugLabel: 'rank');
-  final districts = GlobalKey(debugLabel: 'districts');
+  final map = GlobalKey(debugLabel: 'map');
   final level = GlobalKey(debugLabel: 'level');
   final news = GlobalKey(debugLabel: 'news');
   final tasks = GlobalKey(debugLabel: 'tasks');
@@ -21,7 +21,7 @@ class TutorialTargets {
     TutorialStep.budget => budget,
     TutorialStep.mood => mood,
     TutorialStep.clock => clock,
-    TutorialStep.district => districts,
+    TutorialStep.district => map,
     TutorialStep.level => level,
     TutorialStep.news => news,
     TutorialStep.tasks => tasks,
