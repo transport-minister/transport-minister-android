@@ -10,7 +10,7 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get appTitle => 'Ulaştırma Bakanı';
+  String get appTitle => 'Transport Minister';
 
   @override
   String get appTagline => 'Şehri yürüt. Halkı kazan.';
@@ -22,10 +22,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get commonGotIt => 'Anladım';
 
   @override
-  String get splashTitleTop => 'Ulaştırma';
+  String get splashTitleTop => 'Transport';
 
   @override
-  String get splashTitleBottom => 'Bakanı';
+  String get splashTitleBottom => 'Minister';
 
   @override
   String get splashLoading => 'Şehir hazırlanıyor…';
