@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CityState {
 
- int get seed; int get day; int get budget; int get fare; int get depotCapacity; RoadMaintenanceLevel get roadMaintenance; List<DistrictState> get districts; List<Bus> get fleet; Map<StakeholderGroup, double> get satisfaction; List<Project> get projects; bool get hasChargingDepot; Loan? get loan; CrisisState get crisis; CityStats get stats; Map<LedgerItem, int> get pendingLedger; List<DailyReport> get reports; int get nextId; int get developmentPoints; List<PendingDecision> get decisions; List<ActiveModifier> get modifiers; List<DecisionRecord> get decisionLog; int get lastDecisionDay; int get diplomacyPoints; Set<TechnologyId> get technologies;
+ int get seed; int get day; int get budget; int get fare; int get depotCapacity; RoadMaintenanceLevel get roadMaintenance; List<DistrictState> get districts; List<Bus> get fleet; Map<StakeholderGroup, double> get satisfaction; List<Project> get projects; bool get hasChargingDepot; Loan? get loan; CrisisState get crisis; CityStats get stats; Map<LedgerItem, int> get pendingLedger; List<DailyReport> get reports; int get nextId; int get developmentPoints; List<PendingDecision> get decisions; List<ActiveModifier> get modifiers; List<DecisionRecord> get decisionLog; int get lastDecisionDay; int get diplomacyPoints; Set<TechnologyId> get technologies; List<MetroLine> get metroLines;
 /// Create a copy of CityState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $CityStateCopyWith<CityState> get copyWith => _$CityStateCopyWithImpl<CityState>
 @override
 bool operator ==(Object other) {
   final _this = this as CityState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityState&&(identical(other.seed, _this.seed) || other.seed == _this.seed)&&(identical(other.day, _this.day) || other.day == _this.day)&&(identical(other.budget, _this.budget) || other.budget == _this.budget)&&(identical(other.fare, _this.fare) || other.fare == _this.fare)&&(identical(other.depotCapacity, _this.depotCapacity) || other.depotCapacity == _this.depotCapacity)&&(identical(other.roadMaintenance, _this.roadMaintenance) || other.roadMaintenance == _this.roadMaintenance)&&const DeepCollectionEquality().equals(other.districts, _this.districts)&&const DeepCollectionEquality().equals(other.fleet, _this.fleet)&&const DeepCollectionEquality().equals(other.satisfaction, _this.satisfaction)&&const DeepCollectionEquality().equals(other.projects, _this.projects)&&(identical(other.hasChargingDepot, _this.hasChargingDepot) || other.hasChargingDepot == _this.hasChargingDepot)&&(identical(other.loan, _this.loan) || other.loan == _this.loan)&&(identical(other.crisis, _this.crisis) || other.crisis == _this.crisis)&&(identical(other.stats, _this.stats) || other.stats == _this.stats)&&const DeepCollectionEquality().equals(other.pendingLedger, _this.pendingLedger)&&const DeepCollectionEquality().equals(other.reports, _this.reports)&&(identical(other.nextId, _this.nextId) || other.nextId == _this.nextId)&&(identical(other.developmentPoints, _this.developmentPoints) || other.developmentPoints == _this.developmentPoints)&&const DeepCollectionEquality().equals(other.decisions, _this.decisions)&&const DeepCollectionEquality().equals(other.modifiers, _this.modifiers)&&const DeepCollectionEquality().equals(other.decisionLog, _this.decisionLog)&&(identical(other.lastDecisionDay, _this.lastDecisionDay) || other.lastDecisionDay == _this.lastDecisionDay)&&(identical(other.diplomacyPoints, _this.diplomacyPoints) || other.diplomacyPoints == _this.diplomacyPoints)&&const DeepCollectionEquality().equals(other.technologies, _this.technologies));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityState&&(identical(other.seed, _this.seed) || other.seed == _this.seed)&&(identical(other.day, _this.day) || other.day == _this.day)&&(identical(other.budget, _this.budget) || other.budget == _this.budget)&&(identical(other.fare, _this.fare) || other.fare == _this.fare)&&(identical(other.depotCapacity, _this.depotCapacity) || other.depotCapacity == _this.depotCapacity)&&(identical(other.roadMaintenance, _this.roadMaintenance) || other.roadMaintenance == _this.roadMaintenance)&&const DeepCollectionEquality().equals(other.districts, _this.districts)&&const DeepCollectionEquality().equals(other.fleet, _this.fleet)&&const DeepCollectionEquality().equals(other.satisfaction, _this.satisfaction)&&const DeepCollectionEquality().equals(other.projects, _this.projects)&&(identical(other.hasChargingDepot, _this.hasChargingDepot) || other.hasChargingDepot == _this.hasChargingDepot)&&(identical(other.loan, _this.loan) || other.loan == _this.loan)&&(identical(other.crisis, _this.crisis) || other.crisis == _this.crisis)&&(identical(other.stats, _this.stats) || other.stats == _this.stats)&&const DeepCollectionEquality().equals(other.pendingLedger, _this.pendingLedger)&&const DeepCollectionEquality().equals(other.reports, _this.reports)&&(identical(other.nextId, _this.nextId) || other.nextId == _this.nextId)&&(identical(other.developmentPoints, _this.developmentPoints) || other.developmentPoints == _this.developmentPoints)&&const DeepCollectionEquality().equals(other.decisions, _this.decisions)&&const DeepCollectionEquality().equals(other.modifiers, _this.modifiers)&&const DeepCollectionEquality().equals(other.decisionLog, _this.decisionLog)&&(identical(other.lastDecisionDay, _this.lastDecisionDay) || other.lastDecisionDay == _this.lastDecisionDay)&&(identical(other.diplomacyPoints, _this.diplomacyPoints) || other.diplomacyPoints == _this.diplomacyPoints)&&const DeepCollectionEquality().equals(other.technologies, _this.technologies)&&const DeepCollectionEquality().equals(other.metroLines, _this.metroLines));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as CityState;
-  return Object.hashAll([runtimeType,_this.seed,_this.day,_this.budget,_this.fare,_this.depotCapacity,_this.roadMaintenance,const DeepCollectionEquality().hash(_this.districts),const DeepCollectionEquality().hash(_this.fleet),const DeepCollectionEquality().hash(_this.satisfaction),const DeepCollectionEquality().hash(_this.projects),_this.hasChargingDepot,_this.loan,_this.crisis,_this.stats,const DeepCollectionEquality().hash(_this.pendingLedger),const DeepCollectionEquality().hash(_this.reports),_this.nextId,_this.developmentPoints,const DeepCollectionEquality().hash(_this.decisions),const DeepCollectionEquality().hash(_this.modifiers),const DeepCollectionEquality().hash(_this.decisionLog),_this.lastDecisionDay,_this.diplomacyPoints,const DeepCollectionEquality().hash(_this.technologies)]);
+  return Object.hashAll([runtimeType,_this.seed,_this.day,_this.budget,_this.fare,_this.depotCapacity,_this.roadMaintenance,const DeepCollectionEquality().hash(_this.districts),const DeepCollectionEquality().hash(_this.fleet),const DeepCollectionEquality().hash(_this.satisfaction),const DeepCollectionEquality().hash(_this.projects),_this.hasChargingDepot,_this.loan,_this.crisis,_this.stats,const DeepCollectionEquality().hash(_this.pendingLedger),const DeepCollectionEquality().hash(_this.reports),_this.nextId,_this.developmentPoints,const DeepCollectionEquality().hash(_this.decisions),const DeepCollectionEquality().hash(_this.modifiers),const DeepCollectionEquality().hash(_this.decisionLog),_this.lastDecisionDay,_this.diplomacyPoints,const DeepCollectionEquality().hash(_this.technologies),const DeepCollectionEquality().hash(_this.metroLines)]);
 }
 
 @override
 String toString() {
   final _this = this as CityState;
-  return 'CityState(seed: ${_this.seed}, day: ${_this.day}, budget: ${_this.budget}, fare: ${_this.fare}, depotCapacity: ${_this.depotCapacity}, roadMaintenance: ${_this.roadMaintenance}, districts: ${_this.districts}, fleet: ${_this.fleet}, satisfaction: ${_this.satisfaction}, projects: ${_this.projects}, hasChargingDepot: ${_this.hasChargingDepot}, loan: ${_this.loan}, crisis: ${_this.crisis}, stats: ${_this.stats}, pendingLedger: ${_this.pendingLedger}, reports: ${_this.reports}, nextId: ${_this.nextId}, developmentPoints: ${_this.developmentPoints}, decisions: ${_this.decisions}, modifiers: ${_this.modifiers}, decisionLog: ${_this.decisionLog}, lastDecisionDay: ${_this.lastDecisionDay}, diplomacyPoints: ${_this.diplomacyPoints}, technologies: ${_this.technologies})';
+  return 'CityState(seed: ${_this.seed}, day: ${_this.day}, budget: ${_this.budget}, fare: ${_this.fare}, depotCapacity: ${_this.depotCapacity}, roadMaintenance: ${_this.roadMaintenance}, districts: ${_this.districts}, fleet: ${_this.fleet}, satisfaction: ${_this.satisfaction}, projects: ${_this.projects}, hasChargingDepot: ${_this.hasChargingDepot}, loan: ${_this.loan}, crisis: ${_this.crisis}, stats: ${_this.stats}, pendingLedger: ${_this.pendingLedger}, reports: ${_this.reports}, nextId: ${_this.nextId}, developmentPoints: ${_this.developmentPoints}, decisions: ${_this.decisions}, modifiers: ${_this.modifiers}, decisionLog: ${_this.decisionLog}, lastDecisionDay: ${_this.lastDecisionDay}, diplomacyPoints: ${_this.diplomacyPoints}, technologies: ${_this.technologies}, metroLines: ${_this.metroLines})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $CityStateCopyWith<$Res>  {
   factory $CityStateCopyWith(CityState value, $Res Function(CityState) _then) = _$CityStateCopyWithImpl;
 @useResult
 $Res call({
- int seed, int day, int budget, int fare, int depotCapacity, RoadMaintenanceLevel roadMaintenance, List<DistrictState> districts, List<Bus> fleet, Map<StakeholderGroup, double> satisfaction, List<Project> projects, bool hasChargingDepot, Loan? loan, CrisisState crisis, CityStats stats, Map<LedgerItem, int> pendingLedger, List<DailyReport> reports, int nextId, int developmentPoints, List<PendingDecision> decisions, List<ActiveModifier> modifiers, List<DecisionRecord> decisionLog, int lastDecisionDay, int diplomacyPoints, Set<TechnologyId> technologies
+ int seed, int day, int budget, int fare, int depotCapacity, RoadMaintenanceLevel roadMaintenance, List<DistrictState> districts, List<Bus> fleet, Map<StakeholderGroup, double> satisfaction, List<Project> projects, bool hasChargingDepot, Loan? loan, CrisisState crisis, CityStats stats, Map<LedgerItem, int> pendingLedger, List<DailyReport> reports, int nextId, int developmentPoints, List<PendingDecision> decisions, List<ActiveModifier> modifiers, List<DecisionRecord> decisionLog, int lastDecisionDay, int diplomacyPoints, Set<TechnologyId> technologies, List<MetroLine> metroLines
 });
 
 
@@ -71,7 +71,7 @@ class _$CityStateCopyWithImpl<$Res>
 
 /// Create a copy of CityState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? seed = null,Object? day = null,Object? budget = null,Object? fare = null,Object? depotCapacity = null,Object? roadMaintenance = null,Object? districts = null,Object? fleet = null,Object? satisfaction = null,Object? projects = null,Object? hasChargingDepot = null,Object? loan = freezed,Object? crisis = null,Object? stats = null,Object? pendingLedger = null,Object? reports = null,Object? nextId = null,Object? developmentPoints = null,Object? decisions = null,Object? modifiers = null,Object? decisionLog = null,Object? lastDecisionDay = null,Object? diplomacyPoints = null,Object? technologies = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? seed = null,Object? day = null,Object? budget = null,Object? fare = null,Object? depotCapacity = null,Object? roadMaintenance = null,Object? districts = null,Object? fleet = null,Object? satisfaction = null,Object? projects = null,Object? hasChargingDepot = null,Object? loan = freezed,Object? crisis = null,Object? stats = null,Object? pendingLedger = null,Object? reports = null,Object? nextId = null,Object? developmentPoints = null,Object? decisions = null,Object? modifiers = null,Object? decisionLog = null,Object? lastDecisionDay = null,Object? diplomacyPoints = null,Object? technologies = null,Object? metroLines = null,}) {
   return _then(CityState(
 seed: null == seed ? _self.seed : seed // ignore: cast_nullable_to_non_nullable
 as int,day: null == day ? _self.day : day // ignore: cast_nullable_to_non_nullable
@@ -97,7 +97,8 @@ as List<ActiveModifier>,decisionLog: null == decisionLog ? _self.decisionLog : d
 as List<DecisionRecord>,lastDecisionDay: null == lastDecisionDay ? _self.lastDecisionDay : lastDecisionDay // ignore: cast_nullable_to_non_nullable
 as int,diplomacyPoints: null == diplomacyPoints ? _self.diplomacyPoints : diplomacyPoints // ignore: cast_nullable_to_non_nullable
 as int,technologies: null == technologies ? _self.technologies : technologies // ignore: cast_nullable_to_non_nullable
-as Set<TechnologyId>,
+as Set<TechnologyId>,metroLines: null == metroLines ? _self.metroLines : metroLines // ignore: cast_nullable_to_non_nullable
+as List<MetroLine>,
   ));
 }
 /// Create a copy of CityState
@@ -212,10 +213,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int seed,  int day,  int budget,  int fare,  int depotCapacity,  RoadMaintenanceLevel roadMaintenance,  List<DistrictState> districts,  List<Bus> fleet,  Map<StakeholderGroup, double> satisfaction,  List<Project> projects,  bool hasChargingDepot,  Loan? loan,  CrisisState crisis,  CityStats stats,  Map<LedgerItem, int> pendingLedger,  List<DailyReport> reports,  int nextId,  int developmentPoints,  List<PendingDecision> decisions,  List<ActiveModifier> modifiers,  List<DecisionRecord> decisionLog,  int lastDecisionDay,  int diplomacyPoints,  Set<TechnologyId> technologies)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int seed,  int day,  int budget,  int fare,  int depotCapacity,  RoadMaintenanceLevel roadMaintenance,  List<DistrictState> districts,  List<Bus> fleet,  Map<StakeholderGroup, double> satisfaction,  List<Project> projects,  bool hasChargingDepot,  Loan? loan,  CrisisState crisis,  CityStats stats,  Map<LedgerItem, int> pendingLedger,  List<DailyReport> reports,  int nextId,  int developmentPoints,  List<PendingDecision> decisions,  List<ActiveModifier> modifiers,  List<DecisionRecord> decisionLog,  int lastDecisionDay,  int diplomacyPoints,  Set<TechnologyId> technologies,  List<MetroLine> metroLines)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CityState() when $default != null:
-return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity,_that.roadMaintenance,_that.districts,_that.fleet,_that.satisfaction,_that.projects,_that.hasChargingDepot,_that.loan,_that.crisis,_that.stats,_that.pendingLedger,_that.reports,_that.nextId,_that.developmentPoints,_that.decisions,_that.modifiers,_that.decisionLog,_that.lastDecisionDay,_that.diplomacyPoints,_that.technologies);case _:
+return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity,_that.roadMaintenance,_that.districts,_that.fleet,_that.satisfaction,_that.projects,_that.hasChargingDepot,_that.loan,_that.crisis,_that.stats,_that.pendingLedger,_that.reports,_that.nextId,_that.developmentPoints,_that.decisions,_that.modifiers,_that.decisionLog,_that.lastDecisionDay,_that.diplomacyPoints,_that.technologies,_that.metroLines);case _:
   return orElse();
 
 }
@@ -233,10 +234,10 @@ return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int seed,  int day,  int budget,  int fare,  int depotCapacity,  RoadMaintenanceLevel roadMaintenance,  List<DistrictState> districts,  List<Bus> fleet,  Map<StakeholderGroup, double> satisfaction,  List<Project> projects,  bool hasChargingDepot,  Loan? loan,  CrisisState crisis,  CityStats stats,  Map<LedgerItem, int> pendingLedger,  List<DailyReport> reports,  int nextId,  int developmentPoints,  List<PendingDecision> decisions,  List<ActiveModifier> modifiers,  List<DecisionRecord> decisionLog,  int lastDecisionDay,  int diplomacyPoints,  Set<TechnologyId> technologies)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int seed,  int day,  int budget,  int fare,  int depotCapacity,  RoadMaintenanceLevel roadMaintenance,  List<DistrictState> districts,  List<Bus> fleet,  Map<StakeholderGroup, double> satisfaction,  List<Project> projects,  bool hasChargingDepot,  Loan? loan,  CrisisState crisis,  CityStats stats,  Map<LedgerItem, int> pendingLedger,  List<DailyReport> reports,  int nextId,  int developmentPoints,  List<PendingDecision> decisions,  List<ActiveModifier> modifiers,  List<DecisionRecord> decisionLog,  int lastDecisionDay,  int diplomacyPoints,  Set<TechnologyId> technologies,  List<MetroLine> metroLines)  $default,) {final _that = this;
 switch (_that) {
 case _CityState():
-return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity,_that.roadMaintenance,_that.districts,_that.fleet,_that.satisfaction,_that.projects,_that.hasChargingDepot,_that.loan,_that.crisis,_that.stats,_that.pendingLedger,_that.reports,_that.nextId,_that.developmentPoints,_that.decisions,_that.modifiers,_that.decisionLog,_that.lastDecisionDay,_that.diplomacyPoints,_that.technologies);case _:
+return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity,_that.roadMaintenance,_that.districts,_that.fleet,_that.satisfaction,_that.projects,_that.hasChargingDepot,_that.loan,_that.crisis,_that.stats,_that.pendingLedger,_that.reports,_that.nextId,_that.developmentPoints,_that.decisions,_that.modifiers,_that.decisionLog,_that.lastDecisionDay,_that.diplomacyPoints,_that.technologies,_that.metroLines);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -253,10 +254,10 @@ return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int seed,  int day,  int budget,  int fare,  int depotCapacity,  RoadMaintenanceLevel roadMaintenance,  List<DistrictState> districts,  List<Bus> fleet,  Map<StakeholderGroup, double> satisfaction,  List<Project> projects,  bool hasChargingDepot,  Loan? loan,  CrisisState crisis,  CityStats stats,  Map<LedgerItem, int> pendingLedger,  List<DailyReport> reports,  int nextId,  int developmentPoints,  List<PendingDecision> decisions,  List<ActiveModifier> modifiers,  List<DecisionRecord> decisionLog,  int lastDecisionDay,  int diplomacyPoints,  Set<TechnologyId> technologies)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int seed,  int day,  int budget,  int fare,  int depotCapacity,  RoadMaintenanceLevel roadMaintenance,  List<DistrictState> districts,  List<Bus> fleet,  Map<StakeholderGroup, double> satisfaction,  List<Project> projects,  bool hasChargingDepot,  Loan? loan,  CrisisState crisis,  CityStats stats,  Map<LedgerItem, int> pendingLedger,  List<DailyReport> reports,  int nextId,  int developmentPoints,  List<PendingDecision> decisions,  List<ActiveModifier> modifiers,  List<DecisionRecord> decisionLog,  int lastDecisionDay,  int diplomacyPoints,  Set<TechnologyId> technologies,  List<MetroLine> metroLines)?  $default,) {final _that = this;
 switch (_that) {
 case _CityState() when $default != null:
-return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity,_that.roadMaintenance,_that.districts,_that.fleet,_that.satisfaction,_that.projects,_that.hasChargingDepot,_that.loan,_that.crisis,_that.stats,_that.pendingLedger,_that.reports,_that.nextId,_that.developmentPoints,_that.decisions,_that.modifiers,_that.decisionLog,_that.lastDecisionDay,_that.diplomacyPoints,_that.technologies);case _:
+return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity,_that.roadMaintenance,_that.districts,_that.fleet,_that.satisfaction,_that.projects,_that.hasChargingDepot,_that.loan,_that.crisis,_that.stats,_that.pendingLedger,_that.reports,_that.nextId,_that.developmentPoints,_that.decisions,_that.modifiers,_that.decisionLog,_that.lastDecisionDay,_that.diplomacyPoints,_that.technologies,_that.metroLines);case _:
   return null;
 
 }
@@ -268,7 +269,7 @@ return $default(_that.seed,_that.day,_that.budget,_that.fare,_that.depotCapacity
 @JsonSerializable()
 
 class _CityState extends CityState {
-  const _CityState({required this.seed, required this.day, required this.budget, required this.fare, required this.depotCapacity, required this.roadMaintenance, required  List<DistrictState> districts, required  List<Bus> fleet, required  Map<StakeholderGroup, double> satisfaction,  List<Project> projects = const [], this.hasChargingDepot = false, this.loan, this.crisis = const CrisisState(), this.stats = const CityStats(),  Map<LedgerItem, int> pendingLedger = const {},  List<DailyReport> reports = const [], this.nextId = 1, this.developmentPoints = 0,  List<PendingDecision> decisions = const [],  List<ActiveModifier> modifiers = const [],  List<DecisionRecord> decisionLog = const [], this.lastDecisionDay = 0, this.diplomacyPoints = 0,  Set<TechnologyId> technologies = const {}}): _districts = districts,_fleet = fleet,_satisfaction = satisfaction,_projects = projects,_pendingLedger = pendingLedger,_reports = reports,_decisions = decisions,_modifiers = modifiers,_decisionLog = decisionLog,_technologies = technologies,super._();
+  const _CityState({required this.seed, required this.day, required this.budget, required this.fare, required this.depotCapacity, required this.roadMaintenance, required  List<DistrictState> districts, required  List<Bus> fleet, required  Map<StakeholderGroup, double> satisfaction,  List<Project> projects = const [], this.hasChargingDepot = false, this.loan, this.crisis = const CrisisState(), this.stats = const CityStats(),  Map<LedgerItem, int> pendingLedger = const {},  List<DailyReport> reports = const [], this.nextId = 1, this.developmentPoints = 0,  List<PendingDecision> decisions = const [],  List<ActiveModifier> modifiers = const [],  List<DecisionRecord> decisionLog = const [], this.lastDecisionDay = 0, this.diplomacyPoints = 0,  Set<TechnologyId> technologies = const {},  List<MetroLine> metroLines = const []}): _districts = districts,_fleet = fleet,_satisfaction = satisfaction,_projects = projects,_pendingLedger = pendingLedger,_reports = reports,_decisions = decisions,_modifiers = modifiers,_decisionLog = decisionLog,_technologies = technologies,_metroLines = metroLines,super._();
   factory _CityState.fromJson(Map<String, dynamic> json) => _$CityStateFromJson(json);
 
 @override final  int seed;
@@ -355,6 +356,13 @@ class _CityState extends CityState {
   return EqualUnmodifiableSetView(_technologies);
 }
 
+ final  List<MetroLine> _metroLines;
+@override@JsonKey() List<MetroLine> get metroLines {
+  if (_metroLines is EqualUnmodifiableListView) return _metroLines;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_metroLines);
+}
+
 
 /// Create a copy of CityState
 /// with the given fields replaced by the non-null parameter values.
@@ -369,18 +377,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityState&&(identical(other.seed, seed) || other.seed == seed)&&(identical(other.day, day) || other.day == day)&&(identical(other.budget, budget) || other.budget == budget)&&(identical(other.fare, fare) || other.fare == fare)&&(identical(other.depotCapacity, depotCapacity) || other.depotCapacity == depotCapacity)&&(identical(other.roadMaintenance, roadMaintenance) || other.roadMaintenance == roadMaintenance)&&const DeepCollectionEquality().equals(other.districts, _districts)&&const DeepCollectionEquality().equals(other.fleet, _fleet)&&const DeepCollectionEquality().equals(other.satisfaction, _satisfaction)&&const DeepCollectionEquality().equals(other.projects, _projects)&&(identical(other.hasChargingDepot, hasChargingDepot) || other.hasChargingDepot == hasChargingDepot)&&(identical(other.loan, loan) || other.loan == loan)&&(identical(other.crisis, crisis) || other.crisis == crisis)&&(identical(other.stats, stats) || other.stats == stats)&&const DeepCollectionEquality().equals(other.pendingLedger, _pendingLedger)&&const DeepCollectionEquality().equals(other.reports, _reports)&&(identical(other.nextId, nextId) || other.nextId == nextId)&&(identical(other.developmentPoints, developmentPoints) || other.developmentPoints == developmentPoints)&&const DeepCollectionEquality().equals(other.decisions, _decisions)&&const DeepCollectionEquality().equals(other.modifiers, _modifiers)&&const DeepCollectionEquality().equals(other.decisionLog, _decisionLog)&&(identical(other.lastDecisionDay, lastDecisionDay) || other.lastDecisionDay == lastDecisionDay)&&(identical(other.diplomacyPoints, diplomacyPoints) || other.diplomacyPoints == diplomacyPoints)&&const DeepCollectionEquality().equals(other.technologies, _technologies));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityState&&(identical(other.seed, seed) || other.seed == seed)&&(identical(other.day, day) || other.day == day)&&(identical(other.budget, budget) || other.budget == budget)&&(identical(other.fare, fare) || other.fare == fare)&&(identical(other.depotCapacity, depotCapacity) || other.depotCapacity == depotCapacity)&&(identical(other.roadMaintenance, roadMaintenance) || other.roadMaintenance == roadMaintenance)&&const DeepCollectionEquality().equals(other.districts, _districts)&&const DeepCollectionEquality().equals(other.fleet, _fleet)&&const DeepCollectionEquality().equals(other.satisfaction, _satisfaction)&&const DeepCollectionEquality().equals(other.projects, _projects)&&(identical(other.hasChargingDepot, hasChargingDepot) || other.hasChargingDepot == hasChargingDepot)&&(identical(other.loan, loan) || other.loan == loan)&&(identical(other.crisis, crisis) || other.crisis == crisis)&&(identical(other.stats, stats) || other.stats == stats)&&const DeepCollectionEquality().equals(other.pendingLedger, _pendingLedger)&&const DeepCollectionEquality().equals(other.reports, _reports)&&(identical(other.nextId, nextId) || other.nextId == nextId)&&(identical(other.developmentPoints, developmentPoints) || other.developmentPoints == developmentPoints)&&const DeepCollectionEquality().equals(other.decisions, _decisions)&&const DeepCollectionEquality().equals(other.modifiers, _modifiers)&&const DeepCollectionEquality().equals(other.decisionLog, _decisionLog)&&(identical(other.lastDecisionDay, lastDecisionDay) || other.lastDecisionDay == lastDecisionDay)&&(identical(other.diplomacyPoints, diplomacyPoints) || other.diplomacyPoints == diplomacyPoints)&&const DeepCollectionEquality().equals(other.technologies, _technologies)&&const DeepCollectionEquality().equals(other.metroLines, _metroLines));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hashAll([runtimeType,seed,day,budget,fare,depotCapacity,roadMaintenance,const DeepCollectionEquality().hash(_districts),const DeepCollectionEquality().hash(_fleet),const DeepCollectionEquality().hash(_satisfaction),const DeepCollectionEquality().hash(_projects),hasChargingDepot,loan,crisis,stats,const DeepCollectionEquality().hash(_pendingLedger),const DeepCollectionEquality().hash(_reports),nextId,developmentPoints,const DeepCollectionEquality().hash(_decisions),const DeepCollectionEquality().hash(_modifiers),const DeepCollectionEquality().hash(_decisionLog),lastDecisionDay,diplomacyPoints,const DeepCollectionEquality().hash(_technologies)]);
+    return Object.hashAll([runtimeType,seed,day,budget,fare,depotCapacity,roadMaintenance,const DeepCollectionEquality().hash(_districts),const DeepCollectionEquality().hash(_fleet),const DeepCollectionEquality().hash(_satisfaction),const DeepCollectionEquality().hash(_projects),hasChargingDepot,loan,crisis,stats,const DeepCollectionEquality().hash(_pendingLedger),const DeepCollectionEquality().hash(_reports),nextId,developmentPoints,const DeepCollectionEquality().hash(_decisions),const DeepCollectionEquality().hash(_modifiers),const DeepCollectionEquality().hash(_decisionLog),lastDecisionDay,diplomacyPoints,const DeepCollectionEquality().hash(_technologies),const DeepCollectionEquality().hash(_metroLines)]);
 }
 
 @override
 String toString() {
-    return 'CityState(seed: $seed, day: $day, budget: $budget, fare: $fare, depotCapacity: $depotCapacity, roadMaintenance: $roadMaintenance, districts: $districts, fleet: $fleet, satisfaction: $satisfaction, projects: $projects, hasChargingDepot: $hasChargingDepot, loan: $loan, crisis: $crisis, stats: $stats, pendingLedger: $pendingLedger, reports: $reports, nextId: $nextId, developmentPoints: $developmentPoints, decisions: $decisions, modifiers: $modifiers, decisionLog: $decisionLog, lastDecisionDay: $lastDecisionDay, diplomacyPoints: $diplomacyPoints, technologies: $technologies)';
+    return 'CityState(seed: $seed, day: $day, budget: $budget, fare: $fare, depotCapacity: $depotCapacity, roadMaintenance: $roadMaintenance, districts: $districts, fleet: $fleet, satisfaction: $satisfaction, projects: $projects, hasChargingDepot: $hasChargingDepot, loan: $loan, crisis: $crisis, stats: $stats, pendingLedger: $pendingLedger, reports: $reports, nextId: $nextId, developmentPoints: $developmentPoints, decisions: $decisions, modifiers: $modifiers, decisionLog: $decisionLog, lastDecisionDay: $lastDecisionDay, diplomacyPoints: $diplomacyPoints, technologies: $technologies, metroLines: $metroLines)';
 }
 
 
@@ -391,7 +399,7 @@ abstract mixin class _$CityStateCopyWith<$Res> implements $CityStateCopyWith<$Re
   factory _$CityStateCopyWith(_CityState value, $Res Function(_CityState) _then) = __$CityStateCopyWithImpl;
 @override @useResult
 $Res call({
- int seed, int day, int budget, int fare, int depotCapacity, RoadMaintenanceLevel roadMaintenance, List<DistrictState> districts, List<Bus> fleet, Map<StakeholderGroup, double> satisfaction, List<Project> projects, bool hasChargingDepot, Loan? loan, CrisisState crisis, CityStats stats, Map<LedgerItem, int> pendingLedger, List<DailyReport> reports, int nextId, int developmentPoints, List<PendingDecision> decisions, List<ActiveModifier> modifiers, List<DecisionRecord> decisionLog, int lastDecisionDay, int diplomacyPoints, Set<TechnologyId> technologies
+ int seed, int day, int budget, int fare, int depotCapacity, RoadMaintenanceLevel roadMaintenance, List<DistrictState> districts, List<Bus> fleet, Map<StakeholderGroup, double> satisfaction, List<Project> projects, bool hasChargingDepot, Loan? loan, CrisisState crisis, CityStats stats, Map<LedgerItem, int> pendingLedger, List<DailyReport> reports, int nextId, int developmentPoints, List<PendingDecision> decisions, List<ActiveModifier> modifiers, List<DecisionRecord> decisionLog, int lastDecisionDay, int diplomacyPoints, Set<TechnologyId> technologies, List<MetroLine> metroLines
 });
 
 
@@ -408,7 +416,7 @@ class __$CityStateCopyWithImpl<$Res>
 
 /// Create a copy of CityState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? seed = null,Object? day = null,Object? budget = null,Object? fare = null,Object? depotCapacity = null,Object? roadMaintenance = null,Object? districts = null,Object? fleet = null,Object? satisfaction = null,Object? projects = null,Object? hasChargingDepot = null,Object? loan = freezed,Object? crisis = null,Object? stats = null,Object? pendingLedger = null,Object? reports = null,Object? nextId = null,Object? developmentPoints = null,Object? decisions = null,Object? modifiers = null,Object? decisionLog = null,Object? lastDecisionDay = null,Object? diplomacyPoints = null,Object? technologies = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? seed = null,Object? day = null,Object? budget = null,Object? fare = null,Object? depotCapacity = null,Object? roadMaintenance = null,Object? districts = null,Object? fleet = null,Object? satisfaction = null,Object? projects = null,Object? hasChargingDepot = null,Object? loan = freezed,Object? crisis = null,Object? stats = null,Object? pendingLedger = null,Object? reports = null,Object? nextId = null,Object? developmentPoints = null,Object? decisions = null,Object? modifiers = null,Object? decisionLog = null,Object? lastDecisionDay = null,Object? diplomacyPoints = null,Object? technologies = null,Object? metroLines = null,}) {
   return _then(_CityState(
 seed: null == seed ? _self.seed : seed // ignore: cast_nullable_to_non_nullable
 as int,day: null == day ? _self.day : day // ignore: cast_nullable_to_non_nullable
@@ -434,7 +442,8 @@ as List<ActiveModifier>,decisionLog: null == decisionLog ? _self._decisionLog : 
 as List<DecisionRecord>,lastDecisionDay: null == lastDecisionDay ? _self.lastDecisionDay : lastDecisionDay // ignore: cast_nullable_to_non_nullable
 as int,diplomacyPoints: null == diplomacyPoints ? _self.diplomacyPoints : diplomacyPoints // ignore: cast_nullable_to_non_nullable
 as int,technologies: null == technologies ? _self._technologies : technologies // ignore: cast_nullable_to_non_nullable
-as Set<TechnologyId>,
+as Set<TechnologyId>,metroLines: null == metroLines ? _self._metroLines : metroLines // ignore: cast_nullable_to_non_nullable
+as List<MetroLine>,
   ));
 }
 

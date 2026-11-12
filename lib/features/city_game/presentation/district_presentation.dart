@@ -83,18 +83,3 @@ abstract final class CityWorld {
       )
       .reduce((bounds, area) => bounds.expandToInclude(area));
 }
-
-abstract final class CityRoads {
-  static const links = [
-    (DistrictId.windHeights, DistrictId.caspianGardens),
-    (DistrictId.windHeights, DistrictId.flameHills),
-    (DistrictId.windHeights, DistrictId.oldFortress),
-    (DistrictId.caspianGardens, DistrictId.oldFortress),
-    (DistrictId.caspianGardens, DistrictId.oilHarbor),
-    (DistrictId.flameHills, DistrictId.oldFortress),
-    (DistrictId.flameHills, DistrictId.seasideBoulevard),
-    (DistrictId.oldFortress, DistrictId.seasideBoulevard),
-    (DistrictId.oldFortress, DistrictId.oilHarbor),
-    (DistrictId.oilHarbor, DistrictId.seasideBoulevard),
-  ];
-}

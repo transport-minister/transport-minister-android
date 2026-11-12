@@ -32,7 +32,7 @@ class RoadGeometry {
   double congestion(CityMetrics metrics) =>
       (metrics.of(from).congestion + metrics.of(to).congestion) / 2;
 
-  static final all = [for (final (from, to) in CityRoads.links) RoadGeometry(from, to)];
+  static final all = [for (final (from, to) in DistrictLinks.all) RoadGeometry(from, to)];
 }
 
 class CityMapPainter extends CustomPainter {

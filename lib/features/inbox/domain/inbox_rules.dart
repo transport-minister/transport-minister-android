@@ -40,6 +40,10 @@ class InboxRules {
             NotificationKind.technology,
             {'technology': technology.name},
           ),
+          MetroLineOpened(:final from, :final to) => (
+            NotificationKind.metro,
+            {'from': from.name, 'to': to.name},
+          ),
           _ => null,
         },
     ];

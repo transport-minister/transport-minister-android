@@ -3,6 +3,7 @@ import 'package:transport_minister/core/simulation/catalog/project_catalog.dart'
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
+import 'package:transport_minister/features/city_game/presentation/district_presentation.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
 import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -27,6 +28,7 @@ extension LedgerItemText on LedgerItem {
     LedgerItem.vehicleUpgrades => l10n.ledgerVehicleUpgrades,
     LedgerItem.construction => l10n.ledgerConstruction,
     LedgerItem.technology => l10n.ledgerTechnology,
+    LedgerItem.metro => l10n.ledgerMetro,
   };
 }
 
@@ -57,6 +59,7 @@ extension RejectionReasonText on RejectionReason {
     RejectionReason.locked => l10n.rejectLocked,
     RejectionReason.insufficientDiplomacy => l10n.rejectInsufficientDiplomacy,
     RejectionReason.alreadyUnlocked => l10n.rejectAlreadyUnlocked,
+    RejectionReason.tunnelBusy => l10n.rejectTunnelBusy,
   };
 }
 
@@ -96,5 +99,13 @@ extension CityEventText on CityEvent {
     RewardGranted(:final amount) => MoneyFormat.signed(amount),
     DiplomacyEarned(:final amount) => l10n.decisionDiplomacyEarned(amount),
     TechnologyUnlocked(:final technology) => l10n.eventTechnologyUnlocked(technology.label(l10n)),
+    MetroLineStarted(:final from, :final to) => l10n.eventMetroStarted(
+      from.displayName(l10n),
+      to.displayName(l10n),
+    ),
+    MetroLineOpened(:final from, :final to) => l10n.eventMetroOpened(
+      from.displayName(l10n),
+      to.displayName(l10n),
+    ),
   };
 }

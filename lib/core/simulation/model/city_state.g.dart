@@ -69,6 +69,11 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
           ?.map((e) => $enumDecode(_$TechnologyIdEnumMap, e))
           .toSet() ??
       const {},
+  metroLines:
+      (json['metroLines'] as List<dynamic>?)
+          ?.map((e) => MetroLine.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>{
@@ -96,6 +101,7 @@ Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>
   'lastDecisionDay': instance.lastDecisionDay,
   'diplomacyPoints': instance.diplomacyPoints,
   'technologies': instance.technologies.map((e) => _$TechnologyIdEnumMap[e]!).toList(),
+  'metroLines': instance.metroLines.map((e) => e.toJson()).toList(),
 };
 
 const _$RoadMaintenanceLevelEnumMap = {
@@ -134,6 +140,7 @@ const _$LedgerItemEnumMap = {
   LedgerItem.vehicleUpgrades: 'vehicleUpgrades',
   LedgerItem.construction: 'construction',
   LedgerItem.technology: 'technology',
+  LedgerItem.metro: 'metro',
 };
 
 const _$TechnologyIdEnumMap = {

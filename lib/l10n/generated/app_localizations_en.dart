@@ -215,7 +215,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String districtRidersServed(String capacity, String demand) {
-    return 'Buses can carry $capacity of $demand riders a day';
+    return 'Can carry $capacity of $demand riders a day';
   }
 
   @override
@@ -1599,7 +1599,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get techMetroAutomationDescription =>
-      'Unlocks metro line upgrades with more frequent trains.';
+      'Driverless trains run more often and cost less to run.';
 
   @override
   String get techSmartTicketingName => 'Smart ticketing';
@@ -1828,4 +1828,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chipDepot => 'Depot +20 buses';
+
+  @override
+  String get ledgerMetro => 'Metro';
+
+  @override
+  String get rejectTunnelBusy => 'The tunnel crew is busy digging another line';
+
+  @override
+  String eventMetroStarted(String from, String to) {
+    return 'Metro $from ⇄ $to: digging started';
+  }
+
+  @override
+  String eventMetroOpened(String from, String to) {
+    return 'Metro $from ⇄ $to is open!';
+  }
+
+  @override
+  String get achievementMetroPioneerTitle => 'Metro Pioneer';
+
+  @override
+  String get achievementMetroPioneerDescription => 'Open your first metro line.';
+
+  @override
+  String metroIntro(String riders, String cost) {
+    return 'Each station carries $riders riders a day with no traffic jams. A line costs $cost/day to run.';
+  }
+
+  @override
+  String get metroTeaser =>
+      'Dig tunnels to the neighbours: thousands of riders a day and no traffic jams.';
+
+  @override
+  String metroLinesTitle(String district) {
+    return 'Lines from $district';
+  }
+
+  @override
+  String metroLineTo(String district) {
+    return 'To $district';
+  }
+
+  @override
+  String get metroOpen => 'Open';
+
+  @override
+  String metroDig(String price) {
+    return 'Dig · $price';
+  }
+
+  @override
+  String metroWaitingThere(int minutes) {
+    return 'Waiting there: $minutes min';
+  }
 }

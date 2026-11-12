@@ -61,3 +61,26 @@ extension DistrictBlueprints on DistrictId {
     ),
   };
 }
+
+abstract final class DistrictLinks {
+  static const all = [
+    (DistrictId.windHeights, DistrictId.caspianGardens),
+    (DistrictId.windHeights, DistrictId.flameHills),
+    (DistrictId.windHeights, DistrictId.oldFortress),
+    (DistrictId.caspianGardens, DistrictId.oldFortress),
+    (DistrictId.caspianGardens, DistrictId.oilHarbor),
+    (DistrictId.flameHills, DistrictId.oldFortress),
+    (DistrictId.flameHills, DistrictId.seasideBoulevard),
+    (DistrictId.oldFortress, DistrictId.seasideBoulevard),
+    (DistrictId.oldFortress, DistrictId.oilHarbor),
+    (DistrictId.oilHarbor, DistrictId.seasideBoulevard),
+  ];
+
+  static List<DistrictId> neighboursOf(DistrictId district) => [
+    for (final (first, second) in all)
+      if (first == district) second else if (second == district) first,
+  ];
+
+  static bool areNeighbours(DistrictId first, DistrictId second) =>
+      neighboursOf(first).contains(second);
+}

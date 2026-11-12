@@ -15,12 +15,14 @@ import 'package:transport_minister/features/city_game/presentation/simulation_te
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_build_tab.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_buses_tab.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_metro_tab.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 enum DistrictTab {
   buses(Icons.directions_bus_rounded),
-  build(Icons.construction_rounded);
+  build(Icons.construction_rounded),
+  metro(Icons.subway_rounded);
 
   const DistrictTab(this.icon);
 
@@ -29,6 +31,7 @@ enum DistrictTab {
   String label(AppLocalizations l10n) => switch (this) {
     DistrictTab.buses => l10n.tabBuses,
     DistrictTab.build => l10n.tabBuild,
+    DistrictTab.metro => l10n.tabMetro,
   };
 }
 
@@ -108,6 +111,13 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
                   city: city,
                   district: widget.district,
                   onAction: _run,
+                ),
+                DistrictTab.metro => DistrictMetroTab(
+                  city: city,
+                  metrics: metrics,
+                  district: widget.district,
+                  onAction: _run,
+                  onOpenTechnology: widget.onOpenTechnology,
                 ),
               },
             ],

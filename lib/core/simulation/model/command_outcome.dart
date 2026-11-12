@@ -15,6 +15,7 @@ enum RejectionReason {
   locked,
   insufficientDiplomacy,
   alreadyUnlocked,
+  tunnelBusy,
 }
 
 sealed class CommandOutcome {

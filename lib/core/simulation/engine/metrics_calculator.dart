@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
+import 'package:transport_minister/core/simulation/catalog/metro_rules.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
 import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
@@ -72,12 +73,16 @@ class MetricsCalculator {
                 state.multiplier(ModifierType.demand, district: district.id))
             .round();
     final capacityFactor = state.multiplier(ModifierType.capacity, district: district.id);
+    final lines = state.metroLinesAt(district.id);
+    final stations = lines.where((line) => line.isOpen).length;
+    final tunnels = lines.length - stations;
+    final metroRiders = stations * MetroRules.stationRiders(automated: state.metroAutomated);
     final roadFactor =
         (_roadLevelFactor[district.roadLevel] ?? 1) *
         (1 + (100 - district.roadCondition) / 100 * 0.3);
     final roadCongestion = district.id.blueprint.baseCongestion * roadFactor;
     final initialRatio = _ratio(
-      (_capacity(buses, roadCongestion) * capacityFactor).round(),
+      (_capacity(buses, roadCongestion) * capacityFactor).round() + metroRiders,
       demand,
     );
     final modalFactor = 1.1 - 0.25 * math.min(initialRatio, 1.2);
@@ -93,11 +98,13 @@ class MetricsCalculator {
       roadCongestion * modalFactor * signalsFactor +
           bikeEffect +
           construction +
+          tunnels * MetroRules.constructionCongestion -
+          stations * MetroRules.congestionRelief +
           state.additive(ModifierType.congestion, district: district.id),
       0,
       100,
     );
-    final capacity = (_capacity(buses, congestion) * capacityFactor).round();
+    final capacity = (_capacity(buses, congestion) * capacityFactor).round() + metroRiders;
     final ratio = _ratio(capacity, demand);
     final safety = _clamp(
       40 +

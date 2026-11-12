@@ -473,7 +473,7 @@ abstract class AppLocalizations {
   /// No description provided for @districtRidersServed.
   ///
   /// In en, this message translates to:
-  /// **'Buses can carry {capacity} of {demand} riders a day'**
+  /// **'Can carry {capacity} of {demand} riders a day'**
   String districtRidersServed(String capacity, String demand);
 
   /// No description provided for @districtFeatureBikeLanes.
@@ -2735,7 +2735,7 @@ abstract class AppLocalizations {
   /// No description provided for @techMetroAutomationDescription.
   ///
   /// In en, this message translates to:
-  /// **'Unlocks metro line upgrades with more frequent trains.'**
+  /// **'Driverless trains run more often and cost less to run.'**
   String get techMetroAutomationDescription;
 
   /// No description provided for @techSmartTicketingName.
@@ -3097,6 +3097,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Depot +20 buses'**
   String get chipDepot;
+
+  /// No description provided for @ledgerMetro.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro'**
+  String get ledgerMetro;
+
+  /// No description provided for @rejectTunnelBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'The tunnel crew is busy digging another line'**
+  String get rejectTunnelBusy;
+
+  /// No description provided for @eventMetroStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro {from} ⇄ {to}: digging started'**
+  String eventMetroStarted(String from, String to);
+
+  /// No description provided for @eventMetroOpened.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro {from} ⇄ {to} is open!'**
+  String eventMetroOpened(String from, String to);
+
+  /// No description provided for @achievementMetroPioneerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Metro Pioneer'**
+  String get achievementMetroPioneerTitle;
+
+  /// No description provided for @achievementMetroPioneerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Open your first metro line.'**
+  String get achievementMetroPioneerDescription;
+
+  /// No description provided for @metroIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Each station carries {riders} riders a day with no traffic jams. A line costs {cost}/day to run.'**
+  String metroIntro(String riders, String cost);
+
+  /// No description provided for @metroTeaser.
+  ///
+  /// In en, this message translates to:
+  /// **'Dig tunnels to the neighbours: thousands of riders a day and no traffic jams.'**
+  String get metroTeaser;
+
+  /// No description provided for @metroLinesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lines from {district}'**
+  String metroLinesTitle(String district);
+
+  /// No description provided for @metroLineTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To {district}'**
+  String metroLineTo(String district);
+
+  /// No description provided for @metroOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get metroOpen;
+
+  /// No description provided for @metroDig.
+  ///
+  /// In en, this message translates to:
+  /// **'Dig · {price}'**
+  String metroDig(String price);
+
+  /// No description provided for @metroWaitingThere.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting there: {minutes} min'**
+  String metroWaitingThere(int minutes);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

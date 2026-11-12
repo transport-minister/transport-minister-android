@@ -2,6 +2,7 @@ import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
+import 'package:transport_minister/core/simulation/catalog/metro_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
@@ -14,6 +15,7 @@ import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/loan.dart';
+import 'package:transport_minister/core/simulation/model/metro_line.dart';
 import 'package:transport_minister/core/simulation/model/project.dart';
 import 'package:transport_minister/core/simulation/model/road_maintenance_level.dart';
 
@@ -204,6 +206,46 @@ class CityCommands {
         -projects.cost(state, type, district: district),
       ).copyWith(projects: [...state.projects, project], nextId: state.nextId + 1),
       events: [ProjectStarted(type, district)],
+    );
+  }
+
+  RejectionReason? metroProblem(CityState state, DistrictId from, DistrictId to) {
+    if (!DistrictLinks.areNeighbours(from, to)) {
+      return RejectionReason.invalidTarget;
+    }
+    if (!state.has(TechnologyId.metroContract)) {
+      return RejectionReason.locked;
+    }
+    if (state.metroLines.any((line) => line.joins(from, to))) {
+      return RejectionReason.alreadyBuilt;
+    }
+    if (state.metroLines.any((line) => !line.isOpen)) {
+      return RejectionReason.tunnelBusy;
+    }
+    if (state.budget < MetroRules.buildCost) {
+      return RejectionReason.insufficientFunds;
+    }
+    return null;
+  }
+
+  CommandOutcome buildMetroLine(CityState state, DistrictId from, DistrictId to) {
+    final problem = metroProblem(state, from, to);
+    if (problem != null) {
+      return CommandRejected(problem);
+    }
+    final line = MetroLine(
+      from: from,
+      to: to,
+      totalDays: MetroRules.buildDays,
+      remainingDays: MetroRules.buildDays,
+    );
+    return CommandApplied(
+      _record(
+        state,
+        LedgerItem.construction,
+        -MetroRules.buildCost,
+      ).copyWith(metroLines: [...state.metroLines, line]),
+      events: [MetroLineStarted(from, to)],
     );
   }
 

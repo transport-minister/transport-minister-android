@@ -10,6 +10,7 @@ import 'package:transport_minister/core/simulation/model/daily_report.dart';
 import 'package:transport_minister/core/simulation/model/district_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/loan.dart';
+import 'package:transport_minister/core/simulation/model/metro_line.dart';
 import 'package:transport_minister/core/simulation/model/pending_decision.dart';
 import 'package:transport_minister/core/simulation/model/project.dart';
 import 'package:transport_minister/core/simulation/model/road_maintenance_level.dart';
@@ -45,6 +46,7 @@ abstract class CityState with _$CityState {
     @Default(0) int lastDecisionDay,
     @Default(0) int diplomacyPoints,
     @Default({}) Set<TechnologyId> technologies,
+    @Default([]) List<MetroLine> metroLines,
   }) = _CityState;
 
   const CityState._();
@@ -64,6 +66,11 @@ abstract class CityState with _$CityState {
   int get level => CityLevels.levelFor(developmentPoints);
 
   bool has(TechnologyId? technology) => technology == null || technologies.contains(technology);
+
+  bool get metroAutomated => has(TechnologyId.metroAutomation);
+
+  Iterable<MetroLine> metroLinesAt(DistrictId district) =>
+      metroLines.where((line) => line.connects(district));
 
   double multiplier(ModifierType type, {DistrictId? district}) => modifiers
       .where((modifier) => modifier.type == type && _covers(modifier, district))
