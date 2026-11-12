@@ -512,42 +512,6 @@ abstract class AppLocalizations {
   /// **'Repair road · {price}'**
   String actionRepairRoad(String price);
 
-  /// No description provided for @reportTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Yesterday\'s money'**
-  String get reportTitle;
-
-  /// No description provided for @reportEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'Your first day is underway. Reports arrive every minute.'**
-  String get reportEmpty;
-
-  /// No description provided for @reportNet.
-  ///
-  /// In en, this message translates to:
-  /// **'Net {amount}'**
-  String reportNet(String amount);
-
-  /// No description provided for @reportSeeAll.
-  ///
-  /// In en, this message translates to:
-  /// **'See all'**
-  String get reportSeeAll;
-
-  /// No description provided for @reportSheetTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Day {day} budget'**
-  String reportSheetTitle(int day);
-
-  /// No description provided for @reportBudgetAfter.
-  ///
-  /// In en, this message translates to:
-  /// **'Budget after the day: {amount}'**
-  String reportBudgetAfter(String amount);
-
   /// No description provided for @ledgerTickets.
   ///
   /// In en, this message translates to:
@@ -781,54 +745,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'President\'s warning {level}/3'**
   String eventCrisisWarning(int level);
-
-  /// No description provided for @awayTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'While you were away'**
-  String get awayTitle;
-
-  /// No description provided for @awayDays.
-  ///
-  /// In en, this message translates to:
-  /// **'{days, plural, =1{1 day passed in Baku} other{{days} days passed in Baku}}'**
-  String awayDays(int days);
-
-  /// No description provided for @awayCapped.
-  ///
-  /// In en, this message translates to:
-  /// **'The city paused after a week to wait for you.'**
-  String get awayCapped;
-
-  /// No description provided for @awayBudget.
-  ///
-  /// In en, this message translates to:
-  /// **'Budget'**
-  String get awayBudget;
-
-  /// No description provided for @awaySatisfaction.
-  ///
-  /// In en, this message translates to:
-  /// **'Satisfaction'**
-  String get awaySatisfaction;
-
-  /// No description provided for @awayBusesDelivered.
-  ///
-  /// In en, this message translates to:
-  /// **'Buses delivered'**
-  String get awayBusesDelivered;
-
-  /// No description provided for @awayProjectsCompleted.
-  ///
-  /// In en, this message translates to:
-  /// **'Projects finished'**
-  String get awayProjectsCompleted;
-
-  /// No description provided for @awayContinue.
-  ///
-  /// In en, this message translates to:
-  /// **'Let\'s go!'**
-  String get awayContinue;
 
   /// No description provided for @dismissedTitle.
   ///
@@ -2579,7 +2495,7 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialDistrict.
   ///
   /// In en, this message translates to:
-  /// **'People in {district} wait the longest. Tap it!'**
+  /// **'People in {district} wait the longest. Find it on the map and tap it!'**
   String tutorialDistrict(String district);
 
   /// No description provided for @tutorialBuyBus.
@@ -2617,6 +2533,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Climb nine ranks and collect achievements and city badges. Good luck, Minister!'**
   String get tutorialProfile;
+
+  /// No description provided for @mapZoomIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom in'**
+  String get mapZoomIn;
+
+  /// No description provided for @mapZoomOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoom out'**
+  String get mapZoomOut;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

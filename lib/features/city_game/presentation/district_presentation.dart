@@ -49,7 +49,9 @@ extension DistrictPresentation on DistrictId {
     DistrictId.caspianGardens => const Color(0xFFD3EFC4),
   };
 
-  Offset get worldCenter => switch (this) {
+  Offset get worldCenter => CityWorld.place(_layoutCenter);
+
+  Offset get _layoutCenter => switch (this) {
     DistrictId.windHeights => const Offset(230, 240),
     DistrictId.caspianGardens => const Offset(690, 210),
     DistrictId.flameHills => const Offset(200, 660),
@@ -69,8 +71,17 @@ extension DistrictPresentation on DistrictId {
 }
 
 abstract final class CityWorld {
-  static const size = Size(900, 1200);
-  static const center = Offset(500, 560);
+  static const spread = 1.22;
+  static const margin = 300.0;
+  static const size = Size(900 * spread + margin * 2, 1200 * spread + margin * 2);
+
+  static Offset place(Offset layout) => layout * spread + const Offset(margin, margin);
+
+  static final districtBounds = DistrictId.values
+      .map(
+        (district) => Rect.fromCircle(center: district.worldCenter, radius: district.worldRadius),
+      )
+      .reduce((bounds, area) => bounds.expandToInclude(area));
 }
 
 abstract final class CityRoads {

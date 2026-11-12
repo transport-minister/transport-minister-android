@@ -44,8 +44,10 @@ class CityMap extends StatefulWidget {
 }
 
 class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
-  static const _initialScale = 0.8;
   static const _focusScale = 1.05;
+  static const _maxScale = 2.0;
+  static const _zoomStep = 1.35;
+  static const _homeCrop = 0.92;
 
   late final _traffic = AnimationController(vsync: this, duration: const Duration(seconds: 24));
   late final _camera = AnimationController(
@@ -55,6 +57,15 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
   final _transform = TransformationController();
   Size _viewport = Size.zero;
   Animation<Matrix4>? _flight;
+
+  double get _minScale =>
+      math.max(_viewport.width / CityWorld.size.width, _viewport.height / CityWorld.size.height);
+
+  double get _homeScale => (_viewport.width / (CityWorld.districtBounds.width * _homeCrop))
+      .clamp(_minScale, 0.9)
+      .toDouble();
+
+  Matrix4 get _home => _insideWorld(_cameraOn(CityWorld.districtBounds.center, _homeScale));
 
   @override
   void initState() {
@@ -99,19 +110,41 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
         0,
         1,
       )
-      ..scaleByDouble(scale, scale, 1, 1);
+      ..scaleByDouble(scale, scale, scale, 1);
   }
 
   void _onControllerChanged() {
     final focus = widget.controller.focus;
-    final target = focus == null
-        ? _cameraOn(CityWorld.center, _initialScale)
-        : _cameraOn(focus.worldCenter, _focusScale);
+    _flyTo(focus == null ? _home : _cameraOn(focus.worldCenter, _focusScale));
+  }
+
+  void _zoomBy(double factor) {
+    final current = _transform.value.getMaxScaleOnAxis();
+    final applied = (current * factor).clamp(_minScale, _maxScale) / current;
+    final focal = _viewport.center(Offset.zero);
+    final zoom = Matrix4.identity()
+      ..translateByDouble(focal.dx, focal.dy, 0, 1)
+      ..scaleByDouble(applied, applied, applied, 1)
+      ..translateByDouble(-focal.dx, -focal.dy, 0, 1);
+    _flyTo(zoom.multiplied(_transform.value));
+  }
+
+  void _flyTo(Matrix4 target) {
     _flight = Matrix4Tween(
       begin: _transform.value,
-      end: target,
+      end: _insideWorld(target),
     ).animate(CurvedAnimation(parent: _camera, curve: Curves.easeInOutCubic));
     _camera.forward(from: 0);
+  }
+
+  Matrix4 _insideWorld(Matrix4 camera) {
+    final scale = camera.getMaxScaleOnAxis();
+    final translation = camera.getTranslation();
+    final minX = math.min(_viewport.width - CityWorld.size.width * scale, 0.0);
+    final minY = math.min(_viewport.height - CityWorld.size.height * scale, 0.0);
+    return Matrix4.identity()
+      ..translateByDouble(translation.x.clamp(minX, 0.0), translation.y.clamp(minY, 0.0), 0, 1)
+      ..scaleByDouble(scale, scale, scale, 1);
   }
 
   void _pressAt(Offset worldPosition) {
@@ -130,6 +163,7 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
         if (project.districtId != null) project.districtId!,
     };
     final buses = math.min(math.max(widget.city.activeBuses.length ~/ 2, 3), 18);
+    final l10n = AppLocalizations.of(context);
     return LayoutBuilder(
       builder: (context, constraints) {
         final viewport = constraints.biggest;
@@ -137,21 +171,16 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
           final first = _viewport == Size.zero;
           _viewport = viewport;
           if (first) {
-            _transform.value = _cameraOn(CityWorld.center, _initialScale);
+            _transform.value = _home;
           }
         }
-        final minScale = math.min(
-          viewport.width / CityWorld.size.width,
-          viewport.height / CityWorld.size.height,
-        );
         return Stack(
           children: [
             InteractiveViewer(
               transformationController: _transform,
               constrained: false,
-              minScale: minScale,
-              maxScale: 1.8,
-              boundaryMargin: const EdgeInsets.all(120),
+              minScale: _minScale,
+              maxScale: _maxScale,
               child: GestureDetector(
                 onTapUp: (details) => _pressAt(details.localPosition),
                 child: SizedBox.fromSize(
@@ -193,11 +222,29 @@ class _CityMapState extends State<CityMap> with TickerProviderStateMixin {
             Positioned(
               right: GameDimens.spaceS,
               bottom: GameDimens.spaceS,
-              child: ChunkyIconButton(
-                icon: Icons.center_focus_strong_rounded,
-                size: 40,
-                semanticsLabel: AppLocalizations.of(context).mapRecenter,
-                onPressed: widget.controller.recenter,
+              child: Column(
+                children: [
+                  ChunkyIconButton(
+                    icon: Icons.add_rounded,
+                    size: 40,
+                    semanticsLabel: l10n.mapZoomIn,
+                    onPressed: () => _zoomBy(_zoomStep),
+                  ),
+                  const SizedBox(height: GameDimens.spaceS),
+                  ChunkyIconButton(
+                    icon: Icons.remove_rounded,
+                    size: 40,
+                    semanticsLabel: l10n.mapZoomOut,
+                    onPressed: () => _zoomBy(1 / _zoomStep),
+                  ),
+                  const SizedBox(height: GameDimens.spaceS),
+                  ChunkyIconButton(
+                    icon: Icons.center_focus_strong_rounded,
+                    size: 40,
+                    semanticsLabel: l10n.mapRecenter,
+                    onPressed: widget.controller.recenter,
+                  ),
+                ],
               ),
             ),
           ],

@@ -22,16 +22,13 @@ import 'package:transport_minister/features/city_selection/presentation/city_sel
 import 'package:transport_minister/features/daily/application/daily_controller.dart';
 import 'package:transport_minister/features/daily/domain/daily_rules.dart';
 import 'package:transport_minister/features/daily/presentation/daily_sheet.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/away_summary_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_level_bar.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_lifecycle_scope.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/crisis_banner.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/daily_report_card.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dashboard_hud.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district_sheet.dart';
-import 'package:transport_minister/features/dashboard/presentation/widgets/district_strip.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
@@ -93,9 +90,6 @@ class _CityViewState extends ConsumerState<_CityView> {
   @override
   void initState() {
     super.initState();
-    if (widget.session.awaySummary != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _showAwaySummary());
-    }
     WidgetsBinding.instance.addPostFrameCallback((_) => _startTutorial());
   }
 
@@ -108,9 +102,7 @@ class _CityViewState extends ConsumerState<_CityView> {
       if (before == null || after == null) {
         return;
       }
-      if (after.awaySummary != null && before.awaySummary == null) {
-        _showAwaySummary();
-      } else if (!identical(after.latestEvents, before.latestEvents)) {
+      if (!identical(after.latestEvents, before.latestEvents)) {
         _announce(after);
       }
     });
@@ -137,22 +129,23 @@ class _CityViewState extends ConsumerState<_CityView> {
               city: city,
               rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
               dayProgress: widget.session.dayProgress,
-              onProfilePressed: () => context.push(AppRoute.profile.path),
+              onProfilePressed: () => _leaveFor(AppRoute.profile.path),
             ),
             KeyedSubtree(
               key: _targets.level,
               child: CityLevelBar(city: city, onPressed: _showLevelInfo),
             ),
             CrisisBanner(crisis: city.crisis),
-            KeyedSubtree(
-              key: _targets.districts,
-              child: DistrictStrip(metrics: metrics, onDistrictPressed: _focusDistrict),
-            ),
-            const SizedBox(height: GameDimens.spaceS),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: GameDimens.spaceL),
+                padding: EdgeInsets.fromLTRB(
+                  GameDimens.spaceL,
+                  0,
+                  GameDimens.spaceL,
+                  MediaQuery.paddingOf(context).bottom + GameDimens.spaceL,
+                ),
                 child: ChunkyCard(
+                  key: _targets.map,
                   padding: EdgeInsets.zero,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(GameDimens.radiusL - GameDimens.outline),
@@ -172,7 +165,7 @@ class _CityViewState extends ConsumerState<_CityView> {
                             size: 42,
                             semanticsLabel: AppLocalizations.of(context).inboxOpen,
                             badge: unread > 0 ? '$unread' : null,
-                            onPressed: () => context.push(AppRoute.inbox.path),
+                            onPressed: () => _leaveFor(AppRoute.inbox.path),
                           ),
                         ),
                         Positioned(
@@ -211,18 +204,6 @@ class _CityViewState extends ConsumerState<_CityView> {
                     ),
                   ),
                 ),
-              ),
-            ),
-            SafeArea(
-              top: false,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  GameDimens.spaceL,
-                  GameDimens.spaceM,
-                  GameDimens.spaceL,
-                  GameDimens.spaceM,
-                ),
-                child: DailyReportCard(report: city.lastReport),
               ),
             ),
           ],
@@ -268,16 +249,12 @@ class _CityViewState extends ConsumerState<_CityView> {
     }
   }
 
-  Future<void> _showAwaySummary() async {
-    final summary = ref.read(cityGameProvider(widget.cityId)).value?.awaySummary;
-    if (summary == null || !mounted) {
-      return;
+  Future<void> _leaveFor(String path) async {
+    final clock = ref.read(cityGameProvider(widget.cityId).notifier)..leaveDashboard();
+    await context.push<void>(path);
+    if (mounted) {
+      clock.enterDashboard();
     }
-    await showChunkySheet<void>(
-      context: context,
-      builder: (context) => AwaySummarySheet(summary: summary),
-    );
-    ref.read(cityGameProvider(widget.cityId).notifier).dismissAwaySummary();
   }
 
   void _celebrate(List<ProgressionEvent> events) {

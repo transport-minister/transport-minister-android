@@ -153,33 +153,6 @@
       }
     }
   },
-  "reportTitle": "Yesterday's money",
-  "reportEmpty": "Your first day is underway. Reports arrive every minute.",
-  "reportNet": "Net {amount}",
-  "@reportNet": {
-    "placeholders": {
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
-  "reportSeeAll": "See all",
-  "reportSheetTitle": "Day {day} budget",
-  "@reportSheetTitle": {
-    "placeholders": {
-      "day": {
-        "type": "int"
-      }
-    }
-  },
-  "reportBudgetAfter": "Budget after the day: {amount}",
-  "@reportBudgetAfter": {
-    "placeholders": {
-      "amount": {
-        "type": "String"
-      }
-    }
-  },
   "ledgerTickets": "Ticket sales",
   "ledgerSubsidy": "Daily subsidy",
   "ledgerGovernmentBudget": "Cabinet budget",
@@ -261,21 +234,6 @@
       }
     }
   },
-  "awayTitle": "While you were away",
-  "awayDays": "{days, plural, =1{1 day passed in Baku} other{{days} days passed in Baku}}",
-  "@awayDays": {
-    "placeholders": {
-      "days": {
-        "type": "int"
-      }
-    }
-  },
-  "awayCapped": "The city paused after a week to wait for you.",
-  "awayBudget": "Budget",
-  "awaySatisfaction": "Satisfaction",
-  "awayBusesDelivered": "Buses delivered",
-  "awayProjectsCompleted": "Projects finished",
-  "awayContinue": "Let's go!",
   "dismissedTitle": "You have been dismissed",
   "dismissedBody": "Baku lost faith in your leadership. Your rank and achievements stay with you. Try again with a fresh start!",
   "dismissedRestart": "Start over",
@@ -1178,7 +1136,7 @@
   "tutorialBudget": "This is your budget. Tickets and the Cabinet fill it. Fuel, wages and repairs drain it.",
   "tutorialMood": "This heart shows how happy citizens are. Below 30% for too long and the President fires you!",
   "tutorialClock": "A day passes every minute, even while you are away, for up to a week.",
-  "tutorialDistrict": "People in {district} wait the longest. Tap it!",
+  "tutorialDistrict": "People in {district} wait the longest. Find it on the map and tap it!",
   "@tutorialDistrict": {
     "placeholders": {
       "district": {
@@ -1191,5 +1149,7 @@
   "tutorialLevel": "Baku grows as you play. Reach level 10 to unlock Istanbul!",
   "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
   "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
-  "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!"
+  "tutorialProfile": "Climb nine ranks and collect achievements and city badges. Good luck, Minister!",
+  "mapZoomIn": "Zoom in",
+  "mapZoomOut": "Zoom out"
 }
