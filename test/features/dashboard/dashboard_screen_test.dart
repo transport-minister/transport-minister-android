@@ -14,6 +14,7 @@ import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/city_stats_panel.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/funded_city.dart';
@@ -50,6 +51,17 @@ void main() {
 
     expect(find.text('DAY'), findsNothing);
     expect(find.text('\$2.5M'), findsOneWidget);
+    expect(find.byIcon(Icons.favorite_rounded), findsNothing);
+    expect(find.byIcon(Icons.settings_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.handshake_rounded), findsWidgets);
+    expect(
+      find.descendant(of: find.byType(CityStatsPanel), matching: find.textContaining('/s')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: find.byType(CityStatsPanel), matching: find.textContaining(',')),
+      findsOneWidget,
+    );
     expect(find.text('Wind Heights'), findsWidgets);
     expect(find.text('Level 1'), findsOneWidget);
     expect(find.text('Yesterday\'s money'), findsNothing);

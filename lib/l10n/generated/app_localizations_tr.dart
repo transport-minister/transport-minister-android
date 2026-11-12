@@ -176,6 +176,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override
+  String get hudIncomeLabel => 'Saniyelik kazanç';
+
+  @override
+  String get hudPopulationLabel => 'Nüfus';
+
+  @override
+  String statIncome(String amount) {
+    return '$amount/sn';
+  }
+
+  @override
   String get hudBackToCities => 'Şehirler';
 
   @override
@@ -1368,7 +1379,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tutorialMood =>
-      'Bu kalp vatandaşların ne kadar mutlu olduğunu gösterir. %30\'un altında kalırsa ya da trafik şehri kilitlerse Cumhurbaşkanı seni görevden alır!';
+      'Bu yüz vatandaşların ne kadar mutlu olduğunu gösterir. %30\'un altında kalırsa ya da trafik şehri kilitlerse Cumhurbaşkanı seni görevden alır!';
 
   @override
   String tutorialDistrict(String district) {

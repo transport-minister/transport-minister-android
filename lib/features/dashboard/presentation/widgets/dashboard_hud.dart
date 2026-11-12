@@ -15,6 +15,7 @@ class DashboardHud extends StatelessWidget {
     required this.rank,
     required this.onProfilePressed,
     required this.onDiplomacyPressed,
+    required this.onSettingsPressed,
     this.targets,
   });
 
@@ -22,19 +23,12 @@ class DashboardHud extends StatelessWidget {
   final MinisterialRank rank;
   final VoidCallback onProfilePressed;
   final VoidCallback onDiplomacyPressed;
+  final VoidCallback onSettingsPressed;
   final TutorialTargets? targets;
-
-  static ChunkyPalette satisfactionPalette(double value) {
-    if (value >= 60) {
-      return ChunkyPalette.green;
-    }
-    return value >= 40 ? ChunkyPalette.sunny : ChunkyPalette.coral;
-  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final satisfaction = city.overallSatisfaction;
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -85,20 +79,16 @@ class DashboardHud extends StatelessWidget {
                           onPressed: onDiplomacyPressed,
                         ),
                       ),
-                      const SizedBox(width: GameDimens.spaceS),
-                      Semantics(
-                        key: targets?.mood,
-                        label: l10n.hudSatisfactionLabel,
-                        child: StatPill(
-                          icon: Icons.favorite_rounded,
-                          value: l10n.hudSatisfaction(satisfaction.round()),
-                          palette: satisfactionPalette(satisfaction),
-                        ),
-                      ),
                     ],
                   ),
                 ),
               ),
+            ),
+            const SizedBox(width: GameDimens.spaceS),
+            ChunkyIconButton(
+              icon: Icons.settings_rounded,
+              semanticsLabel: l10n.settingsOpen,
+              onPressed: onSettingsPressed,
             ),
           ],
         ),

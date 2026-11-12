@@ -59,7 +59,7 @@ class CityGoalSheet extends StatelessWidget {
               done: CityGoal.everyTechnology(city),
             ),
             _GoalRow(
-              icon: Icons.favorite_rounded,
+              icon: Icons.sentiment_very_satisfied_rounded,
               palette: ChunkyPalette.coral,
               title: l10n.goalHappiness(happiness),
               progressLabel: l10n.goalHappinessProgress(city.overallSatisfaction.round()),
