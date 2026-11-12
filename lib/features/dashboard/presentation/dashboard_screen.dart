@@ -159,6 +159,16 @@ class _CityViewState extends ConsumerState<_CityView> {
                           onDistrictPressed: _openDistrict,
                         ),
                         Positioned(
+                          left: GameDimens.spaceS,
+                          top: GameDimens.spaceS,
+                          child: ChunkyIconButton(
+                            icon: Icons.settings_rounded,
+                            size: _cornerButton,
+                            semanticsLabel: AppLocalizations.of(context).settingsOpen,
+                            onPressed: () => _leaveFor(AppRoute.settings.path),
+                          ),
+                        ),
+                        Positioned(
                           right: GameDimens.spaceS * 2 + _cornerButton,
                           top: GameDimens.spaceS,
                           child: ChunkyIconButton(

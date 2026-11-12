@@ -781,7 +781,7 @@
   "decisionParkingChaosOptionC": "Look the other way",
   "decisionDriverWagesTitle": "Drivers want a raise",
   "decisionDriverWagesBody": "Our bus drivers say their wages are too low. The union is whispering about a strike...",
-  "decisionDriverWagesOptionA": "Raise wages 15% forever",
+  "decisionDriverWagesOptionA": "Raise wages by 15%",
   "decisionDriverWagesOptionB": "Pay a one-time bonus",
   "decisionDriverWagesOptionC": "Refuse",
   "decisionTrafficAccidentTitle": "Crash at a busy junction",
@@ -1106,6 +1106,18 @@
     }
   },
   "diplomacyOpen": "Open diplomacy",
+  "settingsOpen": "Open settings",
+  "settingsTitle": "Settings",
+  "settingsLanguage": "Language",
+  "settingsAbout": "About",
+  "settingsVersion": "Version {version}",
+  "@settingsVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "diplomacyTitle": "Diplomacy",
   "diplomacyIntro": "Gestures people love cost money, but citizens pay you back in diplomacy points. Spend the points on new technology.",
   "diplomacyTechnologyBody": "Spend diplomacy points on new buses, upgrades and the metro.",

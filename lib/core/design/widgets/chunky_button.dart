@@ -73,15 +73,17 @@ class ChunkyButton extends StatelessWidget {
                 SizedBox(width: size.padding / 2),
               ],
               Flexible(
-                child: Text(
-                  label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: size.fontSize,
-                    fontWeight: FontWeight.w700,
-                    color: effectivePalette.onFace,
-                    shadows: _shadowsFor(effectivePalette),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: size.fontSize,
+                      fontWeight: FontWeight.w700,
+                      color: effectivePalette.onFace,
+                      shadows: _shadowsFor(effectivePalette),
+                    ),
                   ),
                 ),
               ),

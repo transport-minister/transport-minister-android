@@ -3,6 +3,7 @@ enum AppRoute {
   cities('/cities'),
   profile('/profile'),
   inbox('/inbox'),
+  settings('/settings'),
   dashboard('/city/:${AppRoute.cityIdParameter}'),
   technology('/city/:${AppRoute.cityIdParameter}/technology'),
   diplomacy('/city/:${AppRoute.cityIdParameter}/diplomacy');

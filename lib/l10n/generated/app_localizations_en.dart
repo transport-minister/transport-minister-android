@@ -964,7 +964,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Our bus drivers say their wages are too low. The union is whispering about a strike...';
 
   @override
-  String get decisionDriverWagesOptionA => 'Raise wages 15% forever';
+  String get decisionDriverWagesOptionA => 'Raise wages by 15%';
 
   @override
   String get decisionDriverWagesOptionB => 'Pay a one-time bonus';
@@ -1435,6 +1435,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get diplomacyOpen => 'Open diplomacy';
+
+  @override
+  String get settingsOpen => 'Open settings';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsAbout => 'About';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Version $version';
+  }
 
   @override
   String get diplomacyTitle => 'Diplomacy';
