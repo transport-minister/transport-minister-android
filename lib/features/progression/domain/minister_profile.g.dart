@@ -16,6 +16,11 @@ _MinisterProfile _$MinisterProfileFromJson(Map<String, dynamic> json) => _Minist
         (k, e) => MapEntry($enumDecode(_$CityIdEnumMap, k), (e as num).toInt()),
       ) ??
       const {},
+  completedCities:
+      (json['completedCities'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$CityIdEnumMap, e))
+          .toSet() ??
+      const {},
   achievements:
       (json['achievements'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$AchievementIdEnumMap, e))
@@ -32,6 +37,7 @@ Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <Stri
   'reputation': instance.reputation,
   'rank': _$MinisterialRankEnumMap[instance.rank]!,
   'bestCityLevels': instance.bestCityLevels.map((k, e) => MapEntry(_$CityIdEnumMap[k]!, e)),
+  'completedCities': instance.completedCities.map((e) => _$CityIdEnumMap[e]!).toList(),
   'achievements': instance.achievements.map((e) => _$AchievementIdEnumMap[e]!).toList(),
   'career': instance.career.toJson(),
   'tutorialDone': instance.tutorialDone,

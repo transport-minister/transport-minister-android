@@ -893,14 +893,14 @@ abstract class AppLocalizations {
   /// No description provided for @cityLockedBody.
   ///
   /// In en, this message translates to:
-  /// **'Reach level {level} in {city} to unlock it.'**
-  String cityLockedBody(int level, String city);
+  /// **'Complete {city} to unlock it.'**
+  String cityLockedBody(String city);
 
   /// No description provided for @cityRequirement.
   ///
   /// In en, this message translates to:
-  /// **'Lv {level} in {city}'**
-  String cityRequirement(int level, String city);
+  /// **'Complete {city}'**
+  String cityRequirement(String city);
 
   /// No description provided for @cityStatusUnlocked.
   ///
@@ -944,12 +944,6 @@ abstract class AppLocalizations {
   /// **'Max level reached'**
   String get levelBarMax;
 
-  /// No description provided for @levelBarTarget.
-  ///
-  /// In en, this message translates to:
-  /// **'Target {target}'**
-  String levelBarTarget(int target);
-
   /// No description provided for @levelSheetTitle.
   ///
   /// In en, this message translates to:
@@ -962,18 +956,6 @@ abstract class AppLocalizations {
   /// **'Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.'**
   String get levelSheetBody;
 
-  /// No description provided for @levelSheetTarget.
-  ///
-  /// In en, this message translates to:
-  /// **'Reach level {target} to unlock {city}!'**
-  String levelSheetTarget(int target, String city);
-
-  /// No description provided for @levelSheetTargetDone.
-  ///
-  /// In en, this message translates to:
-  /// **'Target reached! Your next city is unlocked.'**
-  String get levelSheetTargetDone;
-
   /// No description provided for @levelUpTitle.
   ///
   /// In en, this message translates to:
@@ -985,12 +967,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The Cabinet sends {amount} and {diplomacy} diplomacy points.'**
   String levelUpReward(String amount, int diplomacy);
-
-  /// No description provided for @levelUpUnlocked.
-  ///
-  /// In en, this message translates to:
-  /// **'{city} is unlocked! It opens soon.'**
-  String levelUpUnlocked(String city);
 
   /// No description provided for @levelUpContinue.
   ///
@@ -1307,7 +1283,7 @@ abstract class AppLocalizations {
   /// No description provided for @achievementCityChampionDescription.
   ///
   /// In en, this message translates to:
-  /// **'Reach a city\'s target level.'**
+  /// **'Complete a city.'**
   String get achievementCityChampionDescription;
 
   /// No description provided for @achievementSurvivorTitle.
@@ -2531,7 +2507,7 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialLevel.
   ///
   /// In en, this message translates to:
-  /// **'Baku grows as you play. Reach level 10 to unlock Istanbul!'**
+  /// **'Reach level 10, unlock every technology and make people 75% happy to complete Baku!'**
   String get tutorialLevel;
 
   /// No description provided for @tutorialNews.
@@ -3241,6 +3217,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If city traffic reaches {limit}%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.'**
   String trafficInfoBody(int limit);
+
+  /// No description provided for @levelBarGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal {done}/{total}'**
+  String levelBarGoal(int done, int total);
+
+  /// No description provided for @levelBarComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get levelBarComplete;
+
+  /// No description provided for @goalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'City goal'**
+  String get goalTitle;
+
+  /// No description provided for @goalLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach level {level}'**
+  String goalLevel(int level);
+
+  /// No description provided for @goalLevelProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level}/{target}'**
+  String goalLevelProgress(int level, int target);
+
+  /// No description provided for @goalTechnologies.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock every technology'**
+  String get goalTechnologies;
+
+  /// No description provided for @goalTechnologyProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/{total}'**
+  String goalTechnologyProgress(int count, int total);
+
+  /// No description provided for @goalHappiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Make citizens {percent}% happy'**
+  String goalHappiness(int percent);
+
+  /// No description provided for @goalHappinessProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}%'**
+  String goalHappinessProgress(int percent);
+
+  /// No description provided for @goalUnlocks.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete {city} to unlock {next}.'**
+  String goalUnlocks(String city, String next);
+
+  /// No description provided for @cityCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} is complete!'**
+  String cityCompleteTitle(String city);
+
+  /// No description provided for @cityCompleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every technology is yours and citizens love their city. New cities are coming soon!'**
+  String get cityCompleteBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

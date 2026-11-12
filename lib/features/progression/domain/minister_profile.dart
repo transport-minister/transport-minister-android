@@ -14,6 +14,7 @@ abstract class MinisterProfile with _$MinisterProfile {
     @Default(50) double reputation,
     @Default(MinisterialRank.juniorOfficial) MinisterialRank rank,
     @Default({}) Map<CityId, int> bestCityLevels,
+    @Default({}) Set<CityId> completedCities,
     @Default({}) Set<AchievementId> achievements,
     @Default(CareerStats()) CareerStats career,
     @Default(false) bool tutorialDone,

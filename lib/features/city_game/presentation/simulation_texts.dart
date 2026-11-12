@@ -70,7 +70,8 @@ extension CityEventText on CityEvent {
     ReputationShift() ||
     DecisionArrived() ||
     RewardGranted() ||
-    DiplomacyEarned() => true,
+    DiplomacyEarned() ||
+    CityCompleted() => true,
     DecisionResolved(:final automatic) => !automatic,
     _ => false,
   };
@@ -107,5 +108,6 @@ extension CityEventText on CityEvent {
       from.displayName(l10n),
       to.displayName(l10n),
     ),
+    CityCompleted() => l10n.levelBarComplete,
   };
 }

@@ -99,6 +99,18 @@ void main() {
     expect(update.profile.xp, ProgressionRules.xpPerMetroLine + AchievementId.metroPioneer.xp);
   });
 
+  test('completing a city is remembered and crowns a City Champion', () {
+    final update = rules.apply(
+      const MinisterProfile(),
+      city: CityId.baku,
+      state: city.copyWith(completed: true),
+      events: const [CityCompleted()],
+    );
+
+    expect(update.profile.completedCities, {CityId.baku});
+    expect(update.profile.achievements, contains(AchievementId.cityChampion));
+  });
+
   test('averting a crisis unlocks Survivor', () {
     final update = apply(const MinisterProfile(), const [CrisisAverted()]);
 

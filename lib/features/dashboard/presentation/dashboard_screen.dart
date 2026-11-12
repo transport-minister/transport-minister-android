@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
-import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
@@ -330,9 +329,9 @@ class _CityViewState extends ConsumerState<_CityView> {
     final l10n = AppLocalizations.of(context);
     showChunkySheet<void>(
       context: context,
-      builder: (context) => LevelInfoSheet(
+      builder: (context) => CityGoalSheet(
         cityName: widget.cityId.displayName(l10n),
-        level: widget.session.city.level,
+        city: widget.session.city,
         nextCityName: _nextCityName(),
       ),
     );
@@ -342,7 +341,12 @@ class _CityViewState extends ConsumerState<_CityView> {
     ref.read(tutorialProvider.notifier).onCityEvents(session.latestEvents);
     final l10n = AppLocalizations.of(context);
     final levelUps = session.latestEvents.whereType<CityLeveledUp>().toList();
-    if (levelUps.isNotEmpty) {
+    if (session.latestEvents.any((event) => event is CityCompleted)) {
+      showChunkySheet<void>(
+        context: context,
+        builder: (context) => CityCompleteSheet(cityName: widget.cityId.displayName(l10n)),
+      );
+    } else if (levelUps.isNotEmpty) {
       final latest = levelUps.last;
       showChunkySheet<void>(
         context: context,
@@ -351,7 +355,6 @@ class _CityViewState extends ConsumerState<_CityView> {
           level: latest.level,
           reward: levelUps.fold(0, (sum, event) => sum + event.reward),
           diplomacy: levelUps.fold(0, (sum, event) => sum + event.diplomacy),
-          unlockedCityName: latest.level >= CityLevels.targetLevel ? _nextCityName() : null,
         ),
       );
     }

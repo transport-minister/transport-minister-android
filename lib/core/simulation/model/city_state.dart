@@ -47,6 +47,7 @@ abstract class CityState with _$CityState {
     @Default(0) int diplomacyPoints,
     @Default({}) Set<TechnologyId> technologies,
     @Default([]) List<MetroLine> metroLines,
+    @Default(false) bool completed,
   }) = _CityState;
 
   const CityState._();

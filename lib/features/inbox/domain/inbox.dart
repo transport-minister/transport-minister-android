@@ -19,6 +19,7 @@ enum NotificationKind {
   dismissed,
   technology,
   metro,
+  cityComplete,
 }
 
 @freezed

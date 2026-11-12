@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
-import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
@@ -38,6 +37,7 @@ class ProgressionRules {
   static const xpPerDisaster = 25;
   static const xpPerTechnology = 30;
   static const xpPerMetroLine = 60;
+  static const xpPerCityCompletion = 500;
 
   ProgressionUpdate apply(
     MinisterProfile profile, {
@@ -53,6 +53,7 @@ class ProgressionRules {
       career: career,
       reputation: reputation,
       bestCityLevels: {...profile.bestCityLevels, city: bestLevel},
+      completedCities: {...profile.completedCities, if (state.completed) city},
     );
     final progression = <ProgressionEvent>[];
 
@@ -122,6 +123,7 @@ class ProgressionRules {
           decision.kind == DecisionKind.disaster ? xpPerDisaster : xpPerDecision,
         TechnologyUnlocked() => xpPerTechnology,
         MetroLineOpened() => xpPerMetroLine,
+        CityCompleted() => xpPerCityCompletion,
         _ => 0,
       };
     }
@@ -164,7 +166,7 @@ class ProgressionRules {
       AchievementId.smilingCity => city.overallSatisfaction >= 60,
       AchievementId.happyCitizens => city.overallSatisfaction >= 90,
       AchievementId.risingCity => city.level >= 5,
-      AchievementId.cityChampion => city.level >= CityLevels.targetLevel,
+      AchievementId.cityChampion => city.completed,
       AchievementId.survivor => career.crisesAverted >= 1,
       AchievementId.decisive => career.decisionsMade >= 25,
       AchievementId.stormChaser => career.disastersHandled >= 5,

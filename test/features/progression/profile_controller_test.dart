@@ -39,15 +39,21 @@ void main() {
     final cities = const StaticCityRepository().fetchCities();
     final istanbul = cities.firstWhere((city) => city.id == CityId.istanbul);
     final london = cities.firstWhere((city) => city.id == CityId.london);
-    const finishedBaku = MinisterProfile(bestCityLevels: {CityId.baku: 10});
+    const levelTen = MinisterProfile(bestCityLevels: {CityId.baku: 10});
+    const finishedBaku = MinisterProfile(
+      bestCityLevels: {CityId.baku: 10},
+      completedCities: {CityId.baku},
+    );
 
     expect(unlocks.accessFor(istanbul, const MinisterProfile()), CityAccess.locked);
+    expect(unlocks.accessFor(istanbul, levelTen), CityAccess.locked);
     expect(unlocks.accessFor(istanbul, finishedBaku), CityAccess.comingSoon);
     expect(unlocks.accessFor(london, finishedBaku), CityAccess.locked);
     expect(
       unlocks.progressFor(istanbul, const MinisterProfile(bestCityLevels: {CityId.baku: 5})),
-      0.5,
+      closeTo(0.45, 0.001),
     );
+    expect(unlocks.progressFor(istanbul, finishedBaku), 1);
     expect(unlocks.unlockedBy(cities, CityId.baku)?.id, CityId.istanbul);
   });
 }

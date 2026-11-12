@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
-import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/domain/city_unlocks.dart';
 import 'package:transport_minister/features/city_selection/presentation/city_presentation.dart';
@@ -97,7 +96,7 @@ class CitySelectionScreen extends ConsumerWidget {
     return UpcomingCityCard(
       city: city,
       access: access,
-      requirement: l10n.cityRequirement(CityLevels.targetLevel, requirementCity),
+      requirement: l10n.cityRequirement(requirementCity),
       progress: _unlocks.progressFor(city, profile),
       onPressed: () => showChunkySheet<void>(
         context: context,
@@ -106,7 +105,7 @@ class CitySelectionScreen extends ConsumerWidget {
                 icon: Icons.lock_rounded,
                 palette: ChunkyPalette.grape,
                 title: l10n.cityLockedTitle(city.id.displayName(l10n)),
-                body: l10n.cityLockedBody(CityLevels.targetLevel, requirementCity),
+                body: l10n.cityLockedBody(requirementCity),
               )
             : CityInfoSheet(
                 icon: Icons.construction_rounded,
