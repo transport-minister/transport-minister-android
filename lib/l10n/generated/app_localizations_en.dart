@@ -482,8 +482,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String levelUpReward(String amount, int diplomacy) {
-    return 'The Cabinet sends $amount and $diplomacy diplomacy points.';
+  String levelUpReward(String amount, int diplomacy, int percent) {
+    return 'The Cabinet sends $amount and $diplomacy diplomacy points, and your budget grows by $percent%!';
   }
 
   @override

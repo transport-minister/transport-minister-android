@@ -1,9 +1,10 @@
 import 'dart:math' as math;
 
 abstract final class CityLevels {
-  static const thresholds = [0, 40, 110, 220, 380, 600, 900, 1300, 1800, 2500];
+  static const thresholds = [0, 40, 110, 220, 380, 600, 900, 1300, 1900, 2800];
   static const targetLevel = 10;
   static const rewardPerLevel = 100000;
+  static const budgetRaisePercent = 5;
 
   static const busPurchasePoints = 4;
   static const busUpgradePoints = 3;
@@ -40,4 +41,6 @@ abstract final class CityLevels {
   }
 
   static int rewardFor(int level) => rewardPerLevel * level;
+
+  static double budgetBonus(int level) => 1 + (level - 1) * budgetRaisePercent / 100;
 }

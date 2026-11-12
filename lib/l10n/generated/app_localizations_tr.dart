@@ -481,8 +481,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String levelUpReward(String amount, int diplomacy) {
-    return 'Kabine $amount ve $diplomacy diplomasi puanı gönderdi.';
+  String levelUpReward(String amount, int diplomacy, int percent) {
+    return 'Kabine $amount ve $diplomacy diplomasi puanı gönderdi, bütçen de %$percent büyüdü!';
   }
 
   @override

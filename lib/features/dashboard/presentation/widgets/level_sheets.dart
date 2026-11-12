@@ -156,12 +156,14 @@ class LevelUpSheet extends StatelessWidget {
     required this.level,
     required this.reward,
     required this.diplomacy,
+    required this.budgetRaise,
   });
 
   final String cityName;
   final int level;
   final int reward;
   final int diplomacy;
+  final int budgetRaise;
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +175,7 @@ class LevelUpSheet extends StatelessWidget {
         MrBusSays(
           mood: MrBusMood.excited,
           title: l10n.levelUpTitle(cityName, level),
-          message: l10n.levelUpReward(MoneyFormat.compact(reward), diplomacy),
+          message: l10n.levelUpReward(MoneyFormat.compact(reward), diplomacy, budgetRaise),
         ),
         const SizedBox(height: GameDimens.spaceXL),
         ChunkyButton(

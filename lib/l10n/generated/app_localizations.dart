@@ -913,8 +913,8 @@ abstract class AppLocalizations {
   /// No description provided for @levelUpReward.
   ///
   /// In en, this message translates to:
-  /// **'The Cabinet sends {amount} and {diplomacy} diplomacy points.'**
-  String levelUpReward(String amount, int diplomacy);
+  /// **'The Cabinet sends {amount} and {diplomacy} diplomacy points, and your budget grows by {percent}%!'**
+  String levelUpReward(String amount, int diplomacy, int percent);
 
   /// No description provided for @levelUpContinue.
   ///

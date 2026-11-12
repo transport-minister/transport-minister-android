@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
@@ -342,6 +343,7 @@ class _CityViewState extends ConsumerState<_CityView> {
           level: latest.level,
           reward: levelUps.fold(0, (sum, event) => sum + event.reward),
           diplomacy: levelUps.fold(0, (sum, event) => sum + event.diplomacy),
+          budgetRaise: levelUps.length * CityLevels.budgetRaisePercent,
         ),
       );
     }

@@ -339,13 +339,16 @@
       }
     }
   },
-  "levelUpReward": "The Cabinet sends {amount} and {diplomacy} diplomacy points.",
+  "levelUpReward": "The Cabinet sends {amount} and {diplomacy} diplomacy points, and your budget grows by {percent}%!",
   "@levelUpReward": {
     "placeholders": {
       "amount": {
         "type": "String"
       },
       "diplomacy": {
+        "type": "int"
+      },
+      "percent": {
         "type": "int"
       }
     }

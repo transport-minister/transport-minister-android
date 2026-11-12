@@ -15,7 +15,8 @@ void main() {
     expect(CityLevels.levelFor(0), 1);
     expect(CityLevels.levelFor(39), 1);
     expect(CityLevels.levelFor(40), 2);
-    expect(CityLevels.levelFor(2500), CityLevels.targetLevel);
+    expect(CityLevels.levelFor(2799), CityLevels.targetLevel - 1);
+    expect(CityLevels.levelFor(2800), CityLevels.targetLevel);
     expect(CityLevels.progress(75), closeTo(0.5, 0.001));
     expect(CityLevels.progress(9999), 1);
   });

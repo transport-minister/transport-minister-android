@@ -484,8 +484,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String levelUpReward(String amount, int diplomacy) {
-    return 'Правительство присылает $amount и $diplomacy очков дипломатии.';
+  String levelUpReward(String amount, int diplomacy, int percent) {
+    return 'Правительство присылает $amount и $diplomacy очков дипломатии, а твой бюджет растёт на $percent%!';
   }
 
   @override
