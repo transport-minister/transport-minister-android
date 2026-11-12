@@ -7,6 +7,7 @@ import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/satisfaction_calculator.dart';
+import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
@@ -68,6 +69,84 @@ void main() {
         RejectionReason.requiresChargingDepot,
       );
     });
+  });
+
+  group('bus contracts', () {
+    test('order several buses with one announcement', () {
+      final city = newBaku();
+
+      final outcome = commands.buyBuses(
+        city,
+        model: BusModelId.cityRunner,
+        district: DistrictId.oldFortress,
+        count: 3,
+      );
+      final bought = applied(outcome);
+      final purchases = switch (outcome) {
+        CommandApplied(:final events) => events.whereType<BusPurchased>().toList(),
+        CommandRejected() => const <BusPurchased>[],
+      };
+
+      expect(bought.budget, city.budget - 3 * BusModelId.cityRunner.spec.price);
+      expect(bought.fleet, hasLength(city.fleet.length + 3));
+      expect(bought.stats.busesBought, city.stats.busesBought + 3);
+      expect(purchases.single.count, 3);
+    });
+
+    test('are all or nothing', () {
+      final city = newBaku();
+
+      expect(
+        rejected(
+          commands.buyBuses(
+            city.copyWith(depotCapacity: city.fleet.length + 2),
+            model: BusModelId.veteran,
+            district: DistrictId.oldFortress,
+            count: 3,
+          ),
+        ),
+        RejectionReason.depotFull,
+      );
+      expect(
+        rejected(
+          commands.buyBuses(
+            city.copyWith(budget: 2 * BusModelId.veteran.spec.price),
+            model: BusModelId.veteran,
+            district: DistrictId.oldFortress,
+            count: 3,
+          ),
+        ),
+        RejectionReason.insufficientFunds,
+      );
+      expect(
+        rejected(
+          commands.buyBuses(
+            city,
+            model: BusModelId.veteran,
+            district: DistrictId.oldFortress,
+            count: 0,
+          ),
+        ),
+        RejectionReason.invalidTarget,
+      );
+    });
+  });
+
+  test('upgrade problems explain what stops a bus from improving', () {
+    final city = newBaku();
+    final bus = city.activeBuses.first;
+    final tuned = city.copyWith(technologies: {TechnologyId.engineTuning});
+
+    expect(commands.upgradeProblem(city, bus), RejectionReason.locked);
+    expect(commands.upgradeProblem(tuned, bus), isNull);
+    expect(
+      commands.upgradeProblem(tuned.copyWith(budget: 0), bus),
+      RejectionReason.insufficientFunds,
+    );
+    expect(
+      commands.upgradeProblem(tuned, bus.copyWith(level: BusUpgrades.maxLevel)),
+      RejectionReason.maxLevelReached,
+    );
   });
 
   test('upgrades raise the level until the maximum', () {

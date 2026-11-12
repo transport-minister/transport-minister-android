@@ -27,7 +27,7 @@ class EffectChips extends StatelessWidget {
       spacing: 6,
       runSpacing: 6,
       children: [
-        for (final effect in shown) _Chip(label: describe(effect, l10n), tone: toneOf(effect)),
+        for (final effect in shown) ToneChip(label: describe(effect, l10n), tone: toneOf(effect)),
       ],
     );
   }
@@ -109,8 +109,8 @@ class EffectChips extends StatelessWidget {
   static EffectTone _sign(double value) => value >= 0 ? EffectTone.good : EffectTone.bad;
 }
 
-class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.tone});
+class ToneChip extends StatelessWidget {
+  const ToneChip({super.key, required this.label, required this.tone});
 
   final String label;
   final EffectTone tone;

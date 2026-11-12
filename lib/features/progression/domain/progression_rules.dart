@@ -85,9 +85,9 @@ class ProgressionRules {
     for (final event in events) {
       next = switch (event) {
         DayClosed() => next.copyWith(daysServed: next.daysServed + 1),
-        BusPurchased(:final model) => next.copyWith(
-          busesBought: next.busesBought + 1,
-          electricBusesBought: next.electricBusesBought + (model.spec.electric ? 1 : 0),
+        BusPurchased(:final model, :final count) => next.copyWith(
+          busesBought: next.busesBought + count,
+          electricBusesBought: next.electricBusesBought + (model.spec.electric ? count : 0),
         ),
         BusUpgraded() => next.copyWith(busUpgrades: next.busUpgrades + 1),
         ProjectCompleted(:final type) => next.copyWith(
@@ -112,7 +112,7 @@ class ProgressionRules {
     for (final event in events) {
       xp += switch (event) {
         DayClosed() => xpPerDay,
-        BusPurchased() => xpPerBus,
+        BusPurchased(:final count) => xpPerBus * count,
         BusUpgraded() => xpPerUpgrade,
         ProjectCompleted() => xpPerProject,
         CityLeveledUp(:final level) => xpPerCityLevel * level,

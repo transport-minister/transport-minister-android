@@ -89,7 +89,7 @@ class DailyRules {
 
   int _progress(DailyTask task, List<CityEvent> events, CityState city) {
     final gained = switch (task.type) {
-      TaskType.buyBuses => events.whereType<BusPurchased>().length,
+      TaskType.buyBuses => events.whereType<BusPurchased>().fold(0, (sum, e) => sum + e.count),
       TaskType.makeDecisions =>
         events.whereType<DecisionResolved>().where((e) => !e.automatic).length,
       TaskType.runDays => events.whereType<DayClosed>().length,

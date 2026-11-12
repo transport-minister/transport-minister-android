@@ -239,16 +239,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String actionAddBus(String price) {
-    return 'Add bus · $price';
-  }
-
-  @override
-  String actionRepairRoad(String price) {
-    return 'Repair road · $price';
-  }
-
-  @override
   String get ledgerTickets => 'Ticket sales';
 
   @override
@@ -342,7 +332,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rejectFareOutOfRange => 'That fare is not allowed';
 
   @override
-  String get eventBusPurchased => 'Bus ordered! It joins the fleet tomorrow.';
+  String eventBusPurchased(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count buses ordered! They join the fleet tomorrow.',
+      one: 'Bus ordered! It joins the fleet tomorrow.',
+    );
+    return '$_temp0';
+  }
 
   @override
   String eventBusUpgraded(int level) {
@@ -1448,7 +1446,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get tutorialBuyBus => 'Tap Add bus. New buses cut waiting times!';
+  String get tutorialBuyBus => 'Pick a bus model and tap Sign. New buses cut waiting times!';
 
   @override
   String get tutorialBusBought =>
@@ -1628,4 +1626,206 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get achievementInnovatorDescription => 'Unlock 5 technologies.';
+
+  @override
+  String get tabBuses => 'Buses';
+
+  @override
+  String get tabBuild => 'Build';
+
+  @override
+  String get tabMetro => 'Metro';
+
+  @override
+  String get contractsTitle => 'Sign a contract';
+
+  @override
+  String contractSign(String price) {
+    return 'Sign · $price';
+  }
+
+  @override
+  String get contractOpenTechnology => 'Technology';
+
+  @override
+  String get contractFewer => 'Fewer buses';
+
+  @override
+  String get contractMore => 'More buses';
+
+  @override
+  String busSeats(int count) {
+    return '$count seats';
+  }
+
+  @override
+  String busRunningCost(String amount) {
+    return '$amount/day';
+  }
+
+  @override
+  String busComfort(int value) {
+    return 'Comfort $value';
+  }
+
+  @override
+  String get ecoZero => 'Zero emissions';
+
+  @override
+  String get ecoLow => 'Low emissions';
+
+  @override
+  String get ecoMedium => 'Medium emissions';
+
+  @override
+  String get ecoHigh => 'High emissions';
+
+  @override
+  String get fleetHereTitle => 'Buses here';
+
+  @override
+  String get fleetEmpty => 'No buses here yet. Sign a contract above!';
+
+  @override
+  String fleetGroup(int count, String model) {
+    return '$count × $model';
+  }
+
+  @override
+  String fleetLevel(int level, int percent) {
+    return 'Level $level · Reliability $percent%';
+  }
+
+  @override
+  String fleetUpgrade(String price) {
+    return 'Upgrade · $price';
+  }
+
+  @override
+  String fleetSell(String price) {
+    return 'Sell · +$price';
+  }
+
+  @override
+  String get fleetMaxLevel => 'Max level';
+
+  @override
+  String fleetMoveHere(String district) {
+    return 'Bring a bus from $district';
+  }
+
+  @override
+  String depotSpace(int used, int capacity) {
+    return 'Depot $used/$capacity';
+  }
+
+  @override
+  String fleetOnOrder(int count) {
+    return '+$count tomorrow';
+  }
+
+  @override
+  String fleetSold(String price) {
+    return 'Bus sold · +$price';
+  }
+
+  @override
+  String fleetMoved(String district) {
+    return 'A bus moved in from $district';
+  }
+
+  @override
+  String buildDistrictTitle(String district) {
+    return 'Build in $district';
+  }
+
+  @override
+  String get buildCityTitle => 'City-wide';
+
+  @override
+  String buildAction(String price) {
+    return 'Build · $price';
+  }
+
+  @override
+  String buildDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get buildDone => 'Built';
+
+  @override
+  String get buildRoadFine => 'Road is in great shape';
+
+  @override
+  String buildDaysLeft(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days left',
+      one: '1 day left',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get projectRoadRepairInfo => 'Patch every pothole and bring the road back to 100%.';
+
+  @override
+  String get projectRoadExpansionInfo => 'Add lanes so traffic flows better for good.';
+
+  @override
+  String get projectBikeLanesInfo => 'A short jam while building, then fewer cars and cleaner air.';
+
+  @override
+  String get projectSmartSignalsInfo => 'Traffic lights that adapt to the traffic.';
+
+  @override
+  String get projectModernStopsInfo => 'Shelters, screens and benches at every stop.';
+
+  @override
+  String get projectChargingDepotInfo => 'Power for electric buses.';
+
+  @override
+  String get projectDepotExpansionInfo => 'Room for 20 more buses.';
+
+  @override
+  String get chipRoadFull => 'Road 100%';
+
+  @override
+  String get chipDriversHappier => 'Drivers happier';
+
+  @override
+  String get chipSafer => 'Safer streets';
+
+  @override
+  String get chipTrafficDown => 'Less traffic';
+
+  @override
+  String get chipJams => 'Jams while building';
+
+  @override
+  String get chipCyclists => 'Cyclists love it';
+
+  @override
+  String get chipCleanAir => 'Cleaner air';
+
+  @override
+  String get chipCoverage => 'Coverage +10%';
+
+  @override
+  String get chipPassengersHappier => 'Passengers happier';
+
+  @override
+  String get chipElectric => 'Needed for Volta E-12';
+
+  @override
+  String get chipDepot => 'Depot +20 buses';
 }

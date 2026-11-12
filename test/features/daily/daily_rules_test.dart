@@ -34,9 +34,7 @@ void main() {
     );
 
     final tracked = rules.track(state, const [
-      BusPurchased(BusModelId.cityRunner, DistrictId.windHeights),
-      BusPurchased(BusModelId.cityRunner, DistrictId.windHeights),
-      BusPurchased(BusModelId.cityRunner, DistrictId.windHeights),
+      BusPurchased(BusModelId.cityRunner, DistrictId.windHeights, count: 3),
       DayClosed(3, 40, tickets: 12000),
     ], newBaku());
 

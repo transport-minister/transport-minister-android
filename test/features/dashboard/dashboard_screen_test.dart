@@ -15,6 +15,7 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/day_clock_badge.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/game_screen_harness.dart';
@@ -71,11 +72,17 @@ void main() {
       find.descendant(of: find.byType(DistrictMarker), matching: find.text('Old Fortress')),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Add bus · \$210K'));
+    await tester.tap(find.text('Sign · \$210K'));
     await tester.pumpAndSettle();
 
     expect(find.text('\$2.29M'), findsOneWidget);
-    expect(find.text('Bus ordered! It joins the fleet tomorrow.'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byType(DistrictSheet),
+        matching: find.text('Bus ordered! It joins the fleet tomorrow.'),
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('the clock stops when the minister leaves the dashboard', (tester) async {

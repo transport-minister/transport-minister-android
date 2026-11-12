@@ -9,10 +9,11 @@ sealed class CityEvent {
 }
 
 final class BusPurchased extends CityEvent {
-  const BusPurchased(this.model, this.district);
+  const BusPurchased(this.model, this.district, {this.count = 1});
 
   final BusModelId model;
   final DistrictId district;
+  final int count;
 }
 
 final class BusUpgraded extends CityEvent {

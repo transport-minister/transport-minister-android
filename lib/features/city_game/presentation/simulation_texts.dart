@@ -73,7 +73,7 @@ extension CityEventText on CityEvent {
   };
 
   String message(AppLocalizations l10n) => switch (this) {
-    BusPurchased() => l10n.eventBusPurchased,
+    BusPurchased(:final count) => l10n.eventBusPurchased(count),
     BusUpgraded(:final level) => l10n.eventBusUpgraded(level),
     BusesDelivered(:final count) => l10n.eventBusesDelivered(count),
     ProjectStarted(:final type) => l10n.eventProjectStarted(type.label(l10n)),
