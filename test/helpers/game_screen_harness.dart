@@ -21,6 +21,7 @@ Future<void> pumpGameScreen(
   required FakeNow now,
   List<Override> overrides = const [],
   bool tutorialDone = true,
+  Locale? locale,
 }) async {
   final profiles = LocalProfileRepository(store);
   if (tutorialDone && await profiles.load() == null) {
@@ -40,6 +41,7 @@ Future<void> pumpGameScreen(
         ...overrides,
       ],
       child: MaterialApp(
+        locale: locale,
         theme: GameTheme.light(),
         localizationsDelegates: const [
           AppLocalizations.delegate,
