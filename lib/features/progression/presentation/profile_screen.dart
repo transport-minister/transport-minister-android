@@ -318,7 +318,7 @@ class _CareerGrid extends StatelessWidget {
                             Text(value, style: Theme.of(context).textTheme.titleMedium),
                             Text(
                               label,
-                              maxLines: 1,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),

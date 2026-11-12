@@ -28,16 +28,18 @@ class GameTag extends StatelessWidget {
             const SizedBox(width: GameDimens.spaceXS),
           ],
           Flexible(
-            child: Text(
-              _upperCase(Localizations.maybeLocaleOf(context)),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 12,
-                height: 1.1,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.6,
-                color: palette.onFace,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                _upperCase(Localizations.maybeLocaleOf(context)),
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 12,
+                  height: 1.1,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                  color: palette.onFace,
+                ),
               ),
             ),
           ),
