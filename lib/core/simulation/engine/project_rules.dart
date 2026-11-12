@@ -28,13 +28,13 @@ class ProjectRules {
   int duration(CityState state, ProjectType type, {DistrictId? district}) {
     final target = district == null ? null : state.district(district);
     return switch (type) {
-      ProjectType.roadRepair => 2,
-      ProjectType.roadExpansion => (target?.roadLevel ?? 1) == 1 ? 5 : 8,
-      ProjectType.bikeLanes => 4,
-      ProjectType.smartSignals => 3,
-      ProjectType.modernStops => 2,
-      ProjectType.chargingDepot => 6,
-      ProjectType.depotExpansion => 4,
+      ProjectType.roadRepair => 60,
+      ProjectType.roadExpansion => (target?.roadLevel ?? 1) == 1 ? 150 : 240,
+      ProjectType.bikeLanes => 120,
+      ProjectType.smartSignals => 90,
+      ProjectType.modernStops => 60,
+      ProjectType.chargingDepot => 180,
+      ProjectType.depotExpansion => 120,
     };
   }
 

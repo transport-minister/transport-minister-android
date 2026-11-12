@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'daily_report.dart';
+part of 'tick_report.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
 _DailyReport _$DailyReportFromJson(Map<String, dynamic> json) => _DailyReport(
-  day: (json['day'] as num).toInt(),
+  tick: (json['tick'] as num).toInt(),
   ledger: (json['ledger'] as Map<String, dynamic>).map(
     (k, e) => MapEntry($enumDecode(_$LedgerItemEnumMap, k), (e as num).toInt()),
   ),
@@ -18,7 +18,7 @@ _DailyReport _$DailyReportFromJson(Map<String, dynamic> json) => _DailyReport(
 );
 
 Map<String, dynamic> _$DailyReportToJson(_DailyReport instance) => <String, dynamic>{
-  'day': instance.day,
+  'tick': instance.tick,
   'ledger': instance.ledger.map((k, e) => MapEntry(_$LedgerItemEnumMap[k]!, e)),
   'riders': instance.riders,
   'demand': instance.demand,

@@ -21,7 +21,7 @@ Map<String, dynamic> _$DailyTaskToJson(_DailyTask instance) => <String, dynamic>
 const _$TaskTypeEnumMap = {
   TaskType.buyBuses: 'buyBuses',
   TaskType.makeDecisions: 'makeDecisions',
-  TaskType.runDays: 'runDays',
+  TaskType.runMinutes: 'runMinutes',
   TaskType.earnTickets: 'earnTickets',
   TaskType.finishProject: 'finishProject',
   TaskType.repairRoad: 'repairRoad',

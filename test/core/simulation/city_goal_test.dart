@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:transport_minister/core/simulation/catalog/city_goal.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
-import 'package:transport_minister/core/simulation/engine/day_simulator.dart';
+import 'package:transport_minister/core/simulation/engine/tick_simulator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
@@ -24,8 +24,8 @@ void main() {
   });
 
   test('the day the goal is met the city is completed once', () {
-    final first = const DaySimulator().advance(finished());
-    final second = const DaySimulator().advance(first.state);
+    final first = const TickSimulator().advance(finished());
+    final second = const TickSimulator().advance(first.state);
 
     expect(first.state.completed, isTrue);
     expect(first.events.whereType<CityCompleted>(), hasLength(1));

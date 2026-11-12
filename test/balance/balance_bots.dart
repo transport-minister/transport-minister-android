@@ -56,15 +56,16 @@ class BusOnlyBot implements BalanceBot {
 }
 
 class CasualBot implements BalanceBot {
-  const CasualBot({this.every = 3});
+  const CasualBot({this.everySeconds = 90});
 
-  final int every;
+  final int everySeconds;
 
   @override
   String get name => 'casual';
 
   @override
-  CityState play(CityState city) => city.day % every == 0 ? const PlannerBot().play(city) : city;
+  CityState play(CityState city) =>
+      city.tick % everySeconds == 0 ? const PlannerBot().play(city) : city;
 }
 
 class PlannerBot implements BalanceBot {
@@ -187,7 +188,7 @@ class PlannerBot implements BalanceBot {
 
   List<Bus> _veterans(CityState city) =>
       city.activeBuses.where((bus) => bus.model == BusModelId.veteran).toList()
-        ..sort((a, b) => b.ageDays.compareTo(a.ageDays));
+        ..sort((a, b) => b.ageSeconds.compareTo(a.ageSeconds));
 
   CommandOutcome _replace(CityState city, int busId, DistrictId district) {
     return switch (_commands.sellBus(city, busId)) {

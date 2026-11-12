@@ -9,17 +9,17 @@ abstract class MetroLine with _$MetroLine {
   const factory MetroLine({
     required DistrictId from,
     required DistrictId to,
-    required int totalDays,
-    required int remainingDays,
+    required int totalSeconds,
+    required int remainingSeconds,
   }) = _MetroLine;
 
   const MetroLine._();
 
   factory MetroLine.fromJson(Map<String, dynamic> json) => _$MetroLineFromJson(json);
 
-  bool get isOpen => remainingDays <= 0;
+  bool get isOpen => remainingSeconds <= 0;
 
-  double get progress => 1 - remainingDays / totalDays;
+  double get progress => 1 - remainingSeconds / totalSeconds;
 
   bool connects(DistrictId district) => from == district || to == district;
 

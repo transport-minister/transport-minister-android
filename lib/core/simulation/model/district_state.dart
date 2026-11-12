@@ -8,7 +8,7 @@ part 'district_state.g.dart';
 abstract class DistrictState with _$DistrictState {
   const factory DistrictState({
     required DistrictId id,
-    required int population,
+    required double population,
     required double roadCondition,
     required int roadLevel,
     @Default(false) bool hasBikeLanes,

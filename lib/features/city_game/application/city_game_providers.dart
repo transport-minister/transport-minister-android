@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
-import 'package:transport_minister/core/simulation/engine/city_day_runner.dart';
+import 'package:transport_minister/core/simulation/engine/city_tick_runner.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_controller.dart';
@@ -16,11 +16,11 @@ final citySaveRepositoryProvider = Provider<CitySaveRepository>(
 
 final simulationClockProvider = Provider<SimulationClock>((ref) => const SimulationClock());
 
-final cityDayRunnerProvider = Provider<CityDayRunner>((ref) => const CityDayRunner());
+final cityTickRunnerProvider = Provider<CityTickRunner>((ref) => const CityTickRunner());
 
 final bakuScenarioProvider = Provider<BakuScenario>((ref) => const BakuScenario());
 
-final tickIntervalProvider = Provider<Duration>((ref) => const Duration(seconds: 1));
+final tickIntervalProvider = Provider<Duration>((ref) => const Duration(milliseconds: 250));
 
 final cityGameProvider = AsyncNotifierProvider.family<CityGameController, CityGameSession, CityId>(
   CityGameController.new,

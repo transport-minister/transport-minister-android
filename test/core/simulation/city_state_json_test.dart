@@ -29,7 +29,7 @@ void main() {
     );
     city = applied(commands.takeLoan(city, 500000));
     city = applied(commands.buildMetroLine(city, DistrictId.oldFortress, DistrictId.oilHarbor));
-    city = runDays(city, 12).state;
+    city = runSeconds(city, 12).state;
 
     final restored = CityState.fromJson(
       jsonDecode(jsonEncode(city.toJson())) as Map<String, dynamic>,

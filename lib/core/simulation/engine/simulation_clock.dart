@@ -12,40 +12,32 @@ abstract class TimeAnchor with _$TimeAnchor {
 }
 
 class ClockReading {
-  const ClockReading({
-    required this.days,
-    required this.anchor,
-    required this.dayProgress,
-    required this.capped,
-  });
+  const ClockReading({required this.ticks, required this.anchor, required this.capped});
 
-  final int days;
+  final int ticks;
   final TimeAnchor anchor;
-  final double dayProgress;
   final bool capped;
 }
 
 class SimulationClock {
   const SimulationClock({
-    this.dayLength = GameBalance.dayLength,
-    this.maxCatchUpDays = GameBalance.maxCatchUpDays,
+    this.tickLength = GameBalance.tickLength,
+    this.maxCatchUpTicks = GameBalance.maxCatchUpTicks,
   });
 
-  final Duration dayLength;
-  final int maxCatchUpDays;
+  final Duration tickLength;
+  final int maxCatchUpTicks;
 
   ClockReading read(TimeAnchor anchor, DateTime now) {
     final nowMs = now.millisecondsSinceEpoch;
     final elapsed = nowMs - anchor.syncedAtMs;
     final total = anchor.carriedMs + (elapsed < 0 ? 0 : elapsed);
-    final length = dayLength.inMilliseconds;
-    final days = total ~/ length;
-    final capped = days > maxCatchUpDays;
-    final carried = capped ? 0 : total % length;
+    final length = tickLength.inMilliseconds;
+    final ticks = total ~/ length;
+    final capped = ticks > maxCatchUpTicks;
     return ClockReading(
-      days: capped ? maxCatchUpDays : days,
-      anchor: TimeAnchor(syncedAtMs: nowMs, carriedMs: carried),
-      dayProgress: carried / length,
+      ticks: capped ? maxCatchUpTicks : ticks,
+      anchor: TimeAnchor(syncedAtMs: nowMs, carriedMs: capped ? 0 : total % length),
       capped: capped,
     );
   }

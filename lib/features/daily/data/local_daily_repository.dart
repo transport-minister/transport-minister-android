@@ -14,12 +14,14 @@ class LocalDailyRepository implements DailyRepository {
 
   static const _collection = 'daily';
   static const _key = 'minister';
-  static const _version = 1;
+  static const _version = 2;
 
   @override
   Future<DailyState?> load() async {
     final document = await _store.read(_collection, _key);
-    return document == null ? null : DailyState.fromJson(document.payload);
+    return document == null || document.version != _version
+        ? null
+        : DailyState.fromJson(document.payload);
   }
 
   @override

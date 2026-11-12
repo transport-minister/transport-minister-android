@@ -21,6 +21,8 @@ abstract final class MoneyFormat {
 
   static String count(int value) => NumberFormat.decimalPattern('en').format(value);
 
+  static String rate(double value) => value < 10 ? value.toStringAsFixed(1) : count(value.round());
+
   static String _trim(double value) {
     final digits = value >= 100 ? 0 : (value >= 10 ? 1 : 2);
     final text = value.toStringAsFixed(digits);

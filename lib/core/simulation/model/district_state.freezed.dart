@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DistrictState {
 
- DistrictId get id; int get population; double get roadCondition; int get roadLevel; bool get hasBikeLanes; double get bikeAdoption; bool get hasSmartSignals; bool get hasModernStops;
+ DistrictId get id; double get population; double get roadCondition; int get roadLevel; bool get hasBikeLanes; double get bikeAdoption; bool get hasSmartSignals; bool get hasModernStops;
 /// Create a copy of DistrictState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -54,7 +54,7 @@ abstract mixin class $DistrictStateCopyWith<$Res>  {
   factory $DistrictStateCopyWith(DistrictState value, $Res Function(DistrictState) _then) = _$DistrictStateCopyWithImpl;
 @useResult
 $Res call({
- DistrictId id, int population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops
+ DistrictId id, double population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops
 });
 
 
@@ -75,7 +75,7 @@ class _$DistrictStateCopyWithImpl<$Res>
   return _then(DistrictState(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as DistrictId,population: null == population ? _self.population : population // ignore: cast_nullable_to_non_nullable
-as int,roadCondition: null == roadCondition ? _self.roadCondition : roadCondition // ignore: cast_nullable_to_non_nullable
+as double,roadCondition: null == roadCondition ? _self.roadCondition : roadCondition // ignore: cast_nullable_to_non_nullable
 as double,roadLevel: null == roadLevel ? _self.roadLevel : roadLevel // ignore: cast_nullable_to_non_nullable
 as int,hasBikeLanes: null == hasBikeLanes ? _self.hasBikeLanes : hasBikeLanes // ignore: cast_nullable_to_non_nullable
 as bool,bikeAdoption: null == bikeAdoption ? _self.bikeAdoption : bikeAdoption // ignore: cast_nullable_to_non_nullable
@@ -166,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DistrictId id,  int population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DistrictState() when $default != null:
 return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops);case _:
@@ -187,7 +187,7 @@ return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DistrictId id,  int population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)  $default,) {final _that = this;
 switch (_that) {
 case _DistrictState():
 return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops);case _:
@@ -207,7 +207,7 @@ return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DistrictId id,  int population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DistrictId id,  double population,  double roadCondition,  int roadLevel,  bool hasBikeLanes,  double bikeAdoption,  bool hasSmartSignals,  bool hasModernStops)?  $default,) {final _that = this;
 switch (_that) {
 case _DistrictState() when $default != null:
 return $default(_that.id,_that.population,_that.roadCondition,_that.roadLevel,_that.hasBikeLanes,_that.bikeAdoption,_that.hasSmartSignals,_that.hasModernStops);case _:
@@ -226,7 +226,7 @@ class _DistrictState implements DistrictState {
   factory _DistrictState.fromJson(Map<String, dynamic> json) => _$DistrictStateFromJson(json);
 
 @override final  DistrictId id;
-@override final  int population;
+@override final  double population;
 @override final  double roadCondition;
 @override final  int roadLevel;
 @override@JsonKey() final  bool hasBikeLanes;
@@ -269,7 +269,7 @@ abstract mixin class _$DistrictStateCopyWith<$Res> implements $DistrictStateCopy
   factory _$DistrictStateCopyWith(_DistrictState value, $Res Function(_DistrictState) _then) = __$DistrictStateCopyWithImpl;
 @override @useResult
 $Res call({
- DistrictId id, int population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops
+ DistrictId id, double population, double roadCondition, int roadLevel, bool hasBikeLanes, double bikeAdoption, bool hasSmartSignals, bool hasModernStops
 });
 
 
@@ -290,7 +290,7 @@ class __$DistrictStateCopyWithImpl<$Res>
   return _then(_DistrictState(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as DistrictId,population: null == population ? _self.population : population // ignore: cast_nullable_to_non_nullable
-as int,roadCondition: null == roadCondition ? _self.roadCondition : roadCondition // ignore: cast_nullable_to_non_nullable
+as double,roadCondition: null == roadCondition ? _self.roadCondition : roadCondition // ignore: cast_nullable_to_non_nullable
 as double,roadLevel: null == roadLevel ? _self.roadLevel : roadLevel // ignore: cast_nullable_to_non_nullable
 as int,hasBikeLanes: null == hasBikeLanes ? _self.hasBikeLanes : hasBikeLanes // ignore: cast_nullable_to_non_nullable
 as bool,bikeAdoption: null == bikeAdoption ? _self.bikeAdoption : bikeAdoption // ignore: cast_nullable_to_non_nullable

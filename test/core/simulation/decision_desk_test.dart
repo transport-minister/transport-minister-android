@@ -5,7 +5,7 @@ import 'package:transport_minister/core/simulation/decisions/decision_desk.dart'
 import 'package:transport_minister/core/simulation/decisions/decision_effect.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_effects.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
-import 'package:transport_minister/core/simulation/engine/city_day_runner.dart';
+import 'package:transport_minister/core/simulation/engine/city_tick_runner.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/active_modifier.dart';
@@ -25,8 +25,8 @@ CityState _withDecision(CityState city, DecisionId id, {DistrictId? district, in
         id: 900,
         template: id,
         district: district,
-        createdDay: city.day,
-        expiresDay: expires,
+        createdTick: city.tick,
+        expiresTick: expires,
       ),
     ],
   );
@@ -101,9 +101,9 @@ void main() {
   });
 
   test('ignored decisions are settled with the default answer', () {
-    final city = _withDecision(newBaku(), DecisionId.festival, expires: 1).copyWith(day: 2);
+    final city = _withDecision(newBaku(), DecisionId.festival, expires: 1).copyWith(tick: 2);
 
-    final (after, events) = desk.onNewDay(city);
+    final (after, events) = desk.onTick(city);
 
     expect(after.decisions.where((decision) => decision.id == 900), isEmpty);
     expect(events.whereType<DecisionResolved>().first.automatic, isTrue);
@@ -113,8 +113,8 @@ void main() {
   test('news keeps coming but never piles up beyond three', () {
     var city = newBaku();
     final arrivals = <DecisionArrived>[];
-    for (var day = 0; day < 40; day++) {
-      final result = const CityDayRunner().advance(city);
+    for (var second = 0; second < 1200; second++) {
+      final result = const CityTickRunner().advance(city);
       city = result.state;
       arrivals.addAll(result.events.whereType<DecisionArrived>());
       expect(city.decisions.length, lessThanOrEqualTo(DecisionDesk.maxPending));
@@ -141,7 +141,7 @@ void main() {
 
   test('timed effects shape the economy and then wear off', () {
     final (city, _) = const DecisionEffects().apply(newBaku(), const [
-      Modify(ModifierType.dailyCost, 8000, 2),
+      Modify(ModifierType.extraCost, 8000, 2),
       Modify(ModifierType.capacity, 1.25, 2, district: DistrictId.windHeights),
     ]);
     final metrics = const MetricsCalculator().calculate(city);
@@ -152,6 +152,6 @@ void main() {
       metrics.of(DistrictId.windHeights).capacity,
       greaterThan(plain.of(DistrictId.windHeights).capacity),
     );
-    expect(runDays(city, 2).state.modifiers, isEmpty);
+    expect(runSeconds(city, 2).state.modifiers, isEmpty);
   });
 }

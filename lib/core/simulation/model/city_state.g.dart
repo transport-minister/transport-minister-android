@@ -8,7 +8,7 @@ part of 'city_state.dart';
 
 _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
   seed: (json['seed'] as num).toInt(),
-  day: (json['day'] as num).toInt(),
+  tick: (json['tick'] as num).toInt(),
   budget: (json['budget'] as num).toInt(),
   fare: (json['fare'] as num).toInt(),
   depotCapacity: (json['depotCapacity'] as num).toInt(),
@@ -40,11 +40,6 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
         (k, e) => MapEntry($enumDecode(_$LedgerItemEnumMap, k), (e as num).toInt()),
       ) ??
       const {},
-  reports:
-      (json['reports'] as List<dynamic>?)
-          ?.map((e) => DailyReport.fromJson(e as Map<String, dynamic>))
-          .toList() ??
-      const [],
   nextId: (json['nextId'] as num?)?.toInt() ?? 1,
   developmentPoints: (json['developmentPoints'] as num?)?.toInt() ?? 0,
   decisions:
@@ -62,7 +57,7 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
           ?.map((e) => DecisionRecord.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
-  lastDecisionDay: (json['lastDecisionDay'] as num?)?.toInt() ?? 0,
+  lastDecisionTick: (json['lastDecisionTick'] as num?)?.toInt() ?? 0,
   diplomacyPoints: (json['diplomacyPoints'] as num?)?.toInt() ?? 0,
   technologies:
       (json['technologies'] as List<dynamic>?)
@@ -79,7 +74,7 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
 
 Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>{
   'seed': instance.seed,
-  'day': instance.day,
+  'tick': instance.tick,
   'budget': instance.budget,
   'fare': instance.fare,
   'depotCapacity': instance.depotCapacity,
@@ -93,13 +88,12 @@ Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>
   'crisis': instance.crisis.toJson(),
   'stats': instance.stats.toJson(),
   'pendingLedger': instance.pendingLedger.map((k, e) => MapEntry(_$LedgerItemEnumMap[k]!, e)),
-  'reports': instance.reports.map((e) => e.toJson()).toList(),
   'nextId': instance.nextId,
   'developmentPoints': instance.developmentPoints,
   'decisions': instance.decisions.map((e) => e.toJson()).toList(),
   'modifiers': instance.modifiers.map((e) => e.toJson()).toList(),
   'decisionLog': instance.decisionLog.map((e) => e.toJson()).toList(),
-  'lastDecisionDay': instance.lastDecisionDay,
+  'lastDecisionTick': instance.lastDecisionTick,
   'diplomacyPoints': instance.diplomacyPoints,
   'technologies': instance.technologies.map((e) => _$TechnologyIdEnumMap[e]!).toList(),
   'metroLines': instance.metroLines.map((e) => e.toJson()).toList(),

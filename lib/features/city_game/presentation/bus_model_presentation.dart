@@ -21,8 +21,9 @@ extension BusModelPresentation on BusModelId {
     BusModelId.voltaE => ChunkyPalette.green,
   };
 
-  int get runningCostPerDay =>
-      spec.energyPerDay + spec.maintenancePerDay + GameBalance.driverWagePerBusDay;
+  int get runningCostPerSecond =>
+      (spec.energyPerSecond + spec.maintenancePerSecond + GameBalance.driverWagePerBusSecond)
+          .round();
 
   String eco(AppLocalizations l10n) {
     final emission = spec.emission;

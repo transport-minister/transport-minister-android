@@ -90,16 +90,16 @@ void main() {
       )[LedgerItem.tickets]!;
 
       expect(tickets(smart), (tickets(city) * 1.08).round());
-      expect(runDays(smart, 40).state.modifiers, isNotEmpty);
+      expect(runSeconds(smart, 40).state.modifiers, isNotEmpty);
     });
   });
 
   group('diplomacy', () {
-    test('happier cities earn more points every day', () {
-      expect(DiplomacyRules.daily(38), 0);
-      expect(DiplomacyRules.daily(55), 1);
-      expect(DiplomacyRules.daily(70), 2);
-      expect(DiplomacyRules.daily(85), 3);
+    test('happier cities earn more points every minute', () {
+      expect(DiplomacyRules.perMinute(38), 0);
+      expect(DiplomacyRules.perMinute(55), 2);
+      expect(DiplomacyRules.perMinute(70), 4);
+      expect(DiplomacyRules.perMinute(85), 6);
     });
 
     test('decisions that please people earn diplomacy', () {
@@ -114,7 +114,12 @@ void main() {
     test('choosing a kind answer adds diplomacy points', () {
       final city = newBaku().copyWith(
         decisions: const [
-          PendingDecision(id: 900, template: DecisionId.driverWages, createdDay: 1, expiresDay: 4),
+          PendingDecision(
+            id: 900,
+            template: DecisionId.driverWages,
+            createdTick: 1,
+            expiresTick: 4,
+          ),
         ],
       );
 

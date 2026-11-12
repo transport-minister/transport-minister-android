@@ -8,12 +8,12 @@ part of 'loan.dart';
 
 _Loan _$LoanFromJson(Map<String, dynamic> json) => _Loan(
   principal: (json['principal'] as num).toInt(),
-  dailyInstallment: (json['dailyInstallment'] as num).toInt(),
-  remainingDays: (json['remainingDays'] as num).toInt(),
+  installment: (json['installment'] as num).toInt(),
+  remainingSeconds: (json['remainingSeconds'] as num).toInt(),
 );
 
 Map<String, dynamic> _$LoanToJson(_Loan instance) => <String, dynamic>{
   'principal': instance.principal,
-  'dailyInstallment': instance.dailyInstallment,
-  'remainingDays': instance.remainingDays,
+  'installment': instance.installment,
+  'remainingSeconds': instance.remainingSeconds,
 };

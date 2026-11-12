@@ -63,14 +63,6 @@
   "districtOilHarborTagline": "Cranes, trucks and the city's cargo gate",
   "districtWindHeightsTagline": "The biggest neighbourhood on the windy hills",
   "districtCaspianGardensTagline": "New homes growing fast by the shore",
-  "hudDay": "Day {day}",
-  "@hudDay": {
-    "placeholders": {
-      "day": {
-        "type": "int"
-      }
-    }
-  },
   "hudSatisfaction": "{value}%",
   "@hudSatisfaction": {
     "placeholders": {
@@ -129,7 +121,7 @@
       }
     }
   },
-  "districtRidersServed": "Can carry {capacity} of {demand} riders a day",
+  "districtRidersServed": "Carries {capacity} of {demand} riders a second",
   "@districtRidersServed": {
     "placeholders": {
       "capacity": {
@@ -140,7 +132,7 @@
       }
     }
   },
-  "districtResidents": "{count} residents · +{growth} a day",
+  "districtResidents": "{count} residents · +{growth}/s",
   "@districtResidents": {
     "placeholders": {
       "count": {
@@ -152,7 +144,7 @@
     }
   },
   "ledgerTickets": "Ticket sales",
-  "ledgerSubsidy": "Daily subsidy",
+  "ledgerSubsidy": "Subsidy",
   "ledgerGovernmentBudget": "Cabinet budget",
   "ledgerVehicleSales": "Bus sales",
   "ledgerLoanReceived": "Loan",
@@ -198,7 +190,7 @@
       }
     }
   },
-  "eventBudgetAllocated": "The Cabinet sent {amount} for this month",
+  "eventBudgetAllocated": "The Cabinet sent {amount}",
   "@eventBudgetAllocated": {
     "placeholders": {
       "amount": {
@@ -324,7 +316,7 @@
       }
     }
   },
-  "levelSheetBody": "Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.",
+  "levelSheetBody": "Earn city points all the time by keeping citizens happy and the budget growing. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.",
   "levelUpTitle": "{city} reached level {level}!",
   "@levelUpTitle": {
     "placeholders": {
@@ -396,7 +388,7 @@
     }
   },
   "profileCareer": "Career",
-  "careerDays": "Days served",
+  "careerTime": "Time in office",
   "careerBuses": "Buses bought",
   "careerUpgrades": "Upgrades",
   "careerProjects": "Projects",
@@ -455,7 +447,7 @@
   "achievementInfrastructureMasterTitle": "Infrastructure Master",
   "achievementInfrastructureMasterDescription": "Complete 50 construction projects.",
   "achievementEconomicStrategistTitle": "Economic Strategist",
-  "achievementEconomicStrategistDescription": "Keep a positive daily budget for 30 days in a row.",
+  "achievementEconomicStrategistDescription": "Keep the budget growing for 15 minutes in a row.",
   "achievementSmilingCityTitle": "Smiling City",
   "achievementSmilingCityDescription": "Reach 60% citizen satisfaction.",
   "achievementHappyCitizensTitle": "Happy Citizens",
@@ -467,7 +459,7 @@
   "achievementSurvivorTitle": "Survivor",
   "achievementSurvivorDescription": "Recover after a President's warning.",
   "achievementVeteranMinisterTitle": "Veteran Minister",
-  "achievementVeteranMinisterDescription": "Serve 365 days.",
+  "achievementVeteranMinisterDescription": "Serve 3 hours in office.",
   "ledgerDecisions": "Decisions & events",
   "eventDecisionArrived": "Mr. Bus has news: {title}",
   "@eventDecisionArrived": {
@@ -502,11 +494,11 @@
   "kindOpportunity": "Offer",
   "kindCrisis": "Crisis",
   "kindDisaster": "Disaster",
-  "decisionDaysLeft": "{days, plural, =0{Decide today} =1{1 day left} other{{days} days left}}",
-  "@decisionDaysLeft": {
+  "decisionTimeLeft": "{time} left",
+  "@decisionTimeLeft": {
     "placeholders": {
-      "days": {
-        "type": "int"
+      "time": {
+        "type": "String"
       }
     }
   },
@@ -643,16 +635,16 @@
       }
     }
   },
-  "effectDailyCost": "Costs {amount}/day",
-  "@effectDailyCost": {
+  "effectExtraCost": "Costs {amount}/s",
+  "@effectExtraCost": {
     "placeholders": {
       "amount": {
         "type": "String"
       }
     }
   },
-  "effectDailyIncome": "Income {amount}/day",
-  "@effectDailyIncome": {
+  "effectExtraIncome": "Income {amount}/s",
+  "@effectExtraIncome": {
     "placeholders": {
       "amount": {
         "type": "String"
@@ -667,14 +659,6 @@
       },
       "change": {
         "type": "String"
-      }
-    }
-  },
-  "effectDays": "{days}d",
-  "@effectDays": {
-    "placeholders": {
-      "days": {
-        "type": "int"
       }
     }
   },
@@ -742,7 +726,7 @@
     }
   },
   "decisionOvercrowdedBusesOptionA": "Rush-order 3 CityRunners",
-  "decisionOvercrowdedBusesOptionB": "Extra shifts for 5 days",
+  "decisionOvercrowdedBusesOptionB": "Extra shifts for a while",
   "decisionOvercrowdedBusesOptionC": "Ask people to be patient",
   "decisionPotholesTitle": "Potholes in {district}!",
   "@decisionPotholesTitle": {
@@ -760,7 +744,7 @@
       }
     }
   },
-  "decisionPotholesOptionA": "Emergency repair today",
+  "decisionPotholesOptionA": "Emergency repair now",
   "decisionPotholesOptionB": "Schedule a normal repair",
   "decisionPotholesOptionC": "Put up warning signs",
   "decisionBikePetitionTitle": "Bike lane petition",
@@ -812,12 +796,12 @@
   "decisionTrafficAccidentOptionB": "Run a safety campaign",
   "decisionTrafficAccidentOptionC": "Do nothing",
   "decisionFuelSpikeTitle": "Fuel prices jumped 30%!",
-  "decisionFuelSpikeBody": "Diesel got expensive overnight, and our buses drink a lot of it...",
+  "decisionFuelSpikeBody": "Diesel suddenly got expensive, and our buses drink a lot of it...",
   "decisionFuelSpikeOptionA": "Buy a price hedge",
   "decisionFuelSpikeOptionB": "Add a fare surcharge",
   "decisionFuelSpikeOptionC": "Absorb the cost",
   "decisionBusDiscountTitle": "Bus sale!",
-  "decisionBusDiscountBody": "Silkway Motors offers CityRunner buses at 25% off this week. They would start in {district}.",
+  "decisionBusDiscountBody": "Silkway Motors offers CityRunner buses at 25% off right now. They would start in {district}.",
   "@decisionBusDiscountBody": {
     "placeholders": {
       "district": {
@@ -1037,8 +1021,8 @@
       }
     }
   },
-  "taskRunDays": "Run the city for {count} days",
-  "@taskRunDays": {
+  "taskRunMinutes": "Run the city for {count} minutes",
+  "@taskRunMinutes": {
     "placeholders": {
       "count": {
         "type": "int"
@@ -1068,9 +1052,8 @@
   "tutorialFinish": "Let's go!",
   "tutorialWelcomeTitle": "Hi Minister!",
   "tutorialWelcome": "I'm Mr. Bus, your transport advisor. Let me show you Baku in 30 seconds!",
-  "tutorialBudget": "This is your budget. It starts empty: the Cabinet pays you every day, more when people are happy. Fuel, wages and repairs drain it.",
+  "tutorialBudget": "This is your budget. It starts empty: the Cabinet pays you every second while you are on this map, more when people are happy. Fuel, wages and repairs drain it.",
   "tutorialMood": "This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!",
-  "tutorialClock": "A day passes every minute while you are on this map. Leave it and time stops.",
   "tutorialDistrict": "People in {district} wait the longest. Find it on the map and tap it!",
   "@tutorialDistrict": {
     "placeholders": {
@@ -1087,7 +1070,7 @@
       }
     }
   },
-  "tutorialBusBought": "Your bus arrives tomorrow. Faster service means happier citizens and more money!",
+  "tutorialBusBought": "Your bus arrives in a few seconds. Faster service means happier citizens and more money!",
   "tutorialLevel": "Reach level 10, unlock every technology and make people 75% happy to complete Baku!",
   "tutorialNews": "When I wave here, I have news: requests, offers and disasters. You decide!",
   "tutorialTasks": "Daily tasks and a daily gift bring extra money every day.",
@@ -1196,7 +1179,7 @@
       }
     }
   },
-  "busRunningCost": "{amount}/day",
+  "busRunningCost": "{amount}/s",
   "@busRunningCost": {
     "placeholders": {
       "amount": {
@@ -1276,7 +1259,7 @@
       }
     }
   },
-  "fleetOnOrder": "+{count} tomorrow",
+  "fleetOnOrder": "+{count} coming",
   "@fleetOnOrder": {
     "placeholders": {
       "count": {
@@ -1301,21 +1284,51 @@
       }
     }
   },
-  "buildDays": "{days, plural, =1{1 day} other{{days} days}}",
-  "@buildDays": {
+  "timeSeconds": "{seconds}s",
+  "@timeSeconds": {
     "placeholders": {
-      "days": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "timeMinutes": "{minutes}m",
+  "@timeMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "timeMinutesSeconds": "{minutes}m {seconds}s",
+  "@timeMinutesSeconds": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "timeHoursMinutes": "{hours}h {minutes}m",
+  "@timeHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
         "type": "int"
       }
     }
   },
   "buildDone": "Built",
   "buildRoadFine": "Road is in great shape",
-  "buildDaysLeft": "{days, plural, =1{1 day left} other{{days} days left}}",
-  "@buildDaysLeft": {
+  "buildTimeLeft": "{time} left",
+  "@buildTimeLeft": {
     "placeholders": {
-      "days": {
-        "type": "int"
+      "time": {
+        "type": "String"
       }
     }
   },
@@ -1352,7 +1365,7 @@
   },
   "achievementMetroPioneerTitle": "Metro Pioneer",
   "achievementMetroPioneerDescription": "Open your first metro line.",
-  "metroIntro": "Each station carries {riders} riders a day with no traffic jams. A line costs {cost}/day to run.",
+  "metroIntro": "Each station carries {riders} riders a second with no traffic jams. A line costs {cost}/s to run.",
   "@metroIntro": {
     "placeholders": {
       "riders": {
@@ -1363,7 +1376,7 @@
       }
     }
   },
-  "metroTeaser": "Dig tunnels to the neighbours: thousands of riders a day and no traffic jams.",
+  "metroTeaser": "Dig tunnels to the neighbours: lots of riders and no traffic jams.",
   "metroLinesTitle": "Lines from {district}",
   "@metroLinesTitle": {
     "placeholders": {

@@ -85,14 +85,14 @@ class DecisionEffects {
                 current.id == district ? current.copyWith(roadCondition: 100) : current,
             ],
           );
-        case Modify(:final type, :final value, :final days, :final district, :final group):
+        case Modify(:final type, :final value, :final seconds, :final district, :final group):
           next = next.copyWith(
             modifiers: [
               ...next.modifiers,
               ActiveModifier(
                 type: type,
                 value: value,
-                remainingDays: days,
+                remainingSeconds: seconds,
                 district: district,
                 group: group,
               ),
@@ -108,7 +108,7 @@ class DecisionEffects {
                   id: next.nextId + index,
                   model: model,
                   districtId: district,
-                  deliveryDay: next.day + GameBalance.busDeliveryDays,
+                  deliveryTick: next.tick + GameBalance.busDeliverySeconds,
                 ),
             ],
             nextId: next.nextId + count,
@@ -118,7 +118,7 @@ class DecisionEffects {
             for (var index = 0; index < count; index++) BusPurchased(model, district),
           ]);
         case LaunchProject(:final type, :final district, :final discount):
-          final days = projects.duration(next, type, district: district);
+          final seconds = projects.duration(next, type, district: district);
           final price = (projects.cost(next, type, district: district) * (1 - discount)).round();
           next = _record(next, LedgerItem.construction, -price).copyWith(
             projects: [
@@ -127,8 +127,8 @@ class DecisionEffects {
                 id: next.nextId,
                 type: type,
                 districtId: district,
-                totalDays: days,
-                remainingDays: days,
+                totalSeconds: seconds,
+                remainingSeconds: seconds,
               ),
             ],
             nextId: next.nextId + 1,
@@ -139,7 +139,7 @@ class DecisionEffects {
               (next.activeBuses
                       .where((bus) => district == null || bus.districtId == district)
                       .toList()
-                    ..sort((a, b) => b.ageDays.compareTo(a.ageDays)))
+                    ..sort((a, b) => b.ageSeconds.compareTo(a.ageSeconds)))
                   .take(count)
                   .map((bus) => bus.id)
                   .toSet();

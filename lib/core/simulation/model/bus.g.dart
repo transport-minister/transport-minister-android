@@ -11,8 +11,8 @@ _Bus _$BusFromJson(Map<String, dynamic> json) => _Bus(
   model: $enumDecode(_$BusModelIdEnumMap, json['model']),
   districtId: $enumDecode(_$DistrictIdEnumMap, json['districtId']),
   level: (json['level'] as num?)?.toInt() ?? 1,
-  ageDays: (json['ageDays'] as num?)?.toInt() ?? 0,
-  deliveryDay: (json['deliveryDay'] as num?)?.toInt() ?? 0,
+  ageSeconds: (json['ageSeconds'] as num?)?.toInt() ?? 0,
+  deliveryTick: (json['deliveryTick'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$BusToJson(_Bus instance) => <String, dynamic>{
@@ -20,8 +20,8 @@ Map<String, dynamic> _$BusToJson(_Bus instance) => <String, dynamic>{
   'model': _$BusModelIdEnumMap[instance.model]!,
   'districtId': _$DistrictIdEnumMap[instance.districtId]!,
   'level': instance.level,
-  'ageDays': instance.ageDays,
-  'deliveryDay': instance.deliveryDay,
+  'ageSeconds': instance.ageSeconds,
+  'deliveryTick': instance.deliveryTick,
 };
 
 const _$BusModelIdEnumMap = {

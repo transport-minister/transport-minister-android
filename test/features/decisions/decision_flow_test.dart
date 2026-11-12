@@ -27,8 +27,8 @@ void main() {
             PendingDecision(
               id: 500,
               template: DecisionId.driverWages,
-              createdDay: 1,
-              expiresDay: 4,
+              createdTick: 0,
+              expiresTick: 90,
             ),
           ],
         ),
@@ -47,6 +47,7 @@ void main() {
 
     expect(find.text('Drivers want a raise'), findsOneWidget);
     expect(find.text('Pay a one-time bonus'), findsOneWidget);
+    expect(find.text('1M 30S LEFT'), findsOneWidget);
 
     await tester.ensureVisible(find.text('Choose').at(1));
     await tester.tap(find.text('Choose').at(1));

@@ -61,7 +61,7 @@ class CityCommands {
       id: state.nextId,
       model: model,
       districtId: district,
-      deliveryDay: state.day + GameBalance.busDeliveryDays,
+      deliveryTick: state.tick + GameBalance.busDeliverySeconds,
     );
     final (developed, levelEvents) = development.award(
       _record(state, LedgerItem.vehiclePurchases, -(price ?? model.spec.price)).copyWith(
@@ -121,7 +121,7 @@ class CityCommands {
   }
 
   RejectionReason? upgradeProblem(CityState state, Bus bus) {
-    if (!bus.isActiveOn(state.day)) {
+    if (!bus.isActiveAt(state.tick)) {
       return RejectionReason.invalidTarget;
     }
     if (bus.level >= BusUpgrades.maxLevel) {
@@ -191,13 +191,13 @@ class CityCommands {
     if (rejection != null) {
       return CommandRejected(rejection);
     }
-    final days = projects.duration(state, type, district: district);
+    final seconds = projects.duration(state, type, district: district);
     final project = Project(
       id: state.nextId,
       type: type,
       districtId: district,
-      totalDays: days,
-      remainingDays: days,
+      totalSeconds: seconds,
+      remainingSeconds: seconds,
     );
     return CommandApplied(
       _record(
@@ -236,8 +236,8 @@ class CityCommands {
     final line = MetroLine(
       from: from,
       to: to,
-      totalDays: MetroRules.buildDays,
-      remainingDays: MetroRules.buildDays,
+      totalSeconds: MetroRules.buildSeconds,
+      remainingSeconds: MetroRules.buildSeconds,
     );
     return CommandApplied(
       _record(
@@ -256,14 +256,14 @@ class CityCommands {
     if (!GameBalance.loanOptions.contains(amount)) {
       return const CommandRejected(RejectionReason.invalidTarget);
     }
-    final installment = (amount * (1 + GameBalance.loanInterest) / GameBalance.loanTermDays)
+    final installment = (amount * (1 + GameBalance.loanInterest) / GameBalance.loanTermSeconds)
         .round();
     return CommandApplied(
       _record(state, LedgerItem.loanReceived, amount).copyWith(
         loan: Loan(
           principal: amount,
-          dailyInstallment: installment,
-          remainingDays: GameBalance.loanTermDays,
+          installment: installment,
+          remainingSeconds: GameBalance.loanTermSeconds,
         ),
       ),
     );
@@ -311,7 +311,7 @@ class CityCommands {
     if (type == null) {
       return null;
     }
-    return ActiveModifier(type: type, value: value, remainingDays: ActiveModifier.permanent);
+    return ActiveModifier(type: type, value: value, remainingSeconds: ActiveModifier.permanent);
   }
 
   CommandOutcome grantReward(CityState state, int amount) {

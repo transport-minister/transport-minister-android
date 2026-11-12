@@ -10,8 +10,8 @@ abstract class PendingDecision with _$PendingDecision {
   const factory PendingDecision({
     required int id,
     required DecisionId template,
-    required int createdDay,
-    required int expiresDay,
+    required int createdTick,
+    required int expiresTick,
     DistrictId? district,
   }) = _PendingDecision;
 
@@ -23,7 +23,7 @@ abstract class DecisionRecord with _$DecisionRecord {
   const factory DecisionRecord({
     required DecisionId template,
     required int option,
-    required int day,
+    required int tick,
     required bool riskTriggered,
     required bool automatic,
     DistrictId? district,

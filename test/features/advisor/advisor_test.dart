@@ -22,7 +22,7 @@ void main() {
   test('money trouble and presidential warnings come first', () {
     expect(_tipFor(newBaku().copyWith(budget: -10)).kind, TipKind.negativeBudget);
     expect(
-      _tipFor(newBaku().copyWith(crisis: const CrisisState(days: 3, warnings: 1))).kind,
+      _tipFor(newBaku().copyWith(crisis: const CrisisState(seconds: 90, warnings: 1))).kind,
       TipKind.presidentWatching,
     );
     expect(TipKind.negativeBudget.isUrgent, isTrue);

@@ -65,10 +65,10 @@ final class CityLeveledUp extends CityEvent {
   final int diplomacy;
 }
 
-final class DayClosed extends CityEvent {
-  const DayClosed(this.day, this.satisfaction, {this.tickets = 0});
+final class MinutePassed extends CityEvent {
+  const MinutePassed(this.minute, this.satisfaction, {this.tickets = 0});
 
-  final int day;
+  final int minute;
   final double satisfaction;
   final int tickets;
 }

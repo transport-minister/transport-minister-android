@@ -29,11 +29,11 @@ void main() {
 
   test('actions earn XP and the first bus unlocks an achievement', () {
     final update = apply(const MinisterProfile(), const [
-      DayClosed(1, 40),
+      MinutePassed(1, 40),
       BusPurchased(BusModelId.cityRunner, DistrictId.windHeights),
     ]);
 
-    expect(update.profile.xp, 2 + 10 + AchievementId.firstBus.xp);
+    expect(update.profile.xp, ProgressionRules.xpPerMinute + 10 + AchievementId.firstBus.xp);
     expect(update.profile.career.busesBought, 1);
     expect(
       update.events.whereType<AchievementUnlocked>().single.achievement,
@@ -45,8 +45,12 @@ void main() {
     const ready = MinisterProfile(xp: 295, reputation: 45);
     const unpopular = MinisterProfile(xp: 5000, reputation: 30);
 
-    final promoted = apply(ready, const [DayClosed(1, 45), DayClosed(2, 45), DayClosed(3, 45)]);
-    final stuck = apply(unpopular, const [DayClosed(1, 30)]);
+    final promoted = apply(ready, const [
+      MinutePassed(1, 45),
+      MinutePassed(2, 45),
+      MinutePassed(3, 45),
+    ]);
+    final stuck = apply(unpopular, const [MinutePassed(1, 30)]);
 
     expect(promoted.profile.rank, MinisterialRank.inspector);
     expect(promoted.events.whereType<RankPromoted>().single.rank, MinisterialRank.inspector);
@@ -64,10 +68,10 @@ void main() {
   });
 
   test('reputation follows satisfaction and drops on warnings', () {
-    final calm = apply(const MinisterProfile(), const [DayClosed(1, 70)]);
+    final calm = apply(const MinisterProfile(), const [MinutePassed(1, 70)]);
     final warned = apply(const MinisterProfile(), const [CrisisWarning(1)]);
 
-    expect(calm.profile.reputation, closeTo(51, 0.001));
+    expect(calm.profile.reputation, closeTo(52, 0.001));
     expect(warned.profile.reputation, 45);
   });
 
@@ -87,8 +91,8 @@ void main() {
           MetroLine(
             from: DistrictId.oldFortress,
             to: DistrictId.windHeights,
-            totalDays: 8,
-            remainingDays: 0,
+            totalSeconds: 8,
+            remainingSeconds: 0,
           ),
         ],
       ),

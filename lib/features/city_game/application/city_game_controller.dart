@@ -19,9 +19,12 @@ typedef CityCommand = CommandOutcome Function(CityState city);
 class CityGameController extends AsyncNotifier<CityGameSession> {
   CityGameController(this.cityId);
 
+  static const _saveEveryTicks = 10;
+
   final CityId cityId;
 
   late TimeAnchor _anchor;
+  var _savedTick = 0;
   Timer? _ticker;
   var _paused = true;
   var _onDashboard = false;
@@ -38,7 +41,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     _anchor = _restartedAt(now, saved?.anchor);
     await _persist(city);
     _recordProgress(city, const []);
-    return CityGameSession(city: city, dayProgress: _progressOf(_anchor));
+    return CityGameSession(city: city);
   }
 
   void tick() {
@@ -55,16 +58,17 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     }
     final reading = ref.read(simulationClockProvider).read(_anchor, time);
     _anchor = reading.anchor;
-    if (reading.days == 0) {
-      state = AsyncData(session.copyWith(dayProgress: reading.dayProgress, latestEvents: const []));
+    if (reading.ticks == 0) {
       return;
     }
-    final (city, events) = _simulate(session.city, reading.days);
-    state = AsyncData(
-      session.copyWith(city: city, dayProgress: reading.dayProgress, latestEvents: events),
-    );
-    unawaited(_persist(city));
-    _recordProgress(city, events);
+    final (city, events) = _simulate(session.city, reading.ticks);
+    state = AsyncData(session.copyWith(city: city, latestEvents: events));
+    if (events.isNotEmpty || city.tick - _savedTick >= _saveEveryTicks) {
+      unawaited(_persist(city));
+    }
+    if (events.isNotEmpty) {
+      _recordProgress(city, events);
+    }
   }
 
   void enterDashboard() {
@@ -130,7 +134,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     final now = _now();
     _anchor = TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch);
     final city = _newCity(now);
-    state = AsyncData(CityGameSession(city: city, dayProgress: 0));
+    state = AsyncData(CityGameSession(city: city));
     await _persist(city);
     if (!_paused) {
       _startTicker();
@@ -140,9 +144,6 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
   TimeAnchor _restartedAt(DateTime now, TimeAnchor? previous) =>
       TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch, carriedMs: previous?.carriedMs ?? 0);
 
-  double _progressOf(TimeAnchor anchor) =>
-      anchor.carriedMs / ref.read(simulationClockProvider).dayLength.inMilliseconds;
-
   void _recordProgress(CityState city, List<CityEvent> events) {
     unawaited(ref.read(profileProvider.notifier).applyCity(cityId, city, events));
     if (events.isNotEmpty) {
@@ -151,11 +152,11 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     unawaited(ref.read(dailyProvider.notifier).track(events, city));
   }
 
-  (CityState, List<CityEvent>) _simulate(CityState city, int days) {
-    final simulator = ref.read(cityDayRunnerProvider);
+  (CityState, List<CityEvent>) _simulate(CityState city, int ticks) {
+    final simulator = ref.read(cityTickRunnerProvider);
     var current = city;
     final events = <CityEvent>[];
-    for (var day = 0; day < days && !current.crisis.dismissed; day++) {
+    for (var tick = 0; tick < ticks && !current.crisis.dismissed; tick++) {
       final result = simulator.advance(current);
       current = result.state;
       events.addAll(result.events);
@@ -167,6 +168,7 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
       ref.read(bakuScenarioProvider).create(seed: now.millisecondsSinceEpoch & 0x7fffffff);
 
   Future<void> _persist(CityState city) {
+    _savedTick = city.tick;
     return ref
         .read(citySaveRepositoryProvider)
         .store(cityId, CitySave(city: city, anchor: _anchor));

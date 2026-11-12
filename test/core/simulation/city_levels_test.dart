@@ -20,10 +20,10 @@ void main() {
     expect(CityLevels.progress(9999), 1);
   });
 
-  test('happy days and a positive budget earn more points', () {
-    expect(CityLevels.dailyPoints(satisfaction: 20, positiveDay: false), 0);
-    expect(CityLevels.dailyPoints(satisfaction: 38, positiveDay: false), 3);
-    expect(CityLevels.dailyPoints(satisfaction: 80, positiveDay: true), 13);
+  test('happy minutes and a growing budget earn more points', () {
+    expect(CityLevels.minutePoints(satisfaction: 20, positive: false), 0);
+    expect(CityLevels.minutePoints(satisfaction: 38, positive: false), 5);
+    expect(CityLevels.minutePoints(satisfaction: 80, positive: true), 26);
   });
 
   test('crossing a threshold levels up and pays the reward', () {
@@ -50,9 +50,9 @@ void main() {
     expect((outcome as CommandApplied).events.whereType<CityLeveledUp>().single.level, 2);
   });
 
-  test('every simulated day adds development points', () {
-    final week = runDays(newBaku(), 7).state;
+  test('every simulated minute adds development points', () {
+    final minute = runSeconds(newBaku(), 60).state;
 
-    expect(week.developmentPoints, greaterThan(0));
+    expect(minute.developmentPoints, greaterThan(0));
   });
 }

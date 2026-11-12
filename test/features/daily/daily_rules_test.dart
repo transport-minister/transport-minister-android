@@ -35,7 +35,7 @@ void main() {
 
     final tracked = rules.track(state, const [
       BusPurchased(BusModelId.cityRunner, DistrictId.windHeights, count: 3),
-      DayClosed(3, 40, tickets: 12000),
+      MinutePassed(3, 40, tickets: 12000),
     ], newBaku());
 
     expect(tracked.tasks[0].progress, 2);
@@ -45,12 +45,12 @@ void main() {
   });
 
   test('a finished task pays out exactly once', () {
-    const state = DailyState(tasks: [DailyTask(type: TaskType.runDays, progress: 10)]);
+    const state = DailyState(tasks: [DailyTask(type: TaskType.runMinutes, progress: 10)]);
 
     final (claimed, reward) = rules.claimTask(state, 0);
     final (_, again) = rules.claimTask(claimed, 0);
 
-    expect(reward?.money, TaskType.runDays.money);
+    expect(reward?.money, TaskType.runMinutes.money);
     expect(again, isNull);
   });
 

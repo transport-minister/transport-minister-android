@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
+import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/achievement.dart';
@@ -244,24 +245,54 @@ class _CareerGrid extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final career = profile.career;
     final stats = [
-      (Icons.calendar_month_rounded, l10n.careerDays, career.daysServed, ChunkyPalette.sunny),
-      (Icons.directions_bus_rounded, l10n.careerBuses, career.busesBought, ChunkyPalette.ocean),
-      (Icons.upgrade_rounded, l10n.careerUpgrades, career.busUpgrades, ChunkyPalette.grape),
+      (
+        Icons.schedule_rounded,
+        l10n.careerTime,
+        TimeTexts.duration(l10n, career.minutesServed * 60),
+        ChunkyPalette.sunny,
+      ),
+      (
+        Icons.directions_bus_rounded,
+        l10n.careerBuses,
+        MoneyFormat.count(career.busesBought),
+        ChunkyPalette.ocean,
+      ),
+      (
+        Icons.upgrade_rounded,
+        l10n.careerUpgrades,
+        MoneyFormat.count(career.busUpgrades),
+        ChunkyPalette.grape,
+      ),
       (
         Icons.construction_rounded,
         l10n.careerProjects,
-        career.projectsCompleted,
+        MoneyFormat.count(career.projectsCompleted),
         ChunkyPalette.tangerine,
       ),
-      (Icons.shield_rounded, l10n.careerCrises, career.crisesAverted, ChunkyPalette.lagoon),
-      (Icons.how_to_vote_rounded, l10n.careerDecisions, career.decisionsMade, ChunkyPalette.ocean),
+      (
+        Icons.shield_rounded,
+        l10n.careerCrises,
+        MoneyFormat.count(career.crisesAverted),
+        ChunkyPalette.lagoon,
+      ),
+      (
+        Icons.how_to_vote_rounded,
+        l10n.careerDecisions,
+        MoneyFormat.count(career.decisionsMade),
+        ChunkyPalette.ocean,
+      ),
       (
         Icons.thunderstorm_rounded,
         l10n.careerDisasters,
-        career.disastersHandled,
+        MoneyFormat.count(career.disastersHandled),
         ChunkyPalette.coral,
       ),
-      (Icons.gavel_rounded, l10n.careerDismissals, career.dismissals, ChunkyPalette.coral),
+      (
+        Icons.gavel_rounded,
+        l10n.careerDismissals,
+        MoneyFormat.count(career.dismissals),
+        ChunkyPalette.coral,
+      ),
     ];
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -284,10 +315,7 @@ class _CareerGrid extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              MoneyFormat.count(value),
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
+                            Text(value, style: Theme.of(context).textTheme.titleMedium),
                             Text(
                               label,
                               maxLines: 1,

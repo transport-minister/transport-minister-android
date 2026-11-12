@@ -6,14 +6,14 @@ abstract final class DiplomacyRules {
   static const perLevel = 5;
   static const maxPerDecision = 12;
 
-  static int daily(double satisfaction) {
+  static int perMinute(double satisfaction) {
     if (satisfaction >= 80) {
-      return 3;
+      return 6;
     }
     if (satisfaction >= 65) {
-      return 2;
+      return 4;
     }
-    return satisfaction >= 50 ? 1 : 0;
+    return satisfaction >= 50 ? 2 : 0;
   }
 
   static int forChoice(List<DecisionEffect> effects) {

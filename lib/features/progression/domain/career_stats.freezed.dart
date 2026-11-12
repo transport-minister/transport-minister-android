@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CareerStats {
 
- int get daysServed; int get busesBought; int get electricBusesBought; int get busUpgrades; int get projectsCompleted; int get roadRepairs; int get crisesAverted; int get dismissals; int get decisionsMade; int get disastersHandled;
+ int get minutesServed; int get busesBought; int get electricBusesBought; int get busUpgrades; int get projectsCompleted; int get roadRepairs; int get crisesAverted; int get dismissals; int get decisionsMade; int get disastersHandled;
 /// Create a copy of CareerStats
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $CareerStatsCopyWith<CareerStats> get copyWith => _$CareerStatsCopyWithImpl<Care
 @override
 bool operator ==(Object other) {
   final _this = this as CareerStats;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CareerStats&&(identical(other.daysServed, _this.daysServed) || other.daysServed == _this.daysServed)&&(identical(other.busesBought, _this.busesBought) || other.busesBought == _this.busesBought)&&(identical(other.electricBusesBought, _this.electricBusesBought) || other.electricBusesBought == _this.electricBusesBought)&&(identical(other.busUpgrades, _this.busUpgrades) || other.busUpgrades == _this.busUpgrades)&&(identical(other.projectsCompleted, _this.projectsCompleted) || other.projectsCompleted == _this.projectsCompleted)&&(identical(other.roadRepairs, _this.roadRepairs) || other.roadRepairs == _this.roadRepairs)&&(identical(other.crisesAverted, _this.crisesAverted) || other.crisesAverted == _this.crisesAverted)&&(identical(other.dismissals, _this.dismissals) || other.dismissals == _this.dismissals)&&(identical(other.decisionsMade, _this.decisionsMade) || other.decisionsMade == _this.decisionsMade)&&(identical(other.disastersHandled, _this.disastersHandled) || other.disastersHandled == _this.disastersHandled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CareerStats&&(identical(other.minutesServed, _this.minutesServed) || other.minutesServed == _this.minutesServed)&&(identical(other.busesBought, _this.busesBought) || other.busesBought == _this.busesBought)&&(identical(other.electricBusesBought, _this.electricBusesBought) || other.electricBusesBought == _this.electricBusesBought)&&(identical(other.busUpgrades, _this.busUpgrades) || other.busUpgrades == _this.busUpgrades)&&(identical(other.projectsCompleted, _this.projectsCompleted) || other.projectsCompleted == _this.projectsCompleted)&&(identical(other.roadRepairs, _this.roadRepairs) || other.roadRepairs == _this.roadRepairs)&&(identical(other.crisesAverted, _this.crisesAverted) || other.crisesAverted == _this.crisesAverted)&&(identical(other.dismissals, _this.dismissals) || other.dismissals == _this.dismissals)&&(identical(other.decisionsMade, _this.decisionsMade) || other.decisionsMade == _this.decisionsMade)&&(identical(other.disastersHandled, _this.disastersHandled) || other.disastersHandled == _this.disastersHandled));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as CareerStats;
-  return Object.hash(runtimeType,_this.daysServed,_this.busesBought,_this.electricBusesBought,_this.busUpgrades,_this.projectsCompleted,_this.roadRepairs,_this.crisesAverted,_this.dismissals,_this.decisionsMade,_this.disastersHandled);
+  return Object.hash(runtimeType,_this.minutesServed,_this.busesBought,_this.electricBusesBought,_this.busUpgrades,_this.projectsCompleted,_this.roadRepairs,_this.crisesAverted,_this.dismissals,_this.decisionsMade,_this.disastersHandled);
 }
 
 @override
 String toString() {
   final _this = this as CareerStats;
-  return 'CareerStats(daysServed: ${_this.daysServed}, busesBought: ${_this.busesBought}, electricBusesBought: ${_this.electricBusesBought}, busUpgrades: ${_this.busUpgrades}, projectsCompleted: ${_this.projectsCompleted}, roadRepairs: ${_this.roadRepairs}, crisesAverted: ${_this.crisesAverted}, dismissals: ${_this.dismissals}, decisionsMade: ${_this.decisionsMade}, disastersHandled: ${_this.disastersHandled})';
+  return 'CareerStats(minutesServed: ${_this.minutesServed}, busesBought: ${_this.busesBought}, electricBusesBought: ${_this.electricBusesBought}, busUpgrades: ${_this.busUpgrades}, projectsCompleted: ${_this.projectsCompleted}, roadRepairs: ${_this.roadRepairs}, crisesAverted: ${_this.crisesAverted}, dismissals: ${_this.dismissals}, decisionsMade: ${_this.decisionsMade}, disastersHandled: ${_this.disastersHandled})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $CareerStatsCopyWith<$Res>  {
   factory $CareerStatsCopyWith(CareerStats value, $Res Function(CareerStats) _then) = _$CareerStatsCopyWithImpl;
 @useResult
 $Res call({
- int daysServed, int busesBought, int electricBusesBought, int busUpgrades, int projectsCompleted, int roadRepairs, int crisesAverted, int dismissals, int decisionsMade, int disastersHandled
+ int minutesServed, int busesBought, int electricBusesBought, int busUpgrades, int projectsCompleted, int roadRepairs, int crisesAverted, int dismissals, int decisionsMade, int disastersHandled
 });
 
 
@@ -71,9 +71,9 @@ class _$CareerStatsCopyWithImpl<$Res>
 
 /// Create a copy of CareerStats
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? daysServed = null,Object? busesBought = null,Object? electricBusesBought = null,Object? busUpgrades = null,Object? projectsCompleted = null,Object? roadRepairs = null,Object? crisesAverted = null,Object? dismissals = null,Object? decisionsMade = null,Object? disastersHandled = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? minutesServed = null,Object? busesBought = null,Object? electricBusesBought = null,Object? busUpgrades = null,Object? projectsCompleted = null,Object? roadRepairs = null,Object? crisesAverted = null,Object? dismissals = null,Object? decisionsMade = null,Object? disastersHandled = null,}) {
   return _then(CareerStats(
-daysServed: null == daysServed ? _self.daysServed : daysServed // ignore: cast_nullable_to_non_nullable
+minutesServed: null == minutesServed ? _self.minutesServed : minutesServed // ignore: cast_nullable_to_non_nullable
 as int,busesBought: null == busesBought ? _self.busesBought : busesBought // ignore: cast_nullable_to_non_nullable
 as int,electricBusesBought: null == electricBusesBought ? _self.electricBusesBought : electricBusesBought // ignore: cast_nullable_to_non_nullable
 as int,busUpgrades: null == busUpgrades ? _self.busUpgrades : busUpgrades // ignore: cast_nullable_to_non_nullable
@@ -168,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int daysServed,  int busesBought,  int electricBusesBought,  int busUpgrades,  int projectsCompleted,  int roadRepairs,  int crisesAverted,  int dismissals,  int decisionsMade,  int disastersHandled)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int minutesServed,  int busesBought,  int electricBusesBought,  int busUpgrades,  int projectsCompleted,  int roadRepairs,  int crisesAverted,  int dismissals,  int decisionsMade,  int disastersHandled)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CareerStats() when $default != null:
-return $default(_that.daysServed,_that.busesBought,_that.electricBusesBought,_that.busUpgrades,_that.projectsCompleted,_that.roadRepairs,_that.crisesAverted,_that.dismissals,_that.decisionsMade,_that.disastersHandled);case _:
+return $default(_that.minutesServed,_that.busesBought,_that.electricBusesBought,_that.busUpgrades,_that.projectsCompleted,_that.roadRepairs,_that.crisesAverted,_that.dismissals,_that.decisionsMade,_that.disastersHandled);case _:
   return orElse();
 
 }
@@ -189,10 +189,10 @@ return $default(_that.daysServed,_that.busesBought,_that.electricBusesBought,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int daysServed,  int busesBought,  int electricBusesBought,  int busUpgrades,  int projectsCompleted,  int roadRepairs,  int crisesAverted,  int dismissals,  int decisionsMade,  int disastersHandled)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int minutesServed,  int busesBought,  int electricBusesBought,  int busUpgrades,  int projectsCompleted,  int roadRepairs,  int crisesAverted,  int dismissals,  int decisionsMade,  int disastersHandled)  $default,) {final _that = this;
 switch (_that) {
 case _CareerStats():
-return $default(_that.daysServed,_that.busesBought,_that.electricBusesBought,_that.busUpgrades,_that.projectsCompleted,_that.roadRepairs,_that.crisesAverted,_that.dismissals,_that.decisionsMade,_that.disastersHandled);case _:
+return $default(_that.minutesServed,_that.busesBought,_that.electricBusesBought,_that.busUpgrades,_that.projectsCompleted,_that.roadRepairs,_that.crisesAverted,_that.dismissals,_that.decisionsMade,_that.disastersHandled);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -209,10 +209,10 @@ return $default(_that.daysServed,_that.busesBought,_that.electricBusesBought,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int daysServed,  int busesBought,  int electricBusesBought,  int busUpgrades,  int projectsCompleted,  int roadRepairs,  int crisesAverted,  int dismissals,  int decisionsMade,  int disastersHandled)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int minutesServed,  int busesBought,  int electricBusesBought,  int busUpgrades,  int projectsCompleted,  int roadRepairs,  int crisesAverted,  int dismissals,  int decisionsMade,  int disastersHandled)?  $default,) {final _that = this;
 switch (_that) {
 case _CareerStats() when $default != null:
-return $default(_that.daysServed,_that.busesBought,_that.electricBusesBought,_that.busUpgrades,_that.projectsCompleted,_that.roadRepairs,_that.crisesAverted,_that.dismissals,_that.decisionsMade,_that.disastersHandled);case _:
+return $default(_that.minutesServed,_that.busesBought,_that.electricBusesBought,_that.busUpgrades,_that.projectsCompleted,_that.roadRepairs,_that.crisesAverted,_that.dismissals,_that.decisionsMade,_that.disastersHandled);case _:
   return null;
 
 }
@@ -224,10 +224,10 @@ return $default(_that.daysServed,_that.busesBought,_that.electricBusesBought,_th
 @JsonSerializable()
 
 class _CareerStats implements CareerStats {
-  const _CareerStats({this.daysServed = 0, this.busesBought = 0, this.electricBusesBought = 0, this.busUpgrades = 0, this.projectsCompleted = 0, this.roadRepairs = 0, this.crisesAverted = 0, this.dismissals = 0, this.decisionsMade = 0, this.disastersHandled = 0});
+  const _CareerStats({this.minutesServed = 0, this.busesBought = 0, this.electricBusesBought = 0, this.busUpgrades = 0, this.projectsCompleted = 0, this.roadRepairs = 0, this.crisesAverted = 0, this.dismissals = 0, this.decisionsMade = 0, this.disastersHandled = 0});
   factory _CareerStats.fromJson(Map<String, dynamic> json) => _$CareerStatsFromJson(json);
 
-@override@JsonKey() final  int daysServed;
+@override@JsonKey() final  int minutesServed;
 @override@JsonKey() final  int busesBought;
 @override@JsonKey() final  int electricBusesBought;
 @override@JsonKey() final  int busUpgrades;
@@ -251,18 +251,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CareerStats&&(identical(other.daysServed, daysServed) || other.daysServed == daysServed)&&(identical(other.busesBought, busesBought) || other.busesBought == busesBought)&&(identical(other.electricBusesBought, electricBusesBought) || other.electricBusesBought == electricBusesBought)&&(identical(other.busUpgrades, busUpgrades) || other.busUpgrades == busUpgrades)&&(identical(other.projectsCompleted, projectsCompleted) || other.projectsCompleted == projectsCompleted)&&(identical(other.roadRepairs, roadRepairs) || other.roadRepairs == roadRepairs)&&(identical(other.crisesAverted, crisesAverted) || other.crisesAverted == crisesAverted)&&(identical(other.dismissals, dismissals) || other.dismissals == dismissals)&&(identical(other.decisionsMade, decisionsMade) || other.decisionsMade == decisionsMade)&&(identical(other.disastersHandled, disastersHandled) || other.disastersHandled == disastersHandled));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CareerStats&&(identical(other.minutesServed, minutesServed) || other.minutesServed == minutesServed)&&(identical(other.busesBought, busesBought) || other.busesBought == busesBought)&&(identical(other.electricBusesBought, electricBusesBought) || other.electricBusesBought == electricBusesBought)&&(identical(other.busUpgrades, busUpgrades) || other.busUpgrades == busUpgrades)&&(identical(other.projectsCompleted, projectsCompleted) || other.projectsCompleted == projectsCompleted)&&(identical(other.roadRepairs, roadRepairs) || other.roadRepairs == roadRepairs)&&(identical(other.crisesAverted, crisesAverted) || other.crisesAverted == crisesAverted)&&(identical(other.dismissals, dismissals) || other.dismissals == dismissals)&&(identical(other.decisionsMade, decisionsMade) || other.decisionsMade == decisionsMade)&&(identical(other.disastersHandled, disastersHandled) || other.disastersHandled == disastersHandled));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,daysServed,busesBought,electricBusesBought,busUpgrades,projectsCompleted,roadRepairs,crisesAverted,dismissals,decisionsMade,disastersHandled);
+    return Object.hash(runtimeType,minutesServed,busesBought,electricBusesBought,busUpgrades,projectsCompleted,roadRepairs,crisesAverted,dismissals,decisionsMade,disastersHandled);
 }
 
 @override
 String toString() {
-    return 'CareerStats(daysServed: $daysServed, busesBought: $busesBought, electricBusesBought: $electricBusesBought, busUpgrades: $busUpgrades, projectsCompleted: $projectsCompleted, roadRepairs: $roadRepairs, crisesAverted: $crisesAverted, dismissals: $dismissals, decisionsMade: $decisionsMade, disastersHandled: $disastersHandled)';
+    return 'CareerStats(minutesServed: $minutesServed, busesBought: $busesBought, electricBusesBought: $electricBusesBought, busUpgrades: $busUpgrades, projectsCompleted: $projectsCompleted, roadRepairs: $roadRepairs, crisesAverted: $crisesAverted, dismissals: $dismissals, decisionsMade: $decisionsMade, disastersHandled: $disastersHandled)';
 }
 
 
@@ -273,7 +273,7 @@ abstract mixin class _$CareerStatsCopyWith<$Res> implements $CareerStatsCopyWith
   factory _$CareerStatsCopyWith(_CareerStats value, $Res Function(_CareerStats) _then) = __$CareerStatsCopyWithImpl;
 @override @useResult
 $Res call({
- int daysServed, int busesBought, int electricBusesBought, int busUpgrades, int projectsCompleted, int roadRepairs, int crisesAverted, int dismissals, int decisionsMade, int disastersHandled
+ int minutesServed, int busesBought, int electricBusesBought, int busUpgrades, int projectsCompleted, int roadRepairs, int crisesAverted, int dismissals, int decisionsMade, int disastersHandled
 });
 
 
@@ -290,9 +290,9 @@ class __$CareerStatsCopyWithImpl<$Res>
 
 /// Create a copy of CareerStats
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? daysServed = null,Object? busesBought = null,Object? electricBusesBought = null,Object? busUpgrades = null,Object? projectsCompleted = null,Object? roadRepairs = null,Object? crisesAverted = null,Object? dismissals = null,Object? decisionsMade = null,Object? disastersHandled = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? minutesServed = null,Object? busesBought = null,Object? electricBusesBought = null,Object? busUpgrades = null,Object? projectsCompleted = null,Object? roadRepairs = null,Object? crisesAverted = null,Object? dismissals = null,Object? decisionsMade = null,Object? disastersHandled = null,}) {
   return _then(_CareerStats(
-daysServed: null == daysServed ? _self.daysServed : daysServed // ignore: cast_nullable_to_non_nullable
+minutesServed: null == minutesServed ? _self.minutesServed : minutesServed // ignore: cast_nullable_to_non_nullable
 as int,busesBought: null == busesBought ? _self.busesBought : busesBought // ignore: cast_nullable_to_non_nullable
 as int,electricBusesBought: null == electricBusesBought ? _self.electricBusesBought : electricBusesBought // ignore: cast_nullable_to_non_nullable
 as int,busUpgrades: null == busUpgrades ? _self.busUpgrades : busUpgrades // ignore: cast_nullable_to_non_nullable

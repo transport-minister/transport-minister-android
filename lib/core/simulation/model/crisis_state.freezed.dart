@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CrisisState {
 
- int get days; int get warnings; bool get dismissed; CrisisCause? get cause;
+ int get seconds; int get warnings; bool get dismissed; CrisisCause? get cause;
 /// Create a copy of CrisisState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $CrisisStateCopyWith<CrisisState> get copyWith => _$CrisisStateCopyWithImpl<Cris
 @override
 bool operator ==(Object other) {
   final _this = this as CrisisState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisState&&(identical(other.days, _this.days) || other.days == _this.days)&&(identical(other.warnings, _this.warnings) || other.warnings == _this.warnings)&&(identical(other.dismissed, _this.dismissed) || other.dismissed == _this.dismissed)&&(identical(other.cause, _this.cause) || other.cause == _this.cause));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisState&&(identical(other.seconds, _this.seconds) || other.seconds == _this.seconds)&&(identical(other.warnings, _this.warnings) || other.warnings == _this.warnings)&&(identical(other.dismissed, _this.dismissed) || other.dismissed == _this.dismissed)&&(identical(other.cause, _this.cause) || other.cause == _this.cause));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as CrisisState;
-  return Object.hash(runtimeType,_this.days,_this.warnings,_this.dismissed,_this.cause);
+  return Object.hash(runtimeType,_this.seconds,_this.warnings,_this.dismissed,_this.cause);
 }
 
 @override
 String toString() {
   final _this = this as CrisisState;
-  return 'CrisisState(days: ${_this.days}, warnings: ${_this.warnings}, dismissed: ${_this.dismissed}, cause: ${_this.cause})';
+  return 'CrisisState(seconds: ${_this.seconds}, warnings: ${_this.warnings}, dismissed: ${_this.dismissed}, cause: ${_this.cause})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $CrisisStateCopyWith<$Res>  {
   factory $CrisisStateCopyWith(CrisisState value, $Res Function(CrisisState) _then) = _$CrisisStateCopyWithImpl;
 @useResult
 $Res call({
- int days, int warnings, bool dismissed, CrisisCause? cause
+ int seconds, int warnings, bool dismissed, CrisisCause? cause
 });
 
 
@@ -71,9 +71,9 @@ class _$CrisisStateCopyWithImpl<$Res>
 
 /// Create a copy of CrisisState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? days = null,Object? warnings = null,Object? dismissed = null,Object? cause = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? seconds = null,Object? warnings = null,Object? dismissed = null,Object? cause = freezed,}) {
   return _then(CrisisState(
-days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nullable
+seconds: null == seconds ? _self.seconds : seconds // ignore: cast_nullable_to_non_nullable
 as int,warnings: null == warnings ? _self.warnings : warnings // ignore: cast_nullable_to_non_nullable
 as int,dismissed: null == dismissed ? _self.dismissed : dismissed // ignore: cast_nullable_to_non_nullable
 as bool,cause: freezed == cause ? _self.cause : cause // ignore: cast_nullable_to_non_nullable
@@ -162,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int days,  int warnings,  bool dismissed,  CrisisCause? cause)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int seconds,  int warnings,  bool dismissed,  CrisisCause? cause)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CrisisState() when $default != null:
-return $default(_that.days,_that.warnings,_that.dismissed,_that.cause);case _:
+return $default(_that.seconds,_that.warnings,_that.dismissed,_that.cause);case _:
   return orElse();
 
 }
@@ -183,10 +183,10 @@ return $default(_that.days,_that.warnings,_that.dismissed,_that.cause);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int days,  int warnings,  bool dismissed,  CrisisCause? cause)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int seconds,  int warnings,  bool dismissed,  CrisisCause? cause)  $default,) {final _that = this;
 switch (_that) {
 case _CrisisState():
-return $default(_that.days,_that.warnings,_that.dismissed,_that.cause);case _:
+return $default(_that.seconds,_that.warnings,_that.dismissed,_that.cause);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +203,10 @@ return $default(_that.days,_that.warnings,_that.dismissed,_that.cause);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int days,  int warnings,  bool dismissed,  CrisisCause? cause)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int seconds,  int warnings,  bool dismissed,  CrisisCause? cause)?  $default,) {final _that = this;
 switch (_that) {
 case _CrisisState() when $default != null:
-return $default(_that.days,_that.warnings,_that.dismissed,_that.cause);case _:
+return $default(_that.seconds,_that.warnings,_that.dismissed,_that.cause);case _:
   return null;
 
 }
@@ -218,10 +218,10 @@ return $default(_that.days,_that.warnings,_that.dismissed,_that.cause);case _:
 @JsonSerializable()
 
 class _CrisisState implements CrisisState {
-  const _CrisisState({this.days = 0, this.warnings = 0, this.dismissed = false, this.cause});
+  const _CrisisState({this.seconds = 0, this.warnings = 0, this.dismissed = false, this.cause});
   factory _CrisisState.fromJson(Map<String, dynamic> json) => _$CrisisStateFromJson(json);
 
-@override@JsonKey() final  int days;
+@override@JsonKey() final  int seconds;
 @override@JsonKey() final  int warnings;
 @override@JsonKey() final  bool dismissed;
 @override final  CrisisCause? cause;
@@ -239,18 +239,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CrisisState&&(identical(other.days, days) || other.days == days)&&(identical(other.warnings, warnings) || other.warnings == warnings)&&(identical(other.dismissed, dismissed) || other.dismissed == dismissed)&&(identical(other.cause, cause) || other.cause == cause));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CrisisState&&(identical(other.seconds, seconds) || other.seconds == seconds)&&(identical(other.warnings, warnings) || other.warnings == warnings)&&(identical(other.dismissed, dismissed) || other.dismissed == dismissed)&&(identical(other.cause, cause) || other.cause == cause));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,days,warnings,dismissed,cause);
+    return Object.hash(runtimeType,seconds,warnings,dismissed,cause);
 }
 
 @override
 String toString() {
-    return 'CrisisState(days: $days, warnings: $warnings, dismissed: $dismissed, cause: $cause)';
+    return 'CrisisState(seconds: $seconds, warnings: $warnings, dismissed: $dismissed, cause: $cause)';
 }
 
 
@@ -261,7 +261,7 @@ abstract mixin class _$CrisisStateCopyWith<$Res> implements $CrisisStateCopyWith
   factory _$CrisisStateCopyWith(_CrisisState value, $Res Function(_CrisisState) _then) = __$CrisisStateCopyWithImpl;
 @override @useResult
 $Res call({
- int days, int warnings, bool dismissed, CrisisCause? cause
+ int seconds, int warnings, bool dismissed, CrisisCause? cause
 });
 
 
@@ -278,9 +278,9 @@ class __$CrisisStateCopyWithImpl<$Res>
 
 /// Create a copy of CrisisState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? days = null,Object? warnings = null,Object? dismissed = null,Object? cause = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? seconds = null,Object? warnings = null,Object? dismissed = null,Object? cause = freezed,}) {
   return _then(_CrisisState(
-days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nullable
+seconds: null == seconds ? _self.seconds : seconds // ignore: cast_nullable_to_non_nullable
 as int,warnings: null == warnings ? _self.warnings : warnings // ignore: cast_nullable_to_non_nullable
 as int,dismissed: null == dismissed ? _self.dismissed : dismissed // ignore: cast_nullable_to_non_nullable
 as bool,cause: freezed == cause ? _self.cause : cause // ignore: cast_nullable_to_non_nullable

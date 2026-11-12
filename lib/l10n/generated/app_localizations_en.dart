@@ -162,11 +162,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get districtCaspianGardensTagline => 'New homes growing fast by the shore';
 
   @override
-  String hudDay(int day) {
-    return 'Day $day';
-  }
-
-  @override
   String hudSatisfaction(int value) {
     return '$value%';
   }
@@ -229,19 +224,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String districtRidersServed(String capacity, String demand) {
-    return 'Can carry $capacity of $demand riders a day';
+    return 'Carries $capacity of $demand riders a second';
   }
 
   @override
   String districtResidents(String count, String growth) {
-    return '$count residents · +$growth a day';
+    return '$count residents · +$growth/s';
   }
 
   @override
   String get ledgerTickets => 'Ticket sales';
 
   @override
-  String get ledgerSubsidy => 'Daily subsidy';
+  String get ledgerSubsidy => 'Subsidy';
 
   @override
   String get ledgerGovernmentBudget => 'Cabinet budget';
@@ -348,7 +343,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String eventBudgetAllocated(String amount) {
-    return 'The Cabinet sent $amount for this month';
+    return 'The Cabinet sent $amount';
   }
 
   @override
@@ -465,7 +460,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get levelSheetBody =>
-      'Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.';
+      'Earn city points all the time by keeping citizens happy and the budget growing. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.';
 
   @override
   String levelUpTitle(String city, int level) {
@@ -522,7 +517,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileCareer => 'Career';
 
   @override
-  String get careerDays => 'Days served';
+  String get careerTime => 'Time in office';
 
   @override
   String get careerBuses => 'Buses bought';
@@ -626,7 +621,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get achievementEconomicStrategistDescription =>
-      'Keep a positive daily budget for 30 days in a row.';
+      'Keep the budget growing for 15 minutes in a row.';
 
   @override
   String get achievementSmilingCityTitle => 'Smiling City';
@@ -662,7 +657,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get achievementVeteranMinisterTitle => 'Veteran Minister';
 
   @override
-  String get achievementVeteranMinisterDescription => 'Serve 365 days.';
+  String get achievementVeteranMinisterDescription => 'Serve 3 hours in office.';
 
   @override
   String get ledgerDecisions => 'Decisions & events';
@@ -729,15 +724,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get kindDisaster => 'Disaster';
 
   @override
-  String decisionDaysLeft(int days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days days left',
-      one: '1 day left',
-      zero: 'Decide today',
-    );
-    return '$_temp0';
+  String decisionTimeLeft(String time) {
+    return '$time left';
   }
 
   @override
@@ -843,23 +831,18 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String effectDailyCost(String amount) {
-    return 'Costs $amount/day';
+  String effectExtraCost(String amount) {
+    return 'Costs $amount/s';
   }
 
   @override
-  String effectDailyIncome(String amount) {
-    return 'Income $amount/day';
+  String effectExtraIncome(String amount) {
+    return 'Income $amount/s';
   }
 
   @override
   String effectMoodTrend(String group, String change) {
     return '$group mood $change';
-  }
-
-  @override
-  String effectDays(int days) {
-    return '${days}d';
   }
 
   @override
@@ -910,7 +893,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get decisionOvercrowdedBusesOptionA => 'Rush-order 3 CityRunners';
 
   @override
-  String get decisionOvercrowdedBusesOptionB => 'Extra shifts for 5 days';
+  String get decisionOvercrowdedBusesOptionB => 'Extra shifts for a while';
 
   @override
   String get decisionOvercrowdedBusesOptionC => 'Ask people to be patient';
@@ -926,7 +909,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get decisionPotholesOptionA => 'Emergency repair today';
+  String get decisionPotholesOptionA => 'Emergency repair now';
 
   @override
   String get decisionPotholesOptionB => 'Schedule a normal repair';
@@ -1008,7 +991,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get decisionFuelSpikeBody =>
-      'Diesel got expensive overnight, and our buses drink a lot of it...';
+      'Diesel suddenly got expensive, and our buses drink a lot of it...';
 
   @override
   String get decisionFuelSpikeOptionA => 'Buy a price hedge';
@@ -1024,7 +1007,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String decisionBusDiscountBody(String district) {
-    return 'Silkway Motors offers CityRunner buses at 25% off this week. They would start in $district.';
+    return 'Silkway Motors offers CityRunner buses at 25% off right now. They would start in $district.';
   }
 
   @override
@@ -1343,8 +1326,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String taskRunDays(int count) {
-    return 'Run the city for $count days';
+  String taskRunMinutes(int count) {
+    return 'Run the city for $count minutes';
   }
 
   @override
@@ -1381,15 +1364,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tutorialBudget =>
-      'This is your budget. It starts empty: the Cabinet pays you every day, more when people are happy. Fuel, wages and repairs drain it.';
+      'This is your budget. It starts empty: the Cabinet pays you every second while you are on this map, more when people are happy. Fuel, wages and repairs drain it.';
 
   @override
   String get tutorialMood =>
       'This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!';
-
-  @override
-  String get tutorialClock =>
-      'A day passes every minute while you are on this map. Leave it and time stops.';
 
   @override
   String tutorialDistrict(String district) {
@@ -1403,7 +1382,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tutorialBusBought =>
-      'Your bus arrives tomorrow. Faster service means happier citizens and more money!';
+      'Your bus arrives in a few seconds. Faster service means happier citizens and more money!';
 
   @override
   String get tutorialLevel =>
@@ -1611,7 +1590,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String busRunningCost(String amount) {
-    return '$amount/day';
+    return '$amount/s';
   }
 
   @override
@@ -1672,7 +1651,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String fleetOnOrder(int count) {
-    return '+$count tomorrow';
+    return '+$count coming';
   }
 
   @override
@@ -1689,14 +1668,23 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String buildDays(int days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days days',
-      one: '1 day',
-    );
-    return '$_temp0';
+  String timeSeconds(int seconds) {
+    return '${seconds}s';
+  }
+
+  @override
+  String timeMinutes(int minutes) {
+    return '${minutes}m';
+  }
+
+  @override
+  String timeMinutesSeconds(int minutes, int seconds) {
+    return '${minutes}m ${seconds}s';
+  }
+
+  @override
+  String timeHoursMinutes(int hours, int minutes) {
+    return '${hours}h ${minutes}m';
   }
 
   @override
@@ -1706,14 +1694,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buildRoadFine => 'Road is in great shape';
 
   @override
-  String buildDaysLeft(int days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days days left',
-      one: '1 day left',
-    );
-    return '$_temp0';
+  String buildTimeLeft(String time) {
+    return '$time left';
   }
 
   @override
@@ -1789,12 +1771,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String metroIntro(String riders, String cost) {
-    return 'Each station carries $riders riders a day with no traffic jams. A line costs $cost/day to run.';
+    return 'Each station carries $riders riders a second with no traffic jams. A line costs $cost/s to run.';
   }
 
   @override
-  String get metroTeaser =>
-      'Dig tunnels to the neighbours: thousands of riders a day and no traffic jams.';
+  String get metroTeaser => 'Dig tunnels to the neighbours: lots of riders and no traffic jams.';
 
   @override
   String metroLinesTitle(String district) {

@@ -92,8 +92,8 @@ class DailyRules {
       TaskType.buyBuses => events.whereType<BusPurchased>().fold(0, (sum, e) => sum + e.count),
       TaskType.makeDecisions =>
         events.whereType<DecisionResolved>().where((e) => !e.automatic).length,
-      TaskType.runDays => events.whereType<DayClosed>().length,
-      TaskType.earnTickets => events.whereType<DayClosed>().fold(0, (sum, e) => sum + e.tickets),
+      TaskType.runMinutes => events.whereType<MinutePassed>().length,
+      TaskType.earnTickets => events.whereType<MinutePassed>().fold(0, (sum, e) => sum + e.tickets),
       TaskType.finishProject => events.whereType<ProjectCompleted>().length,
       TaskType.repairRoad =>
         events

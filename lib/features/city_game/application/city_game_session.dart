@@ -8,7 +8,6 @@ part 'city_game_session.freezed.dart';
 abstract class CityGameSession with _$CityGameSession {
   const factory CityGameSession({
     required CityState city,
-    required double dayProgress,
     @Default([]) List<CityEvent> latestEvents,
   }) = _CityGameSession;
 }

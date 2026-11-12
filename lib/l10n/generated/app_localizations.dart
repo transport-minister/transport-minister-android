@@ -386,12 +386,6 @@ abstract class AppLocalizations {
   /// **'New homes growing fast by the shore'**
   String get districtCaspianGardensTagline;
 
-  /// No description provided for @hudDay.
-  ///
-  /// In en, this message translates to:
-  /// **'Day {day}'**
-  String hudDay(int day);
-
   /// No description provided for @hudSatisfaction.
   ///
   /// In en, this message translates to:
@@ -491,13 +485,13 @@ abstract class AppLocalizations {
   /// No description provided for @districtRidersServed.
   ///
   /// In en, this message translates to:
-  /// **'Can carry {capacity} of {demand} riders a day'**
+  /// **'Carries {capacity} of {demand} riders a second'**
   String districtRidersServed(String capacity, String demand);
 
   /// No description provided for @districtResidents.
   ///
   /// In en, this message translates to:
-  /// **'{count} residents · +{growth} a day'**
+  /// **'{count} residents · +{growth}/s'**
   String districtResidents(String count, String growth);
 
   /// No description provided for @ledgerTickets.
@@ -509,7 +503,7 @@ abstract class AppLocalizations {
   /// No description provided for @ledgerSubsidy.
   ///
   /// In en, this message translates to:
-  /// **'Daily subsidy'**
+  /// **'Subsidy'**
   String get ledgerSubsidy;
 
   /// No description provided for @ledgerGovernmentBudget.
@@ -701,7 +695,7 @@ abstract class AppLocalizations {
   /// No description provided for @eventBudgetAllocated.
   ///
   /// In en, this message translates to:
-  /// **'The Cabinet sent {amount} for this month'**
+  /// **'The Cabinet sent {amount}'**
   String eventBudgetAllocated(String amount);
 
   /// No description provided for @eventCrisisWarning.
@@ -881,7 +875,7 @@ abstract class AppLocalizations {
   /// No description provided for @levelSheetBody.
   ///
   /// In en, this message translates to:
-  /// **'Earn city points every day by keeping citizens happy and the budget positive. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.'**
+  /// **'Earn city points all the time by keeping citizens happy and the budget growing. New buses, upgrades, finished projects and wise decisions give extra points. Every level pays a Cabinet bonus and diplomacy points.'**
   String get levelSheetBody;
 
   /// No description provided for @levelUpTitle.
@@ -968,11 +962,11 @@ abstract class AppLocalizations {
   /// **'Career'**
   String get profileCareer;
 
-  /// No description provided for @careerDays.
+  /// No description provided for @careerTime.
   ///
   /// In en, this message translates to:
-  /// **'Days served'**
-  String get careerDays;
+  /// **'Time in office'**
+  String get careerTime;
 
   /// No description provided for @careerBuses.
   ///
@@ -1163,7 +1157,7 @@ abstract class AppLocalizations {
   /// No description provided for @achievementEconomicStrategistDescription.
   ///
   /// In en, this message translates to:
-  /// **'Keep a positive daily budget for 30 days in a row.'**
+  /// **'Keep the budget growing for 15 minutes in a row.'**
   String get achievementEconomicStrategistDescription;
 
   /// No description provided for @achievementSmilingCityTitle.
@@ -1235,7 +1229,7 @@ abstract class AppLocalizations {
   /// No description provided for @achievementVeteranMinisterDescription.
   ///
   /// In en, this message translates to:
-  /// **'Serve 365 days.'**
+  /// **'Serve 3 hours in office.'**
   String get achievementVeteranMinisterDescription;
 
   /// No description provided for @ledgerDecisions.
@@ -1358,11 +1352,11 @@ abstract class AppLocalizations {
   /// **'Disaster'**
   String get kindDisaster;
 
-  /// No description provided for @decisionDaysLeft.
+  /// No description provided for @decisionTimeLeft.
   ///
   /// In en, this message translates to:
-  /// **'{days, plural, =0{Decide today} =1{1 day left} other{{days} days left}}'**
-  String decisionDaysLeft(int days);
+  /// **'{time} left'**
+  String decisionTimeLeft(String time);
 
   /// No description provided for @decisionChoose.
   ///
@@ -1496,29 +1490,23 @@ abstract class AppLocalizations {
   /// **'Subsidy {change}'**
   String effectSubsidy(String change);
 
-  /// No description provided for @effectDailyCost.
+  /// No description provided for @effectExtraCost.
   ///
   /// In en, this message translates to:
-  /// **'Costs {amount}/day'**
-  String effectDailyCost(String amount);
+  /// **'Costs {amount}/s'**
+  String effectExtraCost(String amount);
 
-  /// No description provided for @effectDailyIncome.
+  /// No description provided for @effectExtraIncome.
   ///
   /// In en, this message translates to:
-  /// **'Income {amount}/day'**
-  String effectDailyIncome(String amount);
+  /// **'Income {amount}/s'**
+  String effectExtraIncome(String amount);
 
   /// No description provided for @effectMoodTrend.
   ///
   /// In en, this message translates to:
   /// **'{group} mood {change}'**
   String effectMoodTrend(String group, String change);
-
-  /// No description provided for @effectDays.
-  ///
-  /// In en, this message translates to:
-  /// **'{days}d'**
-  String effectDays(int days);
 
   /// No description provided for @effectForever.
   ///
@@ -1577,7 +1565,7 @@ abstract class AppLocalizations {
   /// No description provided for @decisionOvercrowdedBusesOptionB.
   ///
   /// In en, this message translates to:
-  /// **'Extra shifts for 5 days'**
+  /// **'Extra shifts for a while'**
   String get decisionOvercrowdedBusesOptionB;
 
   /// No description provided for @decisionOvercrowdedBusesOptionC.
@@ -1601,7 +1589,7 @@ abstract class AppLocalizations {
   /// No description provided for @decisionPotholesOptionA.
   ///
   /// In en, this message translates to:
-  /// **'Emergency repair today'**
+  /// **'Emergency repair now'**
   String get decisionPotholesOptionA;
 
   /// No description provided for @decisionPotholesOptionB.
@@ -1745,7 +1733,7 @@ abstract class AppLocalizations {
   /// No description provided for @decisionFuelSpikeBody.
   ///
   /// In en, this message translates to:
-  /// **'Diesel got expensive overnight, and our buses drink a lot of it...'**
+  /// **'Diesel suddenly got expensive, and our buses drink a lot of it...'**
   String get decisionFuelSpikeBody;
 
   /// No description provided for @decisionFuelSpikeOptionA.
@@ -1775,7 +1763,7 @@ abstract class AppLocalizations {
   /// No description provided for @decisionBusDiscountBody.
   ///
   /// In en, this message translates to:
-  /// **'Silkway Motors offers CityRunner buses at 25% off this week. They would start in {district}.'**
+  /// **'Silkway Motors offers CityRunner buses at 25% off right now. They would start in {district}.'**
   String decisionBusDiscountBody(String district);
 
   /// No description provided for @decisionBusDiscountOptionA.
@@ -2330,11 +2318,11 @@ abstract class AppLocalizations {
   /// **'Make {count} decisions'**
   String taskMakeDecisions(int count);
 
-  /// No description provided for @taskRunDays.
+  /// No description provided for @taskRunMinutes.
   ///
   /// In en, this message translates to:
-  /// **'Run the city for {count} days'**
-  String taskRunDays(int count);
+  /// **'Run the city for {count} minutes'**
+  String taskRunMinutes(int count);
 
   /// No description provided for @taskEarnTickets.
   ///
@@ -2393,7 +2381,7 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialBudget.
   ///
   /// In en, this message translates to:
-  /// **'This is your budget. It starts empty: the Cabinet pays you every day, more when people are happy. Fuel, wages and repairs drain it.'**
+  /// **'This is your budget. It starts empty: the Cabinet pays you every second while you are on this map, more when people are happy. Fuel, wages and repairs drain it.'**
   String get tutorialBudget;
 
   /// No description provided for @tutorialMood.
@@ -2401,12 +2389,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This heart shows how happy citizens are. If it stays under 30%, or traffic jams the city, the President fires you!'**
   String get tutorialMood;
-
-  /// No description provided for @tutorialClock.
-  ///
-  /// In en, this message translates to:
-  /// **'A day passes every minute while you are on this map. Leave it and time stops.'**
-  String get tutorialClock;
 
   /// No description provided for @tutorialDistrict.
   ///
@@ -2423,7 +2405,7 @@ abstract class AppLocalizations {
   /// No description provided for @tutorialBusBought.
   ///
   /// In en, this message translates to:
-  /// **'Your bus arrives tomorrow. Faster service means happier citizens and more money!'**
+  /// **'Your bus arrives in a few seconds. Faster service means happier citizens and more money!'**
   String get tutorialBusBought;
 
   /// No description provided for @tutorialLevel.
@@ -2783,7 +2765,7 @@ abstract class AppLocalizations {
   /// No description provided for @busRunningCost.
   ///
   /// In en, this message translates to:
-  /// **'{amount}/day'**
+  /// **'{amount}/s'**
   String busRunningCost(String amount);
 
   /// No description provided for @busComfort.
@@ -2873,7 +2855,7 @@ abstract class AppLocalizations {
   /// No description provided for @fleetOnOrder.
   ///
   /// In en, this message translates to:
-  /// **'+{count} tomorrow'**
+  /// **'+{count} coming'**
   String fleetOnOrder(int count);
 
   /// No description provided for @buildDistrictTitle.
@@ -2894,11 +2876,29 @@ abstract class AppLocalizations {
   /// **'Build · {price}'**
   String buildAction(String price);
 
-  /// No description provided for @buildDays.
+  /// No description provided for @timeSeconds.
   ///
   /// In en, this message translates to:
-  /// **'{days, plural, =1{1 day} other{{days} days}}'**
-  String buildDays(int days);
+  /// **'{seconds}s'**
+  String timeSeconds(int seconds);
+
+  /// No description provided for @timeMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m'**
+  String timeMinutes(int minutes);
+
+  /// No description provided for @timeMinutesSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m {seconds}s'**
+  String timeMinutesSeconds(int minutes, int seconds);
+
+  /// No description provided for @timeHoursMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h {minutes}m'**
+  String timeHoursMinutes(int hours, int minutes);
 
   /// No description provided for @buildDone.
   ///
@@ -2912,11 +2912,11 @@ abstract class AppLocalizations {
   /// **'Road is in great shape'**
   String get buildRoadFine;
 
-  /// No description provided for @buildDaysLeft.
+  /// No description provided for @buildTimeLeft.
   ///
   /// In en, this message translates to:
-  /// **'{days, plural, =1{1 day left} other{{days} days left}}'**
-  String buildDaysLeft(int days);
+  /// **'{time} left'**
+  String buildTimeLeft(String time);
 
   /// No description provided for @projectRoadRepairInfo.
   ///
@@ -3059,13 +3059,13 @@ abstract class AppLocalizations {
   /// No description provided for @metroIntro.
   ///
   /// In en, this message translates to:
-  /// **'Each station carries {riders} riders a day with no traffic jams. A line costs {cost}/day to run.'**
+  /// **'Each station carries {riders} riders a second with no traffic jams. A line costs {cost}/s to run.'**
   String metroIntro(String riders, String cost);
 
   /// No description provided for @metroTeaser.
   ///
   /// In en, this message translates to:
-  /// **'Dig tunnels to the neighbours: thousands of riders a day and no traffic jams.'**
+  /// **'Dig tunnels to the neighbours: lots of riders and no traffic jams.'**
   String get metroTeaser;
 
   /// No description provided for @metroLinesTitle.

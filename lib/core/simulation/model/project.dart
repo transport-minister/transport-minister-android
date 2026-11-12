@@ -10,8 +10,8 @@ abstract class Project with _$Project {
   const factory Project({
     required int id,
     required ProjectType type,
-    required int totalDays,
-    required int remainingDays,
+    required int totalSeconds,
+    required int remainingSeconds,
     DistrictId? districtId,
   }) = _Project;
 
@@ -19,5 +19,5 @@ abstract class Project with _$Project {
 
   factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
 
-  double get progress => 1 - remainingDays / totalDays;
+  double get progress => 1 - remainingSeconds / totalSeconds;
 }
