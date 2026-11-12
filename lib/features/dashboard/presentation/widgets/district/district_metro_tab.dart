@@ -130,9 +130,7 @@ class _MetroLineCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: GameDimens.spaceS),
       child: ChunkyCard(
         depth: 3,
-        color: open
-            ? Color.alphaBlend(ChunkyPalette.grape.glow.withValues(alpha: 0.35), GameColors.paper)
-            : GameColors.paper,
+        color: open ? ChunkyPalette.grape.glow.withValues(alpha: 0.35) : GameColors.paper,
         padding: const EdgeInsets.all(GameDimens.spaceM),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
