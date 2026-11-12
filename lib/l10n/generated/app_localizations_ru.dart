@@ -10,7 +10,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'Министр транспорта';
+  String get appTitle => 'Transport Minister';
 
   @override
   String get appTagline => 'Двигай город. Завоюй людей.';
@@ -22,10 +22,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get commonGotIt => 'Понятно';
 
   @override
-  String get splashTitleTop => 'Министр';
+  String get splashTitleTop => 'Transport';
 
   @override
-  String get splashTitleBottom => 'транспорта';
+  String get splashTitleBottom => 'Minister';
 
   @override
   String get splashLoading => 'Готовим город…';
