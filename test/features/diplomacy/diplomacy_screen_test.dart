@@ -29,14 +29,16 @@ void main() {
     final container = ProviderScope.containerOf(tester.element(find.byType(DiplomacyScreen)));
 
     expect(find.text('Cheaper tickets'), findsOneWidget);
-    expect(find.text('+5 diplomacy'), findsOneWidget);
+    expect(find.text('+8 diplomacy'), findsOneWidget);
 
+    await tester.ensureVisible(find.text('Do it · \$120K'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Do it · \$120K'));
     await tester.pumpAndSettle();
 
     final city = container.read(cityGameProvider(CityId.baku)).requireValue.city;
     expect(city.budget, fundedBudget - 120000);
-    expect(city.diplomacyPoints, 5);
+    expect(city.diplomacyPoints, 8);
     expect(find.text('READY IN 3M'), findsOneWidget);
   });
 }

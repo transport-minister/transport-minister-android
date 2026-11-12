@@ -97,15 +97,15 @@ void main() {
   group('diplomacy', () {
     test('happier cities earn more points every minute', () {
       expect(DiplomacyRules.perMinute(38), 0);
-      expect(DiplomacyRules.perMinute(55), 2);
-      expect(DiplomacyRules.perMinute(70), 4);
-      expect(DiplomacyRules.perMinute(85), 6);
+      expect(DiplomacyRules.perMinute(55), 1);
+      expect(DiplomacyRules.perMinute(70), 2);
+      expect(DiplomacyRules.perMinute(85), 3);
     });
 
     test('decisions that please people earn diplomacy', () {
       expect(
         DiplomacyRules.forChoice(const [Mood(StakeholderGroup.passengers, 8), Reputation(2)]),
-        7,
+        4,
       );
       expect(DiplomacyRules.forChoice(const [Mood(StakeholderGroup.drivers, -6)]), 0);
       expect(DiplomacyRules.forChoice(const [Spend(1000)]), 0);
@@ -125,8 +125,8 @@ void main() {
 
       final outcome = const DecisionDesk().choose(city, 900, 1);
 
-      expect(applied(outcome).diplomacyPoints, 4);
-      expect((outcome as CommandApplied).events.whereType<DiplomacyEarned>().single.amount, 4);
+      expect(applied(outcome).diplomacyPoints, 2);
+      expect((outcome as CommandApplied).events.whereType<DiplomacyEarned>().single.amount, 2);
     });
   });
 }
