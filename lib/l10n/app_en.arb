@@ -1262,14 +1262,6 @@
   "contractOpenTechnology": "Technology",
   "contractFewer": "Fewer buses",
   "contractMore": "More buses",
-  "contractSigned": "{count, plural, =1{Signed! Bus on the way} other{Signed! {count} buses on the way}}",
-  "@contractSigned": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "busSeats": "{count} seats",
   "@busSeats": {
     "placeholders": {

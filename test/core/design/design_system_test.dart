@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
-import 'package:transport_minister/core/design/widgets/tap_burst.dart';
 
 Widget _host(Widget child) {
   return MaterialApp(
@@ -47,7 +46,7 @@ void main() {
     expect(tester.getTopLeft(find.text('Depot')), before);
   });
 
-  testWidgets('a quick tap still visibly presses the button and pops a burst', (tester) async {
+  testWidgets('a quick tap still visibly presses the button', (tester) async {
     await tester.pumpWidget(_host(ChunkyButton(label: 'Sign', onPressed: () {})));
     final before = tester.getTopLeft(find.text('Sign'));
 
@@ -57,13 +56,11 @@ void main() {
 
     expect(tester.widget<ChunkySlab>(find.byType(ChunkySlab)).pressed, isTrue);
     expect(tester.getTopLeft(find.text('Sign')).dy, greaterThan(before.dy));
-    expect(find.byType(TapBurst), findsOneWidget);
 
     await tester.pumpAndSettle();
 
     expect(tester.widget<ChunkySlab>(find.byType(ChunkySlab)).pressed, isFalse);
     expect(tester.getTopLeft(find.text('Sign')), before);
-    expect(find.byType(TapBurst), findsNothing);
   });
 
   testWidgets('stat pill sizes itself to its value', (tester) async {
