@@ -19,6 +19,7 @@ class SatisfactionCalculator {
     final newBikeDistricts = districts
         .where((district) => district.hasBikeLanes && district.bikeAdoption < 0.5)
         .length;
+    final parks = districts.where((district) => district.hasPark).length;
     final stopsShare =
         districts.where((district) => district.hasModernStops).length / districts.length;
     final harbor = state.district(DistrictId.oilHarbor);
@@ -38,7 +39,11 @@ class SatisfactionCalculator {
         90 - metrics.congestion * 0.6 - (100 - averageCondition) * 0.2 - newBikeDistricts * 3,
       ),
       StakeholderGroup.pedestrians: _clamp(
-        54 + metrics.safety * 0.3 - metrics.pollution * 0.2 + bikeDistricts,
+        54 +
+            metrics.safety * 0.3 -
+            metrics.pollution * 0.2 +
+            bikeDistricts +
+            parks * GameBalance.parkMood,
       ),
       StakeholderGroup.cyclists: _clamp(30 + bikeDistricts * 12 + metrics.safety * 0.2),
       StakeholderGroup.businesses: _clamp(
@@ -51,7 +56,11 @@ class SatisfactionCalculator {
             (metrics.fleetComfort - 50) * 0.1,
       ),
       StakeholderGroup.environmentalists: _clamp(
-        70 - metrics.pollution * 0.6 + metrics.electricShare * 30 + bikeDistricts * 4,
+        70 -
+            metrics.pollution * 0.6 +
+            metrics.electricShare * 30 +
+            bikeDistricts * 4 +
+            parks * GameBalance.parkMood,
       ),
       StakeholderGroup.logistics: _clamp(
         76 - harborCongestion * 0.4 - (100 - harbor.roadCondition) * 0.15 - projects * 2,

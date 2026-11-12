@@ -24,6 +24,13 @@ void main() {
     expect(run.completedSecond, isNull);
   });
 
+  test('park and ride holds off gridlock for a minister who only buys buses', () {
+    final busesOnly = runCampaign(const BusOnlyBot(), seed: 1, minutes: minutes);
+    final withLots = runCampaign(const BusesAndParkAndRideBot(), seed: 1, minutes: minutes);
+
+    expect(withLots.dismissedSecond, greaterThan(busesOnly.dismissedSecond! + 20 * 60));
+  });
+
   test('a planning minister completes Baku in about an hour and a half', () {
     for (final seed in const [1, 2, 3]) {
       final run = runCampaign(const PlannerBot(), seed: seed, minutes: minutes);

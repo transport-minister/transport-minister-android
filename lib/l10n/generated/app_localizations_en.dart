@@ -304,6 +304,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get projectModernStops => 'Modern bus stops';
 
   @override
+  String get projectCityPark => 'City park';
+
+  @override
+  String get projectParkAndRide => 'Park & Ride';
+
+  @override
   String get projectChargingDepot => 'Charging depot';
 
   @override
@@ -1834,6 +1840,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get projectModernStopsInfo => 'Shelters, screens and benches at every stop.';
 
   @override
+  String get projectCityParkInfo =>
+      'Trees, paths and playgrounds. People walk and cycle more for short trips.';
+
+  @override
+  String get projectParkAndRideInfo =>
+      'A big car park by the bus stops. Drivers leave the car and hop on a bus.';
+
+  @override
   String get projectChargingDepotInfo => 'Power for electric buses.';
 
   @override
@@ -1865,6 +1879,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chipPassengersHappier => 'Passengers happier';
+
+  @override
+  String get chipWalkersHappier => 'Walkers happier';
+
+  @override
+  String get chipMoreRiders => 'More bus riders';
 
   @override
   String get chipElectric => 'Needed for Volta E-12';

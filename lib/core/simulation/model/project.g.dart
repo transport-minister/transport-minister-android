@@ -28,6 +28,8 @@ const _$ProjectTypeEnumMap = {
   ProjectType.bikeLanes: 'bikeLanes',
   ProjectType.smartSignals: 'smartSignals',
   ProjectType.modernStops: 'modernStops',
+  ProjectType.cityPark: 'cityPark',
+  ProjectType.parkAndRide: 'parkAndRide',
   ProjectType.chargingDepot: 'chargingDepot',
   ProjectType.depotExpansion: 'depotExpansion',
 };

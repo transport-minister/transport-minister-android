@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
@@ -113,6 +114,28 @@ void main() {
     expect(cityIn(container).projects.single.districtId, DistrictId.oldFortress);
     expect(find.text('1M 30S LEFT'), findsOneWidget);
     expect(find.text('Work is already underway here'), findsWidgets);
+  });
+
+  testWidgets('a city park and a park and ride can be built from the build tab', (tester) async {
+    final container = await openOldFortress(tester);
+
+    await tester.tap(find.text('Build'));
+    await tester.pumpAndSettle();
+    await reveal(tester, find.text('Park & Ride'));
+
+    expect(find.text('City park'), findsOneWidget);
+    expect(find.text('Walkers happier'), findsOneWidget);
+    expect(find.text('More bus riders'), findsOneWidget);
+
+    final buildPark = find.descendant(
+      of: cardOf('City park'),
+      matching: find.text('Build · \$300K'),
+    );
+    await reveal(tester, buildPark);
+    await tester.tap(buildPark);
+    await tester.pumpAndSettle();
+
+    expect(cityIn(container).projects.single.type, ProjectType.cityPark);
   });
 
   testWidgets('the metro tab leads to technology until the contract is signed', (tester) async {

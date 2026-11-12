@@ -34,6 +34,8 @@ extension ProjectTypeText on ProjectType {
     ProjectType.bikeLanes => l10n.projectBikeLanes,
     ProjectType.smartSignals => l10n.projectSmartSignals,
     ProjectType.modernStops => l10n.projectModernStops,
+    ProjectType.cityPark => l10n.projectCityPark,
+    ProjectType.parkAndRide => l10n.projectParkAndRide,
     ProjectType.chargingDepot => l10n.projectChargingDepot,
     ProjectType.depotExpansion => l10n.projectDepotExpansion,
   };

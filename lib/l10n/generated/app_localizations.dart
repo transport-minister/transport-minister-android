@@ -634,6 +634,18 @@ abstract class AppLocalizations {
   /// **'Modern bus stops'**
   String get projectModernStops;
 
+  /// No description provided for @projectCityPark.
+  ///
+  /// In en, this message translates to:
+  /// **'City park'**
+  String get projectCityPark;
+
+  /// No description provided for @projectParkAndRide.
+  ///
+  /// In en, this message translates to:
+  /// **'Park & Ride'**
+  String get projectParkAndRide;
+
   /// No description provided for @projectChargingDepot.
   ///
   /// In en, this message translates to:
@@ -3136,6 +3148,18 @@ abstract class AppLocalizations {
   /// **'Shelters, screens and benches at every stop.'**
   String get projectModernStopsInfo;
 
+  /// No description provided for @projectCityParkInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Trees, paths and playgrounds. People walk and cycle more for short trips.'**
+  String get projectCityParkInfo;
+
+  /// No description provided for @projectParkAndRideInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'A big car park by the bus stops. Drivers leave the car and hop on a bus.'**
+  String get projectParkAndRideInfo;
+
   /// No description provided for @projectChargingDepotInfo.
   ///
   /// In en, this message translates to:
@@ -3201,6 +3225,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Passengers happier'**
   String get chipPassengersHappier;
+
+  /// No description provided for @chipWalkersHappier.
+  ///
+  /// In en, this message translates to:
+  /// **'Walkers happier'**
+  String get chipWalkersHappier;
+
+  /// No description provided for @chipMoreRiders.
+  ///
+  /// In en, this message translates to:
+  /// **'More bus riders'**
+  String get chipMoreRiders;
 
   /// No description provided for @chipElectric.
   ///

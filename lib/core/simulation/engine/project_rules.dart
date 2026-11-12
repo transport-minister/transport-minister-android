@@ -20,6 +20,8 @@ class ProjectRules {
       ProjectType.bikeLanes => 250000,
       ProjectType.smartSignals => 180000,
       ProjectType.modernStops => 120000,
+      ProjectType.cityPark => 300000,
+      ProjectType.parkAndRide => 300000,
       ProjectType.chargingDepot => 900000,
       ProjectType.depotExpansion => 500000,
     };
@@ -33,6 +35,8 @@ class ProjectRules {
       ProjectType.bikeLanes => 120,
       ProjectType.smartSignals => 90,
       ProjectType.modernStops => 60,
+      ProjectType.cityPark => 120,
+      ProjectType.parkAndRide => 150,
       ProjectType.chargingDepot => 180,
       ProjectType.depotExpansion => 120,
     };
@@ -68,6 +72,8 @@ class ProjectRules {
       ProjectType.bikeLanes => !target!.hasBikeLanes,
       ProjectType.smartSignals => !target!.hasSmartSignals,
       ProjectType.modernStops => !target!.hasModernStops,
+      ProjectType.cityPark => !target!.hasPark,
+      ProjectType.parkAndRide => !target!.hasParkAndRide,
       ProjectType.chargingDepot => !state.hasChargingDepot,
       ProjectType.depotExpansion => state.depotCapacity < maxDepotCapacity,
     };
@@ -100,6 +106,8 @@ class ProjectRules {
     ProjectType.bikeLanes => district.copyWith(hasBikeLanes: true, bikeAdoption: 0),
     ProjectType.smartSignals => district.copyWith(hasSmartSignals: true),
     ProjectType.modernStops => district.copyWith(hasModernStops: true),
+    ProjectType.cityPark => district.copyWith(hasPark: true),
+    ProjectType.parkAndRide => district.copyWith(hasParkAndRide: true),
     ProjectType.chargingDepot || ProjectType.depotExpansion => district,
   };
 }

@@ -29,7 +29,12 @@ class MetricsCalculator {
     final bikeRelief = state.districts
         .where((district) => district.hasBikeLanes)
         .fold(0.0, (sum, district) => sum + district.bikeAdoption * 8 / state.districts.length);
-    final pollution = _clamp(20 + congestion * 0.35 + emissions * 0.45 - bikeRelief, 0, 100);
+    final parks = state.districts.where((district) => district.hasPark).length;
+    final pollution = _clamp(
+      20 + congestion * 0.35 + emissions * 0.45 - bikeRelief - parks * GameBalance.parkCleanAir,
+      0,
+      100,
+    );
     final coverage = _coverage(state, districts);
     final affordability = _clamp(100 - (state.fare - 40).toDouble(), 0, 100);
     return CityMetrics(
@@ -71,6 +76,7 @@ class MetricsCalculator {
                 1000 *
                 GameBalance.ridersPerThousandResidents *
                 fareFactor *
+                (district.hasParkAndRide ? GameBalance.parkAndRideDemand : 1) *
                 state.multiplier(ModifierType.demand, district: district.id))
             .round();
     final capacityFactor = state.multiplier(ModifierType.capacity, district: district.id);
@@ -101,7 +107,9 @@ class MetricsCalculator {
           bikeEffect +
           construction +
           tunnels * MetroRules.constructionCongestion -
-          stations * MetroRules.congestionRelief +
+          stations * MetroRules.congestionRelief -
+          (district.hasPark ? GameBalance.parkCongestionRelief : 0) -
+          (district.hasParkAndRide ? GameBalance.parkAndRideCongestionRelief : 0) +
           state.additive(ModifierType.congestion, district: district.id),
       0,
       100,

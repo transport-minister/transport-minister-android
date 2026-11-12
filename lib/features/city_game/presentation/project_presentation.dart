@@ -11,6 +11,8 @@ extension ProjectPresentation on ProjectType {
     ProjectType.bikeLanes => Icons.pedal_bike_rounded,
     ProjectType.smartSignals => Icons.traffic_rounded,
     ProjectType.modernStops => Icons.storefront_rounded,
+    ProjectType.cityPark => Icons.park_rounded,
+    ProjectType.parkAndRide => Icons.local_parking_rounded,
     ProjectType.chargingDepot => Icons.ev_station_rounded,
     ProjectType.depotExpansion => Icons.warehouse_rounded,
   };
@@ -20,6 +22,8 @@ extension ProjectPresentation on ProjectType {
     ProjectType.bikeLanes => ChunkyPalette.lagoon,
     ProjectType.smartSignals => ChunkyPalette.coral,
     ProjectType.modernStops => ChunkyPalette.ocean,
+    ProjectType.cityPark => ChunkyPalette.green,
+    ProjectType.parkAndRide => ChunkyPalette.sunny,
     ProjectType.chargingDepot => ChunkyPalette.green,
     ProjectType.depotExpansion => ChunkyPalette.grape,
   };
@@ -30,6 +34,8 @@ extension ProjectPresentation on ProjectType {
     ProjectType.bikeLanes => l10n.projectBikeLanesInfo,
     ProjectType.smartSignals => l10n.projectSmartSignalsInfo,
     ProjectType.modernStops => l10n.projectModernStopsInfo,
+    ProjectType.cityPark => l10n.projectCityParkInfo,
+    ProjectType.parkAndRide => l10n.projectParkAndRideInfo,
     ProjectType.chargingDepot => l10n.projectChargingDepotInfo,
     ProjectType.depotExpansion => l10n.projectDepotExpansionInfo,
   };
@@ -57,6 +63,16 @@ extension ProjectPresentation on ProjectType {
     ProjectType.modernStops => [
       (l10n.chipCoverage, EffectTone.good),
       (l10n.chipPassengersHappier, EffectTone.good),
+    ],
+    ProjectType.cityPark => [
+      (l10n.chipWalkersHappier, EffectTone.good),
+      (l10n.chipCleanAir, EffectTone.good),
+      (l10n.chipTrafficDown, EffectTone.good),
+    ],
+    ProjectType.parkAndRide => [
+      (l10n.chipTrafficDown, EffectTone.good),
+      (l10n.chipMoreRiders, EffectTone.good),
+      (l10n.chipDriversHappier, EffectTone.good),
     ],
     ProjectType.chargingDepot => [(l10n.chipElectric, EffectTone.neutral)],
     ProjectType.depotExpansion => [(l10n.chipDepot, EffectTone.good)],

@@ -54,5 +54,10 @@ abstract final class GameBalance {
   static const bikeAdoptionPerSecond = 0.001;
   static const smartSignalsCongestionFactor = 0.9;
   static const modernStopsCoverageBonus = 0.1;
+  static const parkMood = 2.0;
+  static const parkCleanAir = 1.5;
+  static const parkCongestionRelief = 2.0;
+  static const parkAndRideCongestionRelief = 8.0;
+  static const parkAndRideDemand = 1.1;
   static const congestionRoadWear = 3.3e-5;
 }

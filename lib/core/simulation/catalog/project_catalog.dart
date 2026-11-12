@@ -4,6 +4,8 @@ enum ProjectType {
   bikeLanes,
   smartSignals,
   modernStops,
+  cityPark,
+  parkAndRide,
   chargingDepot,
   depotExpansion;
 
@@ -15,6 +17,8 @@ enum ProjectType {
     ProjectType.bikeLanes => 15,
     ProjectType.smartSignals => 8,
     ProjectType.modernStops => 5,
+    ProjectType.cityPark => 5,
+    ProjectType.parkAndRide => 10,
     ProjectType.chargingDepot => 0,
     ProjectType.depotExpansion => 0,
   };
