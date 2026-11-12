@@ -1,10 +1,13 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/model/crisis_state.dart';
+import 'package:transport_minister/features/city_game/presentation/crisis_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DismissalView extends StatelessWidget {
-  const DismissalView({super.key, required this.onRestart});
+  const DismissalView({super.key, required this.cause, required this.onRestart});
 
+  final CrisisCause? cause;
   final VoidCallback onRestart;
 
   @override
@@ -25,7 +28,7 @@ class DismissalView extends StatelessWidget {
             Text(l10n.dismissedTitle, textAlign: TextAlign.center, style: textTheme.headlineMedium),
             const SizedBox(height: GameDimens.spaceS),
             Text(
-              l10n.dismissedBody,
+              l10n.dismissedBody((cause ?? CrisisCause.unhappy).dismissal(l10n)),
               textAlign: TextAlign.center,
               style: textTheme.bodyLarge?.copyWith(color: GameColors.inkSoft),
             ),

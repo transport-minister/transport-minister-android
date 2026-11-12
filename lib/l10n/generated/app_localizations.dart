@@ -422,17 +422,41 @@ abstract class AppLocalizations {
   /// **'Cities'**
   String get hudBackToCities;
 
+  /// No description provided for @crisisGridlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Gridlock! Traffic is jamming the city. Clear it before the President notices!'**
+  String get crisisGridlock;
+
   /// No description provided for @crisisAngry.
   ///
   /// In en, this message translates to:
   /// **'Citizens are getting angry. Act before the President notices!'**
   String get crisisAngry;
 
-  /// No description provided for @crisisWarning.
+  /// No description provided for @crisisDebt.
   ///
   /// In en, this message translates to:
-  /// **'President\'s warning {level}/3: raise satisfaction or fix the budget!'**
-  String crisisWarning(int level);
+  /// **'The budget is deep in the red. Fix it before the President notices!'**
+  String get crisisDebt;
+
+  /// No description provided for @crisisWarningGridlock.
+  ///
+  /// In en, this message translates to:
+  /// **'President\'s warning {level}/3: clear the traffic!'**
+  String crisisWarningGridlock(int level);
+
+  /// No description provided for @crisisWarningUnhappy.
+  ///
+  /// In en, this message translates to:
+  /// **'President\'s warning {level}/3: make citizens happier!'**
+  String crisisWarningUnhappy(int level);
+
+  /// No description provided for @crisisWarningDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'President\'s warning {level}/3: fix the budget!'**
+  String crisisWarningDebt(int level);
 
   /// No description provided for @statWaiting.
   ///
@@ -749,8 +773,26 @@ abstract class AppLocalizations {
   /// No description provided for @dismissedBody.
   ///
   /// In en, this message translates to:
-  /// **'Baku lost faith in your leadership. Your rank and achievements stay with you. Try again with a fresh start!'**
-  String get dismissedBody;
+  /// **'{reason} Your rank and achievements stay with you. Try again with a fresh start!'**
+  String dismissedBody(String reason);
+
+  /// No description provided for @dismissedGridlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Endless traffic jams paralysed Baku.'**
+  String get dismissedGridlock;
+
+  /// No description provided for @dismissedUnhappy.
+  ///
+  /// In en, this message translates to:
+  /// **'Baku lost faith in your leadership.'**
+  String get dismissedUnhappy;
+
+  /// No description provided for @dismissedDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Baku ran out of money.'**
+  String get dismissedDebt;
 
   /// No description provided for @dismissedRestart.
   ///
@@ -3181,6 +3223,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Waiting there: {minutes} min'**
   String metroWaitingThere(int minutes);
+
+  /// No description provided for @trafficMeterLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'City traffic'**
+  String get trafficMeterLabel;
+
+  /// No description provided for @trafficInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'City traffic {percent}%'**
+  String trafficInfoTitle(int percent);
+
+  /// No description provided for @trafficInfoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If city traffic reaches {limit}%, the President starts warning you and dismisses you after 10 days. Buses, road repairs, smart lights, bike lanes and the metro all bring it down.'**
+  String trafficInfoBody(int limit);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

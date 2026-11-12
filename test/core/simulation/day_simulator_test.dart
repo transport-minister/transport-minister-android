@@ -7,6 +7,7 @@ import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/day_simulator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
+import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
@@ -97,7 +98,25 @@ void main() {
     expect(crisis.events.whereType<CrisisWarning>().map((warning) => warning.level), [1, 2, 3]);
     expect(crisis.events.last, isA<MinisterDismissed>());
     expect(crisis.state.crisis.dismissed, isTrue);
+    expect(crisis.state.crisis.cause, CrisisCause.debt);
     expect(() => const DaySimulator().advance(crisis.state), throwsStateError);
+  });
+
+  test('gridlock is a crisis of its own and ends in dismissal', () {
+    final city = newBaku();
+    final jammed = city.copyWith(
+      districts: [
+        for (final district in city.districts)
+          district.copyWith(population: district.population * 2, roadCondition: 10),
+      ],
+    );
+
+    final firstDay = const DaySimulator().advance(jammed).state;
+    final crisis = runDays(jammed, GameBalance.dismissalCrisisDays).state;
+
+    expect(firstDay.crisis.cause, CrisisCause.gridlock);
+    expect(crisis.crisis.dismissed, isTrue);
+    expect(crisis.crisis.cause, CrisisCause.gridlock);
   });
 
   test('a loan is repaid in daily installments', () {

@@ -85,7 +85,11 @@ class DaySimulator {
 
     final overall = StakeholderGroup.overall(groups);
     events.add(DayClosed(state.day, overall, tickets: operating[LedgerItem.tickets] ?? 0));
-    final crisis = _evaluateCrisis(next.crisis, overall, budget, events);
+    final crisis = _evaluateCrisis(
+      next.crisis,
+      _causeOf(overall, budget, today.congestion),
+      events,
+    );
     final report = DailyReport(
       day: state.day,
       ledger: _merge(state.pendingLedger, operating),
@@ -187,33 +191,37 @@ class DaySimulator {
     return state.copyWith(loan: loan.copyWith(remainingDays: loan.remainingDays - 1));
   }
 
-  CrisisState _evaluateCrisis(
-    CrisisState crisis,
-    double satisfaction,
-    int budget,
-    List<CityEvent> events,
-  ) {
-    final inCrisis =
-        satisfaction < GameBalance.crisisSatisfactionThreshold ||
-        budget < GameBalance.crisisBudgetThreshold;
-    if (!inCrisis) {
+  CrisisCause? _causeOf(double satisfaction, int budget, double congestion) {
+    if (congestion >= GameBalance.gridlockCongestion) {
+      return CrisisCause.gridlock;
+    }
+    if (satisfaction < GameBalance.crisisSatisfactionThreshold) {
+      return CrisisCause.unhappy;
+    }
+    return budget < GameBalance.crisisBudgetThreshold ? CrisisCause.debt : null;
+  }
+
+  CrisisState _evaluateCrisis(CrisisState crisis, CrisisCause? cause, List<CityEvent> events) {
+    if (cause == null) {
       final days = math.max(crisis.days - 1, 0);
       if (days == 0 && crisis.warnings > 0) {
         events.add(const CrisisAverted());
       }
-      return crisis.copyWith(days: days, warnings: days == 0 ? 0 : crisis.warnings);
+      return days == 0
+          ? const CrisisState()
+          : crisis.copyWith(days: days, warnings: crisis.warnings);
     }
     final days = crisis.days + 1;
     if (days >= GameBalance.dismissalCrisisDays) {
       events.add(const MinisterDismissed());
-      return crisis.copyWith(days: days, dismissed: true);
+      return crisis.copyWith(days: days, dismissed: true, cause: cause);
     }
     final level = GameBalance.crisisWarningDays.indexOf(days) + 1;
     if (level > crisis.warnings) {
       events.add(CrisisWarning(level));
-      return crisis.copyWith(days: days, warnings: level);
+      return crisis.copyWith(days: days, warnings: level, cause: cause);
     }
-    return crisis.copyWith(days: days);
+    return crisis.copyWith(days: days, cause: cause);
   }
 
   Map<LedgerItem, int> _merge(Map<LedgerItem, int> first, Map<LedgerItem, int> second) {
