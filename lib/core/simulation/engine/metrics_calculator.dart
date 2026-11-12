@@ -4,6 +4,7 @@ import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/catalog/metro_rules.dart';
+import 'package:transport_minister/core/simulation/catalog/population_rules.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
 import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
@@ -80,7 +81,8 @@ class MetricsCalculator {
     final roadFactor =
         (_roadLevelFactor[district.roadLevel] ?? 1) *
         (1 + (100 - district.roadCondition) / 100 * 0.3);
-    final roadCongestion = district.id.blueprint.baseCongestion * roadFactor;
+    final roadCongestion =
+        district.id.blueprint.baseCongestion * roadFactor * PopulationRules.crowdFactor(district);
     final initialRatio = _ratio(
       (_capacity(buses, roadCongestion) * capacityFactor).round() + metroRiders,
       demand,

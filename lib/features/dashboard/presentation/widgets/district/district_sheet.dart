@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/population_rules.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_metrics.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
@@ -89,6 +90,10 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
                   district: widget.district,
                   metrics: metrics.of(widget.district),
                   road: city.district(widget.district).roadCondition,
+                  growth: PopulationRules.dailyGrowth(
+                    city.district(widget.district),
+                    city.overallSatisfaction,
+                  ),
                 ),
               ),
               SliverPersistentHeader(
@@ -157,11 +162,17 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
 }
 
 class _Header extends StatelessWidget {
-  const _Header({required this.district, required this.metrics, required this.road});
+  const _Header({
+    required this.district,
+    required this.metrics,
+    required this.road,
+    required this.growth,
+  });
 
   final DistrictId district;
   final DistrictMetrics metrics;
   final double road;
+  final int growth;
 
   @override
   Widget build(BuildContext context) {
@@ -181,6 +192,22 @@ class _Header extends StatelessWidget {
                 children: [
                   Text(district.displayName(l10n), style: textTheme.headlineSmall),
                   Text(district.tagline(l10n), style: textTheme.bodySmall),
+                  const SizedBox(height: GameDimens.spaceXS),
+                  Row(
+                    children: [
+                      const Icon(Icons.groups_rounded, size: 16, color: GameColors.inkSoft),
+                      const SizedBox(width: GameDimens.spaceXS),
+                      Flexible(
+                        child: Text(
+                          l10n.districtResidents(
+                            MoneyFormat.count(metrics.population),
+                            MoneyFormat.count(growth),
+                          ),
+                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

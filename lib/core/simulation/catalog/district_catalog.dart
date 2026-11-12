@@ -13,12 +13,14 @@ class DistrictBlueprint {
     required this.baseCongestion,
     required this.roadCondition,
     required this.roadLevel,
+    this.growthFactor = 1,
   });
 
   final int population;
   final double baseCongestion;
   final double roadCondition;
   final int roadLevel;
+  final double growthFactor;
 }
 
 extension DistrictBlueprints on DistrictId {
@@ -58,6 +60,7 @@ extension DistrictBlueprints on DistrictId {
       baseCongestion: 44,
       roadCondition: 63,
       roadLevel: 1,
+      growthFactor: 2,
     ),
   };
 }

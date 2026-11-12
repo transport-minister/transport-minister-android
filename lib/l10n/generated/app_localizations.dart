@@ -476,6 +476,12 @@ abstract class AppLocalizations {
   /// **'Can carry {capacity} of {demand} riders a day'**
   String districtRidersServed(String capacity, String demand);
 
+  /// No description provided for @districtResidents.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} residents · +{growth} a day'**
+  String districtResidents(String count, String growth);
+
   /// No description provided for @districtFeatureBikeLanes.
   ///
   /// In en, this message translates to:
