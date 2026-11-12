@@ -136,7 +136,7 @@
   "levelSheetTitle": "{city} gelişimi",
   "levelSheetBody": "Vatandaşları mutlu ve bütçeyi büyüyen tutarak sürekli şehir puanı kazan. Yeni otobüsler, yükseltmeler, biten projeler ve akıllı kararlar ek puan verir. Her seviye bir Kabine ödülü ve diplomasi puanı getirir.",
   "levelUpTitle": "{city} {level}. seviyeye ulaştı!",
-  "levelUpReward": "Kabine {amount} ve {diplomacy} diplomasi puanı gönderdi.",
+  "levelUpReward": "Kabine {amount} ve {diplomacy} diplomasi puanı gönderdi, bütçen de %{percent} büyüdü!",
   "levelUpContinue": "Yaşasın!",
   "eventCrisisAverted": "Kriz atlatıldı! Cumhurbaşkanı yine sakin.",
   "profileTitle": "Bakan profili",

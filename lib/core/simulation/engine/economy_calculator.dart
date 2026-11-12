@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/game_balance.dart';
 import 'package:transport_minister/core/simulation/catalog/metro_rules.dart';
 import 'package:transport_minister/core/simulation/engine/bus_performance.dart';
@@ -16,10 +17,15 @@ class EconomyCalculator {
     final loan = state.loan;
     final ledger = {
       LedgerItem.tickets:
-          (metrics.riders * state.fare / 100 * state.multiplier(ModifierType.ticketRevenue))
+          (metrics.riders *
+                  state.fare /
+                  100 *
+                  GameBalance.ticketsPerRider *
+                  state.multiplier(ModifierType.ticketRevenue))
               .round(),
       LedgerItem.governmentBudget:
           (GameBalance.budgetPerSecond *
+                  CityLevels.budgetBonus(state.level) *
                   budgetFactor(state.overallSatisfaction) *
                   state.multiplier(ModifierType.subsidy))
               .round(),

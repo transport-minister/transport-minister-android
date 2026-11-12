@@ -29,7 +29,8 @@ abstract final class GameBalance {
   static const maintenanceAgeFactorSeconds = 60000;
   static const resaleAgeFactorSeconds = 45000;
 
-  static const budgetPerSecond = 3000;
+  static const ticketsPerRider = 2.5;
+  static const budgetPerSecond = 2600;
   static const minBudgetFactor = 0.5;
   static const maxBudgetFactor = 1.5;
   static const administrationPerSecond = 50;
