@@ -9,9 +9,12 @@ import 'package:transport_minister/core/time/clock_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
+import 'package:transport_minister/features/sound/application/sound_providers.dart';
+import 'package:transport_minister/features/sound/domain/sound_output.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 import 'fake_now.dart';
+import 'fake_sound_output.dart';
 import 'phone_viewport.dart';
 
 Future<void> pumpGameScreen(
@@ -22,6 +25,7 @@ Future<void> pumpGameScreen(
   List<Override> overrides = const [],
   bool tutorialDone = true,
   Locale? locale,
+  SoundOutput? sound,
 }) async {
   final profiles = LocalProfileRepository(store);
   if (tutorialDone && await profiles.load() == null) {
@@ -38,6 +42,7 @@ Future<void> pumpGameScreen(
         documentStoreProvider.overrideWithValue(store),
         nowProvider.overrideWithValue(now.call),
         tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
+        soundOutputProvider.overrideWithValue(sound ?? FakeSoundOutput()),
         ...overrides,
       ],
       child: MaterialApp(

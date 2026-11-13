@@ -1459,6 +1459,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguage => 'Language';
 
   @override
+  String get settingsSound => 'Sound';
+
+  @override
+  String get soundMusic => 'Music';
+
+  @override
+  String get soundEffects => 'Sound effects';
+
+  @override
+  String get soundCity => 'City sounds';
+
+  @override
   String get settingsAbout => 'About';
 
   @override

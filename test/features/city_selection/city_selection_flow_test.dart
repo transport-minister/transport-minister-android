@@ -8,7 +8,9 @@ import 'package:transport_minister/features/city_selection/data/static_city_repo
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
+import 'package:transport_minister/features/sound/application/sound_providers.dart';
 
+import '../../helpers/fake_sound_output.dart';
 import '../../helpers/phone_viewport.dart';
 
 Future<void> _openCitySelection(WidgetTester tester, {InMemoryDocumentStore? store}) async {
@@ -22,6 +24,7 @@ Future<void> _openCitySelection(WidgetTester tester, {InMemoryDocumentStore? sto
       overrides: [
         documentStoreProvider.overrideWithValue(store ?? InMemoryDocumentStore()),
         tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
+        soundOutputProvider.overrideWithValue(FakeSoundOutput()),
       ],
       child: const TransportMinisterApp(),
     ),
