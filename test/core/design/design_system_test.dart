@@ -20,6 +20,23 @@ void main() {
     expect(taps, 1);
   });
 
+  testWidgets('every press reaches the press feedback', (tester) async {
+    var feedback = 0;
+    var taps = 0;
+    await tester.pumpWidget(
+      PressFeedback(
+        onPress: () => feedback++,
+        child: _host(ChunkyButton(label: 'Buy bus', onPressed: () => taps++)),
+      ),
+    );
+
+    await tester.tap(find.text('Buy bus'));
+    await tester.pumpAndSettle();
+
+    expect(feedback, 1);
+    expect(taps, 1);
+  });
+
   testWidgets('chunky button without callback is disabled', (tester) async {
     await tester.pumpWidget(_host(const ChunkyButton(label: 'Locked', onPressed: null)));
 

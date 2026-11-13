@@ -1456,6 +1456,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsLanguage => 'Dil';
 
   @override
+  String get settingsSound => 'Ses';
+
+  @override
+  String get soundMusic => 'Müzik';
+
+  @override
+  String get soundEffects => 'Ses efektleri';
+
+  @override
+  String get soundCity => 'Şehir sesleri';
+
+  @override
   String get settingsAbout => 'Hakkında';
 
   @override

@@ -13,5 +13,6 @@ export 'package:transport_minister/core/design/widgets/game_backdrop.dart';
 export 'package:transport_minister/core/design/widgets/game_tag.dart';
 export 'package:transport_minister/core/design/widgets/game_top_bar.dart';
 export 'package:transport_minister/core/design/widgets/icon_bubble.dart';
+export 'package:transport_minister/core/design/widgets/press_feedback.dart';
 export 'package:transport_minister/core/design/widgets/pressable_builder.dart';
 export 'package:transport_minister/core/design/widgets/stat_pill.dart';

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
@@ -11,6 +13,7 @@ import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
+import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/time/clock_providers.dart';
 import 'package:transport_minister/features/advisor/domain/advisor.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
@@ -40,6 +43,10 @@ import 'package:transport_minister/features/progression/application/profile_cont
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/promotion_sheet.dart';
+import 'package:transport_minister/features/sound/application/city_soundscape.dart';
+import 'package:transport_minister/features/sound/application/game_audio.dart';
+import 'package:transport_minister/features/sound/application/sound_providers.dart';
+import 'package:transport_minister/features/sound/domain/game_sound.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/features/tutorial/presentation/tutorial_overlay.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -83,11 +90,16 @@ class _CityViewState extends ConsumerState<_CityView> {
   static const _cornerButton = 42.0;
   static const _mapOverlayClearance = 120.0;
 
+  static const _soundscape = CitySoundscape();
+
   final _mapController = CityMapController();
   final _targets = TutorialTargets();
+  final _random = math.Random();
+  late final GameAudio _audio;
 
   @override
   void dispose() {
+    _audio.leaveCity();
     _mapController.dispose();
     super.dispose();
   }
@@ -95,6 +107,8 @@ class _CityViewState extends ConsumerState<_CityView> {
   @override
   void initState() {
     super.initState();
+    _audio = ref.read(gameAudioProvider);
+    _listenToCity(widget.session.city);
     WidgetsBinding.instance.addPostFrameCallback((_) => _startTutorial());
   }
 
@@ -103,7 +117,11 @@ class _CityViewState extends ConsumerState<_CityView> {
     ref.listen(progressionFeedProvider, (previous, next) => _celebrate(next));
     ref.listen(cityGameProvider(widget.cityId), (previous, next) {
       final session = next.value;
-      if (previous?.value != null && session != null && session.latestEvents.isNotEmpty) {
+      if (session == null) {
+        return;
+      }
+      _playCitySounds(session);
+      if (previous?.value != null && session.latestEvents.isNotEmpty) {
         _announce(session);
       }
     });
@@ -294,9 +312,38 @@ class _CityViewState extends ConsumerState<_CityView> {
 
   Future<void> _leaveFor(String path) async {
     final clock = ref.read(cityGameProvider(widget.cityId).notifier)..leaveDashboard();
+    _audio.leaveCity();
     await context.push<void>(path);
     if (mounted) {
       clock.enterDashboard();
+      _listenToCity(widget.session.city);
+    }
+  }
+
+  void _listenToCity(CityState city) {
+    if (city.crisis.dismissed) {
+      _audio.leaveCity();
+    } else {
+      _audio.enterCity();
+    }
+  }
+
+  void _playCitySounds(CityGameSession session) {
+    final city = session.city;
+    _listenToCity(city);
+    if (city.crisis.dismissed) {
+      return;
+    }
+    if (session.latestEvents.any((event) => event is BusesDelivered)) {
+      _audio.play(GameSound.busDoors);
+    }
+    final sound = _soundscape.next(
+      congestion: const MetricsCalculator().calculate(city).congestion,
+      hasMetro: city.metroLines.any((line) => line.isOpen),
+      random: _random,
+    );
+    if (sound != null) {
+      _audio.play(sound);
     }
   }
 

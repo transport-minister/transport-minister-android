@@ -5,6 +5,7 @@ import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/features/settings/application/settings_controller.dart';
 import 'package:transport_minister/features/settings/domain/app_language.dart';
 import 'package:transport_minister/features/settings/presentation/language_flag.dart';
+import 'package:transport_minister/features/sound/presentation/sound_settings_card.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 extension AppLanguageText on AppLanguage {
@@ -55,6 +56,10 @@ class SettingsScreen extends ConsumerWidget {
                     const SizedBox(height: GameDimens.spaceM),
                   ],
                   const SizedBox(height: GameDimens.spaceL),
+                  Text(l10n.settingsSound, style: textTheme.titleLarge),
+                  const SizedBox(height: GameDimens.spaceM),
+                  const SoundSettingsCard(),
+                  const SizedBox(height: GameDimens.spaceXL),
                   Text(l10n.settingsAbout, style: textTheme.titleLarge),
                   const SizedBox(height: GameDimens.spaceM),
                   ChunkyCard(

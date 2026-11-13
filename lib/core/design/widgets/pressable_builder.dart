@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/game_dimens.dart';
+import 'package:transport_minister/core/design/widgets/press_feedback.dart';
 
 typedef PressedWidgetBuilder = Widget Function(BuildContext context, bool pressed);
 
@@ -93,6 +94,7 @@ class _PressableBuilderState extends State<PressableBuilder> {
 
   void _handleTap() {
     HapticFeedback.lightImpact();
+    PressFeedback.maybeOf(context)?.call();
     widget.onPressed?.call();
   }
 }

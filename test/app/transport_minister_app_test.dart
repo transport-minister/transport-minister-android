@@ -14,7 +14,9 @@ import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/settings/data/local_settings_repository.dart';
 import 'package:transport_minister/features/settings/domain/app_language.dart';
+import 'package:transport_minister/features/sound/application/sound_providers.dart';
 
+import '../helpers/fake_sound_output.dart';
 import '../helpers/phone_viewport.dart';
 
 Widget _app(InMemoryDocumentStore store) {
@@ -23,6 +25,7 @@ Widget _app(InMemoryDocumentStore store) {
       documentStoreProvider.overrideWithValue(store),
       nowProvider.overrideWithValue(() => DateTime(2026, 11, 11, 8)),
       tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
+      soundOutputProvider.overrideWithValue(FakeSoundOutput()),
     ],
     child: const TransportMinisterApp(),
   );

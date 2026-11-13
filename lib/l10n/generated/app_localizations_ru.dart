@@ -1463,6 +1463,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsLanguage => 'Язык';
 
   @override
+  String get settingsSound => 'Звук';
+
+  @override
+  String get soundMusic => 'Музыка';
+
+  @override
+  String get soundEffects => 'Звуковые эффекты';
+
+  @override
+  String get soundCity => 'Звуки города';
+
+  @override
   String get settingsAbout => 'О игре';
 
   @override

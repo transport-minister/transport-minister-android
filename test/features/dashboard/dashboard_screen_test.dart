@@ -4,8 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
+import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
@@ -21,8 +24,10 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dashb
 import 'package:transport_minister/features/inbox/data/local_inbox_repository.dart';
 import 'package:transport_minister/features/inbox/domain/inbox.dart';
 import 'package:transport_minister/features/inbox/domain/inbox_rules.dart';
+import 'package:transport_minister/features/sound/domain/game_sound.dart';
 
 import '../../helpers/fake_now.dart';
+import '../../helpers/fake_sound_output.dart';
 import '../../helpers/funded_city.dart';
 import '../../helpers/game_screen_harness.dart';
 
@@ -170,6 +175,55 @@ void main() {
 
     expect(whilePlaying, 5);
     expect(container.read(cityGameProvider(CityId.baku)).requireValue.city.tick, 5);
+  });
+
+  testWidgets('the city map has its own sounds and arriving buses hiss their doors', (
+    tester,
+  ) async {
+    final sound = FakeSoundOutput();
+    final city = const BakuScenario().create(seed: 1);
+    await LocalCitySaveRepository(store).store(
+      CityId.baku,
+      CitySave(
+        city: city.copyWith(
+          fleet: [
+            ...city.fleet,
+            const Bus(
+              id: 999,
+              model: BusModelId.cityRunner,
+              districtId: DistrictId.oldFortress,
+              deliveryTick: 3,
+            ),
+          ],
+        ),
+        anchor: TimeAnchor(syncedAtMs: now.current.millisecondsSinceEpoch),
+      ),
+    );
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+      sound: sound,
+    );
+
+    expect(sound.loops.keys, unorderedEquals(GameLoop.values));
+
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+    now.advance(const Duration(seconds: 3));
+    container.read(cityGameProvider(CityId.baku).notifier).tick();
+    await tester.pumpAndSettle();
+
+    expect(sound.played.map((played) => played.$1), contains(GameSound.busDoors));
+
+    unawaited(
+      tester
+          .state<NavigatorState>(find.byType(Navigator))
+          .pushReplacement(MaterialPageRoute<void>(builder: (context) => const SizedBox())),
+    );
+    await tester.pumpAndSettle();
+
+    expect(sound.loops.keys, [GameLoop.music]);
   });
 
   testWidgets('a level up is celebrated once', (tester) async {

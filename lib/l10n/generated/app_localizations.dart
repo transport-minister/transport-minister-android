@@ -2536,6 +2536,30 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get settingsLanguage;
 
+  /// No description provided for @settingsSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound'**
+  String get settingsSound;
+
+  /// No description provided for @soundMusic.
+  ///
+  /// In en, this message translates to:
+  /// **'Music'**
+  String get soundMusic;
+
+  /// No description provided for @soundEffects.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound effects'**
+  String get soundEffects;
+
+  /// No description provided for @soundCity.
+  ///
+  /// In en, this message translates to:
+  /// **'City sounds'**
+  String get soundCity;
+
   /// No description provided for @settingsAbout.
   ///
   /// In en, this message translates to:
