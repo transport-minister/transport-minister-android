@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
@@ -24,6 +25,8 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dashb
 import 'package:transport_minister/features/inbox/data/local_inbox_repository.dart';
 import 'package:transport_minister/features/inbox/domain/inbox.dart';
 import 'package:transport_minister/features/inbox/domain/inbox_rules.dart';
+import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
+import 'package:transport_minister/features/progression/domain/minister_profile.dart';
 import 'package:transport_minister/features/sound/domain/game_sound.dart';
 
 import '../../helpers/fake_now.dart';
@@ -296,6 +299,28 @@ void main() {
     expect(find.text('You have been dismissed'), findsNothing);
     expect(find.text('Wind Heights'), findsWidgets);
     expect((await LocalInboxRepository(store).load())?.items, isEmpty);
+  });
+
+  testWidgets('a dismissed minister can keep the seat for diamonds', (tester) async {
+    await LocalProfileRepository(store)
+        .save(const MinisterProfile(tutorialDone: true, diamonds: BoostRules.continueCost));
+    await saveBaku(
+      syncedAt: now.current,
+      crisis: const CrisisState(seconds: 300, warnings: 3, dismissed: true),
+    );
+
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+    await tester.tap(find.text('Keep my seat · ${BoostRules.continueCost}'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('You have been dismissed'), findsNothing);
+    expect(find.text('Wind Heights'), findsWidgets);
+    expect((await LocalProfileRepository(store).load())?.diamonds, 0);
   });
 
   testWidgets('tapping a district on the map opens it', (tester) async {

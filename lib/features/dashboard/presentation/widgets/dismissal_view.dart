@@ -2,12 +2,21 @@ import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/features/city_game/presentation/crisis_texts.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DismissalView extends StatelessWidget {
-  const DismissalView({super.key, required this.cause, required this.onRestart});
+  const DismissalView({
+    super.key,
+    required this.cause,
+    required this.continueCost,
+    required this.onContinue,
+    required this.onRestart,
+  });
 
   final CrisisCause? cause;
+  final int continueCost;
+  final VoidCallback onContinue;
   final VoidCallback onRestart;
 
   @override
@@ -32,11 +41,25 @@ class DismissalView extends StatelessWidget {
               textAlign: TextAlign.center,
               style: textTheme.bodyLarge?.copyWith(color: GameColors.inkSoft),
             ),
-            const SizedBox(height: GameDimens.spaceXXL),
+            const SizedBox(height: GameDimens.spaceXL),
+            Text(
+              l10n.dismissedContinueHint(continueCost),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyMedium,
+            ),
+            const SizedBox(height: GameDimens.spaceM),
+            DiamondButton(
+              label: l10n.boostContinue,
+              cost: continueCost,
+              size: ChunkySize.large,
+              expanded: true,
+              onPressed: onContinue,
+            ),
+            const SizedBox(height: GameDimens.spaceM),
             ChunkyButton(
               label: l10n.dismissedRestart,
               icon: Icons.refresh_rounded,
-              size: ChunkySize.large,
+              palette: ChunkyPalette.snow,
               expanded: true,
               onPressed: onRestart,
             ),

@@ -1,14 +1,19 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
+import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/satisfaction_calculator.dart';
+import 'package:transport_minister/core/simulation/model/active_modifier.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
+import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
+import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/stakeholder_group.dart';
 
@@ -255,6 +260,85 @@ void main() {
         rejected(commands.startProject(newBaku(), ProjectType.bikeLanes)),
         RejectionReason.invalidTarget,
       );
+    });
+  });
+
+  group('diamond boosts', () {
+    test('finish a project within a second', () {
+      final started = applied(
+        commands.startProject(newBaku(), ProjectType.roadRepair, district: DistrictId.oldFortress),
+      );
+
+      final rushed = applied(commands.rushProject(started, started.projects.single.id));
+      final finished = runSeconds(rushed, 1);
+
+      expect(rushed.projects.single.remainingSeconds, 1);
+      expect(finished.events.whereType<ProjectCompleted>(), hasLength(1));
+      expect(rejected(commands.rushProject(finished.state, 999)), RejectionReason.invalidTarget);
+    });
+
+    test('deliver ordered buses within a second', () {
+      final ordered = applied(
+        commands.buyBus(newBaku(), model: BusModelId.cityRunner, district: DistrictId.oilHarbor),
+      );
+
+      final rushed = applied(commands.rushDeliveries(ordered, DistrictId.oilHarbor));
+      final arrived = runSeconds(rushed, 1);
+
+      expect(arrived.events.whereType<BusesDelivered>().single.count, 1);
+      expect(
+        rejected(commands.rushDeliveries(arrived.state, DistrictId.oilHarbor)),
+        RejectionReason.invalidTarget,
+      );
+    });
+
+    test('make a cooling diplomacy gesture ready again', () {
+      const action = DiplomacyActionId.hackathon;
+      final taken = applied(commands.takeDiplomacyAction(newBaku(), action));
+
+      final rushed = applied(commands.rushDiplomacy(taken, action));
+
+      expect(commands.diplomacyProblem(taken, action), RejectionReason.coolingDown);
+      expect(commands.diplomacyProblem(rushed, action), isNull);
+      expect(rejected(commands.rushDiplomacy(rushed, action)), RejectionReason.invalidTarget);
+    });
+
+    test('a dismissed minister can keep the seat with relief and no debt', () {
+      final dismissed = newBaku(budget: -300000).copyWith(
+        crisis: const CrisisState(
+          seconds: 300,
+          warnings: 3,
+          dismissed: true,
+          cause: CrisisCause.debt,
+        ),
+      );
+
+      final outcome = commands.continueAfterDismissal(dismissed);
+      final revived = applied(outcome);
+
+      expect(revived.crisis, const CrisisState());
+      expect(revived.budget, 0);
+      expect(revived.additive(ModifierType.congestion), BoostRules.continueCongestionRelief);
+      expect(
+        revived.additive(ModifierType.mood, group: StakeholderGroup.passengers),
+        BoostRules.continueMoodLift,
+      );
+      expect((outcome as CommandApplied).events, const [MinisterReinstated()]);
+      expect(rejected(commands.continueAfterDismissal(revived)), RejectionReason.invalidTarget);
+    });
+
+    test('double earnings pays twice for ten minutes', () {
+      final city = newBaku();
+      final boosted = applied(commands.boostEarnings(city));
+      int income(CityState state) => const EconomyCalculator()
+          .operatingLedger(state, const MetricsCalculator().calculate(state))
+          .values
+          .where((amount) => amount > 0)
+          .fold(0, (sum, amount) => sum + amount);
+
+      expect(income(boosted), closeTo(income(city) * 2, 2));
+      expect(rejected(commands.boostEarnings(boosted)), RejectionReason.alreadyInProgress);
+      expect(boosted.copyWith(tick: BoostRules.doubleEarningsSeconds).boostActive, isFalse);
     });
   });
 

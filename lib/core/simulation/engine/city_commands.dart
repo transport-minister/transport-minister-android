@@ -1,3 +1,6 @@
+import 'dart:math' as math;
+
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
@@ -15,6 +18,7 @@ import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
+import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/simulation/model/ledger_item.dart';
 import 'package:transport_minister/core/simulation/model/loan.dart';
 import 'package:transport_minister/core/simulation/model/metro_line.dart';
@@ -351,6 +355,97 @@ class CityCommands {
 
   CommandOutcome setRoadMaintenance(CityState state, RoadMaintenanceLevel level) {
     return CommandApplied(state.copyWith(roadMaintenance: level));
+  }
+
+  CommandOutcome rushProject(CityState state, int projectId) {
+    final project = state.projects.where((project) => project.id == projectId).firstOrNull;
+    if (project == null || project.remainingSeconds <= 1) {
+      return const CommandRejected(RejectionReason.invalidTarget);
+    }
+    return CommandApplied(
+      state.copyWith(
+        projects: [
+          for (final current in state.projects)
+            current.id == projectId ? current.copyWith(remainingSeconds: 1) : current,
+        ],
+      ),
+    );
+  }
+
+  CommandOutcome rushMetroLine(CityState state, DistrictId from, DistrictId to) {
+    final digging = state.metroLines.any(
+      (line) => line.joins(from, to) && line.remainingSeconds > 1,
+    );
+    if (!digging) {
+      return const CommandRejected(RejectionReason.invalidTarget);
+    }
+    return CommandApplied(
+      state.copyWith(
+        metroLines: [
+          for (final line in state.metroLines)
+            line.joins(from, to) ? line.copyWith(remainingSeconds: 1) : line,
+        ],
+      ),
+    );
+  }
+
+  CommandOutcome rushDeliveries(CityState state, DistrictId district) {
+    final arriving = state.tick + 1;
+    bool waiting(Bus bus) => bus.districtId == district && bus.deliveryTick > arriving;
+    if (!state.fleet.any(waiting)) {
+      return const CommandRejected(RejectionReason.invalidTarget);
+    }
+    return CommandApplied(
+      state.copyWith(
+        fleet: [
+          for (final bus in state.fleet) waiting(bus) ? bus.copyWith(deliveryTick: arriving) : bus,
+        ],
+      ),
+    );
+  }
+
+  CommandOutcome rushDiplomacy(CityState state, DiplomacyActionId action) {
+    if (diplomacyProblem(state, action) != RejectionReason.coolingDown) {
+      return const CommandRejected(RejectionReason.invalidTarget);
+    }
+    return CommandApplied(
+      state.copyWith(diplomacyReadyAt: {...state.diplomacyReadyAt, action: state.tick}),
+    );
+  }
+
+  CommandOutcome continueAfterDismissal(CityState state) {
+    if (!state.crisis.dismissed) {
+      return const CommandRejected(RejectionReason.invalidTarget);
+    }
+    return CommandApplied(
+      state.copyWith(
+        crisis: const CrisisState(),
+        budget: math.max(state.budget, 0),
+        modifiers: [
+          ...state.modifiers,
+          const ActiveModifier(
+            type: ModifierType.congestion,
+            value: BoostRules.continueCongestionRelief,
+            remainingSeconds: BoostRules.continueReliefSeconds,
+          ),
+          const ActiveModifier(
+            type: ModifierType.mood,
+            value: BoostRules.continueMoodLift,
+            remainingSeconds: BoostRules.continueReliefSeconds,
+          ),
+        ],
+      ),
+      events: const [MinisterReinstated()],
+    );
+  }
+
+  CommandOutcome boostEarnings(CityState state) {
+    if (state.boostActive) {
+      return const CommandRejected(RejectionReason.alreadyInProgress);
+    }
+    return CommandApplied(
+      state.copyWith(boostEndsAtTick: state.tick + BoostRules.doubleEarningsSeconds),
+    );
   }
 
   Bus? _bus(CityState state, int busId) {

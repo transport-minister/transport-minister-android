@@ -208,6 +208,29 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get diamondsSpendTitle => 'Nasıl harcanır';
+
+  @override
+  String get boostFinishNow => 'Hemen bitir';
+
+  @override
+  String get boostDeliverNow => 'Hemen teslim et';
+
+  @override
+  String get boostReadyNow => 'Hemen hazırla';
+
+  @override
+  String get boostContinue => 'Koltuğumu koru';
+
+  @override
+  String get boostDouble => '10 dakika çift kazanç';
+
+  @override
+  String boostDoubleActive(String time) {
+    return '2x kazanç · $time';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override
@@ -424,6 +447,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get dismissedRestart => 'Baştan başla';
+
+  @override
+  String dismissedContinueHint(int count) {
+    return '$count elmas harca, Cumhurbaşkanı sana bir şans daha versin.';
+  }
 
   @override
   String get loadingCity => 'Şehir açılıyor…';

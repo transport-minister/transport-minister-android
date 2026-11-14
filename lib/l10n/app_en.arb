@@ -116,6 +116,20 @@
       }
     }
   },
+  "diamondsSpendTitle": "Spend them",
+  "boostFinishNow": "Finish now",
+  "boostDeliverNow": "Deliver now",
+  "boostReadyNow": "Ready now",
+  "boostContinue": "Keep my seat",
+  "boostDouble": "Double earnings for 10 min",
+  "boostDoubleActive": "2x earnings · {time}",
+  "@boostDoubleActive": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "hudSatisfactionLabel": "Satisfaction",
   "hudIncomeLabel": "Earnings per second",
   "hudPopulationLabel": "Residents",
@@ -275,6 +289,14 @@
   "dismissedUnhappy": "Baku lost faith in your leadership.",
   "dismissedDebt": "Baku ran out of money.",
   "dismissedRestart": "Start over",
+  "dismissedContinueHint": "Spend {count} diamonds and the President gives you one more chance.",
+  "@dismissedContinueHint": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "loadingCity": "Opening the city…",
   "loadingFailed": "The city could not be opened.",
   "commonRetry": "Try again",

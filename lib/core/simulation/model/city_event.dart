@@ -80,6 +80,10 @@ final class RewardGranted extends CityEvent {
   final int amount;
 }
 
+final class MinisterReinstated extends CityEvent {
+  const MinisterReinstated();
+}
+
 final class CrisisAverted extends CityEvent {
   const CrisisAverted();
 }

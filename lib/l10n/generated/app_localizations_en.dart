@@ -208,6 +208,29 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get diamondsSpendTitle => 'Spend them';
+
+  @override
+  String get boostFinishNow => 'Finish now';
+
+  @override
+  String get boostDeliverNow => 'Deliver now';
+
+  @override
+  String get boostReadyNow => 'Ready now';
+
+  @override
+  String get boostContinue => 'Keep my seat';
+
+  @override
+  String get boostDouble => 'Double earnings for 10 min';
+
+  @override
+  String boostDoubleActive(String time) {
+    return '2x earnings · $time';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override
@@ -425,6 +448,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dismissedRestart => 'Start over';
+
+  @override
+  String dismissedContinueHint(int count) {
+    return 'Spend $count diamonds and the President gives you one more chance.';
+  }
 
   @override
   String get loadingCity => 'Opening the city…';

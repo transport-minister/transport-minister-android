@@ -3,6 +3,7 @@ import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/metro_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
@@ -13,6 +14,7 @@ import 'package:transport_minister/features/city_game/presentation/district_pres
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_panel_parts.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
 import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
@@ -23,6 +25,7 @@ class DistrictMetroTab extends StatelessWidget {
     required this.metrics,
     required this.district,
     required this.onAction,
+    required this.onBoost,
     required this.onOpenTechnology,
   });
 
@@ -30,6 +33,7 @@ class DistrictMetroTab extends StatelessWidget {
   final CityMetrics metrics;
   final DistrictId district;
   final DistrictAction onAction;
+  final DiamondAction onBoost;
   final VoidCallback onOpenTechnology;
 
   @override
@@ -61,6 +65,7 @@ class DistrictMetroTab extends StatelessWidget {
                 to: neighbour,
                 waiting: metrics.of(neighbour).waitingMinutes,
                 onAction: onAction,
+                onBoost: onBoost,
               ),
           ] else
             _LockedMetro(onOpenTechnology: onOpenTechnology),
@@ -112,6 +117,7 @@ class _MetroLineCard extends StatelessWidget {
     required this.to,
     required this.waiting,
     required this.onAction,
+    required this.onBoost,
   });
 
   final CityState city;
@@ -119,6 +125,7 @@ class _MetroLineCard extends StatelessWidget {
   final DistrictId to;
   final double waiting;
   final DistrictAction onAction;
+  final DiamondAction onBoost;
 
   @override
   Widget build(BuildContext context) {
@@ -194,13 +201,28 @@ class _MetroLineCard extends StatelessWidget {
                 ),
               )
             else ...[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: GameTag(
-                  label: l10n.buildTimeLeft(TimeTexts.duration(l10n, line.remainingSeconds)),
-                  palette: ChunkyPalette.tangerine,
-                  icon: Icons.hourglass_top_rounded,
-                ),
+              Row(
+                children: [
+                  GameTag(
+                    label: l10n.buildTimeLeft(TimeTexts.duration(l10n, line.remainingSeconds)),
+                    palette: ChunkyPalette.tangerine,
+                    icon: Icons.hourglass_top_rounded,
+                  ),
+                  const SizedBox(width: GameDimens.spaceS),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: DiamondButton(
+                        label: l10n.boostFinishNow,
+                        cost: BoostRules.rushCost(line.remainingSeconds),
+                        onPressed: () => onBoost(
+                          BoostRules.rushCost(line.remainingSeconds),
+                          (city) => commands.rushMetroLine(city, from, to),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: GameDimens.spaceS),
               ChunkyProgressBar(value: line.progress, palette: ChunkyPalette.grape, height: 12),

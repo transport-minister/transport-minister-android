@@ -75,6 +75,7 @@ _CityState _$CityStateFromJson(Map<String, dynamic> json) => _CityState(
           .toList() ??
       const [],
   completed: json['completed'] as bool? ?? false,
+  boostEndsAtTick: (json['boostEndsAtTick'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>{
@@ -106,6 +107,7 @@ Map<String, dynamic> _$CityStateToJson(_CityState instance) => <String, dynamic>
   ),
   'metroLines': instance.metroLines.map((e) => e.toJson()).toList(),
   'completed': instance.completed,
+  'boostEndsAtTick': instance.boostEndsAtTick,
 };
 
 const _$RoadMaintenanceLevelEnumMap = {
