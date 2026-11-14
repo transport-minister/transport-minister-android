@@ -12,12 +12,14 @@ class DismissalView extends StatelessWidget {
     required this.continueCost,
     required this.onContinue,
     required this.onRestart,
+    this.onWatchVideo,
   });
 
   final CrisisCause? cause;
   final int continueCost;
   final VoidCallback onContinue;
   final VoidCallback onRestart;
+  final VoidCallback? onWatchVideo;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,17 @@ class DismissalView extends StatelessWidget {
               style: textTheme.bodyMedium,
             ),
             const SizedBox(height: GameDimens.spaceM),
+            if (onWatchVideo case final watchVideo?) ...[
+              ChunkyButton(
+                label: l10n.adsWatchContinue,
+                icon: Icons.play_circle_rounded,
+                palette: ChunkyPalette.sunny,
+                size: ChunkySize.large,
+                expanded: true,
+                onPressed: watchVideo,
+              ),
+              const SizedBox(height: GameDimens.spaceM),
+            ],
             DiamondButton(
               label: l10n.boostContinue,
               cost: continueCost,

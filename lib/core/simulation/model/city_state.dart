@@ -51,6 +51,7 @@ abstract class CityState with _$CityState {
     @Default([]) List<MetroLine> metroLines,
     @Default(false) bool completed,
     @Default(0) int boostEndsAtTick,
+    @Default(false) bool videoContinueUsed,
   }) = _CityState;
 
   const CityState._();

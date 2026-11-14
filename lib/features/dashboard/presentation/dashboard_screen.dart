@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,8 @@ import 'package:transport_minister/core/simulation/engine/metrics_calculator.dar
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/time/clock_providers.dart';
+import 'package:transport_minister/features/ads/application/ads_providers.dart';
+import 'package:transport_minister/features/ads/domain/rewarded_ads.dart';
 import 'package:transport_minister/features/advisor/domain/advisor.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
@@ -114,6 +117,7 @@ class _CityViewState extends ConsumerState<_CityView> {
   void initState() {
     super.initState();
     _audio = ref.read(gameAudioProvider);
+    unawaited(ref.read(rewardedAdsProvider).prepare());
     _listenToCity(widget.session.city);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _startTutorial();
@@ -148,6 +152,9 @@ class _CityViewState extends ConsumerState<_CityView> {
           command: const CityCommands().continueAfterDismissal,
           revive: true,
         ),
+        onWatchVideo: ref.watch(adReadyProvider) && !city.videoContinueUsed
+            ? _continueByVideo
+            : null,
         onRestart: () => ref.read(cityGameProvider(widget.cityId).notifier).restartCity(),
       );
     }
@@ -341,8 +348,32 @@ class _CityViewState extends ConsumerState<_CityView> {
           Navigator.of(context).pop();
           ref.read(cityGameProvider(widget.cityId).notifier).collectWelcome();
         },
+        onCollectDouble: ref.read(adReadyProvider)
+            ? () {
+                Navigator.of(context).pop();
+                _collectDouble();
+              }
+            : null,
       ),
     ).whenComplete(() => _greeting = false);
+  }
+
+  Future<void> _collectDouble() async {
+    final result = await ref.read(rewardedAdsProvider).show();
+    if (mounted) {
+      await ref
+          .read(cityGameProvider(widget.cityId).notifier)
+          .collectWelcome(multiplier: result == AdResult.rewarded ? 2 : 1);
+    }
+  }
+
+  Future<void> _continueByVideo() async {
+    final result = await ref.read(rewardedAdsProvider).show();
+    if (result == AdResult.rewarded && mounted) {
+      await ref
+          .read(cityGameProvider(widget.cityId).notifier)
+          .revive((city) => const CityCommands().continueAfterDismissal(city, byVideo: true));
+    }
   }
 
   Future<void> _startTutorial() async {

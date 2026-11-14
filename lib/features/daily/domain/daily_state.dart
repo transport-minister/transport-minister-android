@@ -43,6 +43,7 @@ abstract class DailyState with _$DailyState {
     @Default([]) List<DailyTask> tasks,
     @Default(0) int streakDays,
     @Default(0) int lastStreakKey,
+    @Default(0) int videoDiamonds,
   }) = _DailyState;
 
   const DailyState._();

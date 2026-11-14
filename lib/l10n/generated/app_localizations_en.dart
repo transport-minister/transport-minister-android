@@ -249,6 +249,20 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get adsWatchContinue => 'Keep my seat · watch a video';
+
+  @override
+  String get adsDiamondMine => 'Diamond mine';
+
+  @override
+  String adsDiamondMineBody(int count, int left) {
+    return '+$count for a short video · $left left today';
+  }
+
+  @override
+  String get adsWatch => 'Watch';
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override

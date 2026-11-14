@@ -249,6 +249,20 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get adsWatchContinue => 'Сохранить пост · посмотреть видео';
+
+  @override
+  String get adsDiamondMine => 'Алмазная шахта';
+
+  @override
+  String adsDiamondMineBody(int count, int left) {
+    return '+$count за короткое видео · сегодня осталось $left';
+  }
+
+  @override
+  String get adsWatch => 'Смотреть';
+
+  @override
   String get hudSatisfactionLabel => 'Довольство';
 
   @override

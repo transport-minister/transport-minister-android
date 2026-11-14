@@ -44,6 +44,21 @@ class DailyController extends AsyncNotifier<DailyState> {
     return _claim(city, (state) => _rules.claimStreak(_rules.refresh(state, today), today));
   }
 
+  Future<int?> claimVideoDiamonds() async {
+    int? diamonds;
+    final today = _today;
+    await _update((state) {
+      final (next, granted) = _rules.claimVideoDiamonds(state, today);
+      diamonds = granted;
+      return (next, null);
+    });
+    final granted = diamonds;
+    if (granted != null && ref.mounted) {
+      await ref.read(profileProvider.notifier).addDiamonds(granted);
+    }
+    return granted;
+  }
+
   Future<Reward?> _claim(CityId city, (DailyState, Reward?) Function(DailyState) claim) async {
     Reward? reward;
     await _update((state) {

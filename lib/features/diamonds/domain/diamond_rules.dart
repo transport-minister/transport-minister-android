@@ -6,6 +6,8 @@ abstract final class DiamondRules {
   static const perAchievement = 3;
   static const perCityCompleted = 25;
   static const streakFinale = 5;
+  static const perVideo = 2;
+  static const videosPerDay = 3;
 
   static int forCityEvents(Iterable<CityEvent> events) {
     var total = 0;

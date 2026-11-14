@@ -55,6 +55,22 @@ void main() {
     expect(again, isNull);
   });
 
+  test('video diamonds are limited to three a day and reset tomorrow', () {
+    var state = const DailyState();
+    final granted = <int?>[];
+    for (var watch = 0; watch < 4; watch++) {
+      final (next, diamonds) = rules.claimVideoDiamonds(state, monday);
+      state = next;
+      granted.add(diamonds);
+    }
+    final (tomorrow, again) = rules.claimVideoDiamonds(state, monday.add(const Duration(days: 1)));
+
+    expect(granted, [2, 2, 2, null]);
+    expect(state.videoDiamonds, DiamondRules.videosPerDay);
+    expect(again, DiamondRules.perVideo);
+    expect(tomorrow.videoDiamonds, 1);
+  });
+
   test('the gift streak grows day by day and resets after a gap', () {
     var state = const DailyState();
     final rewards = <int>[];

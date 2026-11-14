@@ -413,14 +413,15 @@ class CityCommands {
     );
   }
 
-  CommandOutcome continueAfterDismissal(CityState state) {
-    if (!state.crisis.dismissed) {
+  CommandOutcome continueAfterDismissal(CityState state, {bool byVideo = false}) {
+    if (!state.crisis.dismissed || (byVideo && state.videoContinueUsed)) {
       return const CommandRejected(RejectionReason.invalidTarget);
     }
     return CommandApplied(
       state.copyWith(
         crisis: const CrisisState(),
         budget: math.max(state.budget, 0),
+        videoContinueUsed: state.videoContinueUsed || byVideo,
         modifiers: [
           ...state.modifiers,
           const ActiveModifier(

@@ -11,6 +11,7 @@ import 'package:transport_minister/core/simulation/engine/baku_scenario.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/simulation/model/bus.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
+import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/simulation/model/crisis_state.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
 import 'package:transport_minister/features/advisor/presentation/advisor_sheet.dart';
@@ -30,6 +31,7 @@ import 'package:transport_minister/features/progression/domain/minister_profile.
 import 'package:transport_minister/features/sound/domain/game_sound.dart';
 
 import '../../helpers/fake_now.dart';
+import '../../helpers/fake_rewarded_ads.dart';
 import '../../helpers/fake_sound_output.dart';
 import '../../helpers/funded_city.dart';
 import '../../helpers/game_screen_harness.dart';
@@ -322,6 +324,81 @@ void main() {
 
     expect(find.text('Welcome back, Minister!'), findsNothing);
     expect(after.city.budget, before.city.budget + before.welcome!.earnings);
+  });
+
+  testWidgets('a video doubles the welcome back money', (tester) async {
+    final ads = FakeRewardedAds();
+    await saveBaku(syncedAt: now.current.subtract(const Duration(hours: 1)));
+
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+      ads: ads,
+    );
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+    final before = container.read(cityGameProvider(CityId.baku)).requireValue;
+
+    await tester.tap(find.textContaining('watch a video'));
+    await tester.pumpAndSettle();
+    final after = container.read(cityGameProvider(CityId.baku)).requireValue;
+
+    expect(ads.shows, 1);
+    expect(after.city.budget, before.city.budget + before.welcome!.earnings * 2);
+  });
+
+  testWidgets('a video keeps the seat once for free', (tester) async {
+    final ads = FakeRewardedAds();
+    await saveBaku(
+      syncedAt: now.current,
+      crisis: const CrisisState(seconds: 300, warnings: 3, dismissed: true),
+    );
+
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+      ads: ads,
+    );
+    await tester.tap(find.text('Keep my seat · watch a video'));
+    await tester.pumpAndSettle();
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+    final city = container.read(cityGameProvider(CityId.baku)).requireValue.city;
+
+    expect(find.text('Wind Heights'), findsWidgets);
+    expect(city.videoContinueUsed, isTrue);
+    expect((await LocalProfileRepository(store).load())?.diamonds, 0);
+
+    await container
+        .read(cityGameProvider(CityId.baku).notifier)
+        .perform(
+          (city) => CommandApplied(city.copyWith(crisis: city.crisis.copyWith(dismissed: true))),
+        );
+    await tester.pumpAndSettle();
+
+    expect(find.text('You have been dismissed'), findsOneWidget);
+    expect(find.text('Keep my seat · watch a video'), findsNothing);
+  });
+
+  testWidgets('the diamond mine pays two diamonds per video', (tester) async {
+    final ads = FakeRewardedAds();
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+      ads: ads,
+    );
+
+    await tester.tap(find.byIcon(Icons.diamond_rounded).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Watch'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('+2 for a short video · 2 left today'), findsOneWidget);
+    expect((await LocalProfileRepository(store).load())?.diamonds, 2);
   });
 
   testWidgets('a dismissed minister can keep the seat for diamonds', (tester) async {
