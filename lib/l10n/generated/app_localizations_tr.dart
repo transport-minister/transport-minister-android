@@ -316,6 +316,33 @@ class AppLocalizationsTr extends AppLocalizations {
   String get diamondsGetMore => 'Daha fazla elmas al';
 
   @override
+  String get oathTitle => 'Atama kararnamesi';
+
+  @override
+  String get oathBody =>
+      'Cumhurbaşkanının emriyle bu kararnamenin sahibi Ulaştırma Bakanı olarak atanmış; şehirlerimizin otobüsleri, yolları ve metroları kendisine emanet edilmiştir.';
+
+  @override
+  String get oathSignatureLine => 'Bakanın imzası';
+
+  @override
+  String get oathSign => 'Kararnameyi imzala';
+
+  @override
+  String get oathStamp => 'ONAYLANDI';
+
+  @override
+  String get oathWelcome => 'Göreve hoş geldin Bakanım!';
+
+  @override
+  String oathGift(int count) {
+    return 'Başlangıç için +$count elmas';
+  }
+
+  @override
+  String get oathTakeOffice => 'Göreve başla';
+
+  @override
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override

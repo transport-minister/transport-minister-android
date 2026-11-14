@@ -171,32 +171,37 @@ class LevelUpSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Stack(
       children: [
-        MrBusSays(
-          mood: MrBusMood.excited,
-          title: l10n.levelUpTitle(cityName, level),
-          message: l10n.levelUpReward(MoneyFormat.compact(reward), diplomacy, budgetRaise),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            MrBusSays(
+              mood: MrBusMood.excited,
+              title: l10n.levelUpTitle(cityName, level),
+              message: l10n.levelUpReward(MoneyFormat.compact(reward), diplomacy, budgetRaise),
+            ),
+            const SizedBox(height: GameDimens.spaceM),
+            Center(
+              child: GameTag(
+                label: l10n.diamondsPlus(diamonds),
+                palette: DiamondStyle.palette,
+                icon: DiamondStyle.icon,
+              ),
+            ),
+            const SizedBox(height: GameDimens.spaceXL),
+            ChunkyButton(
+              label: l10n.levelUpContinue,
+              icon: Icons.celebration_rounded,
+              palette: ChunkyPalette.grape,
+              size: ChunkySize.large,
+              expanded: true,
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
         ),
-        const SizedBox(height: GameDimens.spaceM),
-        Center(
-          child: GameTag(
-            label: l10n.diamondsPlus(diamonds),
-            palette: DiamondStyle.palette,
-            icon: DiamondStyle.icon,
-          ),
-        ),
-        const SizedBox(height: GameDimens.spaceXL),
-        ChunkyButton(
-          label: l10n.levelUpContinue,
-          icon: Icons.celebration_rounded,
-          palette: ChunkyPalette.grape,
-          size: ChunkySize.large,
-          expanded: true,
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        const Positioned.fill(child: ConfettiBurst(pieces: 40)),
       ],
     );
   }

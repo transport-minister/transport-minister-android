@@ -12,6 +12,9 @@ import 'package:transport_minister/features/city_game/application/city_game_prov
 import 'package:transport_minister/features/city_game/data/local_city_save_repository.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
+import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
+import 'package:transport_minister/features/progression/domain/minister_profile.dart';
 import 'package:transport_minister/features/settings/data/local_settings_repository.dart';
 import 'package:transport_minister/features/settings/domain/app_language.dart';
 import 'package:transport_minister/features/sound/application/sound_providers.dart';
@@ -31,14 +34,25 @@ Widget _app(InMemoryDocumentStore store) {
   );
 }
 
+Future<InMemoryDocumentStore> _sworn() async {
+  final store = InMemoryDocumentStore();
+  await LocalProfileRepository(store).save(const MinisterProfile(oathTaken: true));
+  return store;
+}
+
 Finder _sticker(String text) {
   return find.byWidgetPredicate((widget) => widget is StickerText && widget.text == text);
 }
 
 void main() {
-  testWidgets('shows the splash and then the city selection', (tester) async {
+  testWidgets('the first launch asks for the oath, then opens the city selection', (tester) async {
     usePhoneViewport(tester);
-    await tester.pumpWidget(_app(InMemoryDocumentStore()));
+    tester.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(
+      disableAnimations: true,
+    );
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    final store = InMemoryDocumentStore();
+    await tester.pumpWidget(_app(store));
     await tester.pump(const Duration(milliseconds: 1200));
 
     expect(_sticker('Transport'), findsOneWidget);
@@ -46,8 +60,24 @@ void main() {
 
     await tester.pumpAndSettle();
 
+    expect(find.text('Decree of appointment'), findsOneWidget);
+
+    await tester.tap(find.text('Sign the decree'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Take office'));
+    await tester.pumpAndSettle();
+
     expect(find.text('Choose your city'), findsOneWidget);
     expect(find.text('Baku'), findsOneWidget);
+    expect((await LocalProfileRepository(store).load())?.diamonds, DiamondRules.welcomeGift);
+  });
+
+  testWidgets('a sworn minister goes straight to the city selection', (tester) async {
+    usePhoneViewport(tester);
+    await tester.pumpWidget(_app(await _sworn()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Choose your city'), findsOneWidget);
   });
 
   testWidgets('a chosen language translates the whole app', (tester) async {
@@ -55,7 +85,7 @@ void main() {
       (AppLanguage.turkish, 'Şehrini seç'),
       (AppLanguage.russian, 'Выбери свой город'),
     ]) {
-      final store = InMemoryDocumentStore();
+      final store = await _sworn();
       await LocalSettingsRepository(store).saveLanguage(language);
       usePhoneViewport(tester);
       await tester.pumpWidget(_app(store));
@@ -68,7 +98,7 @@ void main() {
 
   testWidgets('tapping the splash skips to the city selection', (tester) async {
     usePhoneViewport(tester);
-    await tester.pumpWidget(_app(InMemoryDocumentStore()));
+    await tester.pumpWidget(_app(await _sworn()));
     await tester.pump(const Duration(milliseconds: 300));
 
     await tester.tapAt(const Offset(200, 400));
@@ -83,7 +113,7 @@ void main() {
       disableAnimations: true,
     );
     addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
-    final store = InMemoryDocumentStore();
+    final store = await _sworn();
     await LocalCitySaveRepository(store).store(
       CityId.baku,
       CitySave(

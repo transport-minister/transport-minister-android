@@ -9,6 +9,7 @@ export 'package:transport_minister/core/design/widgets/chunky_icon_button.dart';
 export 'package:transport_minister/core/design/widgets/chunky_progress_bar.dart';
 export 'package:transport_minister/core/design/widgets/chunky_sheet.dart';
 export 'package:transport_minister/core/design/widgets/chunky_slab.dart';
+export 'package:transport_minister/core/design/widgets/confetti_burst.dart';
 export 'package:transport_minister/core/design/widgets/game_backdrop.dart';
 export 'package:transport_minister/core/design/widgets/game_tag.dart';
 export 'package:transport_minister/core/design/widgets/game_top_bar.dart';

@@ -37,7 +37,7 @@ Future<void> pumpGameScreen(
 }) async {
   final profiles = LocalProfileRepository(store);
   if (tutorialDone && await profiles.load() == null) {
-    await profiles.save(const MinisterProfile(tutorialDone: true));
+    await profiles.save(const MinisterProfile(tutorialDone: true, oathTaken: true));
   }
   usePhoneViewport(tester);
   tester.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(

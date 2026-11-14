@@ -316,6 +316,33 @@ class AppLocalizationsRu extends AppLocalizations {
   String get diamondsGetMore => 'Получить больше алмазов';
 
   @override
+  String get oathTitle => 'Указ о назначении';
+
+  @override
+  String get oathBody =>
+      'По приказу Президента Республики владелец этого указа назначается Министром транспорта, и ему вверяются автобусы, дороги и метро наших городов.';
+
+  @override
+  String get oathSignatureLine => 'Подпись Министра';
+
+  @override
+  String get oathSign => 'Подписать указ';
+
+  @override
+  String get oathStamp => 'УТВЕРЖДЕНО';
+
+  @override
+  String get oathWelcome => 'Добро пожаловать в должность, Министр!';
+
+  @override
+  String oathGift(int count) {
+    return '+$count алмазов для старта';
+  }
+
+  @override
+  String get oathTakeOffice => 'Приступить к работе';
+
+  @override
   String get hudSatisfactionLabel => 'Довольство';
 
   @override

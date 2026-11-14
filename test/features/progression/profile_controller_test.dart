@@ -35,18 +35,19 @@ void main() {
     expect((await open().read(profileProvider.future)).bestLevelIn(CityId.baku), 4);
   });
 
-  test('the tutorial gift brings diamonds that can be spent only once', () async {
+  test('the oath brings diamonds once, and they can be spent only once', () async {
     final container = open();
     await container.read(profileProvider.future);
     final controller = container.read(profileProvider.notifier);
 
-    await controller.completeTutorial();
-    await controller.completeTutorial();
+    await controller.takeOath();
+    await controller.takeOath();
     final afterGift = container.read(profileProvider).requireValue.diamonds;
     final spent = await controller.spendDiamonds(DiamondRules.welcomeGift);
     final refused = await controller.spendDiamonds(1);
 
     expect(afterGift, DiamondRules.welcomeGift);
+    expect(container.read(profileProvider).requireValue.oathTaken, isTrue);
     expect(spent, isTrue);
     expect(refused, isFalse);
     expect((await open().read(profileProvider.future)).diamonds, 0);

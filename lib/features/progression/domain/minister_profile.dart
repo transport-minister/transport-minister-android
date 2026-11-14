@@ -21,6 +21,7 @@ abstract class MinisterProfile with _$MinisterProfile {
     @Default(false) bool tutorialDone,
     @Default(0) int diamonds,
     @Default({}) Set<DiamondPack> packsBought,
+    @Default(false) bool oathTaken,
   }) = _MinisterProfile;
 
   const MinisterProfile._();

@@ -7,6 +7,7 @@ import 'package:transport_minister/core/design/illustrations/bus_illustration.da
 import 'package:transport_minister/core/design/widgets/sticker_text.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -64,11 +65,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
       return;
     }
     _leaving = true;
+    final profile = await ref.read(profileProvider.future);
     final city = await _resumableCity();
     if (!mounted) {
       return;
     }
-    if (city == null) {
+    if (!profile.oathTaken) {
+      context.go(AppRoute.oath.path);
+    } else if (city == null) {
       context.go(AppRoute.cities.path);
     } else {
       context.goNamed(

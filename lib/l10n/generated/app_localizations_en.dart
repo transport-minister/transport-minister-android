@@ -316,6 +316,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get diamondsGetMore => 'Get more diamonds';
 
   @override
+  String get oathTitle => 'Decree of appointment';
+
+  @override
+  String get oathBody =>
+      'By order of the President of the Republic, the bearer of this decree is appointed Minister of Transport and entrusted with the buses, roads and metros of our cities.';
+
+  @override
+  String get oathSignatureLine => 'Signature of the Minister';
+
+  @override
+  String get oathSign => 'Sign the decree';
+
+  @override
+  String get oathStamp => 'APPROVED';
+
+  @override
+  String get oathWelcome => 'Welcome to office, Minister!';
+
+  @override
+  String oathGift(int count) {
+    return '+$count diamonds to start';
+  }
+
+  @override
+  String get oathTakeOffice => 'Take office';
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override

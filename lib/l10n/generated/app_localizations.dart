@@ -640,6 +640,54 @@ abstract class AppLocalizations {
   /// **'Get more diamonds'**
   String get diamondsGetMore;
 
+  /// No description provided for @oathTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Decree of appointment'**
+  String get oathTitle;
+
+  /// No description provided for @oathBody.
+  ///
+  /// In en, this message translates to:
+  /// **'By order of the President of the Republic, the bearer of this decree is appointed Minister of Transport and entrusted with the buses, roads and metros of our cities.'**
+  String get oathBody;
+
+  /// No description provided for @oathSignatureLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Signature of the Minister'**
+  String get oathSignatureLine;
+
+  /// No description provided for @oathSign.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign the decree'**
+  String get oathSign;
+
+  /// No description provided for @oathStamp.
+  ///
+  /// In en, this message translates to:
+  /// **'APPROVED'**
+  String get oathStamp;
+
+  /// No description provided for @oathWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to office, Minister!'**
+  String get oathWelcome;
+
+  /// No description provided for @oathGift.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} diamonds to start'**
+  String oathGift(int count);
+
+  /// No description provided for @oathTakeOffice.
+  ///
+  /// In en, this message translates to:
+  /// **'Take office'**
+  String get oathTakeOffice;
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:
