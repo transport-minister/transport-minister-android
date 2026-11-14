@@ -7,6 +7,7 @@ import 'package:transport_minister/features/city_selection/presentation/city_sel
 import 'package:transport_minister/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_screen.dart';
 import 'package:transport_minister/features/inbox/presentation/inbox_screen.dart';
+import 'package:transport_minister/features/oath/presentation/oath_screen.dart';
 import 'package:transport_minister/features/progression/presentation/profile_screen.dart';
 import 'package:transport_minister/features/settings/presentation/settings_screen.dart';
 import 'package:transport_minister/features/shop/presentation/shop_screen.dart';
@@ -27,6 +28,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoute.splash.path,
         name: AppRoute.splash.name,
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: AppRoute.oath.path,
+        name: AppRoute.oath.name,
+        builder: (context, state) => const OathScreen(),
       ),
       GoRoute(
         path: AppRoute.cities.path,

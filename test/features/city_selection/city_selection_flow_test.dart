@@ -19,10 +19,14 @@ Future<void> _openCitySelection(WidgetTester tester, {InMemoryDocumentStore? sto
     disableAnimations: true,
   );
   addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+  final documents = store ?? InMemoryDocumentStore();
+  if (await LocalProfileRepository(documents).load() == null) {
+    await LocalProfileRepository(documents).save(const MinisterProfile(oathTaken: true));
+  }
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
-        documentStoreProvider.overrideWithValue(store ?? InMemoryDocumentStore()),
+        documentStoreProvider.overrideWithValue(documents),
         tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
         soundOutputProvider.overrideWithValue(FakeSoundOutput()),
       ],
@@ -65,7 +69,11 @@ void main() {
   testWidgets('completing Baku unlocks the next city', (tester) async {
     final store = InMemoryDocumentStore();
     await LocalProfileRepository(store).save(
-      const MinisterProfile(bestCityLevels: {CityId.baku: 10}, completedCities: {CityId.baku}),
+      const MinisterProfile(
+        oathTaken: true,
+        bestCityLevels: {CityId.baku: 10},
+        completedCities: {CityId.baku},
+      ),
     );
     await _openCitySelection(tester, store: store);
 

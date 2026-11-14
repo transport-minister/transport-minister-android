@@ -36,6 +36,7 @@ _MinisterProfile _$MinisterProfileFromJson(Map<String, dynamic> json) => _Minist
           ?.map((e) => $enumDecode(_$DiamondPackEnumMap, e))
           .toSet() ??
       const {},
+  oathTaken: json['oathTaken'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <String, dynamic>{
@@ -49,6 +50,7 @@ Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <Stri
   'tutorialDone': instance.tutorialDone,
   'diamonds': instance.diamonds,
   'packsBought': instance.packsBought.map((e) => _$DiamondPackEnumMap[e]!).toList(),
+  'oathTaken': instance.oathTaken,
 };
 
 const _$MinisterialRankEnumMap = {

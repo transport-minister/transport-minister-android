@@ -16,6 +16,7 @@ import 'package:transport_minister/features/dashboard/presentation/dashboard_scr
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_screen.dart';
 import 'package:transport_minister/features/inbox/presentation/inbox_screen.dart';
+import 'package:transport_minister/features/oath/presentation/oath_screen.dart';
 import 'package:transport_minister/features/progression/presentation/profile_screen.dart';
 import 'package:transport_minister/features/settings/domain/app_language.dart';
 import 'package:transport_minister/features/settings/presentation/settings_screen.dart';
@@ -154,6 +155,7 @@ void main() {
         ('profile', ProfileScreen()),
         ('city selection', CitySelectionScreen()),
         ('inbox', InboxScreen()),
+        ('oath', OathScreen()),
       ]) {
         testWidgets('the $name screen fits', (tester) async {
           await open(tester, screen);

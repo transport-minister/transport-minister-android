@@ -39,13 +39,12 @@ class ProfileController extends AsyncNotifier<MinisterProfile> {
   Future<MinisterProfile> build() async =>
       await ref.read(profileRepositoryProvider).load() ?? const MinisterProfile();
 
-  Future<void> completeTutorial() => _change(
-    (profile) => profile.tutorialDone
+  Future<void> completeTutorial() => _change((profile) => profile.copyWith(tutorialDone: true));
+
+  Future<void> takeOath() => _change(
+    (profile) => profile.oathTaken
         ? profile
-        : profile.copyWith(
-            tutorialDone: true,
-            diamonds: profile.diamonds + DiamondRules.welcomeGift,
-          ),
+        : profile.copyWith(oathTaken: true, diamonds: profile.diamonds + DiamondRules.welcomeGift),
   );
 
   Future<void> markPackBought(DiamondPack pack) =>

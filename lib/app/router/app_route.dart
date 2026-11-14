@@ -1,5 +1,6 @@
 enum AppRoute {
   splash('/'),
+  oath('/oath'),
   cities('/cities'),
   profile('/profile'),
   inbox('/inbox'),

@@ -205,6 +205,21 @@
   "shopFailedBody": "The purchase did not go through. Please try again later.",
   "shopEarnTitle": "Earn for free",
   "diamondsGetMore": "Get more diamonds",
+  "oathTitle": "Decree of appointment",
+  "oathBody": "By order of the President of the Republic, the bearer of this decree is appointed Minister of Transport and entrusted with the buses, roads and metros of our cities.",
+  "oathSignatureLine": "Signature of the Minister",
+  "oathSign": "Sign the decree",
+  "oathStamp": "APPROVED",
+  "oathWelcome": "Welcome to office, Minister!",
+  "oathGift": "+{count} diamonds to start",
+  "@oathGift": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "oathTakeOffice": "Take office",
   "hudSatisfactionLabel": "Satisfaction",
   "hudIncomeLabel": "Earnings per second",
   "hudPopulationLabel": "Residents",
