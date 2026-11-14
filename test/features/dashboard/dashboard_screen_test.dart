@@ -301,6 +301,29 @@ void main() {
     expect((await LocalInboxRepository(store).load())?.items, isEmpty);
   });
 
+  testWidgets('a returning minister collects the money the city earned', (tester) async {
+    await saveBaku(syncedAt: now.current.subtract(const Duration(hours: 1)));
+
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+    final before = container.read(cityGameProvider(CityId.baku)).requireValue;
+
+    expect(find.text('Welcome back, Minister!'), findsOneWidget);
+    expect(before.welcome?.awaySeconds, 3600);
+
+    await tester.tap(find.textContaining('Collect'));
+    await tester.pumpAndSettle();
+    final after = container.read(cityGameProvider(CityId.baku)).requireValue;
+
+    expect(find.text('Welcome back, Minister!'), findsNothing);
+    expect(after.city.budget, before.city.budget + before.welcome!.earnings);
+  });
+
   testWidgets('a dismissed minister can keep the seat for diamonds', (tester) async {
     await LocalProfileRepository(store)
         .save(const MinisterProfile(tutorialDone: true, diamonds: BoostRules.continueCost));

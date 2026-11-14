@@ -37,6 +37,7 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dashb
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/welcome_back_sheet.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
@@ -100,6 +101,7 @@ class _CityViewState extends ConsumerState<_CityView> {
   final _targets = TutorialTargets();
   final _random = math.Random();
   late final GameAudio _audio;
+  var _greeting = false;
 
   @override
   void dispose() {
@@ -113,7 +115,10 @@ class _CityViewState extends ConsumerState<_CityView> {
     super.initState();
     _audio = ref.read(gameAudioProvider);
     _listenToCity(widget.session.city);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _startTutorial());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startTutorial();
+      _welcome(widget.session);
+    });
   }
 
   @override
@@ -125,6 +130,7 @@ class _CityViewState extends ConsumerState<_CityView> {
         return;
       }
       _playCitySounds(session);
+      _welcome(session);
       if (previous?.value != null && session.latestEvents.isNotEmpty) {
         _announce(session);
       }
@@ -203,10 +209,7 @@ class _CityViewState extends ConsumerState<_CityView> {
                           left: GameDimens.spaceS,
                           top: GameDimens.spaceS,
                           child: CityStatsPanel(
-                            income: const EconomyCalculator()
-                                .operatingLedger(city, metrics)
-                                .values
-                                .fold(0, (sum, amount) => sum + amount),
+                            income: const EconomyCalculator().netIncome(city, metrics),
                             population: metrics.population,
                             satisfaction: city.overallSatisfaction,
                             boostSecondsLeft: city.boostSecondsLeft,
@@ -321,6 +324,26 @@ class _CityViewState extends ConsumerState<_CityView> {
   Future<void> _openTechnology() => _leaveFor(AppRoute.technology.forCity(widget.cityId.name));
 
   Future<void> _openDiplomacy() => _leaveFor(AppRoute.diplomacy.forCity(widget.cityId.name));
+
+  void _welcome(CityGameSession session) {
+    final welcome = session.welcome;
+    if (welcome == null || _greeting || !mounted || session.city.crisis.dismissed) {
+      return;
+    }
+    _greeting = true;
+    showChunkySheet<void>(
+      context: context,
+      dismissible: false,
+      builder: (context) => WelcomeBackSheet(
+        cityName: widget.cityId.displayName(AppLocalizations.of(context)),
+        welcome: welcome,
+        onCollect: () {
+          Navigator.of(context).pop();
+          ref.read(cityGameProvider(widget.cityId).notifier).collectWelcome();
+        },
+      ),
+    ).whenComplete(() => _greeting = false);
+  }
 
   Future<void> _startTutorial() async {
     final profile = await ref.read(profileProvider.future);

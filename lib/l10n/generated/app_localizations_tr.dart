@@ -231,6 +231,24 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get welcomeTitle => 'Tekrar hoş geldin Bakanım!';
+
+  @override
+  String welcomeBody(String time, String city) {
+    return 'Sen $time yokken $city kazanmaya devam etti.';
+  }
+
+  @override
+  String welcomeCollect(String amount) {
+    return '$amount topla';
+  }
+
+  @override
+  String welcomeCollectDouble(String amount) {
+    return '$amount topla · video izle';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override

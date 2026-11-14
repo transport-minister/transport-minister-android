@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:transport_minister/core/simulation/catalog/offline_rules.dart';
+import 'package:transport_minister/core/simulation/engine/city_commands.dart';
+import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
+import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/engine/simulation_clock.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
@@ -9,6 +13,7 @@ import 'package:transport_minister/core/time/clock_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_session.dart';
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
+import 'package:transport_minister/features/city_game/domain/welcome_back.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/daily/application/daily_controller.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
@@ -38,10 +43,11 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     final now = _now();
     final saved = await ref.read(citySaveRepositoryProvider).load(cityId);
     final city = saved?.city ?? _newCity(now);
+    final welcome = _welcomeFor(city, saved?.anchor, now);
     _anchor = _restartedAt(now, saved?.anchor);
     await _persist(city);
     _recordProgress(city, const []);
-    return CityGameSession(city: city);
+    return CityGameSession(city: city, welcome: welcome);
   }
 
   void tick() {
@@ -87,8 +93,47 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
   }
 
   void appResumed() {
+    if (!_appActive) {
+      _greet();
+    }
     _appActive = true;
     _syncClock();
+  }
+
+  Future<void> collectWelcome({int multiplier = 1}) async {
+    final session = state.value;
+    final welcome = session?.welcome;
+    if (session == null || welcome == null) {
+      return;
+    }
+    state = AsyncData(session.copyWith(welcome: null));
+    await perform((city) => const CityCommands().grantReward(city, welcome.earnings * multiplier));
+  }
+
+  void _greet() {
+    final session = state.value;
+    if (session == null || session.welcome != null) {
+      return;
+    }
+    final welcome = _welcomeFor(session.city, _anchor, _now());
+    if (welcome != null) {
+      state = AsyncData(session.copyWith(welcome: welcome));
+    }
+  }
+
+  WelcomeBack? _welcomeFor(CityState city, TimeAnchor? anchor, DateTime now) {
+    if (anchor == null || city.crisis.dismissed) {
+      return null;
+    }
+    final awaySeconds = (now.millisecondsSinceEpoch - anchor.syncedAtMs) ~/ 1000;
+    final earnings = OfflineRules.earnings(
+      incomePerSecond: const EconomyCalculator().netIncome(
+        city,
+        const MetricsCalculator().calculate(city),
+      ),
+      awaySeconds: awaySeconds,
+    );
+    return earnings > 0 ? WelcomeBack(awaySeconds: awaySeconds, earnings: earnings) : null;
   }
 
   void _syncClock() {

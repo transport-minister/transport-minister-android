@@ -130,6 +130,34 @@
       }
     }
   },
+  "welcomeTitle": "Welcome back, Minister!",
+  "welcomeBody": "While you were away for {time}, {city} kept earning.",
+  "@welcomeBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeCollect": "Collect {amount}",
+  "@welcomeCollect": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeCollectDouble": "Collect {amount} · watch a video",
+  "@welcomeCollectDouble": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "hudSatisfactionLabel": "Satisfaction",
   "hudIncomeLabel": "Earnings per second",
   "hudPopulationLabel": "Residents",
