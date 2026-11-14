@@ -6,6 +6,8 @@ import 'package:transport_minister/core/design/game_theme.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
 import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/core/time/clock_providers.dart';
+import 'package:transport_minister/features/ads/application/ads_providers.dart';
+import 'package:transport_minister/features/ads/domain/rewarded_ads.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
@@ -14,6 +16,7 @@ import 'package:transport_minister/features/sound/domain/sound_output.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 import 'fake_now.dart';
+import 'fake_rewarded_ads.dart';
 import 'fake_sound_output.dart';
 import 'phone_viewport.dart';
 
@@ -26,6 +29,7 @@ Future<void> pumpGameScreen(
   bool tutorialDone = true,
   Locale? locale,
   SoundOutput? sound,
+  RewardedAds? ads,
 }) async {
   final profiles = LocalProfileRepository(store);
   if (tutorialDone && await profiles.load() == null) {
@@ -43,6 +47,7 @@ Future<void> pumpGameScreen(
         nowProvider.overrideWithValue(now.call),
         tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
         soundOutputProvider.overrideWithValue(sound ?? FakeSoundOutput()),
+        rewardedAdsProvider.overrideWithValue(ads ?? FakeRewardedAds(available: false)),
         ...overrides,
       ],
       child: MaterialApp(

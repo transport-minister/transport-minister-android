@@ -1,0 +1,3 @@
+abstract final class AdUnits {
+  static const rewarded = 'ca-app-pub-3940256099942544/5224354917';
+}

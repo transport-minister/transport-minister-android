@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
@@ -5,9 +7,12 @@ import 'package:transport_minister/core/design/mascot/mr_bus.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
 import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
+import 'package:transport_minister/features/ads/application/ads_providers.dart';
+import 'package:transport_minister/features/ads/domain/rewarded_ads.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/daily/application/daily_controller.dart';
 import 'package:transport_minister/features/diamonds/application/boosts.dart';
 import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
@@ -76,6 +81,7 @@ class DiamondsSheet extends ConsumerWidget {
             const SizedBox(height: GameDimens.spaceL),
             Text(l10n.diamondsEarnTitle, style: textTheme.titleLarge),
             const SizedBox(height: GameDimens.spaceS),
+            const _MineCard(),
             for (final (icon, palette, label) in rows)
               Padding(
                 padding: const EdgeInsets.only(bottom: GameDimens.spaceS),
@@ -107,6 +113,64 @@ class DiamondsSheet extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+class _MineCard extends ConsumerWidget {
+  const _MineCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final watched = ref.watch(dailyProvider).value?.videoDiamonds ?? 0;
+    final left = math.max(DiamondRules.videosPerDay - watched, 0);
+    final ready = ref.watch(adReadyProvider) && left > 0;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: GameDimens.spaceS),
+      child: ChunkyCard(
+        depth: 3,
+        color: ChunkyPalette.sunny.glow.withValues(alpha: 0.35),
+        padding: const EdgeInsets.all(GameDimens.spaceM),
+        child: Row(
+          children: [
+            const IconBubble(
+              icon: Icons.play_circle_rounded,
+              palette: ChunkyPalette.sunny,
+              size: 40,
+            ),
+            const SizedBox(width: GameDimens.spaceM),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l10n.adsDiamondMine, style: textTheme.titleSmall),
+                  Text(
+                    l10n.adsDiamondMineBody(DiamondRules.perVideo, left),
+                    style: textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: GameDimens.spaceS),
+            ChunkyButton(
+              label: l10n.adsWatch,
+              icon: DiamondStyle.icon,
+              palette: ChunkyPalette.sunny,
+              size: ChunkySize.small,
+              onPressed: ready ? () => _watch(ref) : null,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _watch(WidgetRef ref) async {
+    final result = await ref.read(rewardedAdsProvider).show();
+    if (result == AdResult.rewarded) {
+      await ref.read(dailyProvider.notifier).claimVideoDiamonds();
+    }
   }
 }
 

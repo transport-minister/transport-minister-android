@@ -37,6 +37,7 @@ _DailyState _$DailyStateFromJson(Map<String, dynamic> json) => _DailyState(
       const [],
   streakDays: (json['streakDays'] as num?)?.toInt() ?? 0,
   lastStreakKey: (json['lastStreakKey'] as num?)?.toInt() ?? 0,
+  videoDiamonds: (json['videoDiamonds'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$DailyStateToJson(_DailyState instance) => <String, dynamic>{
@@ -44,4 +45,5 @@ Map<String, dynamic> _$DailyStateToJson(_DailyState instance) => <String, dynami
   'tasks': instance.tasks.map((e) => e.toJson()).toList(),
   'streakDays': instance.streakDays,
   'lastStreakKey': instance.lastStreakKey,
+  'videoDiamonds': instance.videoDiamonds,
 };

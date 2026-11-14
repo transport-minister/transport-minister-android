@@ -38,7 +38,16 @@ class DailyRules {
     return state.copyWith(
       dateKey: key,
       tasks: [for (final type in picked) DailyTask(type: type)],
+      videoDiamonds: 0,
     );
+  }
+
+  (DailyState, int?) claimVideoDiamonds(DailyState state, DateTime today) {
+    final fresh = refresh(state, today);
+    if (fresh.videoDiamonds >= DiamondRules.videosPerDay) {
+      return (fresh, null);
+    }
+    return (fresh.copyWith(videoDiamonds: fresh.videoDiamonds + 1), DiamondRules.perVideo);
   }
 
   DailyState track(DailyState state, List<CityEvent> events, CityState city) {

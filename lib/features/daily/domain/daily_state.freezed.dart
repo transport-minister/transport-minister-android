@@ -292,7 +292,7 @@ as bool,
 /// @nodoc
 mixin _$DailyState {
 
- int get dateKey; List<DailyTask> get tasks; int get streakDays; int get lastStreakKey;
+ int get dateKey; List<DailyTask> get tasks; int get streakDays; int get lastStreakKey; int get videoDiamonds;
 /// Create a copy of DailyState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -306,20 +306,20 @@ $DailyStateCopyWith<DailyState> get copyWith => _$DailyStateCopyWithImpl<DailySt
 @override
 bool operator ==(Object other) {
   final _this = this as DailyState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyState&&(identical(other.dateKey, _this.dateKey) || other.dateKey == _this.dateKey)&&const DeepCollectionEquality().equals(other.tasks, _this.tasks)&&(identical(other.streakDays, _this.streakDays) || other.streakDays == _this.streakDays)&&(identical(other.lastStreakKey, _this.lastStreakKey) || other.lastStreakKey == _this.lastStreakKey));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyState&&(identical(other.dateKey, _this.dateKey) || other.dateKey == _this.dateKey)&&const DeepCollectionEquality().equals(other.tasks, _this.tasks)&&(identical(other.streakDays, _this.streakDays) || other.streakDays == _this.streakDays)&&(identical(other.lastStreakKey, _this.lastStreakKey) || other.lastStreakKey == _this.lastStreakKey)&&(identical(other.videoDiamonds, _this.videoDiamonds) || other.videoDiamonds == _this.videoDiamonds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as DailyState;
-  return Object.hash(runtimeType,_this.dateKey,const DeepCollectionEquality().hash(_this.tasks),_this.streakDays,_this.lastStreakKey);
+  return Object.hash(runtimeType,_this.dateKey,const DeepCollectionEquality().hash(_this.tasks),_this.streakDays,_this.lastStreakKey,_this.videoDiamonds);
 }
 
 @override
 String toString() {
   final _this = this as DailyState;
-  return 'DailyState(dateKey: ${_this.dateKey}, tasks: ${_this.tasks}, streakDays: ${_this.streakDays}, lastStreakKey: ${_this.lastStreakKey})';
+  return 'DailyState(dateKey: ${_this.dateKey}, tasks: ${_this.tasks}, streakDays: ${_this.streakDays}, lastStreakKey: ${_this.lastStreakKey}, videoDiamonds: ${_this.videoDiamonds})';
 }
 
 
@@ -330,7 +330,7 @@ abstract mixin class $DailyStateCopyWith<$Res>  {
   factory $DailyStateCopyWith(DailyState value, $Res Function(DailyState) _then) = _$DailyStateCopyWithImpl;
 @useResult
 $Res call({
- int dateKey, List<DailyTask> tasks, int streakDays, int lastStreakKey
+ int dateKey, List<DailyTask> tasks, int streakDays, int lastStreakKey, int videoDiamonds
 });
 
 
@@ -347,12 +347,13 @@ class _$DailyStateCopyWithImpl<$Res>
 
 /// Create a copy of DailyState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? dateKey = null,Object? tasks = null,Object? streakDays = null,Object? lastStreakKey = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? dateKey = null,Object? tasks = null,Object? streakDays = null,Object? lastStreakKey = null,Object? videoDiamonds = null,}) {
   return _then(DailyState(
 dateKey: null == dateKey ? _self.dateKey : dateKey // ignore: cast_nullable_to_non_nullable
 as int,tasks: null == tasks ? _self.tasks : tasks // ignore: cast_nullable_to_non_nullable
 as List<DailyTask>,streakDays: null == streakDays ? _self.streakDays : streakDays // ignore: cast_nullable_to_non_nullable
 as int,lastStreakKey: null == lastStreakKey ? _self.lastStreakKey : lastStreakKey // ignore: cast_nullable_to_non_nullable
+as int,videoDiamonds: null == videoDiamonds ? _self.videoDiamonds : videoDiamonds // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -438,10 +439,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int dateKey,  List<DailyTask> tasks,  int streakDays,  int lastStreakKey)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int dateKey,  List<DailyTask> tasks,  int streakDays,  int lastStreakKey,  int videoDiamonds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DailyState() when $default != null:
-return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey);case _:
+return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey,_that.videoDiamonds);case _:
   return orElse();
 
 }
@@ -459,10 +460,10 @@ return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey);
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int dateKey,  List<DailyTask> tasks,  int streakDays,  int lastStreakKey)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int dateKey,  List<DailyTask> tasks,  int streakDays,  int lastStreakKey,  int videoDiamonds)  $default,) {final _that = this;
 switch (_that) {
 case _DailyState():
-return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey);case _:
+return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey,_that.videoDiamonds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -479,10 +480,10 @@ return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey);
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int dateKey,  List<DailyTask> tasks,  int streakDays,  int lastStreakKey)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int dateKey,  List<DailyTask> tasks,  int streakDays,  int lastStreakKey,  int videoDiamonds)?  $default,) {final _that = this;
 switch (_that) {
 case _DailyState() when $default != null:
-return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey);case _:
+return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey,_that.videoDiamonds);case _:
   return null;
 
 }
@@ -494,7 +495,7 @@ return $default(_that.dateKey,_that.tasks,_that.streakDays,_that.lastStreakKey);
 @JsonSerializable()
 
 class _DailyState extends DailyState {
-  const _DailyState({this.dateKey = 0,  List<DailyTask> tasks = const [], this.streakDays = 0, this.lastStreakKey = 0}): _tasks = tasks,super._();
+  const _DailyState({this.dateKey = 0,  List<DailyTask> tasks = const [], this.streakDays = 0, this.lastStreakKey = 0, this.videoDiamonds = 0}): _tasks = tasks,super._();
   factory _DailyState.fromJson(Map<String, dynamic> json) => _$DailyStateFromJson(json);
 
 @override@JsonKey() final  int dateKey;
@@ -507,6 +508,7 @@ class _DailyState extends DailyState {
 
 @override@JsonKey() final  int streakDays;
 @override@JsonKey() final  int lastStreakKey;
+@override@JsonKey() final  int videoDiamonds;
 
 /// Create a copy of DailyState
 /// with the given fields replaced by the non-null parameter values.
@@ -521,18 +523,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyState&&(identical(other.dateKey, dateKey) || other.dateKey == dateKey)&&const DeepCollectionEquality().equals(other.tasks, _tasks)&&(identical(other.streakDays, streakDays) || other.streakDays == streakDays)&&(identical(other.lastStreakKey, lastStreakKey) || other.lastStreakKey == lastStreakKey));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyState&&(identical(other.dateKey, dateKey) || other.dateKey == dateKey)&&const DeepCollectionEquality().equals(other.tasks, _tasks)&&(identical(other.streakDays, streakDays) || other.streakDays == streakDays)&&(identical(other.lastStreakKey, lastStreakKey) || other.lastStreakKey == lastStreakKey)&&(identical(other.videoDiamonds, videoDiamonds) || other.videoDiamonds == videoDiamonds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,dateKey,const DeepCollectionEquality().hash(_tasks),streakDays,lastStreakKey);
+    return Object.hash(runtimeType,dateKey,const DeepCollectionEquality().hash(_tasks),streakDays,lastStreakKey,videoDiamonds);
 }
 
 @override
 String toString() {
-    return 'DailyState(dateKey: $dateKey, tasks: $tasks, streakDays: $streakDays, lastStreakKey: $lastStreakKey)';
+    return 'DailyState(dateKey: $dateKey, tasks: $tasks, streakDays: $streakDays, lastStreakKey: $lastStreakKey, videoDiamonds: $videoDiamonds)';
 }
 
 
@@ -543,7 +545,7 @@ abstract mixin class _$DailyStateCopyWith<$Res> implements $DailyStateCopyWith<$
   factory _$DailyStateCopyWith(_DailyState value, $Res Function(_DailyState) _then) = __$DailyStateCopyWithImpl;
 @override @useResult
 $Res call({
- int dateKey, List<DailyTask> tasks, int streakDays, int lastStreakKey
+ int dateKey, List<DailyTask> tasks, int streakDays, int lastStreakKey, int videoDiamonds
 });
 
 
@@ -560,12 +562,13 @@ class __$DailyStateCopyWithImpl<$Res>
 
 /// Create a copy of DailyState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? dateKey = null,Object? tasks = null,Object? streakDays = null,Object? lastStreakKey = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? dateKey = null,Object? tasks = null,Object? streakDays = null,Object? lastStreakKey = null,Object? videoDiamonds = null,}) {
   return _then(_DailyState(
 dateKey: null == dateKey ? _self.dateKey : dateKey // ignore: cast_nullable_to_non_nullable
 as int,tasks: null == tasks ? _self._tasks : tasks // ignore: cast_nullable_to_non_nullable
 as List<DailyTask>,streakDays: null == streakDays ? _self.streakDays : streakDays // ignore: cast_nullable_to_non_nullable
 as int,lastStreakKey: null == lastStreakKey ? _self.lastStreakKey : lastStreakKey // ignore: cast_nullable_to_non_nullable
+as int,videoDiamonds: null == videoDiamonds ? _self.videoDiamonds : videoDiamonds // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

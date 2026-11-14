@@ -249,6 +249,20 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get adsWatchContinue => 'Koltuğumu koru · video izle';
+
+  @override
+  String get adsDiamondMine => 'Elmas madeni';
+
+  @override
+  String adsDiamondMineBody(int count, int left) {
+    return 'Kısa bir video için +$count · bugün $left hak kaldı';
+  }
+
+  @override
+  String get adsWatch => 'İzle';
+
+  @override
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override

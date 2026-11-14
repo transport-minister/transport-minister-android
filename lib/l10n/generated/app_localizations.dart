@@ -520,6 +520,30 @@ abstract class AppLocalizations {
   /// **'Collect {amount} · watch a video'**
   String welcomeCollectDouble(String amount);
 
+  /// No description provided for @adsWatchContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep my seat · watch a video'**
+  String get adsWatchContinue;
+
+  /// No description provided for @adsDiamondMine.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond mine'**
+  String get adsDiamondMine;
+
+  /// No description provided for @adsDiamondMineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} for a short video · {left} left today'**
+  String adsDiamondMineBody(int count, int left);
+
+  /// No description provided for @adsWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch'**
+  String get adsWatch;
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:

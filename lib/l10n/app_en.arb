@@ -158,6 +158,20 @@
       }
     }
   },
+  "adsWatchContinue": "Keep my seat · watch a video",
+  "adsDiamondMine": "Diamond mine",
+  "adsDiamondMineBody": "+{count} for a short video · {left} left today",
+  "@adsDiamondMineBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "left": {
+        "type": "int"
+      }
+    }
+  },
+  "adsWatch": "Watch",
   "hudSatisfactionLabel": "Satisfaction",
   "hudIncomeLabel": "Earnings per second",
   "hudPopulationLabel": "Residents",
