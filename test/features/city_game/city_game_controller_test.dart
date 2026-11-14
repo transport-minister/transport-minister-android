@@ -2,12 +2,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
+import 'package:transport_minister/core/simulation/catalog/offline_rules.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
+import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
+import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
+import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/simulation/model/command_outcome.dart';
 import 'package:transport_minister/core/storage/in_memory_document_store.dart';
 import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/core/time/clock_providers.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
+import 'package:transport_minister/features/city_game/domain/welcome_back.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 
 import '../../helpers/fake_now.dart';
@@ -51,6 +56,59 @@ void main() {
     final session = await openGame().read(baku.future);
 
     expect(session.city.tick, 0);
+  });
+
+  int incomeOf(CityState city) =>
+      const EconomyCalculator().netIncome(city, const MetricsCalculator().calculate(city));
+
+  test('coming back after an hour brings welcome earnings to collect', () async {
+    final first = await openGame().read(baku.future);
+    now.advance(const Duration(hours: 1));
+
+    final container = openGame();
+    final session = await container.read(baku.future);
+    await container.read(baku.notifier).collectWelcome();
+    final collected = container.read(baku).requireValue;
+
+    final expected = OfflineRules.earnings(
+      incomePerSecond: incomeOf(first.city),
+      awaySeconds: 3600,
+    );
+    expect(session.welcome, WelcomeBack(awaySeconds: 3600, earnings: expected));
+    expect(expected, greaterThan(0));
+    expect(collected.welcome, isNull);
+    expect(collected.city.budget, first.city.budget + expected);
+  });
+
+  test('a short absence or a long one is capped the right way', () async {
+    final first = await openGame().read(baku.future);
+    now.advance(const Duration(seconds: 30));
+    final soon = await openGame().read(baku.future);
+    now.advance(const Duration(hours: 10));
+    final late = await openGame().read(baku.future);
+
+    expect(soon.welcome, isNull);
+    expect(
+      late.welcome?.earnings,
+      OfflineRules.earnings(
+        incomePerSecond: incomeOf(first.city),
+        awaySeconds: OfflineRules.capSeconds,
+      ),
+    );
+  });
+
+  test('coming back from the background also brings welcome earnings', () async {
+    final container = openGame();
+    await container.read(baku.future);
+    final controller = container.read(baku.notifier)
+      ..enterDashboard()
+      ..appPaused();
+    await Future<void>.delayed(Duration.zero);
+    now.advance(const Duration(minutes: 90));
+
+    controller.appResumed();
+
+    expect(container.read(baku).requireValue.welcome?.awaySeconds, 90 * 60);
   });
 
   test('time only runs while the minister is on the city dashboard', () async {

@@ -496,6 +496,30 @@ abstract class AppLocalizations {
   /// **'2x earnings · {time}'**
   String boostDoubleActive(String time);
 
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back, Minister!'**
+  String get welcomeTitle;
+
+  /// No description provided for @welcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'While you were away for {time}, {city} kept earning.'**
+  String welcomeBody(String time, String city);
+
+  /// No description provided for @welcomeCollect.
+  ///
+  /// In en, this message translates to:
+  /// **'Collect {amount}'**
+  String welcomeCollect(String amount);
+
+  /// No description provided for @welcomeCollectDouble.
+  ///
+  /// In en, this message translates to:
+  /// **'Collect {amount} · watch a video'**
+  String welcomeCollectDouble(String amount);
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:

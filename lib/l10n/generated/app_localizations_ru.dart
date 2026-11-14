@@ -231,6 +231,24 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get welcomeTitle => 'С возвращением, Министр!';
+
+  @override
+  String welcomeBody(String time, String city) {
+    return 'Пока тебя не было $time, в городе $city копились деньги.';
+  }
+
+  @override
+  String welcomeCollect(String amount) {
+    return 'Забрать $amount';
+  }
+
+  @override
+  String welcomeCollectDouble(String amount) {
+    return 'Забрать $amount · посмотреть видео';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Довольство';
 
   @override

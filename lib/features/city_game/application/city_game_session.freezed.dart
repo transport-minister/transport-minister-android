@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CityGameSession {
 
- CityState get city; List<CityEvent> get latestEvents;
+ CityState get city; List<CityEvent> get latestEvents; WelcomeBack? get welcome;
 /// Create a copy of CityGameSession
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $CityGameSessionCopyWith<CityGameSession> get copyWith => _$CityGameSessionCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as CityGameSession;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityGameSession&&(identical(other.city, _this.city) || other.city == _this.city)&&const DeepCollectionEquality().equals(other.latestEvents, _this.latestEvents));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CityGameSession&&(identical(other.city, _this.city) || other.city == _this.city)&&const DeepCollectionEquality().equals(other.latestEvents, _this.latestEvents)&&(identical(other.welcome, _this.welcome) || other.welcome == _this.welcome));
 }
 
 
 @override
 int get hashCode {
   final _this = this as CityGameSession;
-  return Object.hash(runtimeType,_this.city,const DeepCollectionEquality().hash(_this.latestEvents));
+  return Object.hash(runtimeType,_this.city,const DeepCollectionEquality().hash(_this.latestEvents),_this.welcome);
 }
 
 @override
 String toString() {
   final _this = this as CityGameSession;
-  return 'CityGameSession(city: ${_this.city}, latestEvents: ${_this.latestEvents})';
+  return 'CityGameSession(city: ${_this.city}, latestEvents: ${_this.latestEvents}, welcome: ${_this.welcome})';
 }
 
 
@@ -51,11 +51,11 @@ abstract mixin class $CityGameSessionCopyWith<$Res>  {
   factory $CityGameSessionCopyWith(CityGameSession value, $Res Function(CityGameSession) _then) = _$CityGameSessionCopyWithImpl;
 @useResult
 $Res call({
- CityState city, List<CityEvent> latestEvents
+ CityState city, List<CityEvent> latestEvents, WelcomeBack? welcome
 });
 
 
-$CityStateCopyWith<$Res> get city;
+$CityStateCopyWith<$Res> get city;$WelcomeBackCopyWith<$Res>? get welcome;
 
 }
 /// @nodoc
@@ -68,11 +68,12 @@ class _$CityGameSessionCopyWithImpl<$Res>
 
 /// Create a copy of CityGameSession
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? latestEvents = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? latestEvents = null,Object? welcome = freezed,}) {
   return _then(CityGameSession(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as CityState,latestEvents: null == latestEvents ? _self.latestEvents : latestEvents // ignore: cast_nullable_to_non_nullable
-as List<CityEvent>,
+as List<CityEvent>,welcome: freezed == welcome ? _self.welcome : welcome // ignore: cast_nullable_to_non_nullable
+as WelcomeBack?,
   ));
 }
 /// Create a copy of CityGameSession
@@ -83,6 +84,18 @@ $CityStateCopyWith<$Res> get city {
   
   return $CityStateCopyWith<$Res>(_self.city, (value) {
     return _then(_self.copyWith(city: value));
+  });
+}/// Create a copy of CityGameSession
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WelcomeBackCopyWith<$Res>? get welcome {
+    if (_self.welcome == null) {
+    return null;
+  }
+
+  return $WelcomeBackCopyWith<$Res>(_self.welcome!, (value) {
+    return _then(_self.copyWith(welcome: value));
   });
 }
 }
@@ -166,10 +179,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CityState city,  List<CityEvent> latestEvents)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CityState city,  List<CityEvent> latestEvents,  WelcomeBack? welcome)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CityGameSession() when $default != null:
-return $default(_that.city,_that.latestEvents);case _:
+return $default(_that.city,_that.latestEvents,_that.welcome);case _:
   return orElse();
 
 }
@@ -187,10 +200,10 @@ return $default(_that.city,_that.latestEvents);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CityState city,  List<CityEvent> latestEvents)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CityState city,  List<CityEvent> latestEvents,  WelcomeBack? welcome)  $default,) {final _that = this;
 switch (_that) {
 case _CityGameSession():
-return $default(_that.city,_that.latestEvents);case _:
+return $default(_that.city,_that.latestEvents,_that.welcome);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +220,10 @@ return $default(_that.city,_that.latestEvents);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CityState city,  List<CityEvent> latestEvents)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CityState city,  List<CityEvent> latestEvents,  WelcomeBack? welcome)?  $default,) {final _that = this;
 switch (_that) {
 case _CityGameSession() when $default != null:
-return $default(_that.city,_that.latestEvents);case _:
+return $default(_that.city,_that.latestEvents,_that.welcome);case _:
   return null;
 
 }
@@ -222,7 +235,7 @@ return $default(_that.city,_that.latestEvents);case _:
 
 
 class _CityGameSession implements CityGameSession {
-  const _CityGameSession({required this.city,  List<CityEvent> latestEvents = const []}): _latestEvents = latestEvents;
+  const _CityGameSession({required this.city,  List<CityEvent> latestEvents = const [], this.welcome}): _latestEvents = latestEvents;
   
 
 @override final  CityState city;
@@ -233,6 +246,7 @@ class _CityGameSession implements CityGameSession {
   return EqualUnmodifiableListView(_latestEvents);
 }
 
+@override final  WelcomeBack? welcome;
 
 /// Create a copy of CityGameSession
 /// with the given fields replaced by the non-null parameter values.
@@ -244,18 +258,18 @@ _$CityGameSessionCopyWith<_CityGameSession> get copyWith => __$CityGameSessionCo
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityGameSession&&(identical(other.city, city) || other.city == city)&&const DeepCollectionEquality().equals(other.latestEvents, _latestEvents));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CityGameSession&&(identical(other.city, city) || other.city == city)&&const DeepCollectionEquality().equals(other.latestEvents, _latestEvents)&&(identical(other.welcome, welcome) || other.welcome == welcome));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,city,const DeepCollectionEquality().hash(_latestEvents));
+    return Object.hash(runtimeType,city,const DeepCollectionEquality().hash(_latestEvents),welcome);
 }
 
 @override
 String toString() {
-    return 'CityGameSession(city: $city, latestEvents: $latestEvents)';
+    return 'CityGameSession(city: $city, latestEvents: $latestEvents, welcome: $welcome)';
 }
 
 
@@ -266,11 +280,11 @@ abstract mixin class _$CityGameSessionCopyWith<$Res> implements $CityGameSession
   factory _$CityGameSessionCopyWith(_CityGameSession value, $Res Function(_CityGameSession) _then) = __$CityGameSessionCopyWithImpl;
 @override @useResult
 $Res call({
- CityState city, List<CityEvent> latestEvents
+ CityState city, List<CityEvent> latestEvents, WelcomeBack? welcome
 });
 
 
-@override $CityStateCopyWith<$Res> get city;
+@override $CityStateCopyWith<$Res> get city;@override $WelcomeBackCopyWith<$Res>? get welcome;
 
 }
 /// @nodoc
@@ -283,11 +297,12 @@ class __$CityGameSessionCopyWithImpl<$Res>
 
 /// Create a copy of CityGameSession
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? latestEvents = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? latestEvents = null,Object? welcome = freezed,}) {
   return _then(_CityGameSession(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as CityState,latestEvents: null == latestEvents ? _self._latestEvents : latestEvents // ignore: cast_nullable_to_non_nullable
-as List<CityEvent>,
+as List<CityEvent>,welcome: freezed == welcome ? _self.welcome : welcome // ignore: cast_nullable_to_non_nullable
+as WelcomeBack?,
   ));
 }
 
@@ -299,6 +314,18 @@ $CityStateCopyWith<$Res> get city {
   
   return $CityStateCopyWith<$Res>(_self.city, (value) {
     return _then(_self.copyWith(city: value));
+  });
+}/// Create a copy of CityGameSession
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WelcomeBackCopyWith<$Res>? get welcome {
+    if (_self.welcome == null) {
+    return null;
+  }
+
+  return $WelcomeBackCopyWith<$Res>(_self.welcome!, (value) {
+    return _then(_self.copyWith(welcome: value));
   });
 }
 }

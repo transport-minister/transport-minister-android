@@ -2,10 +2,16 @@ import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/game_colors.dart';
 import 'package:transport_minister/core/design/game_dimens.dart';
 
-Future<T?> showChunkySheet<T>({required BuildContext context, required WidgetBuilder builder}) {
+Future<T?> showChunkySheet<T>({
+  required BuildContext context,
+  required WidgetBuilder builder,
+  bool dismissible = true,
+}) {
   return showModalBottomSheet<T>(
     context: context,
     isScrollControlled: true,
+    isDismissible: dismissible,
+    enableDrag: dismissible,
     backgroundColor: Colors.transparent,
     barrierColor: GameColors.ink.withValues(alpha: 0.45),
     builder: (context) => ChunkySheetFrame(child: builder(context)),

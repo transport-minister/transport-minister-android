@@ -60,6 +60,9 @@ class EconomyCalculator {
     return ledger;
   }
 
+  int netIncome(CityState state, CityMetrics metrics) =>
+      operatingLedger(state, metrics).values.fold(0, (sum, amount) => sum + amount);
+
   static double budgetFactor(double overallSatisfaction) => math.min(
     math.max(0.4 + overallSatisfaction / 100 * 1.2, GameBalance.minBudgetFactor),
     GameBalance.maxBudgetFactor,

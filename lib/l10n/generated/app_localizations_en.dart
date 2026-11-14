@@ -231,6 +231,24 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get welcomeTitle => 'Welcome back, Minister!';
+
+  @override
+  String welcomeBody(String time, String city) {
+    return 'While you were away for $time, $city kept earning.';
+  }
+
+  @override
+  String welcomeCollect(String amount) {
+    return 'Collect $amount';
+  }
+
+  @override
+  String welcomeCollectDouble(String amount) {
+    return 'Collect $amount · watch a video';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override
