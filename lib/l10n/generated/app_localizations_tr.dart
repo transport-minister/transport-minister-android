@@ -263,6 +263,59 @@ class AppLocalizationsTr extends AppLocalizations {
   String get adsWatch => 'İzle';
 
   @override
+  String get shopTitle => 'Elmas dükkânı';
+
+  @override
+  String get shopStarterTitle => 'Başlangıç paketi';
+
+  @override
+  String shopStarterBody(int count, int minutes) {
+    return '$count elmas ve $minutes dakika 2x kazanç. Yalnızca bir kez.';
+  }
+
+  @override
+  String get shopPackHandful => 'Bir avuç elmas';
+
+  @override
+  String get shopPackBag => 'Bir torba elmas';
+
+  @override
+  String get shopPackChest => 'Bir sandık elmas';
+
+  @override
+  String get shopPopular => 'Popüler';
+
+  @override
+  String get shopBestValue => 'En avantajlı';
+
+  @override
+  String get shopSoon => 'Yakında';
+
+  @override
+  String get shopUnavailable =>
+      'Google Play şu anda kullanılamıyor, bu yüzden elmas paketleri satın alınamıyor. Aşağıdan yine de elmas kazanabilirsin!';
+
+  @override
+  String get shopThanksTitle => 'Teşekkürler Bakanım!';
+
+  @override
+  String shopThanksBody(int count) {
+    return 'Cüzdanına $count elmas eklendi.';
+  }
+
+  @override
+  String get shopFailedTitle => 'Ücret alınmadı';
+
+  @override
+  String get shopFailedBody => 'Satın alma tamamlanamadı. Lütfen daha sonra tekrar dene.';
+
+  @override
+  String get shopEarnTitle => 'Ücretsiz kazan';
+
+  @override
+  String get diamondsGetMore => 'Daha fazla elmas al';
+
+  @override
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override

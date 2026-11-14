@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MinisterProfile {
 
- int get xp; double get reputation; MinisterialRank get rank; Map<CityId, int> get bestCityLevels; Set<CityId> get completedCities; Set<AchievementId> get achievements; CareerStats get career; bool get tutorialDone; int get diamonds;
+ int get xp; double get reputation; MinisterialRank get rank; Map<CityId, int> get bestCityLevels; Set<CityId> get completedCities; Set<AchievementId> get achievements; CareerStats get career; bool get tutorialDone; int get diamonds; Set<DiamondPack> get packsBought;
 /// Create a copy of MinisterProfile
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,20 +30,20 @@ $MinisterProfileCopyWith<MinisterProfile> get copyWith => _$MinisterProfileCopyW
 @override
 bool operator ==(Object other) {
   final _this = this as MinisterProfile;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MinisterProfile&&(identical(other.xp, _this.xp) || other.xp == _this.xp)&&(identical(other.reputation, _this.reputation) || other.reputation == _this.reputation)&&(identical(other.rank, _this.rank) || other.rank == _this.rank)&&const DeepCollectionEquality().equals(other.bestCityLevels, _this.bestCityLevels)&&const DeepCollectionEquality().equals(other.completedCities, _this.completedCities)&&const DeepCollectionEquality().equals(other.achievements, _this.achievements)&&(identical(other.career, _this.career) || other.career == _this.career)&&(identical(other.tutorialDone, _this.tutorialDone) || other.tutorialDone == _this.tutorialDone)&&(identical(other.diamonds, _this.diamonds) || other.diamonds == _this.diamonds));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MinisterProfile&&(identical(other.xp, _this.xp) || other.xp == _this.xp)&&(identical(other.reputation, _this.reputation) || other.reputation == _this.reputation)&&(identical(other.rank, _this.rank) || other.rank == _this.rank)&&const DeepCollectionEquality().equals(other.bestCityLevels, _this.bestCityLevels)&&const DeepCollectionEquality().equals(other.completedCities, _this.completedCities)&&const DeepCollectionEquality().equals(other.achievements, _this.achievements)&&(identical(other.career, _this.career) || other.career == _this.career)&&(identical(other.tutorialDone, _this.tutorialDone) || other.tutorialDone == _this.tutorialDone)&&(identical(other.diamonds, _this.diamonds) || other.diamonds == _this.diamonds)&&const DeepCollectionEquality().equals(other.packsBought, _this.packsBought));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as MinisterProfile;
-  return Object.hash(runtimeType,_this.xp,_this.reputation,_this.rank,const DeepCollectionEquality().hash(_this.bestCityLevels),const DeepCollectionEquality().hash(_this.completedCities),const DeepCollectionEquality().hash(_this.achievements),_this.career,_this.tutorialDone,_this.diamonds);
+  return Object.hash(runtimeType,_this.xp,_this.reputation,_this.rank,const DeepCollectionEquality().hash(_this.bestCityLevels),const DeepCollectionEquality().hash(_this.completedCities),const DeepCollectionEquality().hash(_this.achievements),_this.career,_this.tutorialDone,_this.diamonds,const DeepCollectionEquality().hash(_this.packsBought));
 }
 
 @override
 String toString() {
   final _this = this as MinisterProfile;
-  return 'MinisterProfile(xp: ${_this.xp}, reputation: ${_this.reputation}, rank: ${_this.rank}, bestCityLevels: ${_this.bestCityLevels}, completedCities: ${_this.completedCities}, achievements: ${_this.achievements}, career: ${_this.career}, tutorialDone: ${_this.tutorialDone}, diamonds: ${_this.diamonds})';
+  return 'MinisterProfile(xp: ${_this.xp}, reputation: ${_this.reputation}, rank: ${_this.rank}, bestCityLevels: ${_this.bestCityLevels}, completedCities: ${_this.completedCities}, achievements: ${_this.achievements}, career: ${_this.career}, tutorialDone: ${_this.tutorialDone}, diamonds: ${_this.diamonds}, packsBought: ${_this.packsBought})';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $MinisterProfileCopyWith<$Res>  {
   factory $MinisterProfileCopyWith(MinisterProfile value, $Res Function(MinisterProfile) _then) = _$MinisterProfileCopyWithImpl;
 @useResult
 $Res call({
- int xp, double reputation, MinisterialRank rank, Map<CityId, int> bestCityLevels, Set<CityId> completedCities, Set<AchievementId> achievements, CareerStats career, bool tutorialDone, int diamonds
+ int xp, double reputation, MinisterialRank rank, Map<CityId, int> bestCityLevels, Set<CityId> completedCities, Set<AchievementId> achievements, CareerStats career, bool tutorialDone, int diamonds, Set<DiamondPack> packsBought
 });
 
 
@@ -71,7 +71,7 @@ class _$MinisterProfileCopyWithImpl<$Res>
 
 /// Create a copy of MinisterProfile
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? xp = null,Object? reputation = null,Object? rank = null,Object? bestCityLevels = null,Object? completedCities = null,Object? achievements = null,Object? career = null,Object? tutorialDone = null,Object? diamonds = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? xp = null,Object? reputation = null,Object? rank = null,Object? bestCityLevels = null,Object? completedCities = null,Object? achievements = null,Object? career = null,Object? tutorialDone = null,Object? diamonds = null,Object? packsBought = null,}) {
   return _then(MinisterProfile(
 xp: null == xp ? _self.xp : xp // ignore: cast_nullable_to_non_nullable
 as int,reputation: null == reputation ? _self.reputation : reputation // ignore: cast_nullable_to_non_nullable
@@ -82,7 +82,8 @@ as Set<CityId>,achievements: null == achievements ? _self.achievements : achieve
 as Set<AchievementId>,career: null == career ? _self.career : career // ignore: cast_nullable_to_non_nullable
 as CareerStats,tutorialDone: null == tutorialDone ? _self.tutorialDone : tutorialDone // ignore: cast_nullable_to_non_nullable
 as bool,diamonds: null == diamonds ? _self.diamonds : diamonds // ignore: cast_nullable_to_non_nullable
-as int,
+as int,packsBought: null == packsBought ? _self.packsBought : packsBought // ignore: cast_nullable_to_non_nullable
+as Set<DiamondPack>,
   ));
 }
 /// Create a copy of MinisterProfile
@@ -176,10 +177,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int xp,  double reputation,  MinisterialRank rank,  Map<CityId, int> bestCityLevels,  Set<CityId> completedCities,  Set<AchievementId> achievements,  CareerStats career,  bool tutorialDone,  int diamonds)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int xp,  double reputation,  MinisterialRank rank,  Map<CityId, int> bestCityLevels,  Set<CityId> completedCities,  Set<AchievementId> achievements,  CareerStats career,  bool tutorialDone,  int diamonds,  Set<DiamondPack> packsBought)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MinisterProfile() when $default != null:
-return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.completedCities,_that.achievements,_that.career,_that.tutorialDone,_that.diamonds);case _:
+return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.completedCities,_that.achievements,_that.career,_that.tutorialDone,_that.diamonds,_that.packsBought);case _:
   return orElse();
 
 }
@@ -197,10 +198,10 @@ return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int xp,  double reputation,  MinisterialRank rank,  Map<CityId, int> bestCityLevels,  Set<CityId> completedCities,  Set<AchievementId> achievements,  CareerStats career,  bool tutorialDone,  int diamonds)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int xp,  double reputation,  MinisterialRank rank,  Map<CityId, int> bestCityLevels,  Set<CityId> completedCities,  Set<AchievementId> achievements,  CareerStats career,  bool tutorialDone,  int diamonds,  Set<DiamondPack> packsBought)  $default,) {final _that = this;
 switch (_that) {
 case _MinisterProfile():
-return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.completedCities,_that.achievements,_that.career,_that.tutorialDone,_that.diamonds);case _:
+return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.completedCities,_that.achievements,_that.career,_that.tutorialDone,_that.diamonds,_that.packsBought);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -217,10 +218,10 @@ return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int xp,  double reputation,  MinisterialRank rank,  Map<CityId, int> bestCityLevels,  Set<CityId> completedCities,  Set<AchievementId> achievements,  CareerStats career,  bool tutorialDone,  int diamonds)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int xp,  double reputation,  MinisterialRank rank,  Map<CityId, int> bestCityLevels,  Set<CityId> completedCities,  Set<AchievementId> achievements,  CareerStats career,  bool tutorialDone,  int diamonds,  Set<DiamondPack> packsBought)?  $default,) {final _that = this;
 switch (_that) {
 case _MinisterProfile() when $default != null:
-return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.completedCities,_that.achievements,_that.career,_that.tutorialDone,_that.diamonds);case _:
+return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.completedCities,_that.achievements,_that.career,_that.tutorialDone,_that.diamonds,_that.packsBought);case _:
   return null;
 
 }
@@ -232,7 +233,7 @@ return $default(_that.xp,_that.reputation,_that.rank,_that.bestCityLevels,_that.
 @JsonSerializable()
 
 class _MinisterProfile extends MinisterProfile {
-  const _MinisterProfile({this.xp = 0, this.reputation = 50, this.rank = MinisterialRank.juniorOfficial,  Map<CityId, int> bestCityLevels = const {},  Set<CityId> completedCities = const {},  Set<AchievementId> achievements = const {}, this.career = const CareerStats(), this.tutorialDone = false, this.diamonds = 0}): _bestCityLevels = bestCityLevels,_completedCities = completedCities,_achievements = achievements,super._();
+  const _MinisterProfile({this.xp = 0, this.reputation = 50, this.rank = MinisterialRank.juniorOfficial,  Map<CityId, int> bestCityLevels = const {},  Set<CityId> completedCities = const {},  Set<AchievementId> achievements = const {}, this.career = const CareerStats(), this.tutorialDone = false, this.diamonds = 0,  Set<DiamondPack> packsBought = const {}}): _bestCityLevels = bestCityLevels,_completedCities = completedCities,_achievements = achievements,_packsBought = packsBought,super._();
   factory _MinisterProfile.fromJson(Map<String, dynamic> json) => _$MinisterProfileFromJson(json);
 
 @override@JsonKey() final  int xp;
@@ -262,6 +263,13 @@ class _MinisterProfile extends MinisterProfile {
 @override@JsonKey() final  CareerStats career;
 @override@JsonKey() final  bool tutorialDone;
 @override@JsonKey() final  int diamonds;
+ final  Set<DiamondPack> _packsBought;
+@override@JsonKey() Set<DiamondPack> get packsBought {
+  if (_packsBought is EqualUnmodifiableSetView) return _packsBought;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_packsBought);
+}
+
 
 /// Create a copy of MinisterProfile
 /// with the given fields replaced by the non-null parameter values.
@@ -276,18 +284,18 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MinisterProfile&&(identical(other.xp, xp) || other.xp == xp)&&(identical(other.reputation, reputation) || other.reputation == reputation)&&(identical(other.rank, rank) || other.rank == rank)&&const DeepCollectionEquality().equals(other.bestCityLevels, _bestCityLevels)&&const DeepCollectionEquality().equals(other.completedCities, _completedCities)&&const DeepCollectionEquality().equals(other.achievements, _achievements)&&(identical(other.career, career) || other.career == career)&&(identical(other.tutorialDone, tutorialDone) || other.tutorialDone == tutorialDone)&&(identical(other.diamonds, diamonds) || other.diamonds == diamonds));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MinisterProfile&&(identical(other.xp, xp) || other.xp == xp)&&(identical(other.reputation, reputation) || other.reputation == reputation)&&(identical(other.rank, rank) || other.rank == rank)&&const DeepCollectionEquality().equals(other.bestCityLevels, _bestCityLevels)&&const DeepCollectionEquality().equals(other.completedCities, _completedCities)&&const DeepCollectionEquality().equals(other.achievements, _achievements)&&(identical(other.career, career) || other.career == career)&&(identical(other.tutorialDone, tutorialDone) || other.tutorialDone == tutorialDone)&&(identical(other.diamonds, diamonds) || other.diamonds == diamonds)&&const DeepCollectionEquality().equals(other.packsBought, _packsBought));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,xp,reputation,rank,const DeepCollectionEquality().hash(_bestCityLevels),const DeepCollectionEquality().hash(_completedCities),const DeepCollectionEquality().hash(_achievements),career,tutorialDone,diamonds);
+    return Object.hash(runtimeType,xp,reputation,rank,const DeepCollectionEquality().hash(_bestCityLevels),const DeepCollectionEquality().hash(_completedCities),const DeepCollectionEquality().hash(_achievements),career,tutorialDone,diamonds,const DeepCollectionEquality().hash(_packsBought));
 }
 
 @override
 String toString() {
-    return 'MinisterProfile(xp: $xp, reputation: $reputation, rank: $rank, bestCityLevels: $bestCityLevels, completedCities: $completedCities, achievements: $achievements, career: $career, tutorialDone: $tutorialDone, diamonds: $diamonds)';
+    return 'MinisterProfile(xp: $xp, reputation: $reputation, rank: $rank, bestCityLevels: $bestCityLevels, completedCities: $completedCities, achievements: $achievements, career: $career, tutorialDone: $tutorialDone, diamonds: $diamonds, packsBought: $packsBought)';
 }
 
 
@@ -298,7 +306,7 @@ abstract mixin class _$MinisterProfileCopyWith<$Res> implements $MinisterProfile
   factory _$MinisterProfileCopyWith(_MinisterProfile value, $Res Function(_MinisterProfile) _then) = __$MinisterProfileCopyWithImpl;
 @override @useResult
 $Res call({
- int xp, double reputation, MinisterialRank rank, Map<CityId, int> bestCityLevels, Set<CityId> completedCities, Set<AchievementId> achievements, CareerStats career, bool tutorialDone, int diamonds
+ int xp, double reputation, MinisterialRank rank, Map<CityId, int> bestCityLevels, Set<CityId> completedCities, Set<AchievementId> achievements, CareerStats career, bool tutorialDone, int diamonds, Set<DiamondPack> packsBought
 });
 
 
@@ -315,7 +323,7 @@ class __$MinisterProfileCopyWithImpl<$Res>
 
 /// Create a copy of MinisterProfile
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? xp = null,Object? reputation = null,Object? rank = null,Object? bestCityLevels = null,Object? completedCities = null,Object? achievements = null,Object? career = null,Object? tutorialDone = null,Object? diamonds = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? xp = null,Object? reputation = null,Object? rank = null,Object? bestCityLevels = null,Object? completedCities = null,Object? achievements = null,Object? career = null,Object? tutorialDone = null,Object? diamonds = null,Object? packsBought = null,}) {
   return _then(_MinisterProfile(
 xp: null == xp ? _self.xp : xp // ignore: cast_nullable_to_non_nullable
 as int,reputation: null == reputation ? _self.reputation : reputation // ignore: cast_nullable_to_non_nullable
@@ -326,7 +334,8 @@ as Set<CityId>,achievements: null == achievements ? _self._achievements : achiev
 as Set<AchievementId>,career: null == career ? _self.career : career // ignore: cast_nullable_to_non_nullable
 as CareerStats,tutorialDone: null == tutorialDone ? _self.tutorialDone : tutorialDone // ignore: cast_nullable_to_non_nullable
 as bool,diamonds: null == diamonds ? _self.diamonds : diamonds // ignore: cast_nullable_to_non_nullable
-as int,
+as int,packsBought: null == packsBought ? _self._packsBought : packsBought // ignore: cast_nullable_to_non_nullable
+as Set<DiamondPack>,
   ));
 }
 

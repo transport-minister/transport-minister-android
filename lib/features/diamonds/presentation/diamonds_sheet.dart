@@ -1,7 +1,9 @@
 import 'dart:math' as math;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
@@ -76,12 +78,12 @@ class DiamondsSheet extends ConsumerWidget {
               const SizedBox(height: GameDimens.spaceL),
               Text(l10n.diamondsSpendTitle, style: textTheme.titleLarge),
               const SizedBox(height: GameDimens.spaceS),
-              _BoostCard(cityId: city, diamonds: diamonds),
+              EarningsBoostCard(cityId: city),
             ],
             const SizedBox(height: GameDimens.spaceL),
             Text(l10n.diamondsEarnTitle, style: textTheme.titleLarge),
             const SizedBox(height: GameDimens.spaceS),
-            const _MineCard(),
+            const DiamondMineCard(),
             for (final (icon, palette, label) in rows)
               Padding(
                 padding: const EdgeInsets.only(bottom: GameDimens.spaceS),
@@ -104,8 +106,22 @@ class DiamondsSheet extends ConsumerWidget {
                 ),
               ),
             const SizedBox(height: GameDimens.spaceM),
+            if (city != null) ...[
+              ChunkyButton(
+                label: l10n.diamondsGetMore,
+                icon: Icons.shopping_cart_rounded,
+                palette: DiamondStyle.palette,
+                expanded: true,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  context.push<void>(AppRoute.shop.forCity(city.name));
+                },
+              ),
+              const SizedBox(height: GameDimens.spaceM),
+            ],
             ChunkyButton(
               label: l10n.commonGotIt,
+              palette: ChunkyPalette.snow,
               expanded: true,
               onPressed: () => Navigator.of(context).pop(),
             ),
@@ -116,8 +132,8 @@ class DiamondsSheet extends ConsumerWidget {
   }
 }
 
-class _MineCard extends ConsumerWidget {
-  const _MineCard();
+class DiamondMineCard extends ConsumerWidget {
+  const DiamondMineCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -174,15 +190,15 @@ class _MineCard extends ConsumerWidget {
   }
 }
 
-class _BoostCard extends ConsumerWidget {
-  const _BoostCard({required this.cityId, required this.diamonds});
+class EarningsBoostCard extends ConsumerWidget {
+  const EarningsBoostCard({super.key, required this.cityId});
 
   final CityId cityId;
-  final int diamonds;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final diamonds = ref.watch(profileProvider).value?.diamonds ?? 0;
     final city = ref.watch(cityGameProvider(cityId)).value?.city;
     final secondsLeft = city?.boostSecondsLeft ?? 0;
     return ChunkyCard(

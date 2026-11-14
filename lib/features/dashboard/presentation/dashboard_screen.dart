@@ -44,13 +44,13 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/welco
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
-import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/promotion_sheet.dart';
+import 'package:transport_minister/features/shop/application/shop_providers.dart';
 import 'package:transport_minister/features/sound/application/city_soundscape.dart';
 import 'package:transport_minister/features/sound/application/game_audio.dart';
 import 'package:transport_minister/features/sound/application/sound_providers.dart';
@@ -118,6 +118,7 @@ class _CityViewState extends ConsumerState<_CityView> {
     super.initState();
     _audio = ref.read(gameAudioProvider);
     unawaited(ref.read(rewardedAdsProvider).prepare());
+    ref.read(shopProvider);
     _listenToCity(widget.session.city);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _startTutorial();
@@ -179,10 +180,7 @@ class _CityViewState extends ConsumerState<_CityView> {
               rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
               diamonds: ref.watch(profileProvider).value?.diamonds ?? 0,
               onProfilePressed: () => _leaveFor(AppRoute.profile.path),
-              onDiamondsPressed: () => showChunkySheet<void>(
-                context: context,
-                builder: (context) => DiamondsSheet(cityId: widget.cityId),
-              ),
+              onDiamondsPressed: () => _leaveFor(AppRoute.shop.forCity(widget.cityId.name)),
               onSettingsPressed: () => _leaveFor(AppRoute.settings.path),
             ),
             KeyedSubtree(

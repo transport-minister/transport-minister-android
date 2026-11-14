@@ -172,6 +172,39 @@
     }
   },
   "adsWatch": "Watch",
+  "shopTitle": "Diamond shop",
+  "shopStarterTitle": "Starter pack",
+  "shopStarterBody": "{count} diamonds and 2x earnings for {minutes} minutes. One time only.",
+  "@shopStarterBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "shopPackHandful": "Handful of diamonds",
+  "shopPackBag": "Bag of diamonds",
+  "shopPackChest": "Chest of diamonds",
+  "shopPopular": "Popular",
+  "shopBestValue": "Best value",
+  "shopSoon": "Soon",
+  "shopUnavailable": "Google Play is not available right now, so diamond packs can't be bought. You can still earn diamonds below!",
+  "shopThanksTitle": "Thank you, Minister!",
+  "shopThanksBody": "{count} diamonds were added to your wallet.",
+  "@shopThanksBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "shopFailedTitle": "Nothing was charged",
+  "shopFailedBody": "The purchase did not go through. Please try again later.",
+  "shopEarnTitle": "Earn for free",
+  "diamondsGetMore": "Get more diamonds",
   "hudSatisfactionLabel": "Satisfaction",
   "hudIncomeLabel": "Earnings per second",
   "hudPopulationLabel": "Residents",

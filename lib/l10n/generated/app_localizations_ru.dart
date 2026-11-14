@@ -263,6 +263,59 @@ class AppLocalizationsRu extends AppLocalizations {
   String get adsWatch => 'Смотреть';
 
   @override
+  String get shopTitle => 'Магазин алмазов';
+
+  @override
+  String get shopStarterTitle => 'Стартовый набор';
+
+  @override
+  String shopStarterBody(int count, int minutes) {
+    return '$count алмазов и 2x доход на $minutes минут. Только один раз.';
+  }
+
+  @override
+  String get shopPackHandful => 'Горсть алмазов';
+
+  @override
+  String get shopPackBag => 'Мешок алмазов';
+
+  @override
+  String get shopPackChest => 'Сундук алмазов';
+
+  @override
+  String get shopPopular => 'Популярно';
+
+  @override
+  String get shopBestValue => 'Выгоднее всего';
+
+  @override
+  String get shopSoon => 'Скоро';
+
+  @override
+  String get shopUnavailable =>
+      'Google Play сейчас недоступен, поэтому наборы алмазов нельзя купить. Но алмазы можно заработать ниже!';
+
+  @override
+  String get shopThanksTitle => 'Спасибо, Министр!';
+
+  @override
+  String shopThanksBody(int count) {
+    return 'В твой кошелёк добавлено $count алмазов.';
+  }
+
+  @override
+  String get shopFailedTitle => 'Деньги не списаны';
+
+  @override
+  String get shopFailedBody => 'Покупка не прошла. Попробуй позже.';
+
+  @override
+  String get shopEarnTitle => 'Заработать бесплатно';
+
+  @override
+  String get diamondsGetMore => 'Получить больше алмазов';
+
+  @override
   String get hudSatisfactionLabel => 'Довольство';
 
   @override
