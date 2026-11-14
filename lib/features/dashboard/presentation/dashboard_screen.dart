@@ -13,6 +13,7 @@ import 'package:transport_minister/core/simulation/catalog/technology_catalog.da
 import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
 import 'package:transport_minister/core/simulation/engine/economy_calculator.dart';
+import 'package:transport_minister/core/simulation/engine/fleet_advisor.dart';
 import 'package:transport_minister/core/simulation/engine/metrics_calculator.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
@@ -31,6 +32,7 @@ import 'package:transport_minister/features/city_selection/presentation/city_sel
 import 'package:transport_minister/features/daily/application/daily_controller.dart';
 import 'package:transport_minister/features/daily/domain/daily_rules.dart';
 import 'package:transport_minister/features/daily/presentation/daily_sheet.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/build_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_level_bar.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_lifecycle_scope.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/city_map.dart';
@@ -39,11 +41,14 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/crisi
 import 'package:transport_minister/features/dashboard/presentation/widgets/dashboard_hud.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/dismissal_view.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/fleet_sheet.dart';
+import 'package:transport_minister/features/dashboard/presentation/widgets/game_nav_bar.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/welcome_back_sheet.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
@@ -170,6 +175,8 @@ class _CityViewState extends ConsumerState<_CityView> {
     final readyTechnologies = TechnologyId.values
         .where((technology) => const CityCommands().technologyProblem(city, technology) == null)
         .length;
+    final needingBuses = const FleetAdvisor().districtsNeedingBuses(city, metrics);
+    final l10n = AppLocalizations.of(context);
     return Stack(
       children: [
         Column(
@@ -190,11 +197,11 @@ class _CityViewState extends ConsumerState<_CityView> {
             CrisisBanner(crisis: city.crisis),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(
+                padding: const EdgeInsets.fromLTRB(
                   GameDimens.spaceL,
                   0,
                   GameDimens.spaceL,
-                  MediaQuery.paddingOf(context).bottom + GameDimens.spaceL,
+                  GameDimens.spaceM,
                 ),
                 child: ChunkyCard(
                   key: _targets.map,
@@ -230,7 +237,6 @@ class _CityViewState extends ConsumerState<_CityView> {
                             size: _cornerButton,
                             palette: DiplomacyStyle.palette,
                             semanticsLabel: AppLocalizations.of(context).diplomacyOpen,
-                            badge: readyTechnologies > 0 ? '$readyTechnologies' : null,
                             onPressed: _openDiplomacy,
                           ),
                         ),
@@ -283,6 +289,48 @@ class _CityViewState extends ConsumerState<_CityView> {
                 ),
               ),
             ),
+            GameNavBar(
+              items: [
+                GameNavItem(
+                  icon: Icons.map_rounded,
+                  label: l10n.navMap,
+                  palette: ChunkyPalette.lagoon,
+                  selected: true,
+                  onPressed: _mapController.recenter,
+                ),
+                GameNavItem(
+                  icon: Icons.directions_bus_rounded,
+                  label: l10n.navFleet,
+                  palette: ChunkyPalette.ocean,
+                  badge: needingBuses > 0 ? '$needingBuses' : null,
+                  onPressed: () => _showSheet(
+                    (context) => FleetSheet(cityId: widget.cityId, onOpenDistrict: _jumpTo),
+                  ),
+                ),
+                GameNavItem(
+                  icon: Icons.construction_rounded,
+                  label: l10n.navBuild,
+                  palette: ChunkyPalette.tangerine,
+                  badge: city.projects.isNotEmpty ? '${city.projects.length}' : null,
+                  onPressed: () => _showSheet(
+                    (context) => BuildSheet(cityId: widget.cityId, onOpenDistrict: _jumpTo),
+                  ),
+                ),
+                GameNavItem(
+                  icon: Icons.science_rounded,
+                  label: l10n.navResearch,
+                  palette: DiplomacyStyle.palette,
+                  badge: readyTechnologies > 0 ? '$readyTechnologies' : null,
+                  onPressed: _openTechnology,
+                ),
+                GameNavItem(
+                  icon: DiamondStyle.icon,
+                  label: l10n.navShop,
+                  palette: DiamondStyle.palette,
+                  onPressed: () => _leaveFor(AppRoute.shop.forCity(widget.cityId.name)),
+                ),
+              ],
+            ),
           ],
         ),
         TutorialOverlay(
@@ -327,6 +375,14 @@ class _CityViewState extends ConsumerState<_CityView> {
   }
 
   Future<void> _openTechnology() => _leaveFor(AppRoute.technology.forCity(widget.cityId.name));
+
+  Future<void> _showSheet(WidgetBuilder builder) =>
+      showChunkySheet<void>(context: context, builder: builder);
+
+  void _jumpTo(DistrictId district) {
+    Navigator.of(context).pop();
+    _focusDistrict(district);
+  }
 
   Future<void> _openDiplomacy() => _leaveFor(AppRoute.diplomacy.forCity(widget.cityId.name));
 
