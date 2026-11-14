@@ -5,6 +5,7 @@ import 'package:transport_minister/core/simulation/decisions/decision_id.dart';
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/metro_line.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/progression/domain/achievement.dart';
 import 'package:transport_minister/features/progression/domain/city_badge.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
@@ -38,6 +39,25 @@ void main() {
     expect(
       update.events.whereType<AchievementUnlocked>().single.achievement,
       AchievementId.firstBus,
+    );
+  });
+
+  test('diamonds come with city levels, achievements and a finished city', () {
+    final update = apply(const MinisterProfile(diamonds: 4), const [
+      CityLeveledUp(2, 200000, diplomacy: 5),
+      BusPurchased(BusModelId.cityRunner, DistrictId.windHeights),
+    ]);
+    final finished = rules.apply(
+      update.profile,
+      city: CityId.baku,
+      state: city.copyWith(completed: true),
+      events: const [CityCompleted()],
+    );
+
+    expect(update.profile.diamonds, 4 + DiamondRules.perCityLevel + DiamondRules.perAchievement);
+    expect(
+      finished.profile.diamonds,
+      update.profile.diamonds + DiamondRules.perCityCompleted + DiamondRules.perAchievement,
     );
   });
 

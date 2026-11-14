@@ -65,6 +65,14 @@ void main() {
     expect(find.byIcon(Icons.favorite_rounded), findsNothing);
     expect(find.byIcon(Icons.settings_rounded), findsOneWidget);
     expect(find.byIcon(Icons.handshake_rounded), findsWidgets);
+    expect(find.byIcon(Icons.diamond_rounded), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.diamond_rounded));
+    await tester.pumpAndSettle();
+
+    expect(find.text('How to earn them'), findsOneWidget);
+    await tester.tapAt(const Offset(200, 40));
+    await tester.pumpAndSettle();
     expect(
       tester
           .widget<StatPill>(

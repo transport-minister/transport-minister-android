@@ -173,6 +173,41 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hudDiplomacyLabel => 'Diplomasi puanı';
 
   @override
+  String get diamondsLabel => 'Elmaslar';
+
+  @override
+  String diamondsPlus(int count) {
+    return '+$count';
+  }
+
+  @override
+  String get diamondsBody =>
+      'Acelesi olan bakanlar için nadir mücevherler. İnşaatı anında bitirmek, beklemeyi atlamak veya görevden alınmaktan kurtulmak için harca.';
+
+  @override
+  String get diamondsEarnTitle => 'Nasıl kazanılır';
+
+  @override
+  String diamondsEarnLevel(int count) {
+    return 'Her şehir seviyesi için +$count';
+  }
+
+  @override
+  String diamondsEarnAchievement(int count) {
+    return 'Her başarım için +$count';
+  }
+
+  @override
+  String diamondsEarnStreak(int count) {
+    return 'Günlük hediyenin 7. gününde +$count';
+  }
+
+  @override
+  String diamondsEarnCity(int count) {
+    return 'Bir şehri tamamlamak için +$count';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override

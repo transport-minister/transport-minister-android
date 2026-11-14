@@ -4,6 +4,7 @@ import 'package:transport_minister/core/simulation/catalog/project_catalog.dart'
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/daily/domain/daily_state.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 
 class DailyRules {
   const DailyRules();
@@ -11,6 +12,7 @@ class DailyRules {
   static const tasksPerDay = 3;
   static const streakMoney = [50000, 75000, 100000, 125000, 150000, 200000, 300000];
   static const streakXp = [10, 15, 20, 25, 30, 40, 60];
+  static const streakDiamonds = [0, 0, 0, 0, 0, 0, DiamondRules.streakFinale];
 
   static int keyOf(DateTime date) => date.year * 10000 + date.month * 100 + date.day;
 
@@ -80,7 +82,7 @@ class DailyRules {
     final continues = day > 1;
     return (
       state.copyWith(streakDays: continues ? state.streakDays + 1 : 1, lastStreakKey: keyOf(today)),
-      Reward(money: streakMoney[day - 1], xp: streakXp[day - 1]),
+      Reward(money: streakMoney[day - 1], xp: streakXp[day - 1], diamonds: streakDiamonds[day - 1]),
     );
   }
 

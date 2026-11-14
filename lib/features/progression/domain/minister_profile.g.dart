@@ -30,6 +30,7 @@ _MinisterProfile _$MinisterProfileFromJson(Map<String, dynamic> json) => _Minist
       ? const CareerStats()
       : CareerStats.fromJson(json['career'] as Map<String, dynamic>),
   tutorialDone: json['tutorialDone'] as bool? ?? false,
+  diamonds: (json['diamonds'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <String, dynamic>{
@@ -41,6 +42,7 @@ Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <Stri
   'achievements': instance.achievements.map((e) => _$AchievementIdEnumMap[e]!).toList(),
   'career': instance.career.toJson(),
   'tutorialDone': instance.tutorialDone,
+  'diamonds': instance.diamonds,
 };
 
 const _$MinisterialRankEnumMap = {

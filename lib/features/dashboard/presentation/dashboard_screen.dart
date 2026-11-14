@@ -37,6 +37,8 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/dismi
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
@@ -151,7 +153,12 @@ class _CityViewState extends ConsumerState<_CityView> {
               targets: _targets,
               city: city,
               rank: ref.watch(profileProvider).value?.rank ?? MinisterialRank.juniorOfficial,
+              diamonds: ref.watch(profileProvider).value?.diamonds ?? 0,
               onProfilePressed: () => _leaveFor(AppRoute.profile.path),
+              onDiamondsPressed: () => showChunkySheet<void>(
+                context: context,
+                builder: (context) => const DiamondsSheet(),
+              ),
               onSettingsPressed: () => _leaveFor(AppRoute.settings.path),
             ),
             KeyedSubtree(
@@ -392,6 +399,7 @@ class _CityViewState extends ConsumerState<_CityView> {
           reward: levelUps.fold(0, (sum, event) => sum + event.reward),
           diplomacy: levelUps.fold(0, (sum, event) => sum + event.diplomacy),
           budgetRaise: levelUps.length * CityLevels.budgetRaisePercent,
+          diamonds: levelUps.length * DiamondRules.perCityLevel,
         ),
       );
     }

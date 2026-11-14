@@ -73,6 +73,49 @@
   },
   "hudBudgetLabel": "Budget",
   "hudDiplomacyLabel": "Diplomacy points",
+  "diamondsLabel": "Diamonds",
+  "diamondsPlus": "+{count}",
+  "@diamondsPlus": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "diamondsBody": "Rare gems for ministers in a hurry. Spend them to finish building instantly, skip waiting or survive a dismissal.",
+  "diamondsEarnTitle": "How to earn them",
+  "diamondsEarnLevel": "+{count} for every city level",
+  "@diamondsEarnLevel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "diamondsEarnAchievement": "+{count} for every achievement",
+  "@diamondsEarnAchievement": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "diamondsEarnStreak": "+{count} on day 7 of the daily gift",
+  "@diamondsEarnStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "diamondsEarnCity": "+{count} for completing a city",
+  "@diamondsEarnCity": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "hudSatisfactionLabel": "Satisfaction",
   "hudIncomeLabel": "Earnings per second",
   "hudPopulationLabel": "Residents",

@@ -3,6 +3,7 @@ import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
 import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
@@ -37,18 +38,45 @@ class ProfileController extends AsyncNotifier<MinisterProfile> {
   Future<MinisterProfile> build() async =>
       await ref.read(profileRepositoryProvider).load() ?? const MinisterProfile();
 
-  Future<void> completeTutorial() {
+  Future<void> completeTutorial() => _change(
+    (profile) => profile.tutorialDone
+        ? profile
+        : profile.copyWith(
+            tutorialDone: true,
+            diamonds: profile.diamonds + DiamondRules.welcomeGift,
+          ),
+  );
+
+  Future<void> addDiamonds(int amount) =>
+      _change((profile) => profile.copyWith(diamonds: profile.diamonds + amount));
+
+  Future<bool> spendDiamonds(int amount) async {
+    var spent = false;
+    await _change((profile) {
+      if (profile.diamonds < amount) {
+        return profile;
+      }
+      spent = true;
+      return profile.copyWith(diamonds: profile.diamonds - amount);
+    });
+    return spent;
+  }
+
+  Future<void> _change(MinisterProfile Function(MinisterProfile profile) change) {
     return _queue = _queue.then((_) async {
       if (!ref.mounted) {
         return;
       }
       final profile = await future;
-      if (!ref.mounted || profile.tutorialDone) {
+      if (!ref.mounted) {
         return;
       }
-      final done = profile.copyWith(tutorialDone: true);
-      state = AsyncData(done);
-      await ref.read(profileRepositoryProvider).save(done);
+      final next = change(profile);
+      if (next == profile) {
+        return;
+      }
+      state = AsyncData(next);
+      await ref.read(profileRepositoryProvider).save(next);
     });
   }
 

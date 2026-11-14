@@ -173,6 +173,41 @@ class AppLocalizationsRu extends AppLocalizations {
   String get hudDiplomacyLabel => 'Очки дипломатии';
 
   @override
+  String get diamondsLabel => 'Алмазы';
+
+  @override
+  String diamondsPlus(int count) {
+    return '+$count';
+  }
+
+  @override
+  String get diamondsBody =>
+      'Редкие камни для министров, которые спешат. Трать их, чтобы мгновенно завершать стройку, не ждать и пережить отставку.';
+
+  @override
+  String get diamondsEarnTitle => 'Как их заработать';
+
+  @override
+  String diamondsEarnLevel(int count) {
+    return '+$count за каждый уровень города';
+  }
+
+  @override
+  String diamondsEarnAchievement(int count) {
+    return '+$count за каждое достижение';
+  }
+
+  @override
+  String diamondsEarnStreak(int count) {
+    return '+$count на 7-й день ежедневного подарка';
+  }
+
+  @override
+  String diamondsEarnCity(int count) {
+    return '+$count за завершение города';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Довольство';
 
   @override

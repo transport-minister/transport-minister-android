@@ -7,6 +7,7 @@ import 'package:transport_minister/core/simulation/catalog/city_goal.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class CityGoalSheet extends StatelessWidget {
@@ -157,6 +158,7 @@ class LevelUpSheet extends StatelessWidget {
     required this.reward,
     required this.diplomacy,
     required this.budgetRaise,
+    required this.diamonds,
   });
 
   final String cityName;
@@ -164,6 +166,7 @@ class LevelUpSheet extends StatelessWidget {
   final int reward;
   final int diplomacy;
   final int budgetRaise;
+  final int diamonds;
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +179,14 @@ class LevelUpSheet extends StatelessWidget {
           mood: MrBusMood.excited,
           title: l10n.levelUpTitle(cityName, level),
           message: l10n.levelUpReward(MoneyFormat.compact(reward), diplomacy, budgetRaise),
+        ),
+        const SizedBox(height: GameDimens.spaceM),
+        Center(
+          child: GameTag(
+            label: l10n.diamondsPlus(diamonds),
+            palette: DiamondStyle.palette,
+            icon: DiamondStyle.icon,
+          ),
         ),
         const SizedBox(height: GameDimens.spaceXL),
         ChunkyButton(

@@ -4,6 +4,7 @@ import 'package:transport_minister/core/simulation/catalog/district_catalog.dart
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/features/daily/domain/daily_rules.dart';
 import 'package:transport_minister/features/daily/domain/daily_state.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 
 import '../../core/simulation/simulation_test_kit.dart';
 
@@ -57,15 +58,18 @@ void main() {
   test('the gift streak grows day by day and resets after a gap', () {
     var state = const DailyState();
     final rewards = <int>[];
+    final diamonds = <int>[];
     for (var day = 0; day < 8; day++) {
       final (next, reward) = rules.claimStreak(state, monday.add(Duration(days: day)));
       state = next;
       rewards.add(reward!.money);
+      diamonds.add(reward.diamonds);
     }
     final (_, sameDay) = rules.claimStreak(state, monday.add(const Duration(days: 7)));
     final (afterGap, gapReward) = rules.claimStreak(state, monday.add(const Duration(days: 10)));
 
     expect(rewards, [...DailyRules.streakMoney, DailyRules.streakMoney.first]);
+    expect(diamonds, [0, 0, 0, 0, 0, 0, DiamondRules.streakFinale, 0]);
     expect(sameDay, isNull);
     expect(gapReward?.money, DailyRules.streakMoney.first);
     expect(afterGap.streakDays, 1);

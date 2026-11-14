@@ -75,6 +75,13 @@ class ChunkyPalette {
     glow: Color(0xFF8FEDE3),
   );
 
+  static const gem = ChunkyPalette(
+    face: Color(0xFF48D1F5),
+    deep: Color(0xFF1FB2DA),
+    lip: Color(0xFF0E7FA3),
+    glow: Color(0xFFA9EEFF),
+  );
+
   static const snow = ChunkyPalette(
     face: GameColors.paper,
     deep: Color(0xFFF6F1E6),
