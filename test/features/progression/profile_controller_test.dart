@@ -5,6 +5,7 @@ import 'package:transport_minister/core/storage/storage_providers.dart';
 import 'package:transport_minister/features/city_selection/data/static_city_repository.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/city_selection/domain/city_unlocks.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/progression/application/profile_controller.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
 
@@ -32,6 +33,23 @@ void main() {
     await controller.applyCity(CityId.baku, newBaku().copyWith(developmentPoints: 40), const []);
 
     expect((await open().read(profileProvider.future)).bestLevelIn(CityId.baku), 4);
+  });
+
+  test('the tutorial gift brings diamonds that can be spent only once', () async {
+    final container = open();
+    await container.read(profileProvider.future);
+    final controller = container.read(profileProvider.notifier);
+
+    await controller.completeTutorial();
+    await controller.completeTutorial();
+    final afterGift = container.read(profileProvider).requireValue.diamonds;
+    final spent = await controller.spendDiamonds(DiamondRules.welcomeGift);
+    final refused = await controller.spendDiamonds(1);
+
+    expect(afterGift, DiamondRules.welcomeGift);
+    expect(spent, isTrue);
+    expect(refused, isFalse);
+    expect((await open().read(profileProvider.future)).diamonds, 0);
   });
 
   test('cities unlock one after another', () {

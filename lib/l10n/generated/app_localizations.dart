@@ -406,6 +406,54 @@ abstract class AppLocalizations {
   /// **'Diplomacy points'**
   String get hudDiplomacyLabel;
 
+  /// No description provided for @diamondsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamonds'**
+  String get diamondsLabel;
+
+  /// No description provided for @diamondsPlus.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count}'**
+  String diamondsPlus(int count);
+
+  /// No description provided for @diamondsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Rare gems for ministers in a hurry. Spend them to finish building instantly, skip waiting or survive a dismissal.'**
+  String get diamondsBody;
+
+  /// No description provided for @diamondsEarnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to earn them'**
+  String get diamondsEarnTitle;
+
+  /// No description provided for @diamondsEarnLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} for every city level'**
+  String diamondsEarnLevel(int count);
+
+  /// No description provided for @diamondsEarnAchievement.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} for every achievement'**
+  String diamondsEarnAchievement(int count);
+
+  /// No description provided for @diamondsEarnStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} on day 7 of the daily gift'**
+  String diamondsEarnStreak(int count);
+
+  /// No description provided for @diamondsEarnCity.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} for completing a city'**
+  String diamondsEarnCity(int count);
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:

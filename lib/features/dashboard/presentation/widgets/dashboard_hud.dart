@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
 import 'package:transport_minister/features/progression/presentation/widgets/rank_insignia.dart';
@@ -13,14 +14,18 @@ class DashboardHud extends StatelessWidget {
     super.key,
     required this.city,
     required this.rank,
+    required this.diamonds,
     required this.onProfilePressed,
+    required this.onDiamondsPressed,
     required this.onSettingsPressed,
     this.targets,
   });
 
   final CityState city;
   final MinisterialRank rank;
+  final int diamonds;
   final VoidCallback onProfilePressed;
+  final VoidCallback onDiamondsPressed;
   final VoidCallback onSettingsPressed;
   final TutorialTargets? targets;
 
@@ -62,6 +67,16 @@ class DashboardHud extends StatelessWidget {
                           icon: Icons.account_balance_wallet_rounded,
                           value: MoneyFormat.compact(city.budget),
                           palette: city.budget < 0 ? ChunkyPalette.coral : ChunkyPalette.green,
+                        ),
+                      ),
+                      const SizedBox(width: GameDimens.spaceS),
+                      Semantics(
+                        label: l10n.diamondsLabel,
+                        child: StatPill(
+                          icon: DiamondStyle.icon,
+                          value: '$diamonds',
+                          palette: DiamondStyle.palette,
+                          onPressed: onDiamondsPressed,
                         ),
                       ),
                       const SizedBox(width: GameDimens.spaceS),

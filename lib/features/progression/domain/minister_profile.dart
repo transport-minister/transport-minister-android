@@ -18,6 +18,7 @@ abstract class MinisterProfile with _$MinisterProfile {
     @Default({}) Set<AchievementId> achievements,
     @Default(CareerStats()) CareerStats career,
     @Default(false) bool tutorialDone,
+    @Default(0) int diamonds,
   }) = _MinisterProfile;
 
   const MinisterProfile._();

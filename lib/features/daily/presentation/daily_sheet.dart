@@ -7,6 +7,7 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/daily/application/daily_controller.dart';
 import 'package:transport_minister/features/daily/domain/daily_rules.dart';
 import 'package:transport_minister/features/daily/domain/daily_state.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DailySheet extends ConsumerWidget {
@@ -45,7 +46,19 @@ class DailySheet extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(l10n.dailyStreakDay(streakDay), style: textTheme.titleMedium),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(l10n.dailyStreakDay(streakDay), style: textTheme.titleMedium),
+                      ),
+                      if (DailyRules.streakDiamonds[streakDay - 1] > 0)
+                        GameTag(
+                          label: l10n.diamondsPlus(DailyRules.streakDiamonds[streakDay - 1]),
+                          palette: DiamondStyle.palette,
+                          icon: DiamondStyle.icon,
+                        ),
+                    ],
+                  ),
                   const SizedBox(height: GameDimens.spaceS),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,6 +68,7 @@ class DailySheet extends ConsumerWidget {
                           day: day,
                           opened: day < streakDay || (!canClaimStreak && day == streakDay),
                           today: day == streakDay,
+                          diamonds: DailyRules.streakDiamonds[day - 1] > 0,
                         ),
                     ],
                   ),
@@ -95,21 +109,29 @@ class DailySheet extends ConsumerWidget {
 }
 
 class _GiftBox extends StatelessWidget {
-  const _GiftBox({required this.day, required this.opened, required this.today});
+  const _GiftBox({
+    required this.day,
+    required this.opened,
+    required this.today,
+    required this.diamonds,
+  });
 
   final int day;
   final bool opened;
   final bool today;
+  final bool diamonds;
 
   @override
   Widget build(BuildContext context) {
     final palette = opened
         ? ChunkyPalette.green
-        : (today ? ChunkyPalette.grape : ChunkyPalette.snow);
+        : (diamonds ? DiamondStyle.palette : (today ? ChunkyPalette.grape : ChunkyPalette.snow));
     return Column(
       children: [
         IconBubble(
-          icon: opened ? Icons.check_rounded : Icons.card_giftcard_rounded,
+          icon: opened
+              ? Icons.check_rounded
+              : (diamonds ? DiamondStyle.icon : Icons.card_giftcard_rounded),
           palette: palette,
           size: today ? 38 : 32,
         ),

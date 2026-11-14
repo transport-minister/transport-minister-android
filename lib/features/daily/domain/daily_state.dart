@@ -51,8 +51,9 @@ abstract class DailyState with _$DailyState {
 }
 
 class Reward {
-  const Reward({required this.money, required this.xp});
+  const Reward({required this.money, required this.xp, this.diamonds = 0});
 
   final int money;
   final int xp;
+  final int diamonds;
 }

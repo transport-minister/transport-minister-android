@@ -173,6 +173,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hudDiplomacyLabel => 'Diplomacy points';
 
   @override
+  String get diamondsLabel => 'Diamonds';
+
+  @override
+  String diamondsPlus(int count) {
+    return '+$count';
+  }
+
+  @override
+  String get diamondsBody =>
+      'Rare gems for ministers in a hurry. Spend them to finish building instantly, skip waiting or survive a dismissal.';
+
+  @override
+  String get diamondsEarnTitle => 'How to earn them';
+
+  @override
+  String diamondsEarnLevel(int count) {
+    return '+$count for every city level';
+  }
+
+  @override
+  String diamondsEarnAchievement(int count) {
+    return '+$count for every achievement';
+  }
+
+  @override
+  String diamondsEarnStreak(int count) {
+    return '+$count on day 7 of the daily gift';
+  }
+
+  @override
+  String diamondsEarnCity(int count) {
+    return '+$count for completing a city';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override

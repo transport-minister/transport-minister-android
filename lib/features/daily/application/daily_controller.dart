@@ -57,6 +57,9 @@ class DailyController extends AsyncNotifier<DailyState> {
           .read(cityGameProvider(city).notifier)
           .perform((state) => const CityCommands().grantReward(state, granted.money));
       await ref.read(profileProvider.notifier).addXp(granted.xp);
+      if (granted.diamonds > 0) {
+        await ref.read(profileProvider.notifier).addDiamonds(granted.diamonds);
+      }
     }
     return granted;
   }

@@ -7,6 +7,7 @@ import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.d
 import 'package:transport_minister/core/simulation/model/city_event.dart';
 import 'package:transport_minister/core/simulation/model/city_state.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
+import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
 import 'package:transport_minister/features/progression/domain/achievement.dart';
 import 'package:transport_minister/features/progression/domain/career_stats.dart';
 import 'package:transport_minister/features/progression/domain/city_badge.dart';
@@ -78,7 +79,15 @@ class ProgressionRules {
     if (rank != profile.rank) {
       progression.add(RankPromoted(rank));
     }
-    next = next.copyWith(xp: xp, rank: rank, achievements: {...profile.achievements, ...unlocked});
+    next = next.copyWith(
+      xp: xp,
+      rank: rank,
+      achievements: {...profile.achievements, ...unlocked},
+      diamonds:
+          profile.diamonds +
+          DiamondRules.forCityEvents(events) +
+          unlocked.length * DiamondRules.perAchievement,
+    );
     return ProgressionUpdate(next, progression);
   }
 
