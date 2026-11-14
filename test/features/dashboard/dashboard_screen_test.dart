@@ -71,13 +71,6 @@ void main() {
     expect(find.byIcon(Icons.settings_rounded), findsOneWidget);
     expect(find.byIcon(Icons.handshake_rounded), findsWidgets);
     expect(find.byIcon(Icons.diamond_rounded), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.diamond_rounded));
-    await tester.pumpAndSettle();
-
-    expect(find.text('How to earn them'), findsOneWidget);
-    await tester.tapAt(const Offset(200, 40));
-    await tester.pumpAndSettle();
     expect(
       tester
           .widget<StatPill>(
@@ -380,25 +373,6 @@ void main() {
 
     expect(find.text('You have been dismissed'), findsOneWidget);
     expect(find.text('Keep my seat · watch a video'), findsNothing);
-  });
-
-  testWidgets('the diamond mine pays two diamonds per video', (tester) async {
-    final ads = FakeRewardedAds();
-    await pumpGameScreen(
-      tester,
-      const DashboardScreen(cityId: CityId.baku),
-      store: store,
-      now: now,
-      ads: ads,
-    );
-
-    await tester.tap(find.byIcon(Icons.diamond_rounded).first);
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Watch'));
-    await tester.pumpAndSettle();
-
-    expect(find.text('+2 for a short video · 2 left today'), findsOneWidget);
-    expect((await LocalProfileRepository(store).load())?.diamonds, 2);
   });
 
   testWidgets('a dismissed minister can keep the seat for diamonds', (tester) async {

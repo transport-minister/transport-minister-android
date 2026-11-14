@@ -544,6 +544,102 @@ abstract class AppLocalizations {
   /// **'Watch'**
   String get adsWatch;
 
+  /// No description provided for @shopTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond shop'**
+  String get shopTitle;
+
+  /// No description provided for @shopStarterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Starter pack'**
+  String get shopStarterTitle;
+
+  /// No description provided for @shopStarterBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} diamonds and 2x earnings for {minutes} minutes. One time only.'**
+  String shopStarterBody(int count, int minutes);
+
+  /// No description provided for @shopPackHandful.
+  ///
+  /// In en, this message translates to:
+  /// **'Handful of diamonds'**
+  String get shopPackHandful;
+
+  /// No description provided for @shopPackBag.
+  ///
+  /// In en, this message translates to:
+  /// **'Bag of diamonds'**
+  String get shopPackBag;
+
+  /// No description provided for @shopPackChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest of diamonds'**
+  String get shopPackChest;
+
+  /// No description provided for @shopPopular.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular'**
+  String get shopPopular;
+
+  /// No description provided for @shopBestValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value'**
+  String get shopBestValue;
+
+  /// No description provided for @shopSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Soon'**
+  String get shopSoon;
+
+  /// No description provided for @shopUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play is not available right now, so diamond packs can\'t be bought. You can still earn diamonds below!'**
+  String get shopUnavailable;
+
+  /// No description provided for @shopThanksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you, Minister!'**
+  String get shopThanksTitle;
+
+  /// No description provided for @shopThanksBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} diamonds were added to your wallet.'**
+  String shopThanksBody(int count);
+
+  /// No description provided for @shopFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was charged'**
+  String get shopFailedTitle;
+
+  /// No description provided for @shopFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The purchase did not go through. Please try again later.'**
+  String get shopFailedBody;
+
+  /// No description provided for @shopEarnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn for free'**
+  String get shopEarnTitle;
+
+  /// No description provided for @diamondsGetMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Get more diamonds'**
+  String get diamondsGetMore;
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:

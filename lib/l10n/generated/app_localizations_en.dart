@@ -263,6 +263,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get adsWatch => 'Watch';
 
   @override
+  String get shopTitle => 'Diamond shop';
+
+  @override
+  String get shopStarterTitle => 'Starter pack';
+
+  @override
+  String shopStarterBody(int count, int minutes) {
+    return '$count diamonds and 2x earnings for $minutes minutes. One time only.';
+  }
+
+  @override
+  String get shopPackHandful => 'Handful of diamonds';
+
+  @override
+  String get shopPackBag => 'Bag of diamonds';
+
+  @override
+  String get shopPackChest => 'Chest of diamonds';
+
+  @override
+  String get shopPopular => 'Popular';
+
+  @override
+  String get shopBestValue => 'Best value';
+
+  @override
+  String get shopSoon => 'Soon';
+
+  @override
+  String get shopUnavailable =>
+      'Google Play is not available right now, so diamond packs can\'t be bought. You can still earn diamonds below!';
+
+  @override
+  String get shopThanksTitle => 'Thank you, Minister!';
+
+  @override
+  String shopThanksBody(int count) {
+    return '$count diamonds were added to your wallet.';
+  }
+
+  @override
+  String get shopFailedTitle => 'Nothing was charged';
+
+  @override
+  String get shopFailedBody => 'The purchase did not go through. Please try again later.';
+
+  @override
+  String get shopEarnTitle => 'Earn for free';
+
+  @override
+  String get diamondsGetMore => 'Get more diamonds';
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override

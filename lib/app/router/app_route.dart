@@ -6,7 +6,8 @@ enum AppRoute {
   settings('/settings'),
   dashboard('/city/:${AppRoute.cityIdParameter}'),
   technology('/city/:${AppRoute.cityIdParameter}/technology'),
-  diplomacy('/city/:${AppRoute.cityIdParameter}/diplomacy');
+  diplomacy('/city/:${AppRoute.cityIdParameter}/diplomacy'),
+  shop('/city/:${AppRoute.cityIdParameter}/shop');
 
   const AppRoute(this.path);
 

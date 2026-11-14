@@ -440,13 +440,11 @@ class CityCommands {
     );
   }
 
-  CommandOutcome boostEarnings(CityState state) {
+  CommandOutcome boostEarnings(CityState state, {int seconds = BoostRules.doubleEarningsSeconds}) {
     if (state.boostActive) {
       return const CommandRejected(RejectionReason.alreadyInProgress);
     }
-    return CommandApplied(
-      state.copyWith(boostEndsAtTick: state.tick + BoostRules.doubleEarningsSeconds),
-    );
+    return CommandApplied(state.copyWith(boostEndsAtTick: state.tick + seconds));
   }
 
   Bus? _bus(CityState state, int busId) {

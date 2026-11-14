@@ -3,6 +3,7 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/progression/domain/achievement.dart';
 import 'package:transport_minister/features/progression/domain/career_stats.dart';
 import 'package:transport_minister/features/progression/domain/ministerial_rank.dart';
+import 'package:transport_minister/features/shop/domain/diamond_pack.dart';
 
 part 'minister_profile.freezed.dart';
 part 'minister_profile.g.dart';
@@ -19,6 +20,7 @@ abstract class MinisterProfile with _$MinisterProfile {
     @Default(CareerStats()) CareerStats career,
     @Default(false) bool tutorialDone,
     @Default(0) int diamonds,
+    @Default({}) Set<DiamondPack> packsBought,
   }) = _MinisterProfile;
 
   const MinisterProfile._();

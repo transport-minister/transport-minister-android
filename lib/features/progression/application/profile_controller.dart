@@ -11,6 +11,7 @@ import 'package:transport_minister/features/progression/domain/profile_repositor
 import 'package:transport_minister/features/progression/domain/progression_event.dart';
 import 'package:transport_minister/features/progression/domain/progression_rules.dart';
 import 'package:transport_minister/features/progression/domain/rank_ladder.dart';
+import 'package:transport_minister/features/shop/domain/diamond_pack.dart';
 
 final profileRepositoryProvider = Provider<ProfileRepository>(
   (ref) => LocalProfileRepository(ref.watch(documentStoreProvider)),
@@ -46,6 +47,9 @@ class ProfileController extends AsyncNotifier<MinisterProfile> {
             diamonds: profile.diamonds + DiamondRules.welcomeGift,
           ),
   );
+
+  Future<void> markPackBought(DiamondPack pack) =>
+      _change((profile) => profile.copyWith(packsBought: {...profile.packsBought, pack}));
 
   Future<void> addDiamonds(int amount) =>
       _change((profile) => profile.copyWith(diamonds: profile.diamonds + amount));

@@ -31,6 +31,11 @@ _MinisterProfile _$MinisterProfileFromJson(Map<String, dynamic> json) => _Minist
       : CareerStats.fromJson(json['career'] as Map<String, dynamic>),
   tutorialDone: json['tutorialDone'] as bool? ?? false,
   diamonds: (json['diamonds'] as num?)?.toInt() ?? 0,
+  packsBought:
+      (json['packsBought'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$DiamondPackEnumMap, e))
+          .toSet() ??
+      const {},
 );
 
 Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <String, dynamic>{
@@ -43,6 +48,7 @@ Map<String, dynamic> _$MinisterProfileToJson(_MinisterProfile instance) => <Stri
   'career': instance.career.toJson(),
   'tutorialDone': instance.tutorialDone,
   'diamonds': instance.diamonds,
+  'packsBought': instance.packsBought.map((e) => _$DiamondPackEnumMap[e]!).toList(),
 };
 
 const _$MinisterialRankEnumMap = {
@@ -85,4 +91,11 @@ const _$AchievementIdEnumMap = {
   AchievementId.innovator: 'innovator',
   AchievementId.metroPioneer: 'metroPioneer',
   AchievementId.veteranMinister: 'veteranMinister',
+};
+
+const _$DiamondPackEnumMap = {
+  DiamondPack.starter: 'starter',
+  DiamondPack.handful: 'handful',
+  DiamondPack.bag: 'bag',
+  DiamondPack.chest: 'chest',
 };

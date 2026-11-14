@@ -11,10 +11,13 @@ import 'package:transport_minister/features/ads/domain/rewarded_ads.dart';
 import 'package:transport_minister/features/city_game/application/city_game_providers.dart';
 import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
 import 'package:transport_minister/features/progression/domain/minister_profile.dart';
+import 'package:transport_minister/features/shop/application/shop_providers.dart';
+import 'package:transport_minister/features/shop/domain/diamond_store.dart';
 import 'package:transport_minister/features/sound/application/sound_providers.dart';
 import 'package:transport_minister/features/sound/domain/sound_output.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
+import 'fake_diamond_store.dart';
 import 'fake_now.dart';
 import 'fake_rewarded_ads.dart';
 import 'fake_sound_output.dart';
@@ -30,6 +33,7 @@ Future<void> pumpGameScreen(
   Locale? locale,
   SoundOutput? sound,
   RewardedAds? ads,
+  DiamondStore? store_,
 }) async {
   final profiles = LocalProfileRepository(store);
   if (tutorialDone && await profiles.load() == null) {
@@ -48,6 +52,7 @@ Future<void> pumpGameScreen(
         tickIntervalProvider.overrideWithValue(const Duration(hours: 1)),
         soundOutputProvider.overrideWithValue(sound ?? FakeSoundOutput()),
         rewardedAdsProvider.overrideWithValue(ads ?? FakeRewardedAds(available: false)),
+        diamondStoreProvider.overrideWithValue(store_ ?? FakeDiamondStore(available: false)),
         ...overrides,
       ],
       child: MaterialApp(
