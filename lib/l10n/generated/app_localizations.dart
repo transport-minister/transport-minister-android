@@ -688,6 +688,78 @@ abstract class AppLocalizations {
   /// **'Take office'**
   String get oathTakeOffice;
 
+  /// No description provided for @navMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get navMap;
+
+  /// No description provided for @navFleet.
+  ///
+  /// In en, this message translates to:
+  /// **'Fleet'**
+  String get navFleet;
+
+  /// No description provided for @navBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Build'**
+  String get navBuild;
+
+  /// No description provided for @navResearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Research'**
+  String get navResearch;
+
+  /// No description provided for @navShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop'**
+  String get navShop;
+
+  /// No description provided for @fleetSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your fleet'**
+  String get fleetSheetTitle;
+
+  /// No description provided for @fleetSheetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add buses where the bar is red. One tap, best bus available.'**
+  String get fleetSheetBody;
+
+  /// No description provided for @fleetDistrictLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 bus} other{{count} buses}}'**
+  String fleetDistrictLine(int count);
+
+  /// No description provided for @fleetAddBus.
+  ///
+  /// In en, this message translates to:
+  /// **'{model} · {price}'**
+  String fleetAddBus(String model, String price);
+
+  /// No description provided for @buildSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build next'**
+  String get buildSheetTitle;
+
+  /// No description provided for @buildSheetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The best next project for every district.'**
+  String get buildSheetBody;
+
+  /// No description provided for @buildNext.
+  ///
+  /// In en, this message translates to:
+  /// **'{project} · {price}'**
+  String buildNext(String project, String price);
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:

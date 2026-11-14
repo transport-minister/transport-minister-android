@@ -70,7 +70,10 @@ void main() {
     expect(find.byIcon(Icons.favorite_rounded), findsNothing);
     expect(find.byIcon(Icons.settings_rounded), findsOneWidget);
     expect(find.byIcon(Icons.handshake_rounded), findsWidgets);
-    expect(find.byIcon(Icons.diamond_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.diamond_rounded), findsNWidgets(2));
+    for (final tab in const ['Map', 'Fleet', 'Build', 'Research', 'Shop']) {
+      expect(find.text(tab), findsOneWidget);
+    }
     expect(
       tester
           .widget<StatPill>(
@@ -294,6 +297,49 @@ void main() {
     expect(find.text('You have been dismissed'), findsNothing);
     expect(find.text('Wind Heights'), findsWidgets);
     expect((await LocalInboxRepository(store).load())?.items, isEmpty);
+  });
+
+  testWidgets('the fleet tab adds a bus with one tap', (tester) async {
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+    final before = container.read(cityGameProvider(CityId.baku)).requireValue.city;
+
+    await tester.tap(find.text('Fleet'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Your fleet'), findsOneWidget);
+
+    await tester.tap(find.text('CityRunner 12 · \$210K').first);
+    await tester.pumpAndSettle();
+    final after = container.read(cityGameProvider(CityId.baku)).requireValue.city;
+
+    expect(after.fleet.length, before.fleet.length + 1);
+    expect(after.budget, before.budget - 210000);
+  });
+
+  testWidgets('the build tab starts the best next project', (tester) async {
+    await pumpGameScreen(
+      tester,
+      const DashboardScreen(cityId: CityId.baku),
+      store: store,
+      now: now,
+    );
+    final container = ProviderScope.containerOf(tester.element(find.byType(DashboardScreen)));
+
+    await tester.tap(find.text('Build'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Build next'), findsOneWidget);
+
+    await tester.tap(find.textContaining('Road repair · ').first);
+    await tester.pumpAndSettle();
+
+    expect(container.read(cityGameProvider(CityId.baku)).requireValue.city.projects, hasLength(1));
   });
 
   testWidgets('a returning minister collects the money the city earned', (tester) async {

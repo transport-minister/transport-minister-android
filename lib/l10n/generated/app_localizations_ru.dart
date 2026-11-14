@@ -343,6 +343,57 @@ class AppLocalizationsRu extends AppLocalizations {
   String get oathTakeOffice => 'Приступить к работе';
 
   @override
+  String get navMap => 'Карта';
+
+  @override
+  String get navFleet => 'Парк';
+
+  @override
+  String get navBuild => 'Стройка';
+
+  @override
+  String get navResearch => 'Наука';
+
+  @override
+  String get navShop => 'Магазин';
+
+  @override
+  String get fleetSheetTitle => 'Твой автопарк';
+
+  @override
+  String get fleetSheetBody =>
+      'Добавляй автобусы там, где полоса красная. Одно касание — лучший автобус.';
+
+  @override
+  String fleetDistrictLine(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count автобуса',
+      many: '$count автобусов',
+      few: '$count автобуса',
+      one: '$count автобус',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String fleetAddBus(String model, String price) {
+    return '$model · $price';
+  }
+
+  @override
+  String get buildSheetTitle => 'Что строить дальше';
+
+  @override
+  String get buildSheetBody => 'Лучший следующий проект для каждого района.';
+
+  @override
+  String buildNext(String project, String price) {
+    return '$project · $price';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Довольство';
 
   @override

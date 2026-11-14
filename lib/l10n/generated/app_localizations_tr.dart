@@ -343,6 +343,55 @@ class AppLocalizationsTr extends AppLocalizations {
   String get oathTakeOffice => 'Göreve başla';
 
   @override
+  String get navMap => 'Harita';
+
+  @override
+  String get navFleet => 'Filo';
+
+  @override
+  String get navBuild => 'İnşa';
+
+  @override
+  String get navResearch => 'Araştırma';
+
+  @override
+  String get navShop => 'Dükkân';
+
+  @override
+  String get fleetSheetTitle => 'Filon';
+
+  @override
+  String get fleetSheetBody =>
+      'Çubuğun kırmızı olduğu yere otobüs ekle. Tek dokunuş, en iyi otobüs.';
+
+  @override
+  String fleetDistrictLine(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count otobüs',
+      one: '1 otobüs',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String fleetAddBus(String model, String price) {
+    return '$model · $price';
+  }
+
+  @override
+  String get buildSheetTitle => 'Sırada ne var';
+
+  @override
+  String get buildSheetBody => 'Her bölge için en iyi sonraki proje.';
+
+  @override
+  String buildNext(String project, String price) {
+    return '$project · $price';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Memnuniyet';
 
   @override

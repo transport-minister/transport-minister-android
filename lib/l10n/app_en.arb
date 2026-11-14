@@ -220,6 +220,45 @@
     }
   },
   "oathTakeOffice": "Take office",
+  "navMap": "Map",
+  "navFleet": "Fleet",
+  "navBuild": "Build",
+  "navResearch": "Research",
+  "navShop": "Shop",
+  "fleetSheetTitle": "Your fleet",
+  "fleetSheetBody": "Add buses where the bar is red. One tap, best bus available.",
+  "fleetDistrictLine": "{count, plural, =1{1 bus} other{{count} buses}}",
+  "@fleetDistrictLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "fleetAddBus": "{model} · {price}",
+  "@fleetAddBus": {
+    "placeholders": {
+      "model": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "buildSheetTitle": "Build next",
+  "buildSheetBody": "The best next project for every district.",
+  "buildNext": "{project} · {price}",
+  "@buildNext": {
+    "placeholders": {
+      "project": {
+        "type": "String"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "hudSatisfactionLabel": "Satisfaction",
   "hudIncomeLabel": "Earnings per second",
   "hudPopulationLabel": "Residents",

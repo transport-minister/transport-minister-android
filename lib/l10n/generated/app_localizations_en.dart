@@ -343,6 +343,54 @@ class AppLocalizationsEn extends AppLocalizations {
   String get oathTakeOffice => 'Take office';
 
   @override
+  String get navMap => 'Map';
+
+  @override
+  String get navFleet => 'Fleet';
+
+  @override
+  String get navBuild => 'Build';
+
+  @override
+  String get navResearch => 'Research';
+
+  @override
+  String get navShop => 'Shop';
+
+  @override
+  String get fleetSheetTitle => 'Your fleet';
+
+  @override
+  String get fleetSheetBody => 'Add buses where the bar is red. One tap, best bus available.';
+
+  @override
+  String fleetDistrictLine(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count buses',
+      one: '1 bus',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String fleetAddBus(String model, String price) {
+    return '$model · $price';
+  }
+
+  @override
+  String get buildSheetTitle => 'Build next';
+
+  @override
+  String get buildSheetBody => 'The best next project for every district.';
+
+  @override
+  String buildNext(String project, String price) {
+    return '$project · $price';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Satisfaction';
 
   @override
