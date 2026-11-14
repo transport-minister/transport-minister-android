@@ -13,6 +13,7 @@ import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_build_tab.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_buses_tab.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_metro_tab.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
@@ -89,18 +90,21 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
               district: widget.district,
               guided: ref.watch(tutorialProvider) == TutorialStep.buyBus,
               onAction: _run,
+              onBoost: _boost,
               onOpenTechnology: widget.onOpenTechnology,
             ),
             DistrictTab.build => DistrictBuildTab(
               city: city,
               district: widget.district,
               onAction: _run,
+              onBoost: _boost,
             ),
             DistrictTab.metro => DistrictMetroTab(
               city: city,
               metrics: metrics,
               district: widget.district,
               onAction: _run,
+              onBoost: _boost,
               onOpenTechnology: widget.onOpenTechnology,
             ),
           },
@@ -111,6 +115,9 @@ class _DistrictSheetState extends ConsumerState<DistrictSheet> {
 
   Future<void> _run(CityCommand command) =>
       ref.read(cityGameProvider(widget.cityId).notifier).perform(command);
+
+  Future<void> _boost(int cost, CityCommand command) =>
+      buyBoost(context, ref, widget.cityId, cost: cost, command: command);
 }
 
 class _Header extends StatelessWidget {

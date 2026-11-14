@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/app/router/app_route.dart';
 import 'package:transport_minister/core/design/design_system.dart';
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
@@ -38,6 +39,7 @@ import 'package:transport_minister/features/dashboard/presentation/widgets/distr
 import 'package:transport_minister/features/dashboard/presentation/widgets/level_sheets.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_sheets.dart';
 import 'package:transport_minister/features/diamonds/domain/diamond_rules.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
 import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/features/inbox/application/inbox_controller.dart';
@@ -131,6 +133,15 @@ class _CityViewState extends ConsumerState<_CityView> {
     if (city.crisis.dismissed) {
       return DismissalView(
         cause: city.crisis.cause,
+        continueCost: BoostRules.continueCost,
+        onContinue: () => buyBoost(
+          context,
+          ref,
+          widget.cityId,
+          cost: BoostRules.continueCost,
+          command: const CityCommands().continueAfterDismissal,
+          revive: true,
+        ),
         onRestart: () => ref.read(cityGameProvider(widget.cityId).notifier).restartCity(),
       );
     }
@@ -157,7 +168,7 @@ class _CityViewState extends ConsumerState<_CityView> {
               onProfilePressed: () => _leaveFor(AppRoute.profile.path),
               onDiamondsPressed: () => showChunkySheet<void>(
                 context: context,
-                builder: (context) => const DiamondsSheet(),
+                builder: (context) => DiamondsSheet(cityId: widget.cityId),
               ),
               onSettingsPressed: () => _leaveFor(AppRoute.settings.path),
             ),
@@ -198,6 +209,7 @@ class _CityViewState extends ConsumerState<_CityView> {
                                 .fold(0, (sum, amount) => sum + amount),
                             population: metrics.population,
                             satisfaction: city.overallSatisfaction,
+                            boostSecondsLeft: city.boostSecondsLeft,
                             moodKey: _targets.mood,
                           ),
                         ),

@@ -454,6 +454,48 @@ abstract class AppLocalizations {
   /// **'+{count} for completing a city'**
   String diamondsEarnCity(int count);
 
+  /// No description provided for @diamondsSpendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spend them'**
+  String get diamondsSpendTitle;
+
+  /// No description provided for @boostFinishNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish now'**
+  String get boostFinishNow;
+
+  /// No description provided for @boostDeliverNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver now'**
+  String get boostDeliverNow;
+
+  /// No description provided for @boostReadyNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready now'**
+  String get boostReadyNow;
+
+  /// No description provided for @boostContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep my seat'**
+  String get boostContinue;
+
+  /// No description provided for @boostDouble.
+  ///
+  /// In en, this message translates to:
+  /// **'Double earnings for 10 min'**
+  String get boostDouble;
+
+  /// No description provided for @boostDoubleActive.
+  ///
+  /// In en, this message translates to:
+  /// **'2x earnings · {time}'**
+  String boostDoubleActive(String time);
+
   /// No description provided for @hudSatisfactionLabel.
   ///
   /// In en, this message translates to:
@@ -825,6 +867,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start over'**
   String get dismissedRestart;
+
+  /// No description provided for @dismissedContinueHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Spend {count} diamonds and the President gives you one more chance.'**
+  String dismissedContinueHint(int count);
 
   /// No description provided for @loadingCity.
   ///

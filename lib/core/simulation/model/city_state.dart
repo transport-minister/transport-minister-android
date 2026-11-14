@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:transport_minister/core/simulation/catalog/city_levels.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
@@ -48,6 +50,7 @@ abstract class CityState with _$CityState {
     @Default({}) Map<DiplomacyActionId, int> diplomacyReadyAt,
     @Default([]) List<MetroLine> metroLines,
     @Default(false) bool completed,
+    @Default(0) int boostEndsAtTick,
   }) = _CityState;
 
   const CityState._();
@@ -68,6 +71,10 @@ abstract class CityState with _$CityState {
 
   bool get metroAutomated => has(TechnologyId.metroAutomation);
 
+  bool get boostActive => tick < boostEndsAtTick;
+
+  int get boostSecondsLeft => math.max(boostEndsAtTick - tick, 0);
+
   Iterable<MetroLine> metroLinesAt(DistrictId district) =>
       metroLines.where((line) => line.connects(district));
 
@@ -80,7 +87,7 @@ abstract class CityState with _$CityState {
         (modifier) =>
             modifier.type == type &&
             _covers(modifier, district) &&
-            (group == null || modifier.group == group),
+            (group == null || modifier.group == null || modifier.group == group),
       )
       .fold(0, (sum, modifier) => sum + modifier.value);
 

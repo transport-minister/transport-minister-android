@@ -208,6 +208,29 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get diamondsSpendTitle => 'На что потратить';
+
+  @override
+  String get boostFinishNow => 'Завершить сейчас';
+
+  @override
+  String get boostDeliverNow => 'Доставить сейчас';
+
+  @override
+  String get boostReadyNow => 'Готово сейчас';
+
+  @override
+  String get boostContinue => 'Сохранить пост';
+
+  @override
+  String get boostDouble => 'Двойной доход на 10 мин';
+
+  @override
+  String boostDoubleActive(String time) {
+    return '2x доход · $time';
+  }
+
+  @override
   String get hudSatisfactionLabel => 'Довольство';
 
   @override
@@ -427,6 +450,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get dismissedRestart => 'Начать заново';
+
+  @override
+  String dismissedContinueHint(int count) {
+    return 'Потрать $count алмазов, и Президент даст тебе ещё один шанс.';
+  }
 
   @override
   String get loadingCity => 'Открываем город…';

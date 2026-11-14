@@ -14,6 +14,9 @@ import 'package:transport_minister/features/city_game/data/local_city_save_repos
 import 'package:transport_minister/features/city_game/domain/city_save.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_sheet.dart';
+import 'package:transport_minister/features/progression/application/profile_controller.dart';
+import 'package:transport_minister/features/progression/data/local_profile_repository.dart';
+import 'package:transport_minister/features/progression/domain/minister_profile.dart';
 
 import '../../helpers/fake_now.dart';
 import '../../helpers/funded_city.dart';
@@ -114,6 +117,23 @@ void main() {
     expect(cityIn(container).projects.single.districtId, DistrictId.oldFortress);
     expect(find.text('1M 30S LEFT'), findsOneWidget);
     expect(find.text('Work is already underway here'), findsWidgets);
+  });
+
+  testWidgets('a running project can be finished now with diamonds', (tester) async {
+    await LocalProfileRepository(store)
+        .save(const MinisterProfile(tutorialDone: true, diamonds: 20));
+    final container = await openOldFortress(tester);
+
+    await tester.tap(find.text('Build'));
+    await tester.pumpAndSettle();
+    await reveal(tester, find.text('Build · \$180K'));
+    await tester.tap(find.text('Build · \$180K'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Finish now · 5'));
+    await tester.pumpAndSettle();
+
+    expect(cityIn(container).projects.single.remainingSeconds, 1);
+    expect(container.read(profileProvider).requireValue.diamonds, 15);
   });
 
   testWidgets('a city park and a park and ride can be built from the build tab', (tester) async {

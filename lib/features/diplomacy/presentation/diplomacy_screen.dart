@@ -6,6 +6,7 @@ import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
 import 'package:transport_minister/core/simulation/decisions/decision_effects.dart';
 import 'package:transport_minister/core/simulation/decisions/diplomacy_actions.dart';
@@ -17,6 +18,7 @@ import 'package:transport_minister/features/city_game/presentation/simulation_te
 import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/city_selection/domain/city.dart';
 import 'package:transport_minister/features/decisions/presentation/effect_chips.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
 import 'package:transport_minister/features/diplomacy/presentation/diplomacy_texts.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
@@ -90,6 +92,13 @@ class DiplomacyScreen extends ConsumerWidget {
                             .perform(
                               (city) => const CityCommands().takeDiplomacyAction(city, action),
                             ),
+                        onRush: (cost) => buyBoost(
+                          context,
+                          ref,
+                          cityId,
+                          cost: cost,
+                          command: (city) => const CityCommands().rushDiplomacy(city, action),
+                        ),
                       ),
                       const SizedBox(height: GameDimens.spaceM),
                     ],
@@ -155,11 +164,22 @@ class _TechnologyCard extends StatelessWidget {
 }
 
 class _ActionCard extends StatelessWidget {
-  const _ActionCard({required this.action, required this.city, required this.onTake});
+  const _ActionCard({
+    required this.action,
+    required this.city,
+    required this.onTake,
+    required this.onRush,
+  });
 
   final DiplomacyActionId action;
   final CityState city;
   final VoidCallback onTake;
+  final ValueChanged<int> onRush;
+
+  int get _rushCost => BoostRules.rushCost(
+    (city.diplomacyReadyAt[action] ?? city.tick) - city.tick,
+    secondsPerDiamond: BoostRules.diplomacyRushSecondsPerDiamond,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -204,15 +224,27 @@ class _ActionCard extends StatelessWidget {
           EffectChips(effects: spec.effects, includeMoney: false),
           const SizedBox(height: GameDimens.spaceS),
           if (cooling)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: GameTag(
-                label: l10n.diplomacyReadyIn(
-                  TimeTexts.duration(l10n, city.diplomacyReadyAt[action]! - city.tick),
+            Row(
+              children: [
+                GameTag(
+                  label: l10n.diplomacyReadyIn(
+                    TimeTexts.duration(l10n, city.diplomacyReadyAt[action]! - city.tick),
+                  ),
+                  palette: ChunkyPalette.snow,
+                  icon: Icons.hourglass_top_rounded,
                 ),
-                palette: ChunkyPalette.snow,
-                icon: Icons.hourglass_top_rounded,
-              ),
+                const SizedBox(width: GameDimens.spaceS),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: DiamondButton(
+                      label: l10n.boostReadyNow,
+                      cost: _rushCost,
+                      onPressed: () => onRush(_rushCost),
+                    ),
+                  ),
+                ),
+              ],
             )
           else
             Align(

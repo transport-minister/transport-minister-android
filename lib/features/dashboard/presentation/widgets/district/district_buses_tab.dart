@@ -1,8 +1,11 @@
+import 'dart:math' as math;
+
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus.dart';
 import 'package:transport_minister/core/design/mascot/mr_bus_says.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/bus_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/technology_catalog.dart';
@@ -17,6 +20,7 @@ import 'package:transport_minister/features/city_game/presentation/district_pres
 import 'package:transport_minister/features/city_game/presentation/simulation_texts.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_panel_parts.dart';
 import 'package:transport_minister/features/decisions/presentation/decision_texts.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
 import 'package:transport_minister/features/technology/presentation/technology_texts.dart';
 import 'package:transport_minister/features/tutorial/application/tutorial_controller.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
@@ -29,6 +33,7 @@ class DistrictBusesTab extends StatelessWidget {
     required this.district,
     required this.guided,
     required this.onAction,
+    required this.onBoost,
     required this.onOpenTechnology,
   });
 
@@ -37,14 +42,20 @@ class DistrictBusesTab extends StatelessWidget {
   final DistrictId district;
   final bool guided;
   final DistrictAction onAction;
+  final DiamondAction onBoost;
   final VoidCallback onOpenTechnology;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final onOrder = city.fleet
+    final waiting = city.fleet
         .where((bus) => bus.districtId == district && !bus.isActiveAt(city.tick))
-        .length;
+        .toList();
+    final onOrder = waiting.length;
+    final longestDelivery = waiting.fold(
+      0,
+      (longest, bus) => math.max(longest, bus.deliveryTick - city.tick),
+    );
     final groups = _groups();
     final donor = _donor();
     return SliverPadding(
@@ -95,6 +106,20 @@ class DistrictBusesTab extends StatelessWidget {
                   )
                 : null,
           ),
+          if (onOrder > 0) ...[
+            Align(
+              alignment: Alignment.centerRight,
+              child: DiamondButton(
+                label: l10n.boostDeliverNow,
+                cost: BoostRules.rushCost(longestDelivery),
+                onPressed: () => onBoost(
+                  BoostRules.rushCost(longestDelivery),
+                  (city) => const CityCommands().rushDeliveries(city, district),
+                ),
+              ),
+            ),
+            const SizedBox(height: GameDimens.spaceS),
+          ],
           if (groups.isEmpty) Text(l10n.fleetEmpty, style: Theme.of(context).textTheme.bodySmall),
           for (final group in groups) ...[
             _FleetCard(buses: group, city: city, onAction: onAction),

@@ -130,6 +130,11 @@ class CityGameController extends AsyncNotifier<CityGameSession> {
     return outcome;
   }
 
+  Future<CommandOutcome> revive(CityCommand command) {
+    _anchor = TimeAnchor(syncedAtMs: _now().millisecondsSinceEpoch);
+    return perform(command);
+  }
+
   Future<void> restartCity() async {
     final now = _now();
     _anchor = TimeAnchor(syncedAtMs: now.millisecondsSinceEpoch);

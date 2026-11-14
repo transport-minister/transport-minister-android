@@ -1,6 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
+import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamonds_sheet.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class CityStatsPanel extends StatelessWidget {
@@ -9,12 +11,14 @@ class CityStatsPanel extends StatelessWidget {
     required this.income,
     required this.population,
     required this.satisfaction,
+    this.boostSecondsLeft = 0,
     this.moodKey,
   });
 
   final int income;
   final int population;
   final double satisfaction;
+  final int boostSecondsLeft;
   final Key? moodKey;
 
   static ChunkyPalette satisfactionPalette(double value) {
@@ -68,6 +72,14 @@ class CityStatsPanel extends StatelessWidget {
             value: l10n.hudSatisfaction(satisfaction.round()),
             label: l10n.hudSatisfactionLabel,
           ),
+          if (boostSecondsLeft > 0) ...[
+            const SizedBox(height: GameDimens.spaceXS),
+            GameTag(
+              label: l10n.boostDoubleActive(TimeTexts.duration(l10n, boostSecondsLeft)),
+              palette: DiamondStyle.palette,
+              icon: Icons.bolt_rounded,
+            ),
+          ],
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:transport_minister/core/design/design_system.dart';
 import 'package:transport_minister/core/formatting/money_format.dart';
+import 'package:transport_minister/core/simulation/catalog/boost_rules.dart';
 import 'package:transport_minister/core/simulation/catalog/district_catalog.dart';
 import 'package:transport_minister/core/simulation/catalog/project_catalog.dart';
 import 'package:transport_minister/core/simulation/engine/city_commands.dart';
@@ -12,6 +13,7 @@ import 'package:transport_minister/features/city_game/presentation/simulation_te
 import 'package:transport_minister/features/city_game/presentation/time_texts.dart';
 import 'package:transport_minister/features/dashboard/presentation/widgets/district/district_panel_parts.dart';
 import 'package:transport_minister/features/decisions/presentation/effect_chips.dart';
+import 'package:transport_minister/features/diamonds/presentation/diamond_button.dart';
 import 'package:transport_minister/l10n/generated/app_localizations.dart';
 
 class DistrictBuildTab extends StatelessWidget {
@@ -20,11 +22,13 @@ class DistrictBuildTab extends StatelessWidget {
     required this.city,
     required this.district,
     required this.onAction,
+    required this.onBoost,
   });
 
   final CityState city;
   final DistrictId district;
   final DistrictAction onAction;
+  final DiamondAction onBoost;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +39,17 @@ class DistrictBuildTab extends StatelessWidget {
         children: [
           PanelSectionTitle(title: l10n.buildDistrictTitle(district.displayName(l10n))),
           for (final type in ProjectType.values.where((type) => !type.isCityWide))
-            _ProjectCard(type: type, city: city, district: district, onAction: onAction),
+            _ProjectCard(
+              type: type,
+              city: city,
+              district: district,
+              onAction: onAction,
+              onBoost: onBoost,
+            ),
           const SizedBox(height: GameDimens.spaceM),
           PanelSectionTitle(title: l10n.buildCityTitle),
           for (final type in ProjectType.values.where((type) => type.isCityWide))
-            _ProjectCard(type: type, city: city, onAction: onAction),
+            _ProjectCard(type: type, city: city, onAction: onAction, onBoost: onBoost),
         ],
       ),
     );
@@ -51,6 +61,7 @@ class _ProjectCard extends StatelessWidget {
     required this.type,
     required this.city,
     required this.onAction,
+    required this.onBoost,
     this.district,
   });
 
@@ -58,6 +69,7 @@ class _ProjectCard extends StatelessWidget {
   final CityState city;
   final DistrictId? district;
   final DistrictAction onAction;
+  final DiamondAction onBoost;
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +116,28 @@ class _ProjectCard extends StatelessWidget {
             ),
             const SizedBox(height: GameDimens.spaceS),
             if (running != null) ...[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: GameTag(
-                  label: l10n.buildTimeLeft(TimeTexts.duration(l10n, running.remainingSeconds)),
-                  palette: ChunkyPalette.tangerine,
-                  icon: Icons.hourglass_top_rounded,
-                ),
+              Row(
+                children: [
+                  GameTag(
+                    label: l10n.buildTimeLeft(TimeTexts.duration(l10n, running.remainingSeconds)),
+                    palette: ChunkyPalette.tangerine,
+                    icon: Icons.hourglass_top_rounded,
+                  ),
+                  const SizedBox(width: GameDimens.spaceS),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: DiamondButton(
+                        label: l10n.boostFinishNow,
+                        cost: BoostRules.rushCost(running.remainingSeconds),
+                        onPressed: () => onBoost(
+                          BoostRules.rushCost(running.remainingSeconds),
+                          (city) => const CityCommands().rushProject(city, running.id),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: GameDimens.spaceS),
               ChunkyProgressBar(
